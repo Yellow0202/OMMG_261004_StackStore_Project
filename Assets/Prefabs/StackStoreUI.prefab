@@ -932,7 +932,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PASSING TRAFFIC / SOME VISIT
+  m_Text: BROWSING TRAFFIC / SOME QUEUE
 --- !u!1 &4270258609046569092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,12 +1216,15 @@ MonoBehaviour:
     displayName: Basic stall
     intervalSeconds: 5
   patienceSeconds: 10
-  spawnSeconds: 2.3
+  spawnSeconds: 0.7666667
   walkSpeed: 160
-  maxCustomers: 16
+  maxCustomers: 48
   visitChance: 0.4
   verticalWanderDistance: 65
   avoidancePadding: 14
+  minBrowseSeconds: 3
+  maxBrowseSeconds: 6
+  returnToOriginChance: 0.5
   field: {fileID: 2606574240850821318}
   stall: {fileID: 9067338104427510020}
   cooldownBar: {fileID: 768962795196329640}
@@ -1309,7 +1312,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Left / right traffic \u2022 Visitors queue \u2022 Service: +1 gold \u2022
-    Passersby avoid the stall"
+    Browse, continue or return"
 --- !u!1 &7379245153955419066
 GameObject:
   m_ObjectHideFlags: 0

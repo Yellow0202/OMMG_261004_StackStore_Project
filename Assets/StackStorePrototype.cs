@@ -9,13 +9,17 @@ public sealed class StackStorePrototype : MonoBehaviour
     public ServiceEquipment equipment = new ServiceEquipment();
     [Header("Customers")]
     [Min(1)] public float patienceSeconds = 10f;
-    [Min(0.2f)] public float spawnSeconds = 2.3f;
+    [Min(0.2f)] public float spawnSeconds = 2.3f / 3f;
     [Min(10)] public float walkSpeed = 160f;
-    public int maxCustomers = 16;
+    public int maxCustomers = 48;
     [Header("Passing traffic")]
     [Range(0f, 1f)] public float visitChance = .4f;
     [Min(0f)] public float verticalWanderDistance = 65f;
     [Min(0f)] public float avoidancePadding = 14f;
+    [Header("Browsing around the shop")]
+    [Min(0f)] public float minBrowseSeconds = 3f;
+    [Min(0f)] public float maxBrowseSeconds = 6f;
+    [Range(0f, 1f)] public float returnToOriginChance = .5f;
 
     [System.Serializable]
     public class ServiceEquipment
@@ -24,7 +28,7 @@ public sealed class StackStorePrototype : MonoBehaviour
         [Min(0.1f)] public float intervalSeconds = 5f;
     }
 
-    enum State { Passing, Wandering, Queued, Leaving }
+    enum State { Browsing, Passing, Wandering, Queued, Leaving }
     class Customer
     {
         public RectTransform root;
@@ -37,6 +41,8 @@ public sealed class StackStorePrototype : MonoBehaviour
         public int direction;
         public float targetY, turnTimer;
         public bool avoiding;
+        public int originalDirection;
+        public bool reachedShop;
     }
 
     readonly List<Customer> customers = new List<Customer>();
@@ -77,10 +83,15 @@ public sealed class StackStorePrototype : MonoBehaviour
     {
         float dt = Time.deltaTime;
         spawnTimer -= dt;
-        if (spawnTimer <= 0f)
+        while (spawnTimer <= 0f)
         {
-            if (customers.Count < Mathf.Max(1, maxCustomers)) Spawn();
-            spawnTimer = Mathf.Max(.2f, spawnSeconds);
+            if (customers.Count >= Mathf.Max(1, maxCustomers))
+            {
+                spawnTimer = Mathf.Max(.2f, spawnSeconds);
+                break;
+            }
+            Spawn();
+            spawnTimer += Mathf.Max(.2f, spawnSeconds);
         }
         for (int i = customers.Count - 1; i >= 0; i--)
         {
@@ -100,7 +111,9 @@ public sealed class StackStorePrototype : MonoBehaviour
             }
             if (c.state == State.Queued)
                 c.destination = QueuePoint(queue.IndexOf(c));
-            if (c.state == State.Passing || c.state == State.Wandering)
+            if (c.state == State.Browsing)
+                MoveBrowsing(c, dt);
+            else if (c.state == State.Passing || c.state == State.Wandering)
                 MoveTraffic(c, dt);
             else
                 c.root.anchoredPosition = Vector2.MoveTowards(c.root.anchoredPosition, c.destination, walkSpeed * dt);
@@ -155,6 +168,41 @@ public sealed class StackStorePrototype : MonoBehaviour
             bounds.max.x + margin.x, bounds.max.y + margin.y);
     }
 
+    Vector2 BrowsePoint(Customer c)
+    {
+        Rect obstacle = AvoidanceRect();
+        // Stay on the arrival side of the stall, keeping its full visual bounds clear.
+        float x = c.originalDirection > 0
+            ? Random.Range(Mathf.Max(-SpawnX, obstacle.xMin - 160f), obstacle.xMin - 20f)
+            : Random.Range(obstacle.xMax + 20f, Mathf.Min(SpawnX, obstacle.xMax + 160f));
+        float y = Random.Range(Mathf.Max(MinY, stall.anchoredPosition.y - 180f),
+            Mathf.Min(MaxY, stall.anchoredPosition.y + 180f));
+        return new Vector2(x, y);
+    }
+
+    void MoveBrowsing(Customer c, float dt)
+    {
+        c.root.anchoredPosition = Vector2.MoveTowards(c.root.anchoredPosition, c.destination,
+            walkSpeed * (c.reachedShop ? .55f : 1f) * dt);
+        if (!c.reachedShop)
+        {
+            if (Vector2.Distance(c.root.anchoredPosition, c.destination) >= 5f) return;
+            c.reachedShop = true;
+        }
+        c.wander -= dt;
+        if (c.wander <= 0f)
+        {
+            c.direction = Random.value < returnToOriginChance ? -c.originalDirection : c.originalDirection;
+            c.state = State.Passing;
+            c.avoiding = false;
+            c.targetY = c.root.anchoredPosition.y;
+            c.turnTimer = 0f;
+            c.label.text = c.direction == c.originalDirection ? "CONTINUING" : "RETURNING";
+        }
+        else if (Vector2.Distance(c.root.anchoredPosition, c.destination) < 5f)
+            c.destination = BrowsePoint(c);
+    }
+
     void MoveTraffic(Customer c, float dt)
     {
         Vector2 p = c.root.anchoredPosition;
@@ -206,11 +254,15 @@ public sealed class StackStorePrototype : MonoBehaviour
         view.body.color = Color.HSVToRGB(Random.value, .4f, .8f);
         Text label = view.patienceLabel;
         Image bar = view.patienceBar;
-        label.text = interested ? "#" + (nextId + 1) + "  " + Mathf.Max(1f, patienceSeconds).ToString("0.0") + "s" : "PASSERBY";
+        label.text = interested ? "#" + (nextId + 1) + "  " + Mathf.Max(1f, patienceSeconds).ToString("0.0") + "s" : "BROWSING";
         bar.transform.parent.gameObject.SetActive(interested);
-        customers.Add(new Customer { root = root, bar = bar, label = label, state = interested ? State.Wandering : State.Passing,
+        var customer = new Customer { root = root, bar = bar, label = label, state = interested ? State.Wandering : State.Browsing,
             direction = direction, targetY = y, turnTimer = Random.Range(.5f, 1.5f),
-            wander = Random.Range(1.2f, 2.6f), patience = Mathf.Max(1f, patienceSeconds), id = ++nextId });
+            originalDirection = direction,
+            wander = interested ? Random.Range(1.2f, 2.6f) : Random.Range(Mathf.Max(0, minBrowseSeconds), Mathf.Max(minBrowseSeconds, maxBrowseSeconds)),
+            patience = Mathf.Max(1f, patienceSeconds), id = ++nextId };
+        if (!interested) customer.destination = BrowsePoint(customer);
+        customers.Add(customer);
     }
 
     void Leave(Customer c, bool success)

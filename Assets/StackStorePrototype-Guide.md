@@ -89,7 +89,8 @@ UI 문구는 기본 내장 폰트로 안정적으로 표시되도록 영문으�
 - 키·변수 누락은 경고와 식별 가능한 표시로 확인하며, 한글 값이 없으면 영어 값으로 대체합니다.
 - 게임 중 `LocalizationService.SetLanguage(DisplayLanguage.English)` 또는 Korean으로 표시 언어를 바꿀 수 있습니다. Inspector의 Language 변경도 반영합니다.
 - 아이템 설명의 능력 수치는 아이템 Effects에서 가져와 문구에 치환합니다. 문자열에 능력 수치를 별도로 복사하여 보관하지 않습니다.
-- 현재 `MalgunPrototype.fontsettings`는 Windows에 설치된 맑은 고딕을 참조합니다. 폰트 원본 파일은 프로젝트나 저장소에 포함하지 않았습니다.
+- StackStoreUI와 Customer 프리팹의 `PrototypeFontBinding`이 Windows에 설치된 맑은 고딕을 직접 불러와 기존 UGUI Text에 연결합니다. 에디터 미리보기와 Play 모두 적용하며, 비활성 선택창과 새로 생성되는 손님도 포함합니다. 폰트 원본 파일은 프로젝트나 저장소에 포함하지 않았습니다.
+- OS 동적 폰트를 `.fontsettings`로 저장하면 재질과 글자 이미지가 복원되지 않아 표시되지 않습니다. 해당 저장 자산 대신 실행 중 생성한 폰트와 글자 이미지를 공유합니다. 맑은 고딕이 설치되지 않은 환경에는 Console 경고가 표시됩니다.
 - **알파 버전 개발 시 프로젝트에 포함·배포 가능한 정식 한글 폰트를 추가해야 합니다.**
 
 ## 아이템 목록 입력 액션

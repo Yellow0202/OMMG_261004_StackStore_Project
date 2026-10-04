@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 72396126241514353}
   - component: {fileID: 8928447027360773232}
   - component: {fileID: 4408389825255437583}
+  - component: {fileID: 8811096116570516052}
   m_Layer: 0
   m_Name: Customer
   m_TagString: Untagged
@@ -95,6 +96,18 @@ MonoBehaviour:
   body: {fileID: 8400453316830371142}
   patienceBar: {fileID: 4892444384798907488}
   patienceLabel: {fileID: 4613452088957512525}
+--- !u!114 &8811096116570516052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71550949577055987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44953c7ed49c4a7cba946c52a5f5d9f1, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1764349438943648106
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +400,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: a518a5943b4ae734bb65f85271d34098, type: 2}
+    m_Font: {fileID: 0}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0

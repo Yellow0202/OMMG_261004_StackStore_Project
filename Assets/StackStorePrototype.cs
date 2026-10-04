@@ -36,7 +36,7 @@ public sealed class StackStorePrototype : MonoBehaviour
         public Text label;
         public State state;
         public Vector2 destination;
-        public float wander, patience;
+        public float wander, patience, initialPatience;
         public int id;
         public int direction;
         public float targetY, turnTimer;
@@ -56,12 +56,26 @@ public sealed class StackStorePrototype : MonoBehaviour
     float cooldown, spawnTimer, noticeTimer;
     int gold, served, lost, nextId;
     static readonly Color Teal = new Color(.12f, .62f, .53f);
+    float itemSpeedBonus, itemPatienceBonus, itemVisitorBonus;
+    public int Gold => gold;
+    public float EffectivePatience => Mathf.Max(1f, patienceSeconds + itemPatienceBonus);
+    public float EffectiveVisitChance => Mathf.Clamp01(visitChance + itemVisitorBonus);
+    public float ServiceInterval => Interval;
+
+    public void SetItemBonuses(float speed, float patience, float visitors)
+    {
+        float oldInterval = Interval;
+        itemSpeedBonus = speed;
+        itemPatienceBonus = patience;
+        itemVisitorBonus = visitors;
+        cooldown *= Interval / oldInterval;
+    }
 
     public void Equip(ServiceEquipment replacement)
     {
         if (replacement == null) return;
         equipment = replacement;
-        cooldown = Mathf.Max(.1f, equipment.intervalSeconds);
+        cooldown = Interval;
     }
 
     void Start()
@@ -77,11 +91,12 @@ public sealed class StackStorePrototype : MonoBehaviour
         spawnTimer = Mathf.Max(.2f, spawnSeconds);
     }
 
-    float Interval => Mathf.Max(.1f, equipment != null ? equipment.intervalSeconds : 5f);
+    float Interval => Mathf.Max(.1f, (equipment != null ? equipment.intervalSeconds : 5f) / Mathf.Max(.1f, 1f + itemSpeedBonus));
 
     void Update()
     {
         float dt = Time.deltaTime;
+        if (dt <= 0f) return;
         spawnTimer -= dt;
         while (spawnTimer <= 0f)
         {
@@ -99,7 +114,7 @@ public sealed class StackStorePrototype : MonoBehaviour
             if (c.state == State.Wandering || c.state == State.Queued)
             {
                 c.patience -= dt;
-                c.bar.fillAmount = Mathf.Clamp01(c.patience / Mathf.Max(1f, patienceSeconds));
+                c.bar.fillAmount = Mathf.Clamp01(c.patience / c.initialPatience);
                 c.bar.color = c.patience < 3f ? new Color(.86f, .35f, .29f) : Teal;
                 c.label.text = "#" + c.id + "  " + Mathf.Max(0, c.patience).ToString("0.0") + "s";
                 if (c.patience <= 0f) { lost++; Leave(c, false); }
@@ -249,18 +264,18 @@ public sealed class StackStorePrototype : MonoBehaviour
         var root = (RectTransform)view.transform;
         int direction = Random.value > .5f ? 1 : -1;
         float y = Random.Range(MinY, MaxY);
-        bool interested = Random.value < visitChance;
+        bool interested = Random.value < EffectiveVisitChance;
         root.anchoredPosition = new Vector2(-direction * SpawnX, y);
         view.body.color = Color.HSVToRGB(Random.value, .4f, .8f);
         Text label = view.patienceLabel;
         Image bar = view.patienceBar;
-        label.text = interested ? "#" + (nextId + 1) + "  " + Mathf.Max(1f, patienceSeconds).ToString("0.0") + "s" : "BROWSING";
+        label.text = interested ? "#" + (nextId + 1) + "  " + EffectivePatience.ToString("0.0") + "s" : "BROWSING";
         bar.transform.parent.gameObject.SetActive(interested);
         var customer = new Customer { root = root, bar = bar, label = label, state = interested ? State.Wandering : State.Browsing,
             direction = direction, targetY = y, turnTimer = Random.Range(.5f, 1.5f),
             originalDirection = direction,
             wander = interested ? Random.Range(1.2f, 2.6f) : Random.Range(Mathf.Max(0, minBrowseSeconds), Mathf.Max(minBrowseSeconds, maxBrowseSeconds)),
-            patience = Mathf.Max(1f, patienceSeconds), id = ++nextId };
+            patience = EffectivePatience, initialPatience = EffectivePatience, id = ++nextId };
         if (!interested) customer.destination = BrowsePoint(customer);
         customers.Add(customer);
     }

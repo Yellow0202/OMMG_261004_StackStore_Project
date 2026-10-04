@@ -10,10 +10,11 @@ public sealed class ItemChoiceView : MonoBehaviour
     public void Display(ItemDefinition item, int currentLevel)
     {
         picture.sprite = item.picture;
-        itemName.text = item.itemName;
-        description.text = item.description;
-        kindLabel.text = item.kind == ItemKind.Food ? "FOOD" : item.kind == ItemKind.Ability ? "ABILITY" : "SHOP PART";
-        levelLabel.text = currentLevel == 0 ? "NEW  /  Lv.1" : "UPGRADE  /  Lv." + currentLevel + " → " + (currentLevel + 1);
+        itemName.text = item.DisplayName;
+        description.text = item.DisplayDescription();
+        kindLabel.text = LocalizationService.Text("item.kind." + item.kind);
+        levelLabel.text = currentLevel == 0 ? LocalizationService.Text("item.new", "level", 1) :
+            LocalizationService.Text("item.upgrade", "current", currentLevel, "next", currentLevel + 1);
         button.interactable = true;
         gameObject.SetActive(true);
     }

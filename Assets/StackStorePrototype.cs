@@ -43,6 +43,7 @@ public sealed class StackStorePrototype : MonoBehaviour
         public bool avoiding;
         public int originalDirection;
         public bool reachedShop;
+        public string statusKey = "customer.browsing";
     }
 
     readonly List<Customer> customers = new List<Customer>();
@@ -116,9 +117,10 @@ public sealed class StackStorePrototype : MonoBehaviour
                 c.patience -= dt;
                 c.bar.fillAmount = Mathf.Clamp01(c.patience / c.initialPatience);
                 c.bar.color = c.patience < 3f ? new Color(.86f, .35f, .29f) : Teal;
-                c.label.text = "#" + c.id + "  " + Mathf.Max(0, c.patience).ToString("0.0") + "s";
+                c.label.text = LocalizationService.Text("customer.patience", "id", c.id, "seconds", Mathf.Max(0, c.patience).ToString("0.0", System.Globalization.CultureInfo.InvariantCulture));
                 if (c.patience <= 0f) { lost++; Leave(c, false); }
             }
+            else c.label.text = LocalizationService.Text(c.statusKey);
             if (c.state == State.Wandering)
             {
                 c.wander -= dt;
@@ -151,14 +153,14 @@ public sealed class StackStorePrototype : MonoBehaviour
             Leave(queue[0], true);
             gold++; served++;
             cooldown = Interval;
-            notice.text = "+1 GOLD";
+            notice.text = LocalizationService.Text("hud.reward", "gold", 1);
             notice.color = Teal;
             noticeTimer = 1.3f;
         }
         cooldownBar.fillAmount = 1f - Mathf.Clamp01(cooldown / Interval);
-        cooldownLabel.text = cooldown > 0f ? "NEXT SERVICE  " + cooldown.ToString("0.0") + "s" : "READY — waiting for customer";
-        goldLabel.text = "GOLD  " + gold;
-        statsLabel.text = "SERVED  " + served + "     LEFT  " + lost + "     QUEUE  " + queue.Count;
+        cooldownLabel.text = cooldown > 0f ? LocalizationService.Text("hud.cooldown", "seconds", cooldown.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)) : LocalizationService.Text("hud.ready");
+        goldLabel.text = LocalizationService.Text("hud.gold", "gold", gold);
+        statsLabel.text = LocalizationService.Text("hud.stats", "served", served, "lost", lost, "queue", queue.Count);
         noticeTimer -= dt;
         if (noticeTimer <= 0f) notice.text = "";
     }
@@ -212,7 +214,8 @@ public sealed class StackStorePrototype : MonoBehaviour
             c.avoiding = false;
             c.targetY = c.root.anchoredPosition.y;
             c.turnTimer = 0f;
-            c.label.text = c.direction == c.originalDirection ? "CONTINUING" : "RETURNING";
+            c.statusKey = c.direction == c.originalDirection ? "customer.continuing" : "customer.returning";
+            c.label.text = LocalizationService.Text(c.statusKey);
         }
         else if (Vector2.Distance(c.root.anchoredPosition, c.destination) < 5f)
             c.destination = BrowsePoint(c);
@@ -269,7 +272,7 @@ public sealed class StackStorePrototype : MonoBehaviour
         view.body.color = Color.HSVToRGB(Random.value, .4f, .8f);
         Text label = view.patienceLabel;
         Image bar = view.patienceBar;
-        label.text = interested ? "#" + (nextId + 1) + "  " + EffectivePatience.ToString("0.0") + "s" : "BROWSING";
+        label.text = interested ? LocalizationService.Text("customer.patience", "id", nextId + 1, "seconds", EffectivePatience.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)) : LocalizationService.Text("customer.browsing");
         bar.transform.parent.gameObject.SetActive(interested);
         var customer = new Customer { root = root, bar = bar, label = label, state = interested ? State.Wandering : State.Browsing,
             direction = direction, targetY = y, turnTimer = Random.Range(.5f, 1.5f),
@@ -285,7 +288,8 @@ public sealed class StackStorePrototype : MonoBehaviour
         queue.Remove(c);
         c.state = State.Leaving;
         c.destination = new Vector2(c.direction * ExitX, c.root.anchoredPosition.y);
-        c.label.text = success ? "+1 GOLD" : "LEFT";
+        c.statusKey = success ? "customer.served" : "customer.left";
+        c.label.text = LocalizationService.Text(c.statusKey);
         c.bar.fillAmount = 0f;
         c.label.color = success ? Teal : new Color(.8f, .3f, .25f);
     }

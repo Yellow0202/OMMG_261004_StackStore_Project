@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: ability_quick_service
   m_EditorClassIdentifier:
   picture: {fileID: 21300000, guid: 7bd4ef477e3cd994dbbce26f4fe0ca15, type: 3}
-  itemName: Quick Service
-  description: 'Add an ability.
-
-    Service speed +15% per item level.'
+  nameKey: item.ability_quick_service.name
+  descriptionKey: item.ability_quick_service.description
   key: ability_quick_service
   kind: 1
   maxLevel: 0

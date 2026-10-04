@@ -71,7 +71,7 @@ UI 문구는 기본 내장 폰트로 안정적으로 표시되도록 영문으�
 - `Assets/Items/GoldLevelCurve.asset`: 첫 레벨업 골드 및 이후 필요 골드 증가량을 조정합니다. 기본 첫 필요량 3 / 증가량 2입니다. 추가 필요량은 3, 5, 7…로 늘지만 판정은 누적 보유 골드 3, 8, 15…를 기준으로 합니다.
 - `Assets/Items/PrototypeCatalog.asset`: 선택 후보가 될 아이템 목록입니다. 새 아이템을 추가하면 코드 수정 없이 후보 추첨에 포함됩니다.
 - Project에서 Create > Stack Store > Item Definition으로 아이템 데이터를 만듭니다.
-- 아이템 데이터에는 Picture, Item Name, Description, 고유 Key, Kind, Max Level, 레벨당 Effects가 있습니다. 사진은 Sprite이며 현재는 교체 가능한 테스트 아이콘을 사용합니다.
+- 아이템 데이터에는 Picture, Name Key, Description Key, 고유 Key, Kind, Max Level, 레벨당 Effects가 있습니다. 이름·설명 문구는 문자열 테이블에서 관리합니다. 사진은 Sprite이며 현재는 교체 가능한 테스트 아이콘을 사용합니다.
 - Key는 비어 있지 않은 고유 문자열이어야 합니다. 중복 키는 후보에서 제외하며 경고를 표시합니다.
 - Kind는 Food / Ability / ShopPart입니다. 종류와 효과는 분리되어 한 아이템에 여러 효과를 구성할 수 있습니다.
 - Max Level이 0이면 계속 강화 가능합니다. 양수이면 해당 레벨에 도달한 아이템을 선택 후보에서 제외합니다.
@@ -79,3 +79,22 @@ UI 문구는 기본 내장 폰트로 안정적으로 표시되도록 영문으�
 - 후보가 3개보다 적으면 남은 후보만 표시합니다. 모든 후보가 최대 레벨이면 CONTINUE로 재개할 수 있어 선택창에 갇히지 않습니다.
 - 선택창은 `StackStoreUI.prefab > Stack Store UGUI > Level Up Choice`에 저장되어 있습니다. 편집 시 해당 오브젝트를 활성화하면 카드 배치를 확인할 수 있습니다.
 - 선택 버튼 입력은 저장된 EventSystem과 기존 `InputSystem_Actions.inputactions`의 UI 액션을 사용합니다.
+
+## 표시 언어와 문자열 관리
+
+- 게임은 한글로 시작합니다. 기준 및 번역 누락 시 대체 언어는 영어입니다.
+- `Assets/Localization/PrototypeStrings.asset`의 Entries에서 Key / English / Korean을 관리합니다. 아이템 이름·설명, HUD, 손님 상태, 버튼과 고정 안내 문구가 이 테이블을 참조합니다.
+- 고정 Text에는 LocalizedLabel의 Key를 연결하고, 데이터 문구는 `LocalizationService.Text("hud.gold", "gold", 17)`처럼 키와 이름·값 쌍으로 조회합니다.
+- 사전 형태의 데이터는 `LocalizationService.Instance.Format(key, data)`로 전달할 수도 있습니다. 템플릿의 `{gold}` 같은 이름이 전달 데이터와 일치해야 합니다.
+- 키·변수 누락은 경고와 식별 가능한 표시로 확인하며, 한글 값이 없으면 영어 값으로 대체합니다.
+- 게임 중 `LocalizationService.SetLanguage(DisplayLanguage.English)` 또는 Korean으로 표시 언어를 바꿀 수 있습니다. Inspector의 Language 변경도 반영합니다.
+- 아이템 설명의 능력 수치는 아이템 Effects에서 가져와 문구에 치환합니다. 문자열에 능력 수치를 별도로 복사하여 보관하지 않습니다.
+- 현재 `MalgunPrototype.fontsettings`는 Windows에 설치된 맑은 고딕을 참조합니다. 폰트 원본 파일은 프로젝트나 저장소에 포함하지 않았습니다.
+- **알파 버전 개발 시 프로젝트에 포함·배포 가능한 정식 한글 폰트를 추가해야 합니다.**
+
+## 아이템 목록 입력 액션
+
+- `Assets/Localization/PrototypeInput.inputactions`의 Interface / OpenInventory 액션으로 보유 목록을 열고 닫습니다. 초기 바인딩은 K이며, Game View에 포커스를 두고 사용합니다.
+- InventoryInput은 물리 키를 Update에서 검사하지 않고 입력 액션의 performed 콜백을 사용합니다. 아이템 선택창이 열린 동안 목록 토글은 무시합니다.
+- 향후 설정 UI에서는 `InventoryInput.SetInventoryBinding("<Keyboard>/j")`처럼 바인딩을 변경할 수 있습니다. 오버라이드는 PlayerPrefs에 저장하여 다음 실행 때 불러옵니다.
+- 현재는 변경 가능한 액션과 저장 API를 구현한 상태이며 별도의 키 설정 화면은 아직 없습니다.

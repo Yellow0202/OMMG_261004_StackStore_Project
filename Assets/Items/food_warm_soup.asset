@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: food_warm_soup
   m_EditorClassIdentifier:
   picture: {fileID: 21300000, guid: 3a5998eea9206a34da8447968b3cee24, type: 3}
-  itemName: Warm Soup
-  description: 'Add a food offering.
-
-    New visitors gain +1 second patience per
-    item level.'
+  nameKey: item.food_warm_soup.name
+  descriptionKey: item.food_warm_soup.description
   key: food_warm_soup
   kind: 0
   maxLevel: 0

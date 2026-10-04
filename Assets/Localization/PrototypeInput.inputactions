@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "PrototypeInput",
+    "maps": [
+        {
+            "name": "Interface",
+            "id": "2a4ffcd9-74e4-4dea-aa99-643a8c03be39",
+            "actions": [
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "aa0e664d-81ad-4a23-b0f6-bd6c77e4e89d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e8c7c8c1-6264-4604-bfa9-8076c24a101f",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -89,8 +89,7 @@ public sealed class GoldLevelSystem : MonoBehaviour
             if (i < offered.Count) cards[i].Display(offered[i], ItemLevel(offered[i].key));
             else cards[i].gameObject.SetActive(false);
         }
-        choiceTitle.text = "LEVEL " + playerLevel + "  /  CHOOSE ONE";
-        if (offered.Count == 0) choiceTitle.text = "LEVEL " + playerLevel + "  /  ALL ITEMS MAXED";
+        choiceTitle.text = LocalizationService.Text(offered.Count == 0 ? "choice.exhausted" : "choice.title", "level", playerLevel);
         continueButton.gameObject.SetActive(offered.Count == 0);
         previousTimeScale = Time.timeScale;
         ownsPause = true;
@@ -153,18 +152,29 @@ public sealed class GoldLevelSystem : MonoBehaviour
     {
         long previous = playerLevel <= 1 ? 0 : curve.ThresholdForNextLevel(playerLevel - 1);
         long next = NextGoldThreshold;
-        levelLabel.text = "LEVEL " + playerLevel;
-        progressLabel.text = "GOLD " + store.Gold + " / " + next + "  TO NEXT LEVEL";
+        levelLabel.text = LocalizationService.Text("hud.level", "level", playerLevel);
+        progressLabel.text = LocalizationService.Text("hud.progress", "gold", store.Gold, "next", next);
         progressBar.fillAmount = Mathf.Clamp01((float)(store.Gold - previous) / Math.Max(1, next - previous));
-        var text = new StringBuilder("OWNED ITEMS\n");
-        if (ownedItems.Count == 0) text.Append("Reach ").Append(next).Append(" gold to choose an item.");
+        var text = new StringBuilder(LocalizationService.Text("inventory.title")).Append('\n');
+        if (ownedItems.Count == 0) text.Append(LocalizationService.Text("inventory.empty", "gold", next));
         foreach (var item in ownedItems)
-            if (item.definition) text.Append(item.definition.itemName).Append("  Lv.").Append(item.level).Append('\n');
+            if (item.definition) text.Append(LocalizationService.Text("inventory.row", "name", item.definition.DisplayName, "level", item.level)).Append('\n');
         inventoryLabel.text = text.ToString();
+    }
+
+    void OnEnable() { LocalizationService.LanguageChanged += RefreshLanguage; }
+    void RefreshLanguage()
+    {
+        if (!curve || !store) return;
+        RefreshHUD();
+        if (!ownsPause) return;
+        choiceTitle.text = LocalizationService.Text(offered.Count == 0 ? "choice.exhausted" : "choice.title", "level", playerLevel);
+        for (int i = 0; i < offered.Count; i++) cards[i].Display(offered[i], ItemLevel(offered[i].key));
     }
 
     void OnDisable()
     {
+        LocalizationService.LanguageChanged -= RefreshLanguage;
         if (ownsPause) { ownsPause = false; Time.timeScale = previousTimeScale; }
         if (choicePanel) choicePanel.SetActive(false);
     }

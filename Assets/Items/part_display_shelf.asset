@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: part_display_shelf
   m_EditorClassIdentifier:
   picture: {fileID: 21300000, guid: eb5f79eb34c4eb9439fb552b4692616a, type: 3}
-  itemName: Display Shelf
-  description: 'Acquire a shop part.
-
-    Visitor chance +5 percentage points per
-    item level.'
+  nameKey: item.part_display_shelf.name
+  descriptionKey: item.part_display_shelf.description
   key: part_display_shelf
   kind: 2
   maxLevel: 0

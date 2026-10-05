@@ -27,11 +27,15 @@ public sealed class HexPrototype : MonoBehaviour
     public float spawnSeconds = .77f, serviceSeconds = 5, patienceSeconds = 10, visitorChance = .4f;
     public int maxCustomers = 48;
     [SerializeField] int gold, level = 1;
+    [SerializeField] long earnedGold;
     [SerializeField] List<HexOwnedItem> ownedItems = new List<HexOwnedItem>();
     public int Gold => gold;
+    public long EarnedGold => earnedGold;
     public int Level => level;
     public bool IsBuilding { get; private set; }
     public bool IsChoosing { get; private set; }
+    public bool IsShopping { get; private set; }
+    public float BuffRemaining { get; private set; }
     public int CustomerCount => guests.Count;
     public long NextThreshold => curve.ThresholdForNextLevel(level);
     readonly List<ItemDefinition> offered = new List<ItemDefinition>();
@@ -39,6 +43,7 @@ public sealed class HexPrototype : MonoBehaviour
     readonly List<Guest> queue = new List<Guest>();
     float spawnTimer, cooldown, speedBonus, patienceBonus, attractionBonus, beforePause = 1;
     bool paused;
+    float temporarySpeedBonus;
     string messageKey = "hex.help.None";
     enum GuestState { Crossing, Browsing, Queue, Leaving }
     sealed class Guest
@@ -47,7 +52,7 @@ public sealed class HexPrototype : MonoBehaviour
         public float browse, patience, initialPatience, sway, turnTime, targetZ;
         public int direction, originDirection; public bool interested;
     }
-    public float ServiceInterval => serviceSeconds / Mathf.Max(.1f, 1 + speedBonus);
+    public float ServiceInterval => serviceSeconds / Mathf.Max(.1f, 1 + speedBonus + temporarySpeedBonus);
     public int ItemLevel(ItemDefinition item) => ownedItems.Find(x => x.definition == item)?.level ?? 0;
 
     void Awake()
@@ -76,26 +81,48 @@ public sealed class HexPrototype : MonoBehaviour
     }
     void Resume()
     {
-        if (paused && !IsBuilding && !IsChoosing) { Time.timeScale = beforePause; paused = false; }
+        if (paused && !IsBuilding && !IsChoosing && !IsShopping) { Time.timeScale = beforePause; paused = false; }
     }
     public void SetMessage(string key) { messageKey = key; RefreshHUD(); }
     public void BeginBuilding()
     {
-        if (IsChoosing || IsBuilding) return;
+        if (IsChoosing || IsBuilding || IsShopping) return;
         IsBuilding = true; Pause(); buildingPanel.SetActive(true); board.SetMode(HexBuildMode.Place); RefreshHUD();
     }
     public void EndBuilding()
     {
         IsBuilding = false; buildingPanel.SetActive(false); board.SetMode(HexBuildMode.None); Resume(); RefreshHUD();
     }
-    public void AddGold(int count) { if (count > 0) gold += count; RefreshHUD(); }
+    public void AddGold(int count) { if (count > 0) { gold = (int)Math.Min(int.MaxValue,(long)gold+count); earnedGold += count; } RefreshHUD(); }
+    public bool TrySpendGold(int amount)
+    {
+        if (amount <= 0 || gold < amount) return false;
+        gold -= amount; RefreshHUD(); return true;
+    }
+    public bool BeginShopping()
+    {
+        if (IsBuilding || IsChoosing || IsShopping) return false;
+        IsShopping = true; Pause(); return true;
+    }
+    public void EndShopping() { IsShopping = false; Resume(); }
+    public bool ActivateServiceBuff(float seconds, float bonus)
+    {
+        if (BuffRemaining > 0 || seconds <= 0 || bonus <= 0) return false;
+        float previous = ServiceInterval; temporarySpeedBonus = bonus; BuffRemaining = seconds;
+        cooldown *= ServiceInterval / previous; return true;
+    }
     void Update()
     {
         RefreshHUD();
         pitchSlider.SetValueWithoutNotify(orbit.pitch); zoomSlider.SetValueWithoutNotify(orbit.zoom);
-        if (!IsBuilding && !IsChoosing && gold >= NextThreshold) OpenChoice();
-        if (IsBuilding || IsChoosing || Time.deltaTime <= 0) return;
+        if (!IsBuilding && !IsChoosing && !IsShopping && earnedGold >= NextThreshold) OpenChoice();
+        if (IsBuilding || IsChoosing || IsShopping || Time.deltaTime <= 0) return;
         float dt = Time.deltaTime; spawnTimer -= dt;
+        if (BuffRemaining > 0)
+        {
+            BuffRemaining = Mathf.Max(0,BuffRemaining-dt);
+            if (BuffRemaining == 0) { float previous=ServiceInterval; temporarySpeedBonus=0; cooldown*=ServiceInterval/previous; }
+        }
         if (spawnTimer <= 0 && guests.Count < maxCustomers) { Spawn(); spawnTimer = spawnSeconds; }
         TickGuests(dt); cooldown = Mathf.Max(0, cooldown - dt);
         if (cooldown <= 0 && queue.Count > 0)
@@ -178,10 +205,16 @@ public sealed class HexPrototype : MonoBehaviour
     public void Choose(int index)
     {
         if(!IsChoosing||index<0||index>=offered.Count)return;
-        var item=offered[index];var owned=ownedItems.Find(x=>x.definition==item);
+        GrantItem(offered[index]);CloseChoice();
+    }
+    public bool CanGrantItem(ItemDefinition item) => item && (item.maxLevel<=0 || ItemLevel(item)<item.maxLevel);
+    public bool GrantItem(ItemDefinition item)
+    {
+        if(!CanGrantItem(item))return false;
+        var owned=ownedItems.Find(x=>x.definition==item);
         if(owned==null){owned=new HexOwnedItem{definition=item};ownedItems.Add(owned);}owned.level++;
         if(item.kind==ItemKind.ShopPart)foreach(var reward in tileRewards)if(reward.item==item)board.Grant(reward.tile,reward.count);
-        ApplyEffects();CloseChoice();
+        ApplyEffects();RefreshHUD();return true;
     }
     void ApplyEffects()
     {
@@ -219,8 +252,8 @@ public sealed class HexPrototype : MonoBehaviour
     {
         if(!goldLabel||board.Model==null)return;
         goldLabel.text=LocalizationService.Text("hud.gold","gold",gold);
-        levelLabel.text=LocalizationService.Text("hex.level","level",level,"next",NextThreshold);
-        levelBar.fillAmount=Mathf.Clamp01((float)gold/NextThreshold);
+        levelLabel.text=LocalizationService.Text("hex.level","level",level,"next",NextThreshold,"earned",earnedGold);
+        levelBar.fillAmount=Mathf.Clamp01((float)earnedGold/NextThreshold);
         serviceLabel.text=LocalizationService.Text("hex.service","seconds",cooldown.ToString("0.0",System.Globalization.CultureInfo.InvariantCulture),"queue",queue.Count);
         cooldownBar.fillAmount=1-Mathf.Clamp01(cooldown/ServiceInterval);
         tileLabel.text=LocalizationService.Text("hex.stock","name",LocalizationService.Text(board.Selected.nameKey),"stock",board.Model.Stock(board.Selected),"owned",board.Model.OwnedCount);
@@ -228,6 +261,6 @@ public sealed class HexPrototype : MonoBehaviour
         var inventory=new StringBuilder();
         foreach(var item in ownedItems)inventory.AppendLine(LocalizationService.Text("inventory.row","name",item.definition.DisplayName,"level",item.level));
         inventoryLabel.text=inventory.Length==0?LocalizationService.Text("inventory.empty","gold",NextThreshold):inventory.ToString();
-        buildButton.interactable=!IsBuilding&&!IsChoosing;testGoldButton.interactable=!IsBuilding&&!IsChoosing;
+        buildButton.interactable=!IsBuilding&&!IsChoosing&&!IsShopping;testGoldButton.interactable=!IsBuilding&&!IsChoosing&&!IsShopping;
     }
 }

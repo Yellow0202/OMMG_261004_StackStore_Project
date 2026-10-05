@@ -91,6 +91,7 @@ public static class HexWorldAuthoring
         var events=new GameObject("EventSystem",typeof(EventSystem),typeof(InputSystemUIInputModule));events.GetComponent<InputSystemUIInputModule>().AssignDefaultActions();
         EditorSceneManager.SaveScene(scene,Root+"/Scenes/HexWorld.unity");AssetDatabase.SaveAssets();
         Debug.Log("HEX_AUTHORING_OK: saved 3D scene, independent art/data, UGUI, prefabs and semantic input.");
+        HexShopAuthoring.Upgrade();
     }
     static Material Material(string name,Color color)
     {

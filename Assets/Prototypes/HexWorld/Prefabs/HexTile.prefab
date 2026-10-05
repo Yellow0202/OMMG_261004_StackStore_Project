@@ -278,7 +278,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 489a2b2fa9f5ed74ca0488660aa08fe4, type: 2}
+  - {fileID: 2100000, guid: 5a2cf7955eba90b47ae338f20175cc74, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -309,7 +309,7 @@ LineRenderer:
   - {x: 1.2124355, y: 0.228, z: 0.7}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.025
+    widthMultiplier: 0.035
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -327,8 +327,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.2509804, g: 0.8509804, b: 0.6509804, a: 1}
+      key1: {r: 0.2509804, g: 0.8509804, b: 0.6509804, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -419,6 +419,7 @@ MonoBehaviour:
   surface: {fileID: 8020966409373883258}
   furniture: {fileID: 4980115687134143881}
   buildingSprite: {fileID: 7671910990623241182}
+  outline: {fileID: 728266303369481198}
 --- !u!33 &8547446064647933932
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -434,7 +435,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7161963529081262491}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

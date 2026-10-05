@@ -6,13 +6,12 @@ public sealed class HexTileView : MonoBehaviour
     public MeshRenderer surface;
     public GameObject furniture;
     public SpriteRenderer buildingSprite;
-    MaterialPropertyBlock block;
+    public LineRenderer outline;
     public void Show(bool owned, HexTileDefinition definition, Color? highlight = null)
     {
-        if (block == null) block = new MaterialPropertyBlock();
         Color color = highlight ?? (owned ? (definition ? definition.color : new Color(.24f,.66f,.58f)) : new Color(.20f,.27f,.33f));
-        block.SetColor("_BaseColor", color); block.SetColor("_Color", color);
-        surface.SetPropertyBlock(block);
+        surface.enabled = false;
+        if (outline) { outline.startColor = outline.endColor = color; }
         furniture.SetActive(owned && coordinate != Vector2Int.zero);
         if (buildingSprite) buildingSprite.color = highlight.HasValue && highlight.Value.a < .99f ? highlight.Value : Color.white;
     }

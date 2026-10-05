@@ -23,3 +23,9 @@
 ![낮은 시점: 25도](HexWorld/Documentation/Screenshots/07-2D-Low.png)
 
 ![높은 시점: 65도](HexWorld/Documentation/Screenshots/08-2D-High.png)
+
+2026-10-05 추가: 수평 정면까지 카메라 하강, 타일 윤곽 표시, 보유 골드를 소비하는 상점. 누적 획득 골드로 레벨업 진행을 유지합니다.
+
+![수평 정면과 타일 윤곽](HexWorld/Documentation/Screenshots/09-Horizontal-Outline.png)
+
+![상점 구매와 일회성 버프](HexWorld/Documentation/Screenshots/10-Shop-Purchases.png)

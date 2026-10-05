@@ -3523,10 +3523,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 1514735319134183327}
   m_Direction: 0
-  m_MinValue: 25
+  m_MinValue: 0
   m_MaxValue: 65
   m_WholeNumbers: 0
-  m_Value: 30
+  m_Value: 45
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4402,7 +4402,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB0B4\uB824\uB2E4\uBCF4\uAE30 \uAC01\uB3C4 25\u201365\xB0"
+  m_Text: "\uB0B4\uB824\uB2E4\uBCF4\uAE30 \uAC01\uB3C4 0\u201365\xB0"
 --- !u!114 &3330356288608755297
 MonoBehaviour:
   m_ObjectHideFlags: 0

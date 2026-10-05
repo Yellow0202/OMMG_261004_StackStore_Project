@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bba14911aafbed4e8193b7b12abe7cd, type: 3}
+  m_Name: ServiceOffer
+  m_EditorClassIdentifier:
+  key: ServiceOffer
+  nameKey: shop.upgrade.name
+  descriptionKey: shop.upgrade.desc
+  picture: {fileID: 21300000, guid: 632374ba0fe3a4a4da261fb46faa1c16, type: 3}
+  kind: 1
+  price: 5
+  tile: {fileID: 0}
+  upgrade: {fileID: 11400000, guid: 77831ec8c591e0949a291cf5406292ab, type: 2}
+  quantity: 1
+  buffSeconds: 20
+  speedBonus: 1

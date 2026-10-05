@@ -4,7 +4,7 @@ using UnityEngine;
 public sealed class HexOrbitCamera : MonoBehaviour
 {
     public Transform target;
-    public float pitch = 30, minimumPitch = 25, maximumPitch = 65;
+    public float pitch = 30, minimumPitch = 0, maximumPitch = 65;
     public float baseDistance = 18, zoom = 1, minimumZoom = .6f, maximumZoom = 1.8f;
     public float yaw = 0;
     public void SetPitch(float value) { pitch = Mathf.Clamp(value, minimumPitch, maximumPitch); }

@@ -20,6 +20,9 @@ public sealed class HexTileBoard : MonoBehaviour
     public Vector2Int? MoveSource { get; private set; }
     readonly Dictionary<Vector2Int, HexTileView> tiles = new Dictionary<Vector2Int, HexTileView>();
     Vector2Int? hover;
+    readonly HexPlacementVisibility placementVisibility = new HexPlacementVisibility();
+    void LateUpdate() { placementVisibility.Update(preview); }
+    void OnDisable() { placementVisibility.Restore(); }
 
     void Awake()
     {

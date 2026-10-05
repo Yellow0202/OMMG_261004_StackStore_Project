@@ -12,7 +12,7 @@ public sealed class HexCameraFacingSprite : MonoBehaviour
         if (!camera || !sprite) return;
         sprite.transform.rotation = camera.transform.rotation;
         Vector3 anchor = groundAnchor ? groundAnchor.position : transform.position;
-        sprite.sortingOrder = Mathf.RoundToInt(-Vector3.Dot(camera.transform.forward, anchor - camera.transform.position) * 100);
+        sprite.sortingOrder = Mathf.Clamp(Mathf.RoundToInt(-Vector3.Dot(camera.transform.forward, anchor - camera.transform.position) * 100), -20000, 20000);
     }
     void OnEnable() { FaceCamera(); }
     void LateUpdate() { FaceCamera(); }

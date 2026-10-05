@@ -107,7 +107,7 @@ public static class HexShopAuthoring
     }
     static void ConfigureOutline(HexTileView view,Material material)
     {
-        view.surface.enabled=false;view.outline=view.GetComponentInChildren<LineRenderer>();view.outline.sharedMaterial=material;view.outline.widthMultiplier=.035f;
+        view.surface.enabled=false;view.outline=view.GetComponentInChildren<LineRenderer>();view.outline.sharedMaterial=material;view.outline.widthMultiplier=.035f;view.outline.sortingOrder=-32000;
         Color color=view.coordinate==Vector2Int.zero?new Color(.25f,.85f,.65f):new Color(.4f,.48f,.55f);view.outline.startColor=view.outline.endColor=color;
     }
     static HexShopOffer Offer(string key,HexShopKind kind,int price,string strings,string icon)

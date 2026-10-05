@@ -11,6 +11,11 @@ public sealed class HexWorldActor : MonoBehaviour
     public float patienceFraction = 1;
     public bool waiting;
     Vector3 previous;
+    public void ShowPatience(bool visible, float fraction)
+    {
+        waiting=visible;patienceFraction=Mathf.Clamp01(fraction);
+        patienceCanvas.gameObject.SetActive(visible);patience.fillAmount=patienceFraction;
+    }
     void LateUpdate()
     {
         var camera = Camera.main;
@@ -21,8 +26,7 @@ public sealed class HexWorldActor : MonoBehaviour
         }
         bool moving = (transform.position - previous).sqrMagnitude > .000001f;
         if (walkFrames.Length > 0) body.sprite = walkFrames[moving ? Mathf.FloorToInt(Time.time * 7) % walkFrames.Length : 0];
-        patienceCanvas.gameObject.SetActive(waiting);
-        patience.fillAmount = Mathf.Clamp01(patienceFraction);
+        ShowPatience(waiting,patienceFraction);
         previous = transform.position;
     }
 }

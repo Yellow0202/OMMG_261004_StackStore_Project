@@ -160,9 +160,10 @@ public sealed class HexPrototype : MonoBehaviour
     {
         Guest recipient=null;
         foreach(var guest in waitingGuests)
-            if(guest.view&&(recipient==null||guest.contactOrder>recipient.contactOrder))recipient=guest;
+            if(guest.view&&(recipient==null||guest.contactOrder<recipient.contactOrder))recipient=guest;
         if(recipient==null)return;
-        waitingGuests.Remove(recipient);recipient.state=GuestState.Receiving;recipient.view.waiting=false;
+        waitingGuests.Remove(recipient);recipient.state=GuestState.Receiving;
+        recipient.view.ShowPatience(true,recipient.patience/recipient.initialPatience);
         var food=Instantiate(foodPrefab,foodOrigin.position,Quaternion.identity);
         food.Launch(foodOrigin.position,recipient.view.body.transform);
         deliveries.Add(new FoodDelivery{recipient=recipient,projectile=food});cooldown=ServiceInterval;
@@ -206,7 +207,7 @@ public sealed class HexPrototype : MonoBehaviour
         guest.state=GuestState.Waiting;
         guest.patience=guest.initialPatience=Mathf.Max(.1f,patienceSeconds+patienceBonus);
         guest.view.patienceFraction=1;
-        guest.view.waiting=true;
+        guest.view.ShowPatience(true,1);
         guest.contactOrder=++contactSequence;
         waitingGuests.Add(guest);
     }
@@ -269,7 +270,8 @@ public sealed class HexPrototype : MonoBehaviour
             if((guest.state==GuestState.Crossing||guest.state==GuestState.Leaving)&&Mathf.Abs(position.x)<3&&Mathf.Abs(position.z)<1.7f)
                 stepTarget=new Vector3(position.x+guest.direction*.25f,.22f,position.z<0?-1.9f:1.9f);
             guest.view.transform.position=Vector3.MoveTowards(position,stepTarget,dt*1.9f);
-            guest.view.waiting=guest.state==GuestState.Waiting;
+            guest.view.ShowPatience(guest.state==GuestState.Waiting||guest.state==GuestState.Receiving,
+                guest.initialPatience>0?guest.patience/guest.initialPatience:1);
             if(guest.state==GuestState.Leaving||guest.state==GuestState.Crossing)
                 if(Mathf.Abs(guest.view.transform.position.x)>11.8f){Destroy(guest.view.gameObject);guests.RemoveAt(i);}
         }
@@ -277,6 +279,7 @@ public sealed class HexPrototype : MonoBehaviour
     void Leave(Guest guest,int direction)
     {
         guest.state=GuestState.Leaving;guest.view.waiting=false;guest.waitingSlot=-1;
+        guest.view.ShowPatience(false,guest.view.patienceFraction);
         guest.destination=new Vector3(direction*12,.22f,guest.view.transform.position.z);guest.direction=direction;
     }
     void OpenChoice()

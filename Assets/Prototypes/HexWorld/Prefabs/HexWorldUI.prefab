@@ -502,7 +502,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB808\uBCA8 1 / \uB2E4\uC74C \uB808\uBCA8 3\uACE8\uB4DC"
+  m_Text: "\uB808\uBCA8 1 / \uBCF4\uC720 0 / \uB2E4\uC74C 3\uACE8\uB4DC"
 --- !u!1 &1192878170524237093
 GameObject:
   m_ObjectHideFlags: 0

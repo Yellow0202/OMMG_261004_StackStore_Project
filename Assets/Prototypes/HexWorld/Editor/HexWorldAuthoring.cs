@@ -36,7 +36,8 @@ public static class HexWorldAuthoring
         HexPresentationAuthoring.GenerateArt();
         var tilePrefab=MakeTile();var actorPrefab=MakeActor();
         var table=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<LocalizationTable>("Assets/Prototypes/LegacyUGUI/Localization/PrototypeStrings.asset"));
-        table.name="HexWorldStrings";AddStrings(table);AssetDatabase.CreateAsset(table,Root+"/Data/HexWorldStrings.asset");
+        table.name="HexWorldStrings";AddStrings(table);
+        var empty=table.entries.Find(e=>e.key=="inventory.empty");empty.english="Hold {gold} gold to choose an item.";empty.korean="보유 골드가 {gold}골드에 도달하면 아이템을 선택합니다.";AssetDatabase.CreateAsset(table,Root+"/Data/HexWorldStrings.asset");
         var tile=ScriptableObject.CreateInstance<HexTileDefinition>();tile.icon=Icon("Shelf");AssetDatabase.CreateAsset(tile,Root+"/Data/DisplayShelfTile.asset");
         var catalog=ScriptableObject.CreateInstance<ItemCatalog>();
         foreach(string name in new[]{"food_warm_soup","ability_quick_service","part_display_shelf"})
@@ -80,7 +81,7 @@ public static class HexWorldAuthoring
         MakeUI(game);
         foreach(var label in game.GetComponentsInChildren<LocalizedLabel>(true))label.GetComponent<Text>().text=table.Resolve(label.key,DisplayLanguage.Korean);
         game.goldLabel.text=local.Format("hud.gold",new Dictionary<string,object>{{"gold",0}});
-        game.levelLabel.text=local.Format("hex.level",new Dictionary<string,object>{{"level",1},{"next",3}});
+        game.levelLabel.text=local.Format("hex.level",new Dictionary<string,object>{{"level",1},{"gold",0},{"next",3}});
         game.serviceLabel.text=local.Format("hex.service",new Dictionary<string,object>{{"seconds","5.0"},{"queue",0}});
         game.tileLabel.text=local.Format("hex.stock",new Dictionary<string,object>{{"name",table.Resolve(tile.nameKey,DisplayLanguage.Korean)},{"stock",2},{"owned",1}});
         game.inventoryLabel.text=local.Format("inventory.empty",new Dictionary<string,object>{{"gold",3}});
@@ -242,7 +243,7 @@ public static class HexWorldAuthoring
         void Add(string key,string en,string ko){table.entries.Add(new TranslationEntry{key=key,english=en,korean=ko});}
         Add("hex.title","STACK STORE / HEX WORLD","스택 스토어 / 육각 영역");Add("hex.inventory","TILES & OWNED ITEMS","보관 타일 · 보유 아이템");
         Add("hex.tile.shelf","Display shelf tile","진열 선반 타일");Add("hex.tile.description","Expand your shop with an adjacent shelf tile.","소유 영역에 인접한 칸에 진열 선반 타일을 설치합니다.");
-        Add("hex.level","LEVEL {level} / NEXT {next} GOLD","레벨 {level} / 다음 레벨 {next}골드");Add("hex.stock","{name}: {stock}\nOwned tiles: {owned}","{name}: {stock}개\n소유 타일: {owned}칸");
+        Add("hex.level","LEVEL {level} / GOLD {gold} / NEXT {next}","레벨 {level} / 보유 {gold} / 다음 {next}골드");Add("hex.stock","{name}: {stock}\nOwned tiles: {owned}","{name}: {stock}개\n소유 타일: {owned}칸");
         Add("hex.service","Next throw {seconds}s / Waiting {queue}","다음 배부 {seconds}초 / 대기 {queue}명");
         Add("hex.button.build","BUILD / PAUSE","타일 배치 · 일시정지");Add("hex.button.place","PLACE","설치");Add("hex.button.move","MOVE","이동");Add("hex.button.recover","RECOVER","회수");Add("hex.button.finish","FINISH","배치 종료");
         Add("hex.help.None","Only installed tiles belong to you. Expand from your starting shop.","부품이 설치된 타일만 소유 영역입니다. 시작 가게에서 이어서 확장하세요.");

@@ -131,7 +131,7 @@ public sealed class HexPrototype : MonoBehaviour
     {
         RefreshHUD();
         pitchSlider.SetValueWithoutNotify(orbit.pitch); zoomSlider.SetValueWithoutNotify(orbit.zoom);
-        if (!IsBuilding && !IsChoosing && !IsShopping && earnedGold >= NextThreshold) OpenChoice();
+        if (!IsBuilding && !IsChoosing && !IsShopping && gold >= NextThreshold) OpenChoice();
         if (IsBuilding || IsChoosing || IsShopping || Time.deltaTime <= 0) return;
         float dt = Time.deltaTime; spawnTimer -= dt;
         if (BuffRemaining > 0)
@@ -347,8 +347,8 @@ public sealed class HexPrototype : MonoBehaviour
     {
         if(!goldLabel||board.Model==null)return;
         goldLabel.text=LocalizationService.Text("hud.gold","gold",gold);
-        levelLabel.text=LocalizationService.Text("hex.level","level",level,"next",NextThreshold,"earned",earnedGold);
-        levelBar.fillAmount=Mathf.Clamp01((float)earnedGold/NextThreshold);
+        levelLabel.text=LocalizationService.Text("hex.level","level",level,"next",NextThreshold,"gold",gold);
+        levelBar.fillAmount=Mathf.Clamp01((float)gold/NextThreshold);
         serviceLabel.text=LocalizationService.Text("hex.service","seconds",cooldown.ToString("0.0",System.Globalization.CultureInfo.InvariantCulture),"queue",waitingGuests.Count);
         cooldownBar.fillAmount=1-Mathf.Clamp01(cooldown/ServiceInterval);
         tileLabel.text=LocalizationService.Text("hex.stock","name",LocalizationService.Text(board.Selected.nameKey),"stock",board.Model.Stock(board.Selected),"owned",board.Model.OwnedCount);

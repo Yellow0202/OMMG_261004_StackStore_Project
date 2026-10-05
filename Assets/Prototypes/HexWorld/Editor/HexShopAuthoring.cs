@@ -24,13 +24,13 @@ public static class HexShopAuthoring
         var tileRoot=PrefabUtility.LoadPrefabContents(Root+"/Prefabs/HexTile.prefab");ConfigureOutline(tileRoot.GetComponent<HexTileView>(),outlineMaterial);
         PrefabUtility.SaveAsPrefabAsset(tileRoot,Root+"/Prefabs/HexTile.prefab");PrefabUtility.UnloadPrefabContents(tileRoot);
         var table=AssetDatabase.LoadAssetAtPath<LocalizationTable>(Root+"/Data/HexWorldStrings.asset");
-        Add(table,"hex.level","LEVEL {level} / EARNED {earned} / NEXT {next}","레벨 {level} / 누적 {earned} / 다음 {next}골드");
-        Add(table,"inventory.empty","Reach {gold} total earned gold to choose an item.","누적 {gold}골드에 도달하면 아이템을 선택합니다.");
+        Add(table,"hex.level","LEVEL {level} / GOLD {gold} / NEXT {next}","레벨 {level} / 보유 {gold} / 다음 {next}골드");
+        Add(table,"inventory.empty","Hold {gold} gold to choose an item.","보유 골드가 {gold}골드에 도달하면 아이템을 선택합니다.");
         Add(table,"hex.camera.pitch","Viewing angle 0–65°","내려다보기 각도 0–65°");
         Add(table,"shop.title","SHOP","상점");Add(table,"shop.open","OPEN SHOP","상점 열기");Add(table,"shop.close","CLOSE / RESUME","닫기 · 게임 재개");
         Add(table,"shop.buy","BUY","구매");Add(table,"shop.use","USE ONE","1개 사용");Add(table,"shop.price","{price} GOLD","{price}골드");
         Add(table,"shop.balance","Available: {gold} / Total earned: {earned}","보유 골드: {gold} / 누적 획득: {earned}");
-        Add(table,"shop.help","Shopping pauses the game. Spending never reduces level progress.","상점에서는 게임이 멈춥니다. 구매해도 누적 골드와 레벨 진행은 유지됩니다.");
+        Add(table,"shop.help","Shopping pauses the game. Level eligibility uses your remaining gold.","상점에서는 게임이 멈춥니다. 레벨업은 구매 후 남은 보유 골드로 판정합니다.");
         Add(table,"shop.insufficient","Not enough gold.","보유 골드가 부족합니다.");Add(table,"shop.max","Already at maximum item level.","최대 레벨에 도달한 아이템입니다.");
         Add(table,"shop.purchased","Purchased. Check your tile, upgrade or consumable inventory.","구매했습니다. 보관 타일·보유 강화·소모품 수량을 확인하세요.");Add(table,"shop.used","Buff activated. Its timer starts when gameplay resumes.","버프를 사용했습니다. 게임이 재개되면 남은 시간이 감소합니다.");
         Add(table,"shop.buff.active","A service buff is already active.","접대 버프가 이미 적용 중입니다.");

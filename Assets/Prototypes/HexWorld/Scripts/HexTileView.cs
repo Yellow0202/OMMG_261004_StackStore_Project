@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public sealed class HexTileView : MonoBehaviour
 {
@@ -7,12 +8,31 @@ public sealed class HexTileView : MonoBehaviour
     public GameObject furniture;
     public SpriteRenderer buildingSprite;
     public LineRenderer outline;
+    public HexWallView[] walls;
+    public Canvas labelCanvas;
+    public Text label;
     public void Show(bool owned, HexTileDefinition definition, Color? highlight = null)
     {
         Color color = highlight ?? (owned ? (definition ? definition.color : new Color(.24f,.66f,.58f)) : new Color(.20f,.27f,.33f));
         surface.enabled = false;
         if (outline) { outline.sortingOrder = -32000; outline.startColor = outline.endColor = color; }
-        furniture.SetActive(owned && coordinate != Vector2Int.zero);
+        furniture.SetActive(owned && definition);
+        if(buildingSprite&&definition)buildingSprite.sprite=definition.worldSprite?definition.worldSprite:definition.icon;
         if (buildingSprite) buildingSprite.color = highlight.HasValue && highlight.Value.a < .99f ? highlight.Value : Color.white;
     }
+    public void ShowShop(HexShopLayout layout,int floor,bool owned)
+    {
+        for(int d=0;d<walls.Length;d++)
+        {
+            var edge=new HexWallEdge(coordinate,d);
+            bool shared=layout.Floor(floor).model.IsOwned(coordinate+HexBoardModel.Directions[d]);
+            walls[d].Show(owned&&(!shared||edge.a==coordinate)&&layout.HasWall(floor,coordinate,d));
+        }
+        if(!labelCanvas)return;var definition=layout.Floor(floor).model.Definition(coordinate);labelCanvas.gameObject.SetActive(owned&&definition);
+        if(!owned||!definition)return;
+        string detail="";if(definition.kind==HexTileKind.Kitchen)detail=LocalizationService.Text("shop.kitchen.empty");
+        if(layout.Floor(floor).use.TryGetValue(coordinate,out var use))detail=LocalizationService.Text("shop.capacity","count",use.Count,"capacity",use.capacity);
+        label.text=LocalizationService.Text(definition.nameKey)+(detail.Length>0?"\n"+detail:"");label.color=definition.kind==HexTileKind.Kitchen?new Color(1,.83f,.28f):Color.white;
+    }
+    void LateUpdate(){if(labelCanvas&&Camera.main)labelCanvas.transform.rotation=Camera.main.transform.rotation;}
 }

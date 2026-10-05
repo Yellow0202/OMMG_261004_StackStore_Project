@@ -350,3 +350,104 @@ MonoBehaviour:
       percentage points per level, up to 100%.
     korean: "\uB808\uBCA8\uB2F9 \uC678\uACFD \uC190\uB2D8\uC758 \uAD00\uC2EC\uC744
       \uB04C \uD655\uB960 +{VisitorChance}%p. \uCD5C\uB300 \uD655\uB960\uC740 100%\uC785\uB2C8\uB2E4."
+  - key: hex.help.Walls
+    english: 'PAUSED: select an owned tile, then toggle one of its six sides.'
+    korean: "\uC77C\uC2DC\uC815\uC9C0 \xB7 \uC18C\uC720 \uD0C0\uC77C\uC744 \uC120\uD0DD\uD558\uACE0
+      \uC5EC\uC12F \uBC29\uD5A5\uC758 \uBCBD\uC744 \uD3B8\uC9D1\uD558\uC138\uC694."
+  - key: shop.wall.mode
+    english: EDIT WALLS
+    korean: "\uBCBD \uD3B8\uC9D1"
+  - key: shop.wall.select
+    english: Select an owned tile
+    korean: "\uC18C\uC720 \uD0C0\uC77C\uC744 \uC120\uD0DD\uD558\uC138\uC694"
+  - key: shop.wall.selected
+    english: Selected tile ({x}, {y})
+    korean: "\uC120\uD0DD \uD0C0\uC77C ({x}, {y})"
+  - key: shop.wall.changed
+    english: Wall updated.
+    korean: "\uBCBD\uC744 \uBCC0\uACBD\uD588\uC2B5\uB2C8\uB2E4."
+  - key: shop.wall.blocked
+    english: Keep a route to the outside for every owned tile.
+    korean: "\uBAA8\uB4E0 \uC18C\uC720 \uD0C0\uC77C\uC5D0 \uC678\uBD80\uC640 \uC5F0\uACB0\uB41C
+      \uD1B5\uB85C\uAC00 \uD544\uC694\uD569\uB2C8\uB2E4."
+  - key: shop.wall.side.0
+    english: RIGHT
+    korean: "\uC624\uB978\uCABD"
+  - key: shop.wall.side.1
+    english: FRONT RIGHT
+    korean: "\uC55E \uC624\uB978\uCABD"
+  - key: shop.wall.side.2
+    english: FRONT LEFT
+    korean: "\uC55E \uC67C\uCABD"
+  - key: shop.wall.side.3
+    english: LEFT
+    korean: "\uC67C\uCABD"
+  - key: shop.wall.side.4
+    english: BACK LEFT
+    korean: "\uB4A4 \uC67C\uCABD"
+  - key: shop.wall.side.5
+    english: BACK RIGHT
+    korean: "\uB4A4 \uC624\uB978\uCABD"
+  - key: shop.floor
+    english: Floor {floor}
+    korean: "{floor}\uCE35"
+  - key: shop.floor.previous
+    english: LOWER FLOOR
+    korean: "\uC544\uB798\uCE35"
+  - key: shop.floor.next
+    english: UPPER FLOOR
+    korean: "\uC704\uCE35"
+  - key: shop.kitchen.empty
+    english: No employees assigned
+    korean: "\uBC30\uCE58\uB41C \uC9C1\uC6D0\uC774 \uC5C6\uC2B5\uB2C8\uB2E4"
+  - key: shop.capacity
+    english: '{count} / {capacity} occupied'
+    korean: "\uC774\uC6A9 {count} / {capacity}\uBA85"
+  - key: shop.tile.label
+    english: Tile information
+    korean: "\uD0C0\uC77C \uC548\uB0B4"
+  - key: shop.tile.table
+    english: Table tile
+    korean: "\uD14C\uC774\uBE14 \uD0C0\uC77C"
+  - key: shop.tile.table.description
+    english: Table facility tile.
+    korean: "\uD14C\uC774\uBE14 \uD0C0\uC77C\uC744 \uBC30\uCE58\uD569\uB2C8\uB2E4."
+  - key: shop.tile.kitchen
+    english: Kitchen tile
+    korean: "\uC8FC\uBC29 \uD0C0\uC77C"
+  - key: shop.tile.kitchen.description
+    english: Kitchen facility tile.
+    korean: "\uC8FC\uBC29 \uD0C0\uC77C\uC744 \uBC30\uCE58\uD569\uB2C8\uB2E4."
+  - key: shop.tile.storage
+    english: Storage tile
+    korean: "\uCC3D\uACE0 \uD0C0\uC77C"
+  - key: shop.tile.storage.description
+    english: Storage facility tile.
+    korean: "\uCC3D\uACE0 \uD0C0\uC77C\uC744 \uBC30\uCE58\uD569\uB2C8\uB2E4."
+  - key: shop.tile.stairs
+    english: Stairs tile
+    korean: "\uACC4\uB2E8 \uD0C0\uC77C"
+  - key: shop.tile.stairs.description
+    english: Stairs facility tile.
+    korean: "\uACC4\uB2E8 \uD0C0\uC77C\uC744 \uBC30\uCE58\uD569\uB2C8\uB2E4."
+  - key: shop.tile.lodging
+    english: Lodging tile
+    korean: "\uC219\uBC15 \uD0C0\uC77C"
+  - key: shop.tile.lodging.description
+    english: Lodging facility tile.
+    korean: "\uC219\uBC15 \uD0C0\uC77C\uC744 \uBC30\uCE58\uD569\uB2C8\uB2E4."
+  - key: shop.tile.entrance
+    english: Entrance tile
+    korean: "\uCD9C\uC785\uAD6C \uD0C0\uC77C"
+  - key: shop.tile.entrance.description
+    english: Entrance facility tile.
+    korean: "\uCD9C\uC785\uAD6C \uD0C0\uC77C\uC744 \uBC30\uCE58\uD569\uB2C8\uB2E4."
+  - key: shop.wall.side.label
+    english: '{direction} / {action}'
+    korean: '{direction} / {action}'
+  - key: shop.wall.demolish
+    english: DEMOLISH
+    korean: "\uD5C8\uBB3C\uAE30"
+  - key: shop.wall.build
+    english: BUILD
+    korean: "\uC9D3\uAE30"

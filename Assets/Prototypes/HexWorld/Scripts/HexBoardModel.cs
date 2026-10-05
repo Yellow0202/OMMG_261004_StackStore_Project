@@ -9,10 +9,20 @@ public sealed class HexBoardModel
         new Vector2Int(-1,0), new Vector2Int(-1,1), new Vector2Int(0,1)
     };
     readonly Dictionary<Vector2Int, HexTileDefinition> owned = new Dictionary<Vector2Int, HexTileDefinition>();
-    readonly Dictionary<HexTileDefinition, int> stock = new Dictionary<HexTileDefinition, int>();
+    Dictionary<HexTileDefinition, int> stock = new Dictionary<HexTileDefinition, int>();
+    public void ShareStock(HexBoardModel source) { stock=source.stock; }
     public IEnumerable<Vector2Int> Owned => owned.Keys;
     public int OwnedCount => owned.Count;
-    public HexBoardModel() { owned.Add(Vector2Int.zero, null); }
+    public Vector2Int Root { get; private set; }
+    public HexBoardModel() : this(Vector2Int.zero,null) { }
+    public HexBoardModel(Vector2Int root, HexTileDefinition landing) { Root=root;owned.Add(root,landing); }
+    public HexBoardModel Clone()
+    {
+        var copy=new HexBoardModel(Root,owned[Root]);copy.owned.Clear();
+        foreach(var pair in owned)copy.owned.Add(pair.Key,pair.Value);
+        foreach(var pair in stock)copy.stock.Add(pair.Key,pair.Value);
+        return copy;
+    }
     public bool IsOwned(Vector2Int at) => owned.ContainsKey(at);
     public HexTileDefinition Definition(Vector2Int at) => owned.TryGetValue(at, out var item) ? item : null;
     public int Stock(HexTileDefinition item) => item && stock.TryGetValue(item, out int n) ? n : 0;
@@ -32,12 +42,12 @@ public sealed class HexBoardModel
     }
     public bool CanRemove(Vector2Int at)
     {
-        if (at == Vector2Int.zero || !IsOwned(at)) return false;
+        if (at == Root || !IsOwned(at)) return false;
         return Connected(at, null);
     }
     public bool CanMove(Vector2Int from, Vector2Int to)
     {
-        if (from == to || from == Vector2Int.zero || !IsOwned(from) || IsOwned(to)) return false;
+        if (from == to || from == Root || !IsOwned(from) || IsOwned(to)) return false;
         // Validate the final layout, allowing a bridge to move only if no region is detached.
         return Connected(from, to);
     }
@@ -45,8 +55,8 @@ public sealed class HexBoardModel
     {
         var remaining = new HashSet<Vector2Int>(owned.Keys); remaining.Remove(removed);
         if (added.HasValue) remaining.Add(added.Value);
-        var visited = new HashSet<Vector2Int> { Vector2Int.zero };
-        var pending = new Queue<Vector2Int>(); pending.Enqueue(Vector2Int.zero);
+        var visited = new HashSet<Vector2Int> { Root };
+        var pending = new Queue<Vector2Int>(); pending.Enqueue(Root);
         while (pending.Count > 0)
         {
             var current = pending.Dequeue();

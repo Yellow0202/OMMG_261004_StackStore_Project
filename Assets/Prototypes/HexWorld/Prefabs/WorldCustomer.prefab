@@ -213,6 +213,8 @@ MonoBehaviour:
   walkFrames:
   - {fileID: 21300000, guid: 2518bafdc41d188419cb8c26b3506722, type: 3}
   - {fileID: 21300000, guid: 0ea3a4c0b1b93d94fa062638c8a9a1ea, type: 3}
+  seatedFrame: {fileID: 21300000, guid: ae482a1153a0def4aa212cf05ecd27d6, type: 3}
+  seated: 0
   patience: {fileID: 6388284318765372602}
   patienceCanvas: {fileID: 2941986306045598926}
   shadow: {fileID: 5589847395921121985}

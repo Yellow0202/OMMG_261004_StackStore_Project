@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum HexBuildMode { None, Place, Move, Recover }
+public enum HexBuildMode { None, Place, Move, Recover, Walls }
 
 [DefaultExecutionOrder(-200)]
 public sealed class HexTileBoard : MonoBehaviour
@@ -13,7 +13,11 @@ public sealed class HexTileBoard : MonoBehaviour
     public HexTileDefinition[] tileTypes;
     public int initialStock = 2;
     public HexPrototype game;
-    public HexBoardModel Model { get; private set; }
+    public HexShopLayout Layout { get; private set; }
+    public int CurrentFloor { get; private set; }
+    public HexBoardModel Model => Layout==null?null:Layout.Floor(CurrentFloor).model;
+    public Vector2Int? WallSelection { get; private set; }
+    public GameObject startingShop, player;
     public HexBuildMode Mode { get; private set; }
     public int SelectedType { get; private set; }
     public HexTileDefinition Selected => tileTypes[SelectedType];
@@ -21,22 +25,41 @@ public sealed class HexTileBoard : MonoBehaviour
     readonly Dictionary<Vector2Int, HexTileView> tiles = new Dictionary<Vector2Int, HexTileView>();
     Vector2Int? hover;
     readonly HexPlacementVisibility placementVisibility = new HexPlacementVisibility();
-    void LateUpdate() { placementVisibility.Update(preview); }
+    float labelTimer;
+    void LateUpdate()
+    {
+        placementVisibility.Update(preview);labelTimer-=Time.unscaledDeltaTime;
+        if(Layout!=null&&labelTimer<=0){labelTimer=.25f;foreach(var pair in tiles)if(pair.Value.gameObject.activeInHierarchy)pair.Value.ShowShop(Layout,CurrentFloor,Model.IsOwned(pair.Key));}
+    }
     void OnDisable() { placementVisibility.Restore(); }
 
     void Awake()
     {
-        Model = new HexBoardModel();
+        Layout = new HexShopLayout();
         foreach (var tile in authoredTiles) tiles.Add(tile.coordinate, tile);
-        Model.Grant(Selected, initialStock); Refresh();
+        foreach(var type in tileTypes)Layout.Floor(0).model.Grant(type,initialStock); Refresh();
     }
     public void SelectType(int index) { SelectedType = Mathf.Clamp(index, 0, tileTypes.Length - 1); Refresh(); }
     public void SetMode(HexBuildMode mode)
     {
-        Mode = mode; MoveSource = null; hover = null; Refresh();
+        Mode = mode; MoveSource = null; hover = null; WallSelection=null; Refresh();
         game.SetMessage("hex.help." + mode);
     }
-    public void Grant(HexTileDefinition item, int count) { Model.Grant(item, count); Refresh(); }
+    public void Grant(HexTileDefinition item, int count) { Layout.Floor(0).model.Grant(item,count); Refresh(); }
+    public void SetFloor(int floor)
+    {
+        if(Layout==null||!Layout.floors.ContainsKey(floor))return;
+        CurrentFloor=floor;MoveSource=null;hover=null;WallSelection=null;
+        game.orbit.floorOffset=floor==0?Vector3.zero:HexBoardModel.World(Model.Root);
+        if(startingShop)startingShop.SetActive(floor==0);if(player)player.SetActive(floor==0);
+        EnsureFrontier();Refresh();game.UpdateFloorVisibility();
+    }
+    public void ToggleWall(int direction)
+    {
+        if(!WallSelection.HasValue||Mode!=HexBuildMode.Walls)return;
+        bool success=Layout.SetWall(CurrentFloor,WallSelection.Value,direction,!Layout.HasWall(CurrentFloor,WallSelection.Value,direction));
+        game.SetMessage(success?"shop.wall.changed":"shop.wall.blocked");Refresh();
+    }
     public void Hover(HexTileView tile)
     {
         Vector2Int? next = tile ? tile.coordinate : (Vector2Int?)null;
@@ -47,15 +70,16 @@ public sealed class HexTileBoard : MonoBehaviour
     {
         if (!tile || Mode == HexBuildMode.None) return;
         var at = tile.coordinate; bool success = false;
-        if (Mode == HexBuildMode.Place) success = Model.Place(at, Selected);
-        if (Mode == HexBuildMode.Recover) success = Model.Recover(at);
+        if(Mode==HexBuildMode.Walls){if(Model.IsOwned(at))WallSelection=at;Refresh();return;}
+        if (Mode == HexBuildMode.Place) success = Layout.TryPlace(CurrentFloor,at,Selected);
+        if (Mode == HexBuildMode.Recover) success = Layout.TryRecover(CurrentFloor,at);
         if (Mode == HexBuildMode.Move)
         {
             if (!MoveSource.HasValue)
             {
-                if (at != Vector2Int.zero && Model.IsOwned(at)) { MoveSource = at; game.SetMessage("hex.move.destination"); Refresh(); return; }
+                if (at != Model.Root && Model.IsOwned(at)) { MoveSource = at; game.SetMessage("hex.move.destination"); Refresh(); return; }
             }
-            else { success = Model.Move(MoveSource.Value, at); if (success) MoveSource = null; }
+            else { success = Layout.TryMove(CurrentFloor,MoveSource.Value, at); if (success) MoveSource = null; }
         }
         game.SetMessage(success ? "hex.build.success" : "hex.build.invalid");
         EnsureFrontier(); Refresh();
@@ -63,8 +87,8 @@ public sealed class HexTileBoard : MonoBehaviour
     bool Valid(Vector2Int at)
     {
         if (Mode == HexBuildMode.Place) return Model.Stock(Selected) > 0 && Model.CanPlace(at);
-        if (Mode == HexBuildMode.Recover) return Model.CanRemove(at);
-        if (Mode == HexBuildMode.Move) return MoveSource.HasValue ? Model.CanMove(MoveSource.Value, at) : at != Vector2Int.zero && Model.IsOwned(at);
+        if (Mode == HexBuildMode.Recover) return Layout.CanRecover(CurrentFloor,at);
+        if (Mode == HexBuildMode.Move) return MoveSource.HasValue ? Layout.CanMove(CurrentFloor,MoveSource.Value, at) : at != Model.Root && Model.IsOwned(at);
         return false;
     }
     void EnsureFrontier()
@@ -85,10 +109,13 @@ public sealed class HexTileBoard : MonoBehaviour
         if (Model == null) return;
         foreach (var pair in tiles)
         {
+            bool adjacent=Model.IsOwned(pair.Key);foreach(var direction in HexBoardModel.Directions)adjacent|=Model.IsOwned(pair.Key+direction);
+            pair.Value.gameObject.SetActive(CurrentFloor==0||adjacent);
             Color? highlight = Mode != HexBuildMode.None && Valid(pair.Key) ? new Color(.32f,.57f,.43f) : (Color?)null;
-            if (MoveSource == pair.Key) highlight = new Color(1,.72f,.25f);
-            if (hover == pair.Key && Mode != HexBuildMode.None) highlight = Valid(pair.Key) ? new Color(.33f,.90f,.58f) : new Color(.82f,.29f,.31f);
+            if (MoveSource == pair.Key || WallSelection == pair.Key) highlight = new Color(1,.72f,.25f);
+            if (hover == pair.Key && Mode != HexBuildMode.None) highlight = (Mode==HexBuildMode.Walls?Model.IsOwned(pair.Key):Valid(pair.Key)) ? new Color(.33f,.90f,.58f) : new Color(.82f,.29f,.31f);
             pair.Value.Show(Model.IsOwned(pair.Key), Model.Definition(pair.Key), highlight);
+            pair.Value.ShowShop(Layout,CurrentFloor,Model.IsOwned(pair.Key));
         }
         bool showPreview = hover.HasValue && (Mode == HexBuildMode.Place || Mode == HexBuildMode.Move && MoveSource.HasValue);
         preview.gameObject.SetActive(showPreview);

@@ -95,6 +95,7 @@ public static class HexWorldAuthoring
         HexShopAuthoring.Upgrade();
         HexSurroundAuthoring.Upgrade();
         HexUpgradeItemsAuthoring.Upgrade();
+        HexShopExpansionAuthoring.Upgrade();
     }
     static Material Material(string name,Color color)
     {

@@ -56,13 +56,18 @@ public sealed class HexPrototype : MonoBehaviour
     public int FoodPerThrow => 1+additionalFoodCount;
     public float ReactiveVisitorChance => Mathf.Clamp01(visitorChance+attractionBonus);
     string messageKey = "hex.help.None";
-    enum GuestState { Crossing, Browsing, Approaching, Waiting, Receiving, Leaving }
+    enum GuestState { Crossing, Browsing, Approaching, Waiting, Receiving, Lodging, Leaving }
     sealed class Guest
     {
         public HexWorldActor view; public GuestState state; public Vector3 destination;
         public float browse, patience, initialPatience, turnTime, targetZ;
         public int direction, originDirection; public bool interested;
         public int waitingSlot = -1; public long contactOrder;
+        public int id, floor, targetFloor, seat=-1, reward=1, navigationRevision=-1, waypoint;
+        public HexNavNode facility, navigationGoal;
+        public bool hasFacility, room;
+        public List<HexNavNode> path;
+        public float stay;
     }
     public float ServiceInterval => serviceSeconds / Mathf.Max(.1f, 1 + speedBonus + temporarySpeedBonus);
     public int ItemLevel(ItemDefinition item) => ownedItems.Find(x => x.definition == item)?.level ?? 0;
@@ -153,8 +158,9 @@ public sealed class HexPrototype : MonoBehaviour
         bool interested=UnityEngine.Random.value<ReactiveVisitorChance;
         view.body.color=interested?Color.HSVToRGB(UnityEngine.Random.value,.36f,.96f):new Color(0,0,0,.4f);
         view.waiting=false;view.patienceCanvas.gameObject.SetActive(false);
+        view.gameObject.SetActive(board.CurrentFloor==0);
         bool browsing=interested&&UnityEngine.Random.value>=directQueueChance;
-        guests.Add(new Guest{view=view,direction=direction,originDirection=direction,interested=interested,
+        guests.Add(new Guest{id=view.GetInstanceID(),view=view,direction=direction,originDirection=direction,interested=interested,
             state=!interested?GuestState.Crossing:browsing?GuestState.Browsing:GuestState.Approaching,
             browse=Mathf.Max(.1f,browseDecisionSeconds),
             destination=browsing?new Vector3(-direction*UnityEngine.Random.Range(2.7f,5f),.22f,UnityEngine.Random.Range(-3f,3f)):new Vector3(direction*12,.22f,view.transform.position.z),targetZ=view.transform.position.z});
@@ -171,8 +177,9 @@ public sealed class HexPrototype : MonoBehaviour
         if(recipient==null)return;
         waitingGuests.Remove(recipient);recipient.state=GuestState.Receiving;
         recipient.view.ShowPatience(true,recipient.patience/recipient.initialPatience);
-        var food=Instantiate(foodPrefab,foodOrigin.position,Quaternion.identity);
-        food.Launch(foodOrigin.position,recipient.view.body.transform);
+        Vector3 origin=recipient.floor==0?foodOrigin.position:HexBoardModel.World(board.Layout.Floor(recipient.floor).model.Root)+Vector3.up*1.4f;
+        var food=Instantiate(foodPrefab,origin,Quaternion.identity);
+        food.Launch(origin,recipient.view.body.transform);food.gameObject.SetActive(board.CurrentFloor==recipient.floor);
         deliveries.Add(new FoodDelivery{recipient=recipient,projectile=food});cooldown=ServiceInterval;
     }
     void TickDeliveries(float dt)
@@ -183,12 +190,12 @@ public sealed class HexPrototype : MonoBehaviour
             if(!delivery.recipient.view||!delivery.projectile)
             {
                 if(delivery.projectile)Destroy(delivery.projectile.gameObject);
-                waitingGuests.Remove(delivery.recipient);guests.Remove(delivery.recipient);
+                board.Layout.Release(delivery.recipient.id);waitingGuests.Remove(delivery.recipient);guests.Remove(delivery.recipient);
                 deliveries.RemoveAt(i);continue;
             }
             if(!delivery.projectile.Advance(dt))continue;
             Leave(delivery.recipient,delivery.recipient.originDirection);
-            AddGold(1);Destroy(delivery.projectile.gameObject);deliveries.RemoveAt(i);
+            AddGold(delivery.recipient.reward);Destroy(delivery.projectile.gameObject);deliveries.RemoveAt(i);
         }
     }
     Vector3 WaitingPosition(int slot)
@@ -206,13 +213,16 @@ public sealed class HexPrototype : MonoBehaviour
         {
             if(used.Contains(slot))continue;
             float candidate=(WaitingPosition(slot)-guest.view.transform.position).sqrMagnitude;
-            if(candidate<distance){distance=candidate;guest.waitingSlot=slot;}
+            if(candidate<distance&&board.Layout.Path(new HexNavNode(guest.floor,HexShopLayout.Cell(guest.view.transform.position)),new HexNavNode(0,HexShopLayout.Cell(WaitingPosition(slot))))!=null){distance=candidate;guest.waitingSlot=slot;}
         }
     }
     void JoinWaiting(Guest guest)
     {
-        guest.state=GuestState.Waiting;
-        guest.patience=guest.initialPatience=Mathf.Max(.1f,patienceSeconds+patienceBonus);
+        guest.view.seated=guest.hasFacility&&!guest.room;
+        var definition=guest.hasFacility?board.Layout.Floor(guest.facility.floor).model.Definition(guest.facility.cell):null;
+        if(guest.room){guest.state=GuestState.Lodging;guest.stay=guest.initialPatience=definition.lodgingSeconds;guest.view.ShowPatience(true,1);return;}
+        guest.state=GuestState.Waiting;guest.reward=definition?definition.serviceGold:1;
+        guest.patience=guest.initialPatience=Mathf.Max(.1f,(definition?definition.waitingSeconds:patienceSeconds)+patienceBonus);
         guest.view.patienceFraction=1;
         guest.view.ShowPatience(true,1);
         guest.contactOrder=++contactSequence;
@@ -223,10 +233,15 @@ public sealed class HexPrototype : MonoBehaviour
         for (int i=guests.Count-1;i>=0;i--)
         {
             var guest=guests[i];
-            if(!guest.view){waitingGuests.Remove(guest);guests.RemoveAt(i);continue;}
+            if(!guest.view){board.Layout.Release(guest.id);waitingGuests.Remove(guest);guests.RemoveAt(i);continue;}
+            if(guest.state==GuestState.Lodging)
+            {
+                guest.stay-=dt;guest.view.ShowPatience(true,guest.stay/guest.initialPatience);
+                if(guest.stay<=0){int reward=board.Layout.Floor(guest.facility.floor).model.Definition(guest.facility.cell).lodgingGold;Leave(guest,guest.originDirection);AddGold(reward);}
+            }
             if(guest.state==GuestState.Waiting)
             {
-                guest.destination=WaitingPosition(guest.waitingSlot);
+                guest.destination=guest.hasFacility?board.Layout.SeatPosition(guest.facility,guest.seat):WaitingPosition(guest.waitingSlot);
                 guest.patience-=dt; guest.view.patienceFraction=guest.patience/guest.initialPatience;
                 if(guest.patience<=0){waitingGuests.Remove(guest);Leave(guest,guest.originDirection);}
             }
@@ -248,10 +263,16 @@ public sealed class HexPrototype : MonoBehaviour
             }
             if(guest.state==GuestState.Approaching)
             {
-                ReserveWaitingPosition(guest);
-                guest.destination=WaitingPosition(guest.waitingSlot);
+                if(!guest.hasFacility&&guest.waitingSlot<0)
+                {
+                    var start=new HexNavNode(guest.floor,HexShopLayout.Cell(guest.view.transform.position));HexNavNode facility=default;int seat=-1;
+                    guest.room=UnityEngine.Random.value<.25f&&board.Layout.Reserve(guest.view.GetInstanceID(),HexTileKind.Lodging,start,out facility,out seat);
+                    if(guest.room||board.Layout.Reserve(guest.view.GetInstanceID(),HexTileKind.Table,start,out facility,out seat)){guest.hasFacility=true;guest.facility=facility;guest.seat=seat;guest.targetFloor=facility.floor;}
+                    else ReserveWaitingPosition(guest);
+                }
+                guest.destination=guest.hasFacility?board.Layout.SeatPosition(guest.facility,guest.seat):WaitingPosition(Mathf.Max(0,guest.waitingSlot));
                 // First contact is arrival at the reserved position around the shop.
-                if(Vector3.Distance(guest.view.transform.position,guest.destination)<.2f) JoinWaiting(guest);
+                if(guest.floor==guest.targetFloor&&Vector3.Distance(guest.view.transform.position,guest.destination)<.2f) JoinWaiting(guest);
             }
             else if(guest.state==GuestState.Crossing||guest.state==GuestState.Leaving)
             {
@@ -260,34 +281,51 @@ public sealed class HexPrototype : MonoBehaviour
                 guest.destination.z=Mathf.MoveTowards(guest.destination.z,guest.targetZ,dt*.5f);
                 if(Mathf.Abs(guest.destination.z)<1.6f) guest.destination.z=guest.destination.z<0?-1.6f:1.6f;
             }
-            Vector3 stepTarget=guest.destination;
-            Vector3 position=guest.view.transform.position;
-            // Keep approach paths outside the fixed stall footprint.
-            if(guest.state==GuestState.Approaching&&Mathf.Sign(position.x)!=Mathf.Sign(guest.destination.x)&&Mathf.Abs(position.z)<1.9f)
-                stepTarget=new Vector3(position.x,.22f,position.z<0?-2f:2f);
-            if(guest.state==GuestState.Browsing&&(Mathf.Sign(position.x)!=Mathf.Sign(guest.destination.x)||Mathf.Abs(position.x)<1.9f))
-            {
-                // Keep the clearance until the entire stall has been passed, including
-                // after crossing its centre; then turn toward the next browsing point.
-                stepTarget=Mathf.Abs(position.z)<1.9f
-                    ?new Vector3(position.x,.22f,position.z<0?-2f:2f)
-                    :new Vector3(guest.destination.x,.22f,position.z);
-            }
-            // Uninterested traffic bends around the stall while retaining its exit direction.
-            if((guest.state==GuestState.Crossing||guest.state==GuestState.Leaving)&&Mathf.Abs(position.x)<3&&Mathf.Abs(position.z)<1.7f)
-                stepTarget=new Vector3(position.x+guest.direction*.25f,.22f,position.z<0?-1.9f:1.9f);
-            guest.view.transform.position=Vector3.MoveTowards(position,stepTarget,dt*1.9f);
-            guest.view.ShowPatience(guest.state==GuestState.Waiting||guest.state==GuestState.Receiving,
+            MoveGuest(guest,guest.destination,dt);
+            if(guest.state!=GuestState.Lodging)guest.view.ShowPatience(guest.state==GuestState.Waiting||guest.state==GuestState.Receiving,
                 guest.initialPatience>0?guest.patience/guest.initialPatience:1);
-            if(guest.state==GuestState.Leaving||guest.state==GuestState.Crossing)
+            if(guest.floor==0&&(guest.state==GuestState.Leaving||guest.state==GuestState.Crossing))
                 if(Mathf.Abs(guest.view.transform.position.x)>11.8f){Destroy(guest.view.gameObject);guests.RemoveAt(i);}
         }
     }
     void Leave(Guest guest,int direction)
     {
+        board.Layout.Release(guest.view.GetInstanceID());guest.hasFacility=false;guest.targetFloor=0;
+        guest.view.seated=false;
         guest.state=GuestState.Leaving;guest.view.waiting=false;guest.waitingSlot=-1;
         guest.view.ShowPatience(false,guest.view.patienceFraction);
         guest.destination=new Vector3(direction*12,.22f,guest.view.transform.position.z);guest.direction=direction;
+    }
+    void MoveGuest(Guest guest,Vector3 target,float dt)
+    {
+        if(guest.state==GuestState.Waiting||guest.state==GuestState.Receiving||guest.state==GuestState.Lodging)return;
+        var goal=new HexNavNode(guest.targetFloor,HexShopLayout.Cell(target));
+        if(guest.navigationRevision!=board.Layout.Revision||!guest.navigationGoal.Equals(goal)||guest.path==null)
+        {
+            guest.navigationGoal=goal;guest.navigationRevision=board.Layout.Revision;guest.waypoint=0;
+            guest.path=board.Layout.Path(new HexNavNode(guest.floor,HexShopLayout.Cell(guest.view.transform.position)),goal);
+        }
+        if(guest.path==null)
+        {
+            // A wandering destination may lie inside an enclosed, unowned courtyard.
+            // Decide again from the reachable current position rather than stalling there.
+            if(guest.state==GuestState.Browsing){guest.destination=guest.view.transform.position;guest.browse=Mathf.Min(guest.browse,1f);}
+            return;
+        }
+        if(guest.waypoint<guest.path.Count)
+        {
+            var next=guest.path[guest.waypoint];
+            if(next.floor!=guest.floor){guest.floor=next.floor;guest.view.transform.position=HexBoardModel.World(next.cell)+Vector3.up*.22f;guest.view.gameObject.SetActive(guest.floor==board.CurrentFloor);guest.waypoint++;return;}
+            Vector3 point=HexBoardModel.World(next.cell)+Vector3.up*.22f;
+            guest.view.transform.position=Vector3.MoveTowards(guest.view.transform.position,point,dt*1.9f);
+            if(Vector3.Distance(guest.view.transform.position,point)<.05f)guest.waypoint++;
+        }
+        else guest.view.transform.position=Vector3.MoveTowards(guest.view.transform.position,target,dt*1.9f);
+    }
+    public void UpdateFloorVisibility()
+    {
+        foreach(var guest in guests)if(guest.view)guest.view.gameObject.SetActive(guest.floor==board.CurrentFloor);
+        foreach(var delivery in deliveries)if(delivery.projectile)delivery.projectile.gameObject.SetActive(delivery.recipient.floor==board.CurrentFloor);
     }
     void OpenChoice()
     {

@@ -17648,11 +17648,14 @@ MonoBehaviour:
   tileDropdown: {fileID: 541681409}
   pitchSlider: {fileID: 2131873267}
   zoomSlider: {fileID: 375355966}
-  spawnSeconds: 0.77
+  spawnSeconds: 1.155
   serviceSeconds: 5
   patienceSeconds: 10
   visitorChance: 0.4
-  maxCustomers: 48
+  directQueueChance: 0.5
+  browsingQueueChance: 0.35
+  browseDecisionSeconds: 3
+  maxCustomers: 32
   gold: 0
   level: 1
   earnedGold: 0

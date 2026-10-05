@@ -24,8 +24,10 @@ public sealed class HexPrototype : MonoBehaviour
     public Button buildButton, endBuildButton, placeButton, moveButton, recoverButton, testGoldButton, resetCameraButton, continueButton;
     public Dropdown tileDropdown;
     public Slider pitchSlider, zoomSlider;
-    public float spawnSeconds = .77f, serviceSeconds = 5, patienceSeconds = 10, visitorChance = .4f;
-    public int maxCustomers = 48;
+    public float spawnSeconds = 1.155f, serviceSeconds = 5, patienceSeconds = 10, visitorChance = .4f;
+    [Range(0, 1)] public float directQueueChance = .5f, browsingQueueChance = .35f;
+    [Min(.1f)] public float browseDecisionSeconds = 3;
+    public int maxCustomers = 32;
     [SerializeField] int gold, level = 1;
     [SerializeField] long earnedGold;
     [SerializeField] List<HexOwnedItem> ownedItems = new List<HexOwnedItem>();
@@ -45,11 +47,11 @@ public sealed class HexPrototype : MonoBehaviour
     bool paused;
     float temporarySpeedBonus;
     string messageKey = "hex.help.None";
-    enum GuestState { Crossing, Browsing, Queue, Leaving }
+    enum GuestState { Crossing, Browsing, Approaching, Queue, Leaving }
     sealed class Guest
     {
         public HexWorldActor view; public GuestState state; public Vector3 destination;
-        public float browse, patience, initialPatience, sway, turnTime, targetZ;
+        public float browse, patience, initialPatience, turnTime, targetZ;
         public int direction, originDirection; public bool interested;
     }
     public float ServiceInterval => serviceSeconds / Mathf.Max(.1f, 1 + speedBonus + temporarySpeedBonus);
@@ -136,24 +138,36 @@ public sealed class HexPrototype : MonoBehaviour
         int direction = UnityEngine.Random.value < .5f ? 1 : -1;
         var view = Instantiate(customerPrefab, customerRoot);
         view.transform.position = new Vector3(-direction * 11, .22f, UnityEngine.Random.Range(-6f,6f));
-        view.body.color = Color.HSVToRGB(UnityEngine.Random.value,.36f,.96f);
         bool interested = UnityEngine.Random.value < Mathf.Clamp01(visitorChance + attractionBonus);
-        bool browsing = interested || UnityEngine.Random.value < .6f;
+        view.body.color = interested ? Color.HSVToRGB(UnityEngine.Random.value,.36f,.96f) : new Color(0,0,0,.4f);
+        view.waiting = false;
+        view.patienceCanvas.gameObject.SetActive(false);
+        bool browsing = interested && UnityEngine.Random.value >= directQueueChance;
         var guest = new Guest { view=view, direction=direction, originDirection=direction, interested=interested,
-            state=browsing?GuestState.Browsing:GuestState.Crossing, browse=UnityEngine.Random.Range(3f,6f), sway=UnityEngine.Random.value*6,
+            state=!interested?GuestState.Crossing:browsing?GuestState.Browsing:GuestState.Approaching,
+            browse=Mathf.Max(.1f,browseDecisionSeconds),
             destination=browsing?new Vector3(-direction*UnityEngine.Random.Range(2.7f,5f),.22f,UnityEngine.Random.Range(-3f,3f)):new Vector3(direction*12,.22f,view.transform.position.z),
-            patience=patienceSeconds+patienceBonus, initialPatience=patienceSeconds+patienceBonus, targetZ=view.transform.position.z };
+            targetZ=view.transform.position.z };
         guests.Add(guest);
+    }
+    Vector3 QueuePosition(int index) => new Vector3(.35f,.22f,-1.65f-index*.85f);
+    void JoinQueue(Guest guest)
+    {
+        guest.state=GuestState.Queue;
+        guest.patience=guest.initialPatience=Mathf.Max(.1f,patienceSeconds+patienceBonus);
+        guest.view.patienceFraction=1;
+        guest.view.waiting=true;
+        queue.Add(guest);
     }
     void TickGuests(float dt)
     {
         for (int i=guests.Count-1;i>=0;i--)
         {
-            var guest=guests[i]; guest.view.waiting=guest.state==GuestState.Queue;
+            var guest=guests[i];
             if(guest.state==GuestState.Queue)
             {
                 int index=queue.IndexOf(guest);
-                guest.destination=new Vector3(.35f,.22f,-1.65f-index*.85f);
+                guest.destination=QueuePosition(index);
                 guest.patience-=dt; guest.view.patienceFraction=guest.patience/guest.initialPatience;
                 if(guest.patience<=0){queue.Remove(guest);Leave(guest,guest.originDirection);}
             }
@@ -162,15 +176,24 @@ public sealed class HexPrototype : MonoBehaviour
                 if(Vector3.Distance(guest.view.transform.position,guest.destination)<.25f)
                 {
                     guest.browse-=dt;
-                    guest.view.transform.position+=new Vector3(Mathf.Sin(Time.time+guest.sway),0,Mathf.Cos(Time.time+guest.sway))*dt*.2f;
                     if(guest.browse<=0)
                     {
-                        if(guest.interested){guest.state=GuestState.Queue;queue.Add(guest);}
-                        else Leave(guest,UnityEngine.Random.value<.5f?-guest.originDirection:guest.originDirection);
+                        if(UnityEngine.Random.value<Mathf.Clamp01(browsingQueueChance)) guest.state=GuestState.Approaching;
+                        else
+                        {
+                            guest.destination=new Vector3(UnityEngine.Random.value<.5f?-UnityEngine.Random.Range(2.7f,5f):UnityEngine.Random.Range(2.7f,5f),.22f,UnityEngine.Random.Range(-3f,3f));
+                            guest.browse=Mathf.Max(.1f,browseDecisionSeconds);
+                        }
                     }
                 }
             }
-            else
+            if(guest.state==GuestState.Approaching)
+            {
+                guest.destination=QueuePosition(queue.Count);
+                // Travel and browsing do not consume patience; start only at the tail.
+                if(Vector3.Distance(guest.view.transform.position,guest.destination)<.2f) JoinQueue(guest);
+            }
+            else if(guest.state==GuestState.Crossing||guest.state==GuestState.Leaving)
             {
                 guest.turnTime-=dt;
                 if(guest.turnTime<=0){guest.turnTime=UnityEngine.Random.Range(1f,3f);guest.targetZ=Mathf.Clamp(guest.destination.z+UnityEngine.Random.Range(-1f,1f),-6,6);}
@@ -180,12 +203,21 @@ public sealed class HexPrototype : MonoBehaviour
             Vector3 stepTarget=guest.destination;
             Vector3 position=guest.view.transform.position;
             // Approach the front of the fixed stall before entering the queue.
-            if(guest.state==GuestState.Queue&&position.z> -1.55f&&Mathf.Abs(position.x)>1.15f)
+            if((guest.state==GuestState.Queue||guest.state==GuestState.Approaching)&&position.z> -1.55f&&Mathf.Abs(position.x)>1.15f)
                 stepTarget=new Vector3(position.x,.22f,-1.7f);
+            if(guest.state==GuestState.Browsing&&(Mathf.Sign(position.x)!=Mathf.Sign(guest.destination.x)||Mathf.Abs(position.x)<1.9f))
+            {
+                // Keep the clearance until the entire stall has been passed, including
+                // after crossing its centre; then turn toward the next browsing point.
+                stepTarget=Mathf.Abs(position.z)<1.9f
+                    ?new Vector3(position.x,.22f,position.z<0?-2f:2f)
+                    :new Vector3(guest.destination.x,.22f,position.z);
+            }
             // Uninterested traffic bends around the stall while retaining its exit direction.
             if((guest.state==GuestState.Crossing||guest.state==GuestState.Leaving)&&Mathf.Abs(position.x)<3&&Mathf.Abs(position.z)<1.7f)
                 stepTarget=new Vector3(position.x+guest.direction*.25f,.22f,position.z<0?-1.9f:1.9f);
             guest.view.transform.position=Vector3.MoveTowards(position,stepTarget,dt*1.9f);
+            guest.view.waiting=guest.state==GuestState.Queue;
             if(guest.state==GuestState.Leaving||guest.state==GuestState.Crossing)
                 if(Mathf.Abs(guest.view.transform.position.x)>11.8f){Destroy(guest.view.gameObject);guests.RemoveAt(i);}
         }

@@ -93,6 +93,7 @@ public static class HexWorldAuthoring
         Debug.Log("HEX_AUTHORING_OK: saved 3D scene, independent art/data, UGUI, prefabs and semantic input.");
         HexShopAuthoring.Upgrade();
         HexSurroundAuthoring.Upgrade();
+        HexUpgradeItemsAuthoring.Upgrade();
     }
     static Material Material(string name,Color color)
     {

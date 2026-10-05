@@ -333,3 +333,20 @@ MonoBehaviour:
     korean: "\uBB3C\uC57D {count}\uAC1C \uBCF4\uAD00. \uC0AC\uC6A9 \uC2DC {seconds}\uCD08
       \uB3D9\uC548 \uC811\uB300 \uC18D\uB3C4 +{speed}%. \uD6A8\uACFC \uC911\uC5D0\uB294
       \uC911\uBCF5 \uC0AC\uC6A9\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+  - key: item.ability_extra_servings.name
+    english: Generous Portions
+    korean: "\uD478\uC9D0\uD55C \uD55C \uC0C1"
+  - key: item.ability_extra_servings.description
+    english: Throw +{FoodThrowCount} food per level to different guests in contact
+      order. Max level 3 (4 food total).
+    korean: "\uB808\uBCA8\uB2F9 \uD22C\uCC99 \uC74C\uC2DD +{FoodThrowCount}\uAC1C.
+      \uC811\uCD09 \uC21C\uC11C\uB300\uB85C \uC11C\uB85C \uB2E4\uB978 \uC190\uB2D8\uC5D0\uAC8C
+      \uBC30\uBD80\uD569\uB2C8\uB2E4. \uCD5C\uB300 3\uB808\uBCA8 (\uCD1D 4\uAC1C)."
+  - key: item.ability_attention_call.name
+    english: Street-Side Invitation
+    korean: "\uAC70\uB9AC\uC758 \uCD08\uB300"
+  - key: item.ability_attention_call.description
+    english: Increase the chance of attracting passing guests by {VisitorChance}
+      percentage points per level, up to 100%.
+    korean: "\uB808\uBCA8\uB2F9 \uC678\uACFD \uC190\uB2D8\uC758 \uAD00\uC2EC\uC744
+      \uB04C \uD655\uB960 +{VisitorChance}%p. \uCD5C\uB300 \uD655\uB960\uC740 100%\uC785\uB2C8\uB2E4."

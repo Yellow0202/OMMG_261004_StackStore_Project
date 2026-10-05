@@ -52,6 +52,9 @@ public sealed class HexPrototype : MonoBehaviour
     float spawnTimer, cooldown, speedBonus, patienceBonus, attractionBonus, beforePause = 1;
     bool paused;
     float temporarySpeedBonus;
+    int additionalFoodCount;
+    public int FoodPerThrow => 1+additionalFoodCount;
+    public float ReactiveVisitorChance => Mathf.Clamp01(visitorChance+attractionBonus);
     string messageKey = "hex.help.None";
     enum GuestState { Crossing, Browsing, Approaching, Waiting, Receiving, Leaving }
     sealed class Guest
@@ -147,7 +150,7 @@ public sealed class HexPrototype : MonoBehaviour
         int direction=UnityEngine.Random.value<.5f?1:-1;
         var view=Instantiate(customerPrefab,customerRoot);
         view.transform.position=new Vector3(-direction*11,.22f,UnityEngine.Random.Range(-6f,6f));
-        bool interested=UnityEngine.Random.value<Mathf.Clamp01(visitorChance+attractionBonus);
+        bool interested=UnityEngine.Random.value<ReactiveVisitorChance;
         view.body.color=interested?Color.HSVToRGB(UnityEngine.Random.value,.36f,.96f):new Color(0,0,0,.4f);
         view.waiting=false;view.patienceCanvas.gameObject.SetActive(false);
         bool browsing=interested&&UnityEngine.Random.value>=directQueueChance;
@@ -157,6 +160,10 @@ public sealed class HexPrototype : MonoBehaviour
             destination=browsing?new Vector3(-direction*UnityEngine.Random.Range(2.7f,5f),.22f,UnityEngine.Random.Range(-3f,3f)):new Vector3(direction*12,.22f,view.transform.position.z),targetZ=view.transform.position.z});
     }
     void ThrowFood()
+    {
+        for(int count=0;count<FoodPerThrow&&waitingGuests.Count>0;count++) ThrowOneFood();
+    }
+    void ThrowOneFood()
     {
         Guest recipient=null;
         foreach(var guest in waitingGuests)
@@ -305,13 +312,14 @@ public sealed class HexPrototype : MonoBehaviour
     }
     void ApplyEffects()
     {
-        float oldInterval=ServiceInterval;speedBonus=patienceBonus=attractionBonus=0;
+        float oldInterval=ServiceInterval;speedBonus=patienceBonus=attractionBonus=0;additionalFoodCount=0;
         foreach(var owned in ownedItems)foreach(var effect in owned.definition.effects)
         {
             float amount=effect.amountPerLevel*owned.level;
             if(effect.kind==ItemEffectKind.ServiceSpeedPercent)speedBonus+=amount;
             if(effect.kind==ItemEffectKind.CustomerPatienceSeconds)patienceBonus+=amount;
             if(effect.kind==ItemEffectKind.VisitorChance)attractionBonus+=amount;
+            if(effect.kind==ItemEffectKind.FoodThrowCount)additionalFoodCount+=Mathf.Max(0,Mathf.RoundToInt(amount));
         }
         cooldown*=ServiceInterval/oldInterval;
     }

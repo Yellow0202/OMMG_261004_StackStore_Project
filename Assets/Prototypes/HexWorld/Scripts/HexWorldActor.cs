@@ -16,9 +16,8 @@ public sealed class HexWorldActor : MonoBehaviour
         var camera = Camera.main;
         if (camera)
         {
-            Vector3 toward = camera.transform.position - transform.position; toward.y = 0;
-            if (toward.sqrMagnitude > .01f) body.transform.rotation = Quaternion.LookRotation(-toward);
-            patienceCanvas.rotation = body.transform.rotation;
+            patienceCanvas.rotation = camera.transform.rotation;
+            patienceCanvas.position = transform.position + camera.transform.up * 1.5f;
         }
         bool moving = (transform.position - previous).sqrMagnitude > .000001f;
         if (walkFrames.Length > 0) body.sprite = walkFrames[moving ? Mathf.FloorToInt(Time.time * 7) % walkFrames.Length : 0];

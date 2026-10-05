@@ -33,6 +33,7 @@ public static class HexWorldAuthoring
         ghostMaterial.SetInt("_DstBlend",(int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);ghostMaterial.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");ghostMaterial.renderQueue=3000;
         spriteMaterial=new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default"));AssetDatabase.CreateAsset(spriteMaterial,Root+"/Art/CharacterSprite.mat");
         GenerateSprites();
+        HexPresentationAuthoring.GenerateArt();
         var tilePrefab=MakeTile();var actorPrefab=MakeActor();
         var table=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<LocalizationTable>("Assets/Prototypes/LegacyUGUI/Localization/PrototypeStrings.asset"));
         table.name="HexWorldStrings";AddStrings(table);AssetDatabase.CreateAsset(table,Root+"/Data/HexWorldStrings.asset");
@@ -72,7 +73,7 @@ public static class HexWorldAuthoring
         var cameraObject=new GameObject("Main Camera");cameraObject.tag="MainCamera";var camera=cameraObject.AddComponent<Camera>();cameraObject.AddComponent<AudioListener>();
         camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.035f,.055f,.08f);camera.fieldOfView=48;camera.nearClipPlane=.1f;camera.farClipPlane=150;
         var orbit=cameraObject.AddComponent<HexOrbitCamera>();orbit.target=player.transform;game.orbit=orbit;
-        cameraObject.transform.rotation=Quaternion.Euler(45,35,0);cameraObject.transform.position=player.transform.position+Vector3.up*.3f-cameraObject.transform.forward*18;
+        cameraObject.transform.rotation=Quaternion.Euler(30,0,0);cameraObject.transform.position=player.transform.position+Vector3.up*.3f-cameraObject.transform.forward*18;
         var lightObject=new GameObject("Warm Directional Light");var light=lightObject.AddComponent<Light>();light.type=LightType.Directional;light.intensity=1.6f;light.color=new Color(1,.91f,.77f);light.shadows=LightShadows.Soft;lightObject.transform.rotation=Quaternion.Euler(50,-35,0);
         RenderSettings.ambientLight=new Color(.50f,.58f,.65f);
         var input=main.AddComponent<HexWorldInput>();input.actions=actions;input.board=board;input.game=game;input.orbit=orbit;
@@ -139,8 +140,7 @@ public static class HexWorldAuthoring
         var edge=new GameObject("Tile Edge").AddComponent<LineRenderer>();edge.transform.SetParent(go.transform);edge.useWorldSpace=false;edge.positionCount=7;edge.widthMultiplier=.025f;edge.sharedMaterial=roof;
         for(int i=0;i<7;i++){Vector3 v=vertices[i%6+1];v.y+=.008f;edge.SetPosition(i,v);}
         view.furniture=new GameObject("Installed Shelf");view.furniture.transform.SetParent(go.transform);
-        Cube("Shelf Base",view.furniture.transform,new Vector3(0,.42f,.25f),new Vector3(.9f,.4f,.5f),wood);
-        Cube("Shelf Display",view.furniture.transform,new Vector3(0,.66f,.25f),new Vector3(1,.10f,.65f),roof);
+        HexPresentationAuthoring.ConfigureTile(view);
         view.furniture.SetActive(false);
         var saved=PrefabUtility.SaveAsPrefabAsset(go,Root+"/Prefabs/HexTile.prefab").GetComponent<HexTileView>();UnityEngine.Object.DestroyImmediate(go);return saved;
     }
@@ -152,13 +152,12 @@ public static class HexWorldAuthoring
         patience.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;patience.GetComponent<RectTransform>().sizeDelta=new Vector2(105,12);
         actor.patience=Gauge("Patience",patience.transform,Vector2.zero,new Vector2(105,12));actor.patienceCanvas=patience.transform;patience.SetActive(false);
         var shadow=new GameObject("Ground Shadow");shadow.transform.SetParent(go.transform);shadow.transform.localPosition=Vector3.up*.01f;shadow.transform.localRotation=Quaternion.Euler(90,0,0);shadow.transform.localScale=new Vector3(.6f,.30f,1);var sr=shadow.AddComponent<SpriteRenderer>();sr.sprite=whiteSprite;sr.color=new Color(0,0,0,.24f);sr.sharedMaterial=spriteMaterial;actor.shadow=shadow.transform;
+        HexPresentationAuthoring.ConfigureActor(actor);
         var saved=PrefabUtility.SaveAsPrefabAsset(go,Root+"/Prefabs/WorldCustomer.prefab").GetComponent<HexWorldActor>();UnityEngine.Object.DestroyImmediate(go);return saved;
     }
     static GameObject MakeStall()
     {
-        var stall=new GameObject("Starting Shop - fixed");Cube("Counter",stall.transform,new Vector3(0,.4f,-.4f),new Vector3(1.6f,.8f,.7f),wood);
-        Cube("Awning",stall.transform,new Vector3(0,1.7f,0),new Vector3(1.9f,.15f,1.2f),roof);
-        foreach(float x in new[]{-.8f,.8f})Cube("Post",stall.transform,new Vector3(x,.8f,.2f),new Vector3(.07f,1.6f,.07f),wood);
+        var stall=new GameObject("Starting Shop - fixed");HexPresentationAuthoring.ConfigureShop(stall);
         PrefabUtility.SaveAsPrefabAsset(stall,Root+"/Prefabs/StartingShop.prefab");return stall;
     }
     static void Cube(string name,Transform parent,Vector3 position,Vector3 scale,Material material)
@@ -209,7 +208,7 @@ public static class HexWorldAuthoring
         game.tileLabel=Label("Tile Stock",left,new Vector2(0,67),new Vector2(278,58),17);game.inventoryLabel=Label("Owned Items",left,new Vector2(0,-30),new Vector2(278,122),17);game.inventoryLabel.alignment=TextAnchor.UpperLeft;
         game.buildButton=Button("Build",left,new Vector2(0,-118),new Vector2(270,40),"hex.button.build");
         var right=Panel("Camera Controls",root.transform,new Vector2(650,-270),new Vector2(250,290),Navy);Label("Title",right,new Vector2(0,112),new Vector2(210,32),20,"hex.camera");
-        Label("Pitch",right,new Vector2(0,74),new Vector2(210,26),16,"hex.camera.pitch");game.pitchSlider=Slider("Pitch Slider",right,new Vector2(0,40),25,65,45);
+        Label("Pitch",right,new Vector2(0,74),new Vector2(210,26),16,"hex.camera.pitch");game.pitchSlider=Slider("Pitch Slider",right,new Vector2(0,40),25,65,30);
         Label("Zoom",right,new Vector2(0,2),new Vector2(210,26),16,"hex.camera.zoom");game.zoomSlider=Slider("Zoom Slider",right,new Vector2(0,-32),.6f,1.8f,1);
         game.resetCameraButton=Button("Reset Camera",right,new Vector2(0,-100),new Vector2(210,38),"hex.camera.reset");
         var service=Panel("Service Status",root.transform,new Vector2(0,-365),new Vector2(560,100),Navy);game.serviceLabel=Label("Service",service,new Vector2(0,15),new Vector2(520,34),18);game.cooldownBar=Gauge("Cooldown",service,new Vector2(0,-20),new Vector2(510,10));

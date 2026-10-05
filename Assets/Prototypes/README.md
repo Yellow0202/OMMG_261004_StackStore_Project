@@ -10,8 +10,16 @@
 
 ![기존 화면](LegacyUGUI/Documentation/2026-10-04-UGUI.png)
 
-![새 육각 화면](HexWorld/Documentation/Screenshots/01-HexWorld.png)
+![초기 육각 화면: 3D 건물](HexWorld/Documentation/Screenshots/01-HexWorld.png)
 
 ![배치 모드](HexWorld/Documentation/Screenshots/02-Placement.png)
 
 ![아이템 선택](HexWorld/Documentation/Screenshots/04-LevelChoice.png)
+
+2026-10-05 수정: 캐릭터·건물을 모두 2D로 구성하고 가게 정면에서 시작합니다. 그림의 비율은 유지하고 바닥의 시선 각도만 바뀝니다.
+
+![2D 정면 시점: 30도](HexWorld/Documentation/Screenshots/06-2D-Front.png)
+
+![낮은 시점: 25도](HexWorld/Documentation/Screenshots/07-2D-Low.png)
+
+![높은 시점: 65도](HexWorld/Documentation/Screenshots/08-2D-High.png)

@@ -5,6 +5,7 @@ public sealed class HexTileView : MonoBehaviour
     public Vector2Int coordinate;
     public MeshRenderer surface;
     public GameObject furniture;
+    public SpriteRenderer buildingSprite;
     MaterialPropertyBlock block;
     public void Show(bool owned, HexTileDefinition definition, Color? highlight = null)
     {
@@ -13,5 +14,6 @@ public sealed class HexTileView : MonoBehaviour
         block.SetColor("_BaseColor", color); block.SetColor("_Color", color);
         surface.SetPropertyBlock(block);
         furniture.SetActive(owned && coordinate != Vector2Int.zero);
+        if (buildingSprite) buildingSprite.color = highlight.HasValue && highlight.Value.a < .99f ? highlight.Value : Color.white;
     }
 }

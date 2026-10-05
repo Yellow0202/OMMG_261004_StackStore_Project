@@ -1,15 +1,15 @@
 # 가판대 프로토타입
 
-`Assets/Scenes/SampleScene.unity`를 열고 Play를 누르면 실행됩니다.
+`Assets/Prototypes/LegacyUGUI/Scenes/SampleScene.unity`를 열고 Play를 누르면 실행됩니다.
 Canvas와 고정 UI는 씬의 `Stack Store Prototype` 프리팹 인스턴스에 저장되어 있습니다.
 Play를 누르기 전에도 Hierarchy를 펼쳐 RectTransform, Image, Text를 편집할 수 있습니다.
 손님은 미리 구성된 UGUI 프리팹을 런타임에 인스턴스화합니다.
 
 ## UI 편집 위치
 
-- `Assets/Scenes/SampleScene.unity`: 게임 씬과 UI 프리팹 인스턴스
-- `Assets/Prefabs/StackStoreUI.prefab`: Canvas, 가판대, 골드, 접대 게이지, 통계와 안내 UI
-- `Assets/Prefabs/Customer.prefab`: 손님 외형, 인내시간 텍스트와 게이지
+- `Assets/Prototypes/LegacyUGUI/Scenes/SampleScene.unity`: 게임 씬과 UI 프리팹 인스턴스
+- `Assets/Prototypes/LegacyUGUI/Prefabs/StackStoreUI.prefab`: Canvas, 가판대, 골드, 접대 게이지, 통계와 안내 UI
+- `Assets/Prototypes/LegacyUGUI/Prefabs/Customer.prefab`: 손님 외형, 인내시간 텍스트와 게이지
 - `StackStorePrototype`: Inspector의 Scene UI References로 저장된 UI와 손님 프리팹 연결
 - `CustomerView`: 손님 프리팹의 Body / Patience Bar / Patience Label 참조
 
@@ -68,8 +68,8 @@ UI 문구는 기본 내장 폰트로 안정적으로 표시되도록 영문으�
 
 ## 아이템과 레벨 조건 확장
 
-- `Assets/Items/GoldLevelCurve.asset`: 첫 레벨업 골드 및 이후 필요 골드 증가량을 조정합니다. 기본 첫 필요량 3 / 증가량 2입니다. 추가 필요량은 3, 5, 7…로 늘지만 판정은 누적 보유 골드 3, 8, 15…를 기준으로 합니다.
-- `Assets/Items/PrototypeCatalog.asset`: 선택 후보가 될 아이템 목록입니다. 새 아이템을 추가하면 코드 수정 없이 후보 추첨에 포함됩니다.
+- `Assets/Prototypes/LegacyUGUI/Items/GoldLevelCurve.asset`: 첫 레벨업 골드 및 이후 필요 골드 증가량을 조정합니다. 기본 첫 필요량 3 / 증가량 2입니다. 추가 필요량은 3, 5, 7…로 늘지만 판정은 누적 보유 골드 3, 8, 15…를 기준으로 합니다.
+- `Assets/Prototypes/LegacyUGUI/Items/PrototypeCatalog.asset`: 선택 후보가 될 아이템 목록입니다. 새 아이템을 추가하면 코드 수정 없이 후보 추첨에 포함됩니다.
 - Project에서 Create > Stack Store > Item Definition으로 아이템 데이터를 만듭니다.
 - 아이템 데이터에는 Picture, Name Key, Description Key, 고유 Key, Kind, Max Level, 레벨당 Effects가 있습니다. 이름·설명 문구는 문자열 테이블에서 관리합니다. 사진은 Sprite이며 현재는 교체 가능한 테스트 아이콘을 사용합니다.
 - Key는 비어 있지 않은 고유 문자열이어야 합니다. 중복 키는 후보에서 제외하며 경고를 표시합니다.
@@ -83,7 +83,7 @@ UI 문구는 기본 내장 폰트로 안정적으로 표시되도록 영문으�
 ## 표시 언어와 문자열 관리
 
 - 게임은 한글로 시작합니다. 기준 및 번역 누락 시 대체 언어는 영어입니다.
-- `Assets/Localization/PrototypeStrings.asset`의 Entries에서 Key / English / Korean을 관리합니다. 아이템 이름·설명, HUD, 손님 상태, 버튼과 고정 안내 문구가 이 테이블을 참조합니다.
+- `Assets/Prototypes/LegacyUGUI/Localization/PrototypeStrings.asset`의 Entries에서 Key / English / Korean을 관리합니다. 아이템 이름·설명, HUD, 손님 상태, 버튼과 고정 안내 문구가 이 테이블을 참조합니다.
 - 고정 Text에는 LocalizedLabel의 Key를 연결하고, 데이터 문구는 `LocalizationService.Text("hud.gold", "gold", 17)`처럼 키와 이름·값 쌍으로 조회합니다.
 - 사전 형태의 데이터는 `LocalizationService.Instance.Format(key, data)`로 전달할 수도 있습니다. 템플릿의 `{gold}` 같은 이름이 전달 데이터와 일치해야 합니다.
 - 키·변수 누락은 경고와 식별 가능한 표시로 확인하며, 한글 값이 없으면 영어 값으로 대체합니다.
@@ -95,7 +95,7 @@ UI 문구는 기본 내장 폰트로 안정적으로 표시되도록 영문으�
 
 ## 아이템 목록 입력 액션
 
-- `Assets/Localization/PrototypeInput.inputactions`의 Interface / OpenInventory 액션으로 보유 목록을 열고 닫습니다. 초기 바인딩은 K이며, Game View에 포커스를 두고 사용합니다.
+- `Assets/Prototypes/LegacyUGUI/Localization/PrototypeInput.inputactions`의 Interface / OpenInventory 액션으로 보유 목록을 열고 닫습니다. 초기 바인딩은 K이며, Game View에 포커스를 두고 사용합니다.
 - InventoryInput은 물리 키를 Update에서 검사하지 않고 입력 액션의 performed 콜백을 사용합니다. 아이템 선택창이 열린 동안 목록 토글은 무시합니다.
 - 향후 설정 UI에서는 `InventoryInput.SetInventoryBinding("<Keyboard>/j")`처럼 바인딩을 변경할 수 있습니다. 오버라이드는 PlayerPrefs에 저장하여 다음 실행 때 불러옵니다.
 - 현재는 변경 가능한 액션과 저장 API를 구현한 상태이며 별도의 키 설정 화면은 아직 없습니다.

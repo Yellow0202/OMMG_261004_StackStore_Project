@@ -1,0 +1,266 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 102f81f23262454aa88cb2568491e107, type: 3}
+  m_Name: HexWorldStrings
+  m_EditorClassIdentifier:
+  entries:
+  - key: app.title
+    english: STACK STORE
+    korean: "\uC2A4\uD0DD \uC2A4\uD1A0\uC5B4"
+  - key: app.subtitle
+    english: SHOPKEEPER PROTOTYPE / 01
+    korean: "\uC0C1\uC810 \uC6B4\uC601 \uD504\uB85C\uD1A0\uD0C0\uC785 / 01"
+  - key: shop.player
+    english: PLAYER / STALL
+    korean: "\uD50C\uB808\uC774\uC5B4 / \uAC00\uD310\uB300"
+  - key: shop.traffic
+    english: BROWSING TRAFFIC / SOME QUEUE
+    korean: "\uC8FC\uBCC0\uC744 \uBC30\uD68C\uD558\uAC70\uB098 \uC904\uC744 \uC11C\uB294
+      \uC190\uB2D8"
+  - key: shop.queue
+    english: "INTERESTED \u2192 QUEUE \u2192 SERVICE"
+    korean: "\uBC29\uBB38 \u2192 \uC904\uC11C\uAE30 \u2192 \uC811\uB300"
+  - key: shop.help
+    english: "Browse, continue or return \u2022 Service: +1 gold"
+    korean: "\uC190\uB2D8\uC740 \uBC30\uD68C \uD6C4 \uC774\uB3D9\uD558\uAC70\uB098
+      \uB3CC\uC544\uAC11\uB2C8\uB2E4 \xB7 \uC811\uB300\uB2F9 \uACE8\uB4DC +1"
+  - key: hud.gold
+    english: GOLD {gold}
+    korean: "\uACE8\uB4DC {gold}"
+  - key: hud.reward
+    english: +{gold} GOLD
+    korean: "\uACE8\uB4DC +{gold}"
+  - key: hud.cooldown
+    english: NEXT SERVICE  {seconds}s
+    korean: "\uB2E4\uC74C \uC811\uB300\uAE4C\uC9C0 {seconds}\uCD08"
+  - key: hud.ready
+    english: "READY \u2014 waiting for customer"
+    korean: "\uC811\uB300 \uC900\uBE44 \uC644\uB8CC \xB7 \uC190\uB2D8 \uB300\uAE30
+      \uC911"
+  - key: hud.stats
+    english: SERVED {served}    LEFT {lost}    QUEUE {queue}
+    korean: "\uC811\uB300 {served}    \uB5A0\uB09C \uC190\uB2D8 {lost}    \uB300\uAE30
+      {queue}"
+  - key: hud.level
+    english: LEVEL {level}
+    korean: "\uB808\uBCA8 {level}"
+  - key: hud.progress
+    english: GOLD {gold} / {next}  TO NEXT LEVEL
+    korean: "\uBCF4\uC720 \uACE8\uB4DC {gold} / \uB2E4\uC74C \uB808\uBCA8 {next}"
+  - key: inventory.title
+    english: OWNED ITEMS
+    korean: "\uBCF4\uC720 \uC544\uC774\uD15C"
+  - key: inventory.empty
+    english: Reach {gold} gold to choose an item.
+    korean: "\uACE8\uB4DC {gold}\uC5D0 \uB3C4\uB2EC\uD558\uBA74 \uC544\uC774\uD15C\uC744
+      \uC120\uD0DD\uD569\uB2C8\uB2E4."
+  - key: inventory.row
+    english: '{name}  Lv.{level}'
+    korean: "{name}  \uB808\uBCA8 {level}"
+  - key: inventory.hint
+    english: 'Item list: use the Open Inventory action'
+    korean: "\uBCF4\uC720 \uBAA9\uB85D: \uC544\uC774\uD15C \uBAA9\uB85D \uC5F4\uB78C
+      \uC561\uC158\uC73C\uB85C \uC5F4\uAE30 / \uB2EB\uAE30"
+  - key: choice.title
+    english: LEVEL {level}  /  CHOOSE ONE
+    korean: "\uB808\uBCA8 {level} \xB7 \uC544\uC774\uD15C \uD558\uB098\uB97C \uC120\uD0DD\uD558\uC138\uC694"
+  - key: choice.exhausted
+    english: LEVEL {level} / ALL ITEMS MAXED
+    korean: "\uB808\uBCA8 {level} \xB7 \uBAA8\uB4E0 \uC544\uC774\uD15C \uAC15\uD654
+      \uC644\uB8CC"
+  - key: choice.explanation
+    english: Gold is kept. Choose one item to resume.
+    korean: "\uACE8\uB4DC\uB294 \uC18C\uBE44\uB418\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.
+      \uC544\uC774\uD15C\uC744 \uC120\uD0DD\uD558\uBA74 \uAC8C\uC784\uC774 \uC7AC\uAC1C\uB429\uB2C8\uB2E4."
+  - key: choice.hint
+    english: Select the same item again to increase its item level.
+    korean: "\uAC19\uC740 \uC544\uC774\uD15C\uC744 \uB2E4\uC2DC \uC120\uD0DD\uD558\uBA74
+      \uC544\uC774\uD15C \uB808\uBCA8\uC774 \uC62C\uB77C\uAC11\uB2C8\uB2E4."
+  - key: button.select
+    english: SELECT
+    korean: "\uC120\uD0DD"
+  - key: button.continue
+    english: CONTINUE
+    korean: "\uACC4\uC18D\uD558\uAE30"
+  - key: item.kind.Food
+    english: FOOD
+    korean: "\uC74C\uC2DD"
+  - key: item.kind.Ability
+    english: ABILITY
+    korean: "\uB2A5\uB825"
+  - key: item.kind.ShopPart
+    english: SHOP PART
+    korean: "\uAC00\uAC8C \uBD80\uD488"
+  - key: item.new
+    english: NEW / Lv.{level}
+    korean: "\uC2E0\uADDC \uD68D\uB4DD / \uB808\uBCA8 {level}"
+  - key: item.upgrade
+    english: "UPGRADE / Lv.{current} \u2192 {next}"
+    korean: "\uAC15\uD654 / \uB808\uBCA8 {current} \u2192 {next}"
+  - key: customer.patience
+    english: '#{id}  {seconds}s'
+    korean: "#{id}  {seconds}\uCD08"
+  - key: customer.browsing
+    english: BROWSING
+    korean: "\uBC30\uD68C \uC911"
+  - key: customer.continuing
+    english: CONTINUING
+    korean: "\uC774\uB3D9 \uC911"
+  - key: customer.returning
+    english: RETURNING
+    korean: "\uB3CC\uC544\uAC00\uB294 \uC911"
+  - key: customer.served
+    english: +1 GOLD
+    korean: "\uACE8\uB4DC +1"
+  - key: customer.left
+    english: LEFT
+    korean: "\uB5A0\uB0A8"
+  - key: item.food_warm_soup.name
+    english: Warm Soup
+    korean: "\uB530\uB73B\uD55C \uC218\uD504"
+  - key: item.food_warm_soup.description
+    english: 'Add a food offering.
+
+      New visitors gain +{CustomerPatienceSeconds}
+      second patience per item level.'
+    korean: "\uC74C\uC2DD\uC744 \uCD94\uAC00\uD569\uB2C8\uB2E4.\n\uC544\uC774\uD15C
+      \uB808\uBCA8\uB9C8\uB2E4 \uC0C8 \uBC29\uBB38 \uC190\uB2D8\uC758 \uC778\uB0B4\uC2DC\uAC04\uC774
+      {CustomerPatienceSeconds}\uCD08 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - key: item.ability_quick_service.name
+    english: Quick Service
+    korean: "\uBE60\uB978 \uC811\uB300"
+  - key: item.ability_quick_service.description
+    english: 'Add an ability.
+
+      Service speed +{ServiceSpeedPercent}% per item
+      level.'
+    korean: "\uB2A5\uB825\uC744 \uCD94\uAC00\uD569\uB2C8\uB2E4.\n\uC544\uC774\uD15C
+      \uB808\uBCA8\uB9C8\uB2E4 \uC811\uB300 \uC18D\uB3C4\uAC00 {ServiceSpeedPercent}%
+      \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - key: item.part_display_shelf.name
+    english: Display Shelf
+    korean: "\uC9C4\uC5F4 \uC120\uBC18"
+  - key: item.part_display_shelf.description
+    english: 'Acquire a shop part.
+
+      Visitor chance +{VisitorChance} percentage
+      points per item level.'
+    korean: "\uAC00\uAC8C \uBD80\uD488\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4.\n\uC544\uC774\uD15C
+      \uB808\uBCA8\uB9C8\uB2E4 \uBC29\uBB38 \uD655\uB960\uC774 {VisitorChance}%p
+      \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - key: hex.title
+    english: STACK STORE / HEX WORLD
+    korean: "\uC2A4\uD0DD \uC2A4\uD1A0\uC5B4 / \uC721\uAC01 \uC601\uC5ED"
+  - key: hex.inventory
+    english: TILES & OWNED ITEMS
+    korean: "\uBCF4\uAD00 \uD0C0\uC77C \xB7 \uBCF4\uC720 \uC544\uC774\uD15C"
+  - key: hex.tile.shelf
+    english: Display shelf tile
+    korean: "\uC9C4\uC5F4 \uC120\uBC18 \uD0C0\uC77C"
+  - key: hex.tile.description
+    english: Expand your shop with an adjacent shelf tile.
+    korean: "\uC18C\uC720 \uC601\uC5ED\uC5D0 \uC778\uC811\uD55C \uCE78\uC5D0 \uC9C4\uC5F4
+      \uC120\uBC18 \uD0C0\uC77C\uC744 \uC124\uCE58\uD569\uB2C8\uB2E4."
+  - key: hex.level
+    english: LEVEL {level} / NEXT {next} GOLD
+    korean: "\uB808\uBCA8 {level} / \uB2E4\uC74C \uB808\uBCA8 {next}\uACE8\uB4DC"
+  - key: hex.stock
+    english: '{name}: {stock}
+
+      Owned tiles: {owned}'
+    korean: "{name}: {stock}\uAC1C\n\uC18C\uC720 \uD0C0\uC77C: {owned}\uCE78"
+  - key: hex.service
+    english: Next service {seconds}s / Queue {queue}
+    korean: "\uB2E4\uC74C \uC811\uB300 {seconds}\uCD08 / \uB300\uAE30 {queue}\uBA85"
+  - key: hex.button.build
+    english: BUILD / PAUSE
+    korean: "\uD0C0\uC77C \uBC30\uCE58 \xB7 \uC77C\uC2DC\uC815\uC9C0"
+  - key: hex.button.place
+    english: PLACE
+    korean: "\uC124\uCE58"
+  - key: hex.button.move
+    english: MOVE
+    korean: "\uC774\uB3D9"
+  - key: hex.button.recover
+    english: RECOVER
+    korean: "\uD68C\uC218"
+  - key: hex.button.finish
+    english: FINISH
+    korean: "\uBC30\uCE58 \uC885\uB8CC"
+  - key: hex.help.None
+    english: Only installed tiles belong to you. Expand from your starting shop.
+    korean: "\uBD80\uD488\uC774 \uC124\uCE58\uB41C \uD0C0\uC77C\uB9CC \uC18C\uC720
+      \uC601\uC5ED\uC785\uB2C8\uB2E4. \uC2DC\uC791 \uAC00\uAC8C\uC5D0\uC11C \uC774\uC5B4\uC11C
+      \uD655\uC7A5\uD558\uC138\uC694."
+  - key: hex.help.Place
+    english: 'PAUSED: select a green adjacent cell. Red cells cannot be placed.'
+    korean: "\uC77C\uC2DC\uC815\uC9C0 \uC911 \xB7 \uB179\uC0C9 \uC778\uC811 \uCE78\uC744
+      \uD074\uB9AD\uD574 \uC124\uCE58\uD558\uC138\uC694. \uBE68\uAC04 \uCE78\uC5D0\uB294
+      \uC124\uCE58\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."
+  - key: hex.help.Move
+    english: 'PAUSED: select an installed part, then its new location. Keep the shop
+      connected.'
+    korean: "\uC77C\uC2DC\uC815\uC9C0 \uC911 \xB7 \uC124\uCE58\uB41C \uBD80\uD488\uC744
+      \uC120\uD0DD\uD55C \uD6C4 \uC774\uB3D9\uD560 \uCE78\uC744 \uD074\uB9AD\uD558\uC138\uC694.
+      \uC601\uC5ED\uC740 \uC5F0\uACB0\uB418\uC5B4\uC57C \uD569\uB2C8\uB2E4."
+  - key: hex.help.Recover
+    english: 'PAUSED: click a part to return it to inventory. The starting tile is
+      fixed.'
+    korean: "\uC77C\uC2DC\uC815\uC9C0 \uC911 \xB7 \uBD80\uD488\uC744 \uD074\uB9AD\uD558\uBA74
+      \uBCF4\uAD00\uD568\uC73C\uB85C \uD68C\uC218\uD569\uB2C8\uB2E4. \uC2DC\uC791
+      \uD0C0\uC77C\uC740 \uACE0\uC815\uC785\uB2C8\uB2E4."
+  - key: hex.move.destination
+    english: Select a destination. The original part remains until confirmed.
+    korean: "\uC774\uB3D9\uD560 \uC704\uCE58\uB97C \uC120\uD0DD\uD558\uC138\uC694.
+      \uD655\uC815 \uC804\uAE4C\uC9C0 \uAE30\uC874 \uD0C0\uC77C\uC740 \uC720\uC9C0\uB429\uB2C8\uB2E4."
+  - key: hex.build.success
+    english: Done. The shop remains connected.
+    korean: "\uC644\uB8CC\uD588\uC2B5\uB2C8\uB2E4. \uC18C\uC720 \uC601\uC5ED\uC758
+      \uC5F0\uACB0\uC744 \uC720\uC9C0\uD588\uC2B5\uB2C8\uB2E4."
+  - key: hex.build.invalid
+    english: 'Unavailable: check stock, adjacency, occupied cells and connectivity.'
+    korean: "\uC124\uCE58\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4. \uBCF4\uAD00 \uC218\uB7C9\xB7\uC778\uC811
+      \uC5EC\uBD80\xB7\uBE48 \uCE78\xB7\uC601\uC5ED \uC5F0\uACB0\uC744 \uD655\uC778\uD558\uC138\uC694."
+  - key: hex.camera
+    english: CAMERA
+    korean: "\uCE74\uBA54\uB77C"
+  - key: hex.camera.pitch
+    english: "Viewing angle 25\u201365\xB0"
+    korean: "\uB0B4\uB824\uB2E4\uBCF4\uAE30 \uAC01\uB3C4 25\u201365\xB0"
+  - key: hex.camera.zoom
+    english: "Zoom distance 0.6\u20131.8\xD7"
+    korean: "\uC90C \uAC70\uB9AC 0.6\u20131.8\uBC30"
+  - key: hex.camera.reset
+    english: RESET VIEW
+    korean: "\uC2DC\uC810 \uCD08\uAE30\uD654"
+  - key: hex.camera.help
+    english: 'Scroll: zoom / Right drag: viewing angle / Build mode: simulation paused'
+    korean: "\uD720: \uC90C \xB7 \uC624\uB978\uCABD \uB4DC\uB798\uADF8: \uC2DC\uC120
+      \uB192\uB0AE\uC774 \xB7 \uBC30\uCE58 \uBAA8\uB4DC: \uAC8C\uC784 \uC77C\uC2DC\uC815\uC9C0"
+  - key: hex.test.gold
+    english: 'TEST: GOLD +1'
+    korean: "\uD14C\uC2A4\uD2B8: \uACE8\uB4DC +1"
+  - key: hex.choice.title
+    english: LEVEL UP / CHOOSE ONE
+    korean: "\uB808\uBCA8 \uC0C1\uC2B9 / \uC544\uC774\uD15C \uC120\uD0DD"
+  - key: hex.choice.help
+    english: Gold is retained. Shop parts add a tile to inventory.
+    korean: "\uACE8\uB4DC\uB294 \uC18C\uBE44\uB418\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.
+      \uAC00\uAC8C \uBD80\uD488\uC744 \uC120\uD0DD\uD558\uBA74 \uBCF4\uAD00 \uD0C0\uC77C\uC744
+      \uC5BB\uC2B5\uB2C8\uB2E4."
+  - key: hex.item.title
+    english: "{name}\n{kind} \xB7 LEVEL {level}"
+    korean: "{name}\n{kind} \xB7 \uB808\uBCA8 {level}"
+  - key: hex.item.part.description
+    english: Gain 1 display shelf tile. Visitor chance +{VisitorChance}% per level.
+    korean: "\uC9C4\uC5F4 \uC120\uBC18 \uD0C0\uC77C 1\uAC1C \uD68D\uB4DD. \uB808\uBCA8\uB2F9
+      \uAC00\uAC8C \uBC29\uBB38 \uD655\uB960 +{VisitorChance}%."

@@ -13,10 +13,10 @@ public static class StackStoreUIAuthoring
             Debug.LogWarning("Stop Play mode before installing the UI.");
             return;
         }
-        var asset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/StackStoreUI.prefab");
+        var asset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prototypes/LegacyUGUI/Prefabs/StackStoreUI.prefab");
         if (!asset)
         {
-            Debug.LogError("Assets/Prefabs/StackStoreUI.prefab is missing.");
+            Debug.LogError("Assets/Prototypes/LegacyUGUI/Prefabs/StackStoreUI.prefab is missing.");
             return;
         }
         var existing = Object.FindFirstObjectByType<StackStorePrototype>();

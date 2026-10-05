@@ -3528,6 +3528,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446144739}
   m_CullTransparentMesh: 1
+--- !u!1 &470994305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 470994306}
+  m_Layer: 0
+  m_Name: Food Launch Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &470994306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470994305}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.4, z: -0.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1956033517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &498169179
 GameObject:
   m_ObjectHideFlags: 0
@@ -17656,6 +17687,9 @@ MonoBehaviour:
   browsingQueueChance: 0.35
   browseDecisionSeconds: 3
   maxCustomers: 32
+  waitingRadius: 2.3
+  foodPrefab: {fileID: 179393555836483448, guid: acef92ba81e8c694fa30415fd96f64fd, type: 3}
+  foodOrigin: {fileID: 470994306}
   gold: 0
   level: 1
   earnedGold: 0
@@ -18496,6 +18530,7 @@ Transform:
   m_Children:
   - {fileID: 1378289525}
   - {fileID: 1233022031}
+  - {fileID: 470994306}
   m_Father: {fileID: 1891677114}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1957638743

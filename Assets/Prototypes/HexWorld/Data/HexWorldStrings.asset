@@ -180,8 +180,8 @@ MonoBehaviour:
       Owned tiles: {owned}'
     korean: "{name}: {stock}\uAC1C\n\uC18C\uC720 \uD0C0\uC77C: {owned}\uCE78"
   - key: hex.service
-    english: Next service {seconds}s / Queue {queue}
-    korean: "\uB2E4\uC74C \uC811\uB300 {seconds}\uCD08 / \uB300\uAE30 {queue}\uBA85"
+    english: Next throw {seconds}s / Waiting {queue}
+    korean: "\uB2E4\uC74C \uBC30\uBD80 {seconds}\uCD08 / \uB300\uAE30 {queue}\uBA85"
   - key: hex.button.build
     english: BUILD / PAUSE
     korean: "\uD0C0\uC77C \uBC30\uCE58 \xB7 \uC77C\uC2DC\uC815\uC9C0"

@@ -28,6 +28,10 @@ public sealed class HexPrototype : MonoBehaviour
     [Range(0, 1)] public float directQueueChance = .5f, browsingQueueChance = .35f;
     [Min(.1f)] public float browseDecisionSeconds = 3;
     public int maxCustomers = 32;
+    [Min(2)] public float waitingRadius = 2.3f;
+    public HexFoodProjectile foodPrefab;
+    public Transform foodOrigin;
+    sealed class FoodDelivery { public Guest recipient; public HexFoodProjectile projectile; }
     [SerializeField] int gold, level = 1;
     [SerializeField] long earnedGold;
     [SerializeField] List<HexOwnedItem> ownedItems = new List<HexOwnedItem>();
@@ -42,17 +46,20 @@ public sealed class HexPrototype : MonoBehaviour
     public long NextThreshold => curve.ThresholdForNextLevel(level);
     readonly List<ItemDefinition> offered = new List<ItemDefinition>();
     readonly List<Guest> guests = new List<Guest>();
-    readonly List<Guest> queue = new List<Guest>();
+    readonly List<Guest> waitingGuests = new List<Guest>();
+    readonly List<FoodDelivery> deliveries = new List<FoodDelivery>();
+    long contactSequence;
     float spawnTimer, cooldown, speedBonus, patienceBonus, attractionBonus, beforePause = 1;
     bool paused;
     float temporarySpeedBonus;
     string messageKey = "hex.help.None";
-    enum GuestState { Crossing, Browsing, Approaching, Queue, Leaving }
+    enum GuestState { Crossing, Browsing, Approaching, Waiting, Receiving, Leaving }
     sealed class Guest
     {
         public HexWorldActor view; public GuestState state; public Vector3 destination;
         public float browse, patience, initialPatience, turnTime, targetZ;
         public int direction, originDirection; public bool interested;
+        public int waitingSlot = -1; public long contactOrder;
     }
     public float ServiceInterval => serviceSeconds / Mathf.Max(.1f, 1 + speedBonus + temporarySpeedBonus);
     public int ItemLevel(ItemDefinition item) => ownedItems.Find(x => x.definition == item)?.level ?? 0;
@@ -76,6 +83,10 @@ public sealed class HexPrototype : MonoBehaviour
     {
         LocalizationService.LanguageChanged -= RefreshLanguage;
         if (paused) { Time.timeScale = beforePause; paused = false; }
+    }
+    void OnDestroy()
+    {
+        foreach(var delivery in deliveries)if(delivery.projectile)Destroy(delivery.projectile.gameObject);
     }
     void Pause()
     {
@@ -127,49 +138,89 @@ public sealed class HexPrototype : MonoBehaviour
         }
         if (spawnTimer <= 0 && guests.Count < maxCustomers) { Spawn(); spawnTimer = spawnSeconds; }
         TickGuests(dt); cooldown = Mathf.Max(0, cooldown - dt);
-        if (cooldown <= 0 && queue.Count > 0)
-        {
-            var served = queue[0]; queue.RemoveAt(0); Leave(served, served.originDirection);
-            AddGold(1); cooldown = ServiceInterval;
-        }
+        TickDeliveries(dt);
+        if (cooldown <= 0 && waitingGuests.Count > 0 && foodPrefab && foodOrigin)
+            ThrowFood();
     }
     void Spawn()
     {
-        int direction = UnityEngine.Random.value < .5f ? 1 : -1;
-        var view = Instantiate(customerPrefab, customerRoot);
-        view.transform.position = new Vector3(-direction * 11, .22f, UnityEngine.Random.Range(-6f,6f));
-        bool interested = UnityEngine.Random.value < Mathf.Clamp01(visitorChance + attractionBonus);
-        view.body.color = interested ? Color.HSVToRGB(UnityEngine.Random.value,.36f,.96f) : new Color(0,0,0,.4f);
-        view.waiting = false;
-        view.patienceCanvas.gameObject.SetActive(false);
-        bool browsing = interested && UnityEngine.Random.value >= directQueueChance;
-        var guest = new Guest { view=view, direction=direction, originDirection=direction, interested=interested,
+        int direction=UnityEngine.Random.value<.5f?1:-1;
+        var view=Instantiate(customerPrefab,customerRoot);
+        view.transform.position=new Vector3(-direction*11,.22f,UnityEngine.Random.Range(-6f,6f));
+        bool interested=UnityEngine.Random.value<Mathf.Clamp01(visitorChance+attractionBonus);
+        view.body.color=interested?Color.HSVToRGB(UnityEngine.Random.value,.36f,.96f):new Color(0,0,0,.4f);
+        view.waiting=false;view.patienceCanvas.gameObject.SetActive(false);
+        bool browsing=interested&&UnityEngine.Random.value>=directQueueChance;
+        guests.Add(new Guest{view=view,direction=direction,originDirection=direction,interested=interested,
             state=!interested?GuestState.Crossing:browsing?GuestState.Browsing:GuestState.Approaching,
             browse=Mathf.Max(.1f,browseDecisionSeconds),
-            destination=browsing?new Vector3(-direction*UnityEngine.Random.Range(2.7f,5f),.22f,UnityEngine.Random.Range(-3f,3f)):new Vector3(direction*12,.22f,view.transform.position.z),
-            targetZ=view.transform.position.z };
-        guests.Add(guest);
+            destination=browsing?new Vector3(-direction*UnityEngine.Random.Range(2.7f,5f),.22f,UnityEngine.Random.Range(-3f,3f)):new Vector3(direction*12,.22f,view.transform.position.z),targetZ=view.transform.position.z});
     }
-    Vector3 QueuePosition(int index) => new Vector3(.35f,.22f,-1.65f-index*.85f);
-    void JoinQueue(Guest guest)
+    void ThrowFood()
     {
-        guest.state=GuestState.Queue;
+        Guest recipient=null;
+        foreach(var guest in waitingGuests)
+            if(guest.view&&(recipient==null||guest.contactOrder>recipient.contactOrder))recipient=guest;
+        if(recipient==null)return;
+        waitingGuests.Remove(recipient);recipient.state=GuestState.Receiving;recipient.view.waiting=false;
+        var food=Instantiate(foodPrefab,foodOrigin.position,Quaternion.identity);
+        food.Launch(foodOrigin.position,recipient.view.body.transform);
+        deliveries.Add(new FoodDelivery{recipient=recipient,projectile=food});cooldown=ServiceInterval;
+    }
+    void TickDeliveries(float dt)
+    {
+        for(int i=deliveries.Count-1;i>=0;i--)
+        {
+            var delivery=deliveries[i];
+            if(!delivery.recipient.view||!delivery.projectile)
+            {
+                if(delivery.projectile)Destroy(delivery.projectile.gameObject);
+                waitingGuests.Remove(delivery.recipient);guests.Remove(delivery.recipient);
+                deliveries.RemoveAt(i);continue;
+            }
+            if(!delivery.projectile.Advance(dt))continue;
+            Leave(delivery.recipient,delivery.recipient.originDirection);
+            AddGold(1);Destroy(delivery.projectile.gameObject);deliveries.RemoveAt(i);
+        }
+    }
+    Vector3 WaitingPosition(int slot)
+    {
+        float angle=(slot%12)*Mathf.PI/6;float radius=waitingRadius+(slot/12)*.95f;
+        return new Vector3(Mathf.Cos(angle)*radius,.22f,Mathf.Sin(angle)*radius);
+    }
+    void ReserveWaitingPosition(Guest guest)
+    {
+        if(guest.waitingSlot>=0)return;
+        var used=new HashSet<int>();
+        foreach(var other in guests)if(other!=guest&&other.waitingSlot>=0&&other.state!=GuestState.Leaving)used.Add(other.waitingSlot);
+        float distance=float.PositiveInfinity;
+        for(int slot=0;slot<(guests.Count/12+1)*12;slot++)
+        {
+            if(used.Contains(slot))continue;
+            float candidate=(WaitingPosition(slot)-guest.view.transform.position).sqrMagnitude;
+            if(candidate<distance){distance=candidate;guest.waitingSlot=slot;}
+        }
+    }
+    void JoinWaiting(Guest guest)
+    {
+        guest.state=GuestState.Waiting;
         guest.patience=guest.initialPatience=Mathf.Max(.1f,patienceSeconds+patienceBonus);
         guest.view.patienceFraction=1;
         guest.view.waiting=true;
-        queue.Add(guest);
+        guest.contactOrder=++contactSequence;
+        waitingGuests.Add(guest);
     }
     void TickGuests(float dt)
     {
         for (int i=guests.Count-1;i>=0;i--)
         {
             var guest=guests[i];
-            if(guest.state==GuestState.Queue)
+            if(!guest.view){waitingGuests.Remove(guest);guests.RemoveAt(i);continue;}
+            if(guest.state==GuestState.Waiting)
             {
-                int index=queue.IndexOf(guest);
-                guest.destination=QueuePosition(index);
+                guest.destination=WaitingPosition(guest.waitingSlot);
                 guest.patience-=dt; guest.view.patienceFraction=guest.patience/guest.initialPatience;
-                if(guest.patience<=0){queue.Remove(guest);Leave(guest,guest.originDirection);}
+                if(guest.patience<=0){waitingGuests.Remove(guest);Leave(guest,guest.originDirection);}
             }
             else if(guest.state==GuestState.Browsing)
             {
@@ -189,9 +240,10 @@ public sealed class HexPrototype : MonoBehaviour
             }
             if(guest.state==GuestState.Approaching)
             {
-                guest.destination=QueuePosition(queue.Count);
-                // Travel and browsing do not consume patience; start only at the tail.
-                if(Vector3.Distance(guest.view.transform.position,guest.destination)<.2f) JoinQueue(guest);
+                ReserveWaitingPosition(guest);
+                guest.destination=WaitingPosition(guest.waitingSlot);
+                // First contact is arrival at the reserved position around the shop.
+                if(Vector3.Distance(guest.view.transform.position,guest.destination)<.2f) JoinWaiting(guest);
             }
             else if(guest.state==GuestState.Crossing||guest.state==GuestState.Leaving)
             {
@@ -202,9 +254,9 @@ public sealed class HexPrototype : MonoBehaviour
             }
             Vector3 stepTarget=guest.destination;
             Vector3 position=guest.view.transform.position;
-            // Approach the front of the fixed stall before entering the queue.
-            if((guest.state==GuestState.Queue||guest.state==GuestState.Approaching)&&position.z> -1.55f&&Mathf.Abs(position.x)>1.15f)
-                stepTarget=new Vector3(position.x,.22f,-1.7f);
+            // Keep approach paths outside the fixed stall footprint.
+            if(guest.state==GuestState.Approaching&&Mathf.Sign(position.x)!=Mathf.Sign(guest.destination.x)&&Mathf.Abs(position.z)<1.9f)
+                stepTarget=new Vector3(position.x,.22f,position.z<0?-2f:2f);
             if(guest.state==GuestState.Browsing&&(Mathf.Sign(position.x)!=Mathf.Sign(guest.destination.x)||Mathf.Abs(position.x)<1.9f))
             {
                 // Keep the clearance until the entire stall has been passed, including
@@ -217,14 +269,14 @@ public sealed class HexPrototype : MonoBehaviour
             if((guest.state==GuestState.Crossing||guest.state==GuestState.Leaving)&&Mathf.Abs(position.x)<3&&Mathf.Abs(position.z)<1.7f)
                 stepTarget=new Vector3(position.x+guest.direction*.25f,.22f,position.z<0?-1.9f:1.9f);
             guest.view.transform.position=Vector3.MoveTowards(position,stepTarget,dt*1.9f);
-            guest.view.waiting=guest.state==GuestState.Queue;
+            guest.view.waiting=guest.state==GuestState.Waiting;
             if(guest.state==GuestState.Leaving||guest.state==GuestState.Crossing)
                 if(Mathf.Abs(guest.view.transform.position.x)>11.8f){Destroy(guest.view.gameObject);guests.RemoveAt(i);}
         }
     }
     void Leave(Guest guest,int direction)
     {
-        guest.state=GuestState.Leaving;guest.view.waiting=false;
+        guest.state=GuestState.Leaving;guest.view.waiting=false;guest.waitingSlot=-1;
         guest.destination=new Vector3(direction*12,.22f,guest.view.transform.position.z);guest.direction=direction;
     }
     void OpenChoice()
@@ -286,7 +338,7 @@ public sealed class HexPrototype : MonoBehaviour
         goldLabel.text=LocalizationService.Text("hud.gold","gold",gold);
         levelLabel.text=LocalizationService.Text("hex.level","level",level,"next",NextThreshold,"earned",earnedGold);
         levelBar.fillAmount=Mathf.Clamp01((float)earnedGold/NextThreshold);
-        serviceLabel.text=LocalizationService.Text("hex.service","seconds",cooldown.ToString("0.0",System.Globalization.CultureInfo.InvariantCulture),"queue",queue.Count);
+        serviceLabel.text=LocalizationService.Text("hex.service","seconds",cooldown.ToString("0.0",System.Globalization.CultureInfo.InvariantCulture),"queue",waitingGuests.Count);
         cooldownBar.fillAmount=1-Mathf.Clamp01(cooldown/ServiceInterval);
         tileLabel.text=LocalizationService.Text("hex.stock","name",LocalizationService.Text(board.Selected.nameKey),"stock",board.Model.Stock(board.Selected),"owned",board.Model.OwnedCount);
         statusLabel.text=LocalizationService.Text(messageKey);

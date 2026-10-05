@@ -92,6 +92,7 @@ public static class HexWorldAuthoring
         EditorSceneManager.SaveScene(scene,Root+"/Scenes/HexWorld.unity");AssetDatabase.SaveAssets();
         Debug.Log("HEX_AUTHORING_OK: saved 3D scene, independent art/data, UGUI, prefabs and semantic input.");
         HexShopAuthoring.Upgrade();
+        HexSurroundAuthoring.Upgrade();
     }
     static Material Material(string name,Color color)
     {
@@ -241,7 +242,7 @@ public static class HexWorldAuthoring
         Add("hex.title","STACK STORE / HEX WORLD","스택 스토어 / 육각 영역");Add("hex.inventory","TILES & OWNED ITEMS","보관 타일 · 보유 아이템");
         Add("hex.tile.shelf","Display shelf tile","진열 선반 타일");Add("hex.tile.description","Expand your shop with an adjacent shelf tile.","소유 영역에 인접한 칸에 진열 선반 타일을 설치합니다.");
         Add("hex.level","LEVEL {level} / NEXT {next} GOLD","레벨 {level} / 다음 레벨 {next}골드");Add("hex.stock","{name}: {stock}\nOwned tiles: {owned}","{name}: {stock}개\n소유 타일: {owned}칸");
-        Add("hex.service","Next service {seconds}s / Queue {queue}","다음 접대 {seconds}초 / 대기 {queue}명");
+        Add("hex.service","Next throw {seconds}s / Waiting {queue}","다음 배부 {seconds}초 / 대기 {queue}명");
         Add("hex.button.build","BUILD / PAUSE","타일 배치 · 일시정지");Add("hex.button.place","PLACE","설치");Add("hex.button.move","MOVE","이동");Add("hex.button.recover","RECOVER","회수");Add("hex.button.finish","FINISH","배치 종료");
         Add("hex.help.None","Only installed tiles belong to you. Expand from your starting shop.","부품이 설치된 타일만 소유 영역입니다. 시작 가게에서 이어서 확장하세요.");
         Add("hex.help.Place","PAUSED: select a green adjacent cell. Red cells cannot be placed.","일시정지 중 · 녹색 인접 칸을 클릭해 설치하세요. 빨간 칸에는 설치할 수 없습니다.");

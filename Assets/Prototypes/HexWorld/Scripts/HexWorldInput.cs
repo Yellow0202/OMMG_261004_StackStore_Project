@@ -30,6 +30,7 @@ public sealed class HexWorldInput : MonoBehaviour
     }
     void OnDisable()
     {
+        if(orbit)orbit.IsPanning=false;
         if (!runtimeActions || confirm == null) return;
         confirm.started-=BeginConfirm;confirm.canceled-=Confirm;rotate.started-=BeginOrbit;cancel.performed -= Cancel;pan.started-=BeginPan; runtimeActions.Disable(); Destroy(runtimeActions);confirming=false;
         pointer = confirm = cancel = rotate = delta = zoom = pan = null;
@@ -69,6 +70,7 @@ public sealed class HexWorldInput : MonoBehaviour
     void Update()
     {
         if (pointer == null) return;
+        orbit.IsPanning=pan.IsPressed()&&!panBlocked;
         if(pan.IsPressed())
         {
             Vector2 position=pointer.ReadValue<Vector2>();

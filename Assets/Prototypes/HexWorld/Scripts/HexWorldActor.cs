@@ -24,7 +24,7 @@ public sealed class HexWorldActor : MonoBehaviour
         if (camera)
         {
             patienceCanvas.rotation = camera.transform.rotation;
-            patienceCanvas.position = transform.position + camera.transform.up * 1.5f;
+            patienceCanvas.position = transform.position + Vector3.up * 1.5f;
         }
         bool moving = (transform.position - previous).sqrMagnitude > .000001f;
         if(seated&&seatedFrame)body.sprite=seatedFrame;

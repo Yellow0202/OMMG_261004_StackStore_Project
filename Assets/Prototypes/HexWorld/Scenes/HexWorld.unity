@@ -3469,6 +3469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   floor: 0
   assigned: 1
+  kitchenCell: {x: 0, y: 0}
 --- !u!1001 &433099621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13421,7 +13422,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378289524}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25881907, y: -0, z: -0, w: 0.9659259}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22170,7 +22171,11 @@ MonoBehaviour:
   yaw: 0
   floorOffset: {x: 0, y: 0, z: 0}
   panOffset: {x: 0, y: 0, z: 0}
-  zoomSpeed: 0.0045
+  zoomSpeed: 0.009
+  board: {fileID: 1891677116}
+  panMargin: 3
+  overscroll: 2
+  returnSpeed: 5
 --- !u!81 &2140001300
 AudioListener:
   m_ObjectHideFlags: 0

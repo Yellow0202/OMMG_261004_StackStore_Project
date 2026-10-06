@@ -26,7 +26,7 @@ public static class HexShopPolishAuthoring
         var game=UnityEngine.Object.FindFirstObjectByType<HexPrototype>();
         foreach(var wall in game.GetComponentsInChildren<HexWallView>(true))ConfigureWall(wall,mesh,material);
         if(!game.service.worker.GetComponent<HexKitchenOccupant>())game.service.worker.gameObject.AddComponent<HexKitchenOccupant>();
-        game.orbit.zoomSpeed=.0045f;
+        game.orbit.zoomSpeed=.009f;game.orbit.board=game.board;
         var input=AssetDatabase.LoadAssetAtPath<InputActionAsset>(Root+"/Data/HexWorld.inputactions");
         var map=input.FindActionMap("World",true);
         if(map.FindAction("Pan")==null)map.AddAction("Pan",InputActionType.Button,"<Mouse>/middleButton");

@@ -72,6 +72,18 @@ public sealed class HexFoodService : MonoBehaviour
     bool FindStation(HexNavNode start,out HexNavNode station)
     {
         station=default;int distance=int.MaxValue;
+        var assignment=worker.GetComponent<HexKitchenOccupant>();
+        if(assignment&&assignment.assigned)
+        {
+            var node=new HexNavNode(assignment.floor,assignment.kitchenCell);
+            if(game.board.Layout.floors.ContainsKey(node.floor))
+            {
+                var model=game.board.Layout.Floor(node.floor).model;
+                bool valid=node.floor==0&&node.cell==model.Root||model.Definition(node.cell)?.kind==HexTileKind.Kitchen;
+                if(valid&&game.ServicePath(start,node)!=null){station=node;return true;}
+                if(valid)return false;
+            }
+        }
         foreach(var node in game.board.Layout.OwnedNodes())
         {
             var definition=game.board.Layout.Floor(node.floor).model.Definition(node.cell);
@@ -102,5 +114,5 @@ public sealed class HexFoodService : MonoBehaviour
         }
         else worker.transform.position=Vector3.MoveTowards(Position,spot,dt*walkSpeed);
     }
-    public void UpdateVisibility(){if(worker){var occupant=worker.GetComponent<HexKitchenOccupant>();if(occupant)occupant.floor=Floor;worker.gameObject.SetActive(Floor==game.board.CurrentFloor);}}
+    public void UpdateVisibility(){if(worker)worker.gameObject.SetActive(Floor==game.board.CurrentFloor);}
 }

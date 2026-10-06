@@ -44,7 +44,7 @@ public sealed class HexFoodService : MonoBehaviour
         else if(game.ServiceTarget(targetGuest,out var destination,out var spot))
         {
             AtStation=false;
-            if(layout.Path(current,destination,false,true)==null){returning=true;targetGuest=0;path=null;return;}
+            if(game.ServicePath(current,destination)==null){returning=true;targetGuest=0;path=null;return;}
             Move(destination,spot,dt);
             if(Floor==destination.floor&&Vector3.Distance(Position,spot)<.18f)
             {
@@ -77,7 +77,7 @@ public sealed class HexFoodService : MonoBehaviour
             var definition=game.board.Layout.Floor(node.floor).model.Definition(node.cell);
             bool initial=node.floor==0&&node.cell==game.board.Layout.Floor(0).model.Root;
             if(!initial&&(!definition||definition.kind!=HexTileKind.Kitchen))continue;
-            var route=game.board.Layout.Path(start,node,false,true);
+            var route=game.ServicePath(start,node);
             if(route!=null&&route.Count<distance){distance=route.Count;station=node;}
         }
         return distance<int.MaxValue;
@@ -89,7 +89,7 @@ public sealed class HexFoodService : MonoBehaviour
         if(path==null||revision!=layout.Revision||!goal.Equals(destination))
         {
             goal=destination;revision=layout.Revision;waypoint=0;
-            path=layout.Path(new HexNavNode(Floor,HexShopLayout.Cell(Position)),destination,false,true);
+            path=game.ServicePath(new HexNavNode(Floor,HexShopLayout.Cell(Position)),destination);
         }
         if(path==null)return;
         if(waypoint<path.Count)
@@ -102,5 +102,5 @@ public sealed class HexFoodService : MonoBehaviour
         }
         else worker.transform.position=Vector3.MoveTowards(Position,spot,dt*walkSpeed);
     }
-    public void UpdateVisibility(){if(worker)worker.gameObject.SetActive(Floor==game.board.CurrentFloor);}
+    public void UpdateVisibility(){if(worker){var occupant=worker.GetComponent<HexKitchenOccupant>();if(occupant)occupant.floor=Floor;worker.gameObject.SetActive(Floor==game.board.CurrentFloor);}}
 }

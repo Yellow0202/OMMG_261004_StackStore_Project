@@ -45,6 +45,10 @@ public sealed class HexPrototype : MonoBehaviour
     public int CustomerCount => guests.Count;
     public long NextThreshold => curve.ThresholdForNextLevel(level);
     readonly List<ItemDefinition> offered = new List<ItemDefinition>();
+    readonly List<HexTileDefinition> offeredTiles = new List<HexTileDefinition>();
+    ItemDefinition pendingTileItem;
+    public bool IsChoosingTile => pendingTileItem != null;
+    public IReadOnlyList<HexTileDefinition> OfferedTiles => offeredTiles;
     readonly List<Guest> guests = new List<Guest>();
     readonly List<Guest> waitingGuests = new List<Guest>();
 
@@ -169,7 +173,24 @@ public sealed class HexPrototype : MonoBehaviour
     {
         var cells=new List<Vector2Int>();var model=board.Layout.Floor(0).model;
         foreach(var cell in model.Owned){var definition=model.Definition(cell);if(!definition||definition.kind==HexTileKind.DisplayShelf||definition.kind==HexTileKind.Entrance||definition.kind==HexTileKind.Storage)cells.Add(cell);}
+        // Outdoor service spots must touch an open shop boundary, never an arbitrary exterior cell.
+        var outside=new HashSet<Vector2Int>();
+        foreach(var cell in model.Owned)for(int d=0;d<6;d++)
+        {
+            var neighbour=cell+HexBoardModel.Directions[d];
+            if(!model.IsOwned(neighbour)&&!board.Layout.HasWall(0,cell,d))outside.Add(neighbour);
+        }
+        cells.AddRange(outside);
         cells.Sort((a,b)=>a.x!=b.x?a.x.CompareTo(b.x):a.y.CompareTo(b.y));return cells;
+    }
+    bool HasAvailableTable(HexNavNode start)
+    {
+        foreach(var node in board.Layout.OwnedNodes())
+        {
+            var f=board.Layout.Floor(node.floor);
+            if(f.model.Definition(node.cell)?.kind==HexTileKind.Table&&f.use.TryGetValue(node.cell,out var use)&&use.Count<use.capacity&&board.Layout.Path(start,node)!=null)return true;
+        }
+        return false;
     }
     void ReserveWaitingPosition(Guest guest)
     {
@@ -177,10 +198,13 @@ public sealed class HexPrototype : MonoBehaviour
         var used=new HashSet<int>();
         foreach(var other in guests)if(other!=guest&&other.waitingSlot>=0&&other.state!=GuestState.Leaving)used.Add(other.waitingSlot);
         float distance=float.PositiveInfinity;
+        var start=new HexNavNode(guest.floor,HexShopLayout.Cell(guest.view.transform.position));
+        bool tableAvailable=HasAvailableTable(start);
         for(int slot=0;slot<StandingCells().Count*6;slot++)
         {
             if(used.Contains(slot))continue;
             bool occupied=false;Vector3 spot=WaitingPosition(slot);
+            if(tableAvailable&&!board.Layout.Floor(0).model.IsOwned(HexShopLayout.Cell(spot)))continue;
             foreach(var other in guests)if(other!=guest&&other.view&&(other.state==GuestState.Waiting||other.state==GuestState.Eating)&&Vector3.Distance(other.view.transform.position,spot)<.65f){occupied=true;break;}
             if(occupied)continue;
             float candidate=(WaitingPosition(slot)-guest.view.transform.position).sqrMagnitude;
@@ -213,7 +237,7 @@ public sealed class HexPrototype : MonoBehaviour
             }
             if(guest.state==GuestState.Waiting)
             {
-                guest.destination=guest.hasFacility?board.Layout.SeatPosition(guest.facility,guest.seat):WaitingPosition(guest.waitingSlot);
+                if(guest.hasFacility)guest.destination=board.Layout.SeatPosition(guest.facility,guest.seat);
                 guest.patience-=dt; guest.view.patienceFraction=guest.patience/guest.initialPatience;
                 if(guest.patience<=0){waitingGuests.Remove(guest);Leave(guest,guest.originDirection);}
             }
@@ -312,7 +336,7 @@ public sealed class HexPrototype : MonoBehaviour
         id=0;node=default;Guest oldest=null;
         foreach(var guest in waitingGuests)
         {
-            if(!ServiceTarget(guest.id,out var candidate,out var spot)||board.Layout.Path(start,candidate,false,true)==null)continue;
+            if(!ServiceTarget(guest.id,out var candidate,out var spot)||ServicePath(start,candidate)==null)continue;
             if(oldest==null||guest.contactOrder<oldest.contactOrder){oldest=guest;node=candidate;}
         }
         if(oldest==null)return false;id=oldest.id;return true;
@@ -322,7 +346,15 @@ public sealed class HexPrototype : MonoBehaviour
         node=default;position=default;var guest=guests.Find(g=>g.id==id);
         if(guest==null||!guest.view||guest.state!=GuestState.Waiting)return false;
         position=guest.view.transform.position;node=new HexNavNode(guest.floor,HexShopLayout.Cell(position));
-        return board.Layout.floors.ContainsKey(node.floor)&&board.Layout.Floor(node.floor).model.IsOwned(node.cell);
+        if(!board.Layout.floors.ContainsKey(node.floor))return false;
+        if(board.Layout.Floor(node.floor).model.IsOwned(node.cell))return true;
+        return node.floor==0&&!guest.hasFacility&&guest.waitingSlot>=0&&StandingCells().Contains(node.cell);
+    }
+    public List<HexNavNode> ServicePath(HexNavNode start,HexNavNode destination)
+    {
+        if(!board.Layout.floors.ContainsKey(start.floor)||!board.Layout.floors.ContainsKey(destination.floor))return null;
+        bool interior=board.Layout.Floor(start.floor).model.IsOwned(start.cell)&&board.Layout.Floor(destination.floor).model.IsOwned(destination.cell);
+        return board.Layout.Path(start,destination,false,interior);
     }
     public bool CompleteService(int id,SpriteRenderer mealPrefab)
     {
@@ -339,6 +371,7 @@ public sealed class HexPrototype : MonoBehaviour
     }
     void OpenChoice()
     {
+        pendingTileItem=null;offeredTiles.Clear();
         offered.Clear(); var eligible=new List<ItemDefinition>(); var keys=new HashSet<string>();
         foreach(var item in catalog.items)if(item&&keys.Add(item.key)&&(item.maxLevel<=0||ItemLevel(item)<item.maxLevel))eligible.Add(item);
         while(offered.Count<3&&eligible.Count>0){int index=UnityEngine.Random.Range(0,eligible.Count);offered.Add(eligible[index]);eligible.RemoveAt(index);}
@@ -346,16 +379,35 @@ public sealed class HexPrototype : MonoBehaviour
     }
     public void Choose(int index)
     {
+        if(IsChoosing&&IsChoosingTile)
+        {
+            if(index<0||index>=offeredTiles.Count)return;
+            board.Grant(offeredTiles[index],1);
+            GrantItemInternal(pendingTileItem,false);
+            pendingTileItem=null;offeredTiles.Clear();CloseChoice();return;
+        }
         if(!IsChoosing||index<0||index>=offered.Count)return;
+        if(offered[index].kind==ItemKind.ShopPart)
+        {
+            var unique=new HashSet<string>();var pool=new List<HexTileDefinition>();
+            foreach(var tile in board.tileTypes)if(tile&&unique.Add(tile.key))pool.Add(tile);
+            if(pool.Count>0)
+            {
+                pendingTileItem=offered[index];offeredTiles.Clear();
+                while(offeredTiles.Count<3&&pool.Count>0){int selected=UnityEngine.Random.Range(0,pool.Count);offeredTiles.Add(pool[selected]);pool.RemoveAt(selected);}
+                RefreshCards();return;
+            }
+        }
         GrantItem(offered[index]);CloseChoice();
     }
     public bool CanGrantItem(ItemDefinition item) => item && (item.maxLevel<=0 || ItemLevel(item)<item.maxLevel);
-    public bool GrantItem(ItemDefinition item)
+    public bool GrantItem(ItemDefinition item) => GrantItemInternal(item,true);
+    bool GrantItemInternal(ItemDefinition item,bool grantMappedTile)
     {
         if(!CanGrantItem(item))return false;
         var owned=ownedItems.Find(x=>x.definition==item);
         if(owned==null){owned=new HexOwnedItem{definition=item};ownedItems.Add(owned);}owned.level++;
-        if(item.kind==ItemKind.ShopPart)foreach(var reward in tileRewards)if(reward.item==item)board.Grant(reward.tile,reward.count);
+        if(grantMappedTile&&item.kind==ItemKind.ShopPart)foreach(var reward in tileRewards)if(reward.item==item)board.Grant(reward.tile,reward.count);
         ApplyEffects();RefreshHUD();return true;
     }
     void ApplyEffects()
@@ -371,18 +423,32 @@ public sealed class HexPrototype : MonoBehaviour
         }
         cooldown*=ServiceInterval/oldInterval;
     }
-    public void CloseChoice(){IsChoosing=false;choicePanel.SetActive(false);Resume();RefreshHUD();}
+    public void CloseChoice(){if(IsChoosingTile)return;IsChoosing=false;choicePanel.SetActive(false);Resume();RefreshHUD();}
     void RefreshCards()
     {
+        foreach(var label in choicePanel.GetComponentsInChildren<LocalizedLabel>(true))
+        {
+            if(label.gameObject.name=="Title")label.key=IsChoosingTile?"hex.tile.choice.title":"hex.choice.title";
+            if(label.gameObject.name=="Explanation")label.key=IsChoosingTile?"hex.tile.choice.help":"hex.choice.help";
+            label.GetComponent<Text>().text=LocalizationService.Text(label.key);
+        }
         for(int i=0;i<cards.Length;i++)
         {
-            cards[i].button.gameObject.SetActive(i<offered.Count);
+            int count=IsChoosingTile?offeredTiles.Count:offered.Count;
+            cards[i].button.gameObject.SetActive(i<count);
+            if(IsChoosingTile)
+            {
+                if(i>=count)continue;
+                var tile=offeredTiles[i];cards[i].icon.sprite=tile.icon;
+                cards[i].title.text=LocalizationService.Text(tile.nameKey);
+                cards[i].description.text=LocalizationService.Text(tile.descriptionKey);continue;
+            }
             if(i>=offered.Count)continue;
             var item=offered[i];cards[i].icon.sprite=item.picture;
-            cards[i].title.text=LocalizationService.Text("hex.item.title","name",item.DisplayName,"kind",LocalizationService.Text("item.kind."+item.kind),"level",ItemLevel(item)+1);
-            cards[i].description.text=item.DisplayDescription();
+            cards[i].title.text=LocalizationService.Text("hex.item.title","name",item.kind==ItemKind.ShopPart?LocalizationService.Text("hex.tile.reward.name"):item.DisplayName,"kind",LocalizationService.Text("item.kind."+item.kind),"level",ItemLevel(item)+1);
+            cards[i].description.text=item.kind==ItemKind.ShopPart?LocalizationService.Text("hex.tile.reward.description"):item.DisplayDescription();
         }
-        continueButton.gameObject.SetActive(offered.Count==0);
+        continueButton.gameObject.SetActive(!IsChoosingTile&&offered.Count==0);
     }
     void RefreshLanguage()
     {

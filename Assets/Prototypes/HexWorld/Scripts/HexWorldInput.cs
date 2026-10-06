@@ -9,7 +9,9 @@ public sealed class HexWorldInput : MonoBehaviour
     public HexTileBoard board;
     public HexPrototype game;
     public HexOrbitCamera orbit;
-    InputAction pointer, confirm, cancel, rotate, delta, zoom;
+    InputAction pointer, confirm, cancel, rotate, delta, zoom, pan;
+    Vector2 panPrevious;
+    bool panBlocked;
     InputActionAsset runtimeActions;
     const string Preferences = "StackStore.HexWorld.Bindings";
     readonly List<RaycastResult> hits = new List<RaycastResult>();
@@ -23,13 +25,14 @@ public sealed class HexWorldInput : MonoBehaviour
         pointer = runtimeActions.FindAction("World/Point", true); confirm = runtimeActions.FindAction("World/Confirm", true);
         cancel = runtimeActions.FindAction("World/Cancel", true); rotate = runtimeActions.FindAction("World/Orbit", true);
         delta = runtimeActions.FindAction("World/Look", true); zoom = runtimeActions.FindAction("World/Zoom", true);
+        pan = runtimeActions.FindAction("World/Pan", true); pan.started += BeginPan;
         confirm.started+=BeginConfirm;confirm.canceled+=Confirm;rotate.started+=BeginOrbit;cancel.performed += Cancel; runtimeActions.Enable();
     }
     void OnDisable()
     {
         if (!runtimeActions || confirm == null) return;
-        confirm.started-=BeginConfirm;confirm.canceled-=Confirm;rotate.started-=BeginOrbit;cancel.performed -= Cancel; runtimeActions.Disable(); Destroy(runtimeActions);confirming=false;
-        pointer = confirm = cancel = rotate = delta = zoom = null;
+        confirm.started-=BeginConfirm;confirm.canceled-=Confirm;rotate.started-=BeginOrbit;cancel.performed -= Cancel;pan.started-=BeginPan; runtimeActions.Disable(); Destroy(runtimeActions);confirming=false;
+        pointer = confirm = cancel = rotate = delta = zoom = pan = null;
     }
     public void Rebind(string actionName, int binding, string path)
     {
@@ -51,6 +54,7 @@ public sealed class HexWorldInput : MonoBehaviour
     }
     void BeginConfirm(InputAction.CallbackContext context){confirming=true;gesture.Begin(pointer.ReadValue<Vector2>(),OverUI());}
     void BeginOrbit(InputAction.CallbackContext context){if(!confirming)gesture.Begin(pointer.ReadValue<Vector2>(),OverUI());}
+    void BeginPan(InputAction.CallbackContext context){panPrevious=pointer.ReadValue<Vector2>();panBlocked=OverUI();}
     void Confirm(InputAction.CallbackContext context)
     {
         bool click=confirming&&gesture.Click(pointer.ReadValue<Vector2>());confirming=false;
@@ -65,6 +69,12 @@ public sealed class HexWorldInput : MonoBehaviour
     void Update()
     {
         if (pointer == null) return;
+        if(pan.IsPressed())
+        {
+            Vector2 position=pointer.ReadValue<Vector2>();
+            if(!panBlocked)orbit.Pan(position-panPrevious);
+            panPrevious=position;
+        }
         if(confirming||rotate.IsPressed())
         {
             float movement=gesture.Move(pointer.ReadValue<Vector2>());

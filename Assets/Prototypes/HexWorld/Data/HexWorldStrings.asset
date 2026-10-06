@@ -244,10 +244,10 @@ MonoBehaviour:
     english: RESET VIEW
     korean: "\uC2DC\uC810 \uCD08\uAE30\uD654"
   - key: hex.camera.help
-    english: 'Wheel: zoom / Left drag: viewing angle / Click: tile / Build mode:
-      paused'
+    english: 'Wheel: zoom / Left drag: angle / Middle drag: pan / Click: tile'
     korean: "\uD720: \uC90C \xB7 \uC67C\uCABD \uB4DC\uB798\uADF8: \uC2DC\uC120 \uB192\uB0AE\uC774
-      \xB7 \uD074\uB9AD: \uD0C0\uC77C \uC120\uD0DD \xB7 \uBC30\uCE58 \uC911 \uC77C\uC2DC\uC815\uC9C0"
+      \xB7 \uD720 \uBC84\uD2BC \uB4DC\uB798\uADF8: \uD654\uBA74 \uC774\uB3D9 \xB7
+      \uD074\uB9AD: \uD0C0\uC77C"
   - key: hex.test.gold
     english: 'TEST: GOLD +1'
     korean: "\uD14C\uC2A4\uD2B8: \uACE8\uB4DC +1"
@@ -255,10 +255,10 @@ MonoBehaviour:
     english: LEVEL UP / CHOOSE ONE
     korean: "\uB808\uBCA8 \uC0C1\uC2B9 / \uC544\uC774\uD15C \uC120\uD0DD"
   - key: hex.choice.help
-    english: Gold is retained. Shop parts add a tile to inventory.
+    english: Gold is retained. A tile reward opens three random tile choices.
     korean: "\uACE8\uB4DC\uB294 \uC18C\uBE44\uB418\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.
-      \uAC00\uAC8C \uBD80\uD488\uC744 \uC120\uD0DD\uD558\uBA74 \uBCF4\uAD00 \uD0C0\uC77C\uC744
-      \uC5BB\uC2B5\uB2C8\uB2E4."
+      \uD0C0\uC77C \uBCF4\uC0C1\uC744 \uC120\uD0DD\uD558\uBA74 \uBB34\uC791\uC704
+      \uD0C0\uC77C 3\uC885 \uC911 \uD558\uB098\uB97C \uACE0\uB985\uB2C8\uB2E4."
   - key: hex.item.title
     english: "{name}\n{kind} \xB7 LEVEL {level}"
     korean: "{name}\n{kind} \xB7 \uB808\uBCA8 {level}"
@@ -489,3 +489,19 @@ MonoBehaviour:
       it.
     korean: "\uD50C\uB808\uC774\uC5B4\uAC00 \uC11C \uC788\uB294 \uD0C0\uC77C\uC785\uB2C8\uB2E4.
       \uC774\uB3D9\uD55C \uB4A4 \uC62E\uAE30\uAC70\uB098 \uD68C\uC218\uD558\uC138\uC694."
+  - key: hex.tile.choice.title
+    english: TILE REWARD / CHOOSE ONE
+    korean: "\uD0C0\uC77C \uBCF4\uC0C1 / \uD558\uB098 \uC120\uD0DD"
+  - key: hex.tile.choice.help
+    english: Choose one of three random tiles. Only that tile is added to inventory.
+    korean: "\uBB34\uC791\uC704 \uD0C0\uC77C 3\uC885 \uC911 \uD558\uB098\uB97C \uC120\uD0DD\uD558\uC138\uC694.
+      \uC120\uD0DD\uD55C \uD0C0\uC77C 1\uAC1C\uB9CC \uBCF4\uAD00\uB429\uB2C8\uB2E4."
+  - key: hex.tile.reward.name
+    english: Tile reward
+    korean: "\uD0C0\uC77C \uBCF4\uC0C1"
+  - key: hex.tile.reward.description
+    english: Choose one of three random tiles to expand your shop. The selected part's
+      existing upgrade effect is also applied.
+    korean: "\uBB34\uC791\uC704 \uD0C0\uC77C 3\uC885 \uC911 \uD558\uB098\uB97C \uC120\uD0DD\uD574
+      \uAC00\uAC8C\uB97C \uD655\uC7A5\uD569\uB2C8\uB2E4. \uC120\uD0DD\uD55C \uBD80\uD488\uC758
+      \uAE30\uC874 \uAC15\uD654 \uD6A8\uACFC\uB3C4 \uC801\uC6A9\uB429\uB2C8\uB2E4."

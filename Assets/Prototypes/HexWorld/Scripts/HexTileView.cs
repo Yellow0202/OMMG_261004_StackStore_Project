@@ -11,6 +11,9 @@ public sealed class HexTileView : MonoBehaviour
     public HexWallView[] walls;
     public Canvas labelCanvas;
     public Text label;
+    HexShopLayout layout;
+    int floor;
+    bool owned, kitchenOccupied;
     public void Show(bool owned, HexTileDefinition definition, Color? highlight = null)
     {
         Color color = highlight ?? (owned ? (definition ? definition.color : new Color(.24f,.66f,.58f)) : new Color(.20f,.27f,.33f));
@@ -22,6 +25,7 @@ public sealed class HexTileView : MonoBehaviour
     }
     public void ShowShop(HexShopLayout layout,int floor,bool owned)
     {
+        this.layout=layout;this.floor=floor;this.owned=owned;
         for(int d=0;d<walls.Length;d++)
         {
             var edge=new HexWallEdge(coordinate,d);
@@ -30,9 +34,14 @@ public sealed class HexTileView : MonoBehaviour
         }
         if(!labelCanvas)return;var definition=layout.Floor(floor).model.Definition(coordinate);labelCanvas.gameObject.SetActive(owned&&definition);
         if(!owned||!definition)return;
-        string detail="";if(definition.kind==HexTileKind.Kitchen)detail=LocalizationService.Text("shop.kitchen.empty");
+        kitchenOccupied=HexKitchenOccupant.Present(floor,coordinate);
+        string detail="";if(definition.kind==HexTileKind.Kitchen&&!kitchenOccupied)detail=LocalizationService.Text("shop.kitchen.empty");
         if(layout.Floor(floor).use.TryGetValue(coordinate,out var use))detail=LocalizationService.Text("shop.capacity","count",use.Count,"capacity",use.capacity);
         label.text=LocalizationService.Text(definition.nameKey)+(detail.Length>0?"\n"+detail:"");label.color=definition.kind==HexTileKind.Kitchen?new Color(1,.83f,.28f):Color.white;
     }
-    void LateUpdate(){if(labelCanvas&&Camera.main)labelCanvas.transform.rotation=Camera.main.transform.rotation;}
+    void LateUpdate()
+    {
+        if(labelCanvas&&Camera.main)labelCanvas.transform.rotation=Camera.main.transform.rotation;
+        if(layout!=null&&owned&&layout.Floor(floor).model.Definition(coordinate)?.kind==HexTileKind.Kitchen&&kitchenOccupied!=HexKitchenOccupant.Present(floor,coordinate))ShowShop(layout,floor,owned);
+    }
 }

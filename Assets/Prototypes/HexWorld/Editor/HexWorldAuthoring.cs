@@ -97,6 +97,7 @@ public static class HexWorldAuthoring
         HexUpgradeItemsAuthoring.Upgrade();
         HexShopExpansionAuthoring.Upgrade();
         HexDirectServiceAuthoring.Upgrade();
+        HexShopPolishAuthoring.Upgrade();
     }
     static Material Material(string name,Color color)
     {
@@ -175,6 +176,7 @@ public static class HexWorldAuthoring
         var asset=ScriptableObject.CreateInstance<InputActionAsset>();var map=asset.AddActionMap("World");
         map.AddAction("Point",InputActionType.Value,"<Pointer>/position",expectedControlLayout:"Vector2");map.AddAction("Confirm",InputActionType.Button,"<Mouse>/leftButton");
         map.AddAction("Cancel",InputActionType.Button,"<Keyboard>/escape");map.AddAction("Orbit",InputActionType.Button,"<Mouse>/leftButton");
+        map.AddAction("Pan",InputActionType.Button,"<Mouse>/middleButton");
         map.AddAction("Look",InputActionType.Value,"<Pointer>/delta",expectedControlLayout:"Vector2");map.AddAction("Zoom",InputActionType.Value,"<Mouse>/scroll",expectedControlLayout:"Vector2");
         string path=Root+"/Data/HexWorld.inputactions";File.WriteAllText(path,asset.ToJson());UnityEngine.Object.DestroyImmediate(asset);AssetDatabase.ImportAsset(path);return AssetDatabase.LoadAssetAtPath<InputActionAsset>(path);
     }

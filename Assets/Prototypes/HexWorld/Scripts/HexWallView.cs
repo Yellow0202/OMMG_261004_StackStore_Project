@@ -2,6 +2,8 @@ using UnityEngine;
 public sealed class HexWallView : MonoBehaviour
 {
  public SpriteRenderer image;public BoxCollider obstacle;
- void LateUpdate(){var camera=Camera.main;if(camera&&image)image.sortingOrder=Mathf.Clamp(Mathf.RoundToInt(-Vector3.Dot(camera.transform.forward,transform.position-camera.transform.position)*100),-20000,20000);}
+ public MeshRenderer volume;
+ // Solid walls use the depth buffer rather than an entire sprite's single sorting value.
+ void LateUpdate(){if(volume&&image)image.enabled=false;}
  public void Show(bool visible){gameObject.SetActive(visible);}
 }

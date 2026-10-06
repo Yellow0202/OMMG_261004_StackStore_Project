@@ -354,6 +354,9 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   sprite: {fileID: 7671910990623241182}
   groundAnchor: {fileID: 704495267820194062}
+  pitchFollow: 0.35
+  maximumTilt: 18
+  maximumGroundLean: 0.3
 --- !u!1 &1595749182422263817
 GameObject:
   m_ObjectHideFlags: 0

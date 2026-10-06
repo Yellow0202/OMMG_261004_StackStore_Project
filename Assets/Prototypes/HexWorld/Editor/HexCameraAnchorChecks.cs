@@ -23,7 +23,15 @@ public static class HexCameraAnchorChecks
                 camera.transform.rotation=Quaternion.Euler(pitch,0,0);
                 foreach(var facing in UnityEngine.Object.FindObjectsByType<HexCameraFacingSprite>(FindObjectsSortMode.None))
                 {
-                    facing.FaceCamera();Check(Vector3.Dot(facing.sprite.transform.up,Vector3.up)>.999f,"Billboard leans across a tile at pitch "+pitch);
+                    Vector3 position=facing.sprite.transform.position;
+                    facing.FaceCamera();
+                    float tilt=Vector3.Angle(facing.sprite.transform.up,Vector3.up);
+                    Check(Mathf.Abs(tilt-Mathf.Abs(facing.TiltFor(pitch)))<.01f&&tilt<=facing.maximumTilt+.01f,"Partial pitch or angular cap incorrect");
+                    Check(facing.sprite.transform.position==position,"Pitch moved the bottom pivot");
+                    var spriteBounds=facing.sprite.sprite.bounds;
+                    float reach=Mathf.Max(Mathf.Abs(spriteBounds.min.y),Mathf.Abs(spriteBounds.max.y))*Mathf.Abs(facing.sprite.transform.lossyScale.y);
+                    Check(reach*Mathf.Sin(tilt*Mathf.Deg2Rad)<=facing.maximumGroundLean+.001f,"Billboard extends too far across the ground");
+                    Check(facing.TiltFor(4)<facing.TiltFor(65)&&facing.TiltFor(65)<65,"Billboard does not partially follow pitch");
                 }
                 foreach(var actor in UnityEngine.Object.FindObjectsByType<HexWorldActor>(FindObjectsSortMode.None))
                 {
@@ -48,7 +56,7 @@ public static class HexCameraAnchorChecks
                 marker.Unassign();Check(!HexKitchenOccupant.Present(4,cell),"Unassigned kitchen still staffed");
             }
             finally{UnityEngine.Object.DestroyImmediate(record);}
-            Debug.Log("HEX_CAMERA_ANCHOR_PASS: upright billboards and gauge anchors at4/30/65deg, hard pan cap, fast-to-slow return, zoom settings and persistent assignment independent of position/visibility.");
+            Debug.Log("HEX_CAMERA_ANCHOR_PASS: partial billboard pitch and fixed pivots/ground-lean cap/gauge anchors at4/30/65deg, hard pan cap, fast-to-slow return and persistent assignment.");
         }
         finally
         {

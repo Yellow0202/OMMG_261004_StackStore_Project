@@ -24,6 +24,14 @@ public static class HexShopPolishAuthoring
         PrefabUtility.SaveAsPrefabAsset(prefab,Root+"/Prefabs/HexTile.prefab");PrefabUtility.UnloadPrefabContents(prefab);
         var scene=EditorSceneManager.OpenScene(Root+"/Scenes/HexWorld.unity");
         var game=UnityEngine.Object.FindFirstObjectByType<HexPrototype>();
+        foreach(var facing in game.GetComponentsInChildren<HexCameraFacingSprite>(true))ConfigurePitch(facing);
+        foreach(var name in new[]{"StartingShop","WorldCustomer","ServedMeal","FlyingFood"})
+        {
+            string path=Root+"/Prefabs/"+name+".prefab";
+            var asset=PrefabUtility.LoadPrefabContents(path);
+            foreach(var facing in asset.GetComponentsInChildren<HexCameraFacingSprite>(true))ConfigurePitch(facing);
+            PrefabUtility.SaveAsPrefabAsset(asset,path);PrefabUtility.UnloadPrefabContents(asset);
+        }
         foreach(var wall in game.GetComponentsInChildren<HexWallView>(true))ConfigureWall(wall,mesh,material);
         if(!game.service.worker.GetComponent<HexKitchenOccupant>())game.service.worker.gameObject.AddComponent<HexKitchenOccupant>();
         game.orbit.zoomSpeed=.009f;game.orbit.board=game.board;
@@ -48,6 +56,11 @@ public static class HexShopPolishAuthoring
         var entry=table.entries.Find(e=>e.key==key);
         if(entry==null)table.entries.Add(new TranslationEntry{key=key,english=en,korean=ko});
         else {entry.english=en;entry.korean=ko;}
+    }
+    static void ConfigurePitch(HexCameraFacingSprite facing)
+    {
+        facing.pitchFollow=.35f;facing.maximumTilt=18;facing.maximumGroundLean=.3f;
+        facing.FaceCamera();EditorUtility.SetDirty(facing);
     }
     static void ConfigureWall(HexWallView wall,Mesh mesh,Material material)
     {

@@ -98,6 +98,7 @@ public static class HexWorldAuthoring
         HexShopExpansionAuthoring.Upgrade();
         HexDirectServiceAuthoring.Upgrade();
         HexShopPolishAuthoring.Upgrade();
+        HexTestSettingsAuthoring.Upgrade();
     }
     static Material Material(string name,Color color)
     {

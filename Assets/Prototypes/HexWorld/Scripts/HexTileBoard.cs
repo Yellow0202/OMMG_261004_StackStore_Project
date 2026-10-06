@@ -11,7 +11,7 @@ public sealed class HexTileBoard : MonoBehaviour
     public HexTileView preview;
     public Transform tileRoot;
     public HexTileDefinition[] tileTypes;
-    public int initialStock = 2;
+    [HideInInspector] public int initialStock = 2;
     public HexPrototype game;
     public HexShopLayout Layout { get; private set; }
     public int CurrentFloor { get; private set; }

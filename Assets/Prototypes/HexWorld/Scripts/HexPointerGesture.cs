@@ -8,7 +8,8 @@ public sealed class HexPointerGesture
     public float Move(Vector2 point)
     {
         if(blocked)return 0;
-        if(!Dragging&&(point-start).sqrMagnitude>=64){Dragging=true;float first=point.y-start.y;last=point;return first;}
+        float threshold=HexTestSettings.Current?HexTestSettings.Current.camera.dragThresholdPixels:8;
+        if(!Dragging&&(point-start).sqrMagnitude>=threshold*threshold){Dragging=true;float first=point.y-start.y;last=point;return first;}
         float delta=Dragging?point.y-last.y:0;last=point;return delta;
     }
     public bool Click(Vector2 point){Move(point);return !blocked&&!Dragging;}

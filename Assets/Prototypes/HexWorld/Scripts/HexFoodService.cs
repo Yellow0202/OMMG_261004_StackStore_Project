@@ -12,7 +12,7 @@ public sealed class HexFoodService : MonoBehaviour
     public Image[] gauges;
     public Text[] labels;
     public GameObject[] slotViews;
-    public float walkSpeed=3.8f;
+    [HideInInspector] public float walkSpeed=3.8f;
     public int Floor { get; private set; }
     public readonly HexFoodPreparation Food=new HexFoodPreparation();
     int targetGuest,revision=-1,waypoint;
@@ -24,6 +24,8 @@ public sealed class HexFoodService : MonoBehaviour
     public Vector3 Position=>worker.transform.position;
     public bool Occupies(int floor,Vector2Int cell)=>floor==Floor&&HexShopLayout.Cell(Position)==cell;
 
+    static readonly HexTestSettings.ServiceOptions Defaults=new HexTestSettings.ServiceOptions();
+    HexTestSettings.ServiceOptions Options=>HexTestSettings.Current?HexTestSettings.Current.service:Defaults;
     public void Tick(float dt)
     {
         Food.SetCount(game.FoodPerThrow);
@@ -36,7 +38,7 @@ public sealed class HexFoodService : MonoBehaviour
             if(!FindStation(current,out var station)){AtStation=false;RouteBlocked=true;RefreshGauges();return;}
             RouteBlocked=false;
             Move(station,StationPosition(station),dt);
-            AtStation=Floor==station.floor&&Vector3.Distance(Position,StationPosition(station))<.1f;
+            AtStation=Floor==station.floor&&Vector3.Distance(Position,StationPosition(station))<Options.stationDistance;
             Food.Tick(dt,game.ServiceInterval,AtStation);
             if(AtStation&&Food.ReadySlot()>=0&&game.NextService(current,out targetGuest,out goal))
             {returning=false;path=null;AtStation=false;}
@@ -46,7 +48,7 @@ public sealed class HexFoodService : MonoBehaviour
             AtStation=false;
             if(game.ServicePath(current,destination)==null){returning=true;targetGuest=0;path=null;return;}
             Move(destination,spot,dt);
-            if(Floor==destination.floor&&Vector3.Distance(Position,spot)<.18f)
+            if(Floor==destination.floor&&Vector3.Distance(Position,spot)<Options.arrivalDistance)
             {
                 int slot=Food.ReadySlot();
                 if(slot>=0&&game.CompleteService(targetGuest,servedFoodPrefab))Food.Consume(slot);
@@ -94,7 +96,7 @@ public sealed class HexFoodService : MonoBehaviour
         }
         return distance<int.MaxValue;
     }
-    Vector3 StationPosition(HexNavNode station)=>HexBoardModel.World(station.cell)+new Vector3(0,.22f,-.65f);
+    Vector3 StationPosition(HexNavNode station)=>HexBoardModel.World(station.cell)+Options.stationOffset;
     void Move(HexNavNode destination,Vector3 spot,float dt)
     {
         var layout=game.board.Layout;

@@ -354,6 +354,8 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   sprite: {fileID: 7671910990623241182}
   groundAnchor: {fileID: 704495267820194062}
+  settings: {fileID: 11400000, guid: d0ce53a917136c74bac4638a120e610e, type: 2}
+  overrideSharedVisual: 0
   pitchFollow: 0.35
   maximumTilt: 18
   maximumGroundLean: 0.3

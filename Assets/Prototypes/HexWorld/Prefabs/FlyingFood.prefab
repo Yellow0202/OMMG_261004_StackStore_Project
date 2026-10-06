@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6826128932885814886}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09150164, y: 0, z: 0, w: 0.99580497}
+  m_LocalRotation: {x: 0.15643448, y: 0, z: 0, w: 0.98768836}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -103,6 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   sprite: {fileID: 6761219532464195429}
   groundAnchor: {fileID: 966610553569795579}
+  settings: {fileID: 11400000, guid: d0ce53a917136c74bac4638a120e610e, type: 2}
+  overrideSharedVisual: 0
   pitchFollow: 0.35
   maximumTilt: 18
   maximumGroundLean: 0.3

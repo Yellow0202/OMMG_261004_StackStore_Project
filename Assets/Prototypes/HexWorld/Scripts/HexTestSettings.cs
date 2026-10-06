@@ -1,0 +1,83 @@
+using System;
+using UnityEngine;
+
+/// <summary>Authoring data only. Wallets, guests, inventory and cooking progress remain runtime state.</summary>
+[CreateAssetMenu(menuName="Stack Store/Hex World/Test Settings")]
+public sealed class HexTestSettings : ScriptableObject
+{
+    public static HexTestSettings Current { get; internal set; }
+    [Header("카메라 / 즉시 반영")] public CameraOptions camera = new CameraOptions();
+    [Header("2D 표시 / 즉시 반영")] public VisualOptions visual = new VisualOptions();
+    [Header("손님 / 속도는 즉시, 생성·예약 값은 다음 대상부터")] public GuestOptions guests = new GuestOptions();
+    [Header("접객 / 준비 속도 즉시, 대기 시간은 다음 손님부터")] public ServiceOptions service = new ServiceOptions();
+    [Header("시작 조건 / 다음 Play부터")] public StartOptions start = new StartOptions();
+    [Header("데이터 원본 / 아래 Inspector에서 펼쳐 편집")]
+    public GoldLevelCurve levelCurve;
+    public ItemCatalog itemCatalog;
+    public HexTileDefinition[] tileTypes;
+    public HexShopOffer[] shopOffers;
+
+    [Serializable] public sealed class CameraOptions
+    {
+        [Range(0,89)] public float minimumPitch=4,maximumPitch=50,initialPitch=30;
+        [Min(.1f)] public float baseDistance=18,minimumZoom=.6f,maximumZoom=1.8f,initialZoom=1;
+        [Range(-180,180)] public float yaw;
+        [Range(10,100)] public float fieldOfView=60;
+        [Min(0)] public float zoomSpeed=.009f,orbitSensitivity=.15f,panMargin=3,overscroll=2;
+        [Min(.1f)] public float returnSpeed=5;
+        [Min(0)] public float focusHeight=.3f;
+        [Min(1)] public float dragThresholdPixels=8;
+    }
+    [Serializable] public sealed class VisualOptions
+    {
+        [Range(0,1)] public float pitchFollow=.35f;
+        [Range(0,30)] public float maximumTilt=18;
+        [Min(0)] public float maximumGroundLean=.3f,gaugeHeight=1.5f,walkFramesPerSecond=7;
+        [Min(.001f)] public float outlineWidth=.035f,wallThickness=.24f,wallHeight=1.125f;
+        public Color unresponsiveColor=new Color(0,0,0,.4f);
+        [Range(0,1)] public float customerSaturation=.36f,customerBrightness=.96f;
+    }
+    [Serializable] public sealed class GuestOptions
+    {
+        [Min(.01f)] public float spawnSeconds=1.155f;
+        [Min(0)] public int maxCustomers=32;
+        [Range(0,1)] public float visitorChance=.4f,directQueueChance=.5f,browsingQueueChance=.35f,lodgingChance=.25f;
+        [Min(.1f)] public float browseDecisionSeconds=3,fullAreaRetrySeconds=.5f;
+        [Min(.01f)] public float walkSpeed=1.9f;
+        [Tooltip("생성·퇴장 경계 / 월드 단위")][Min(1)] public float spawnX=11,destinationX=12,despawnX=11.8f;
+        [Min(0)] public float spawnZ=6,browseZ=3;
+        public Vector2 browseX=new Vector2(2.7f,5),turnSeconds=new Vector2(1,3);
+        [Min(0)] public float verticalDeviation=1,verticalSpeed=.5f,stallClearance=1.6f;
+        [Range(1,12)] public int standingSlotsPerCell=6;
+        [Min(0)] public float standingRadius=.8f,separation=.65f;
+        [Min(.001f)] public float contactDistance=.2f,waypointDistance=.05f;
+        public float groundHeight=.22f;
+    }
+    [Serializable] public sealed class ServiceOptions
+    {
+        [Min(.1f)] public float preparationSeconds=5,patienceSeconds=10,walkSpeed=3.8f,eatingSeconds=3.5f;
+        [Range(1,4)] public int baseFoodCount=1;
+        [Min(0)] public int standingGold=1;
+        public Vector3 stationOffset=new Vector3(0,.22f,-.65f);
+        [Min(.001f)] public float stationDistance=.1f,arrivalDistance=.18f,deliveryDistance=.25f;
+        [Min(0)] public float mealRadius=.4f,mealHeight=1.4f;
+    }
+    [Serializable] public sealed class StartOptions
+    {
+        [Min(0)] public int gold,tilesPerType=2;
+        [Min(1)] public int level=1;
+        [Range(1,3)] public int rewardChoices=3;
+    }
+    void OnValidate()
+    {
+        camera.maximumPitch=Mathf.Max(camera.minimumPitch,camera.maximumPitch);
+        camera.maximumZoom=Mathf.Max(camera.minimumZoom,camera.maximumZoom);
+        camera.initialPitch=Mathf.Clamp(camera.initialPitch,camera.minimumPitch,camera.maximumPitch);
+        camera.initialZoom=Mathf.Clamp(camera.initialZoom,camera.minimumZoom,camera.maximumZoom);
+        guests.browseX=new Vector2(Mathf.Max(0,guests.browseX.x),Mathf.Max(guests.browseX.x,guests.browseX.y));
+        guests.turnSeconds=new Vector2(Mathf.Max(.01f,guests.turnSeconds.x),Mathf.Max(.01f,Mathf.Max(guests.turnSeconds.x,guests.turnSeconds.y)));
+        guests.despawnX=Mathf.Max(guests.spawnX+.1f,guests.despawnX);
+        guests.destinationX=Mathf.Max(guests.despawnX+.1f,guests.destinationX);
+        service.deliveryDistance=Mathf.Max(service.arrivalDistance,service.deliveryDistance);
+    }
+}

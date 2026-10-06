@@ -6,19 +6,25 @@ public sealed class HexCameraFacingSprite : MonoBehaviour
 {
     public SpriteRenderer sprite;
     public Transform groundAnchor;
+    public HexTestSettings settings;
+    public bool overrideSharedVisual;
+    HexTestSettings Shared => HexTestSettings.Current?HexTestSettings.Current:settings;
     [Range(0,1)] public float pitchFollow = .35f;
     [Range(0,30)] public float maximumTilt = 18;
     [Min(0)] public float maximumGroundLean = .3f;
     public float TiltFor(float cameraPitch)
     {
-        float limit=maximumTilt;
+        var common=Shared;
+        float follow=!overrideSharedVisual&&common?common.visual.pitchFollow:pitchFollow;
+        float lean=!overrideSharedVisual&&common?common.visual.maximumGroundLean:maximumGroundLean;
+        float limit=!overrideSharedVisual&&common?common.visual.maximumTilt:maximumTilt;
         if(sprite&&sprite.sprite)
         {
             var bounds=sprite.sprite.bounds;
             float reach=Mathf.Max(Mathf.Abs(bounds.min.y),Mathf.Abs(bounds.max.y))*Mathf.Abs(sprite.transform.lossyScale.y);
-            if(reach>.0001f)limit=Mathf.Min(limit,Mathf.Asin(Mathf.Clamp01(maximumGroundLean/reach))*Mathf.Rad2Deg);
+            if(reach>.0001f)limit=Mathf.Min(limit,Mathf.Asin(Mathf.Clamp01(lean/reach))*Mathf.Rad2Deg);
         }
-        return Mathf.Clamp(cameraPitch*pitchFollow,-limit,limit);
+        return Mathf.Clamp(cameraPitch*follow,-limit,limit);
     }
     public void FaceCamera()
     {

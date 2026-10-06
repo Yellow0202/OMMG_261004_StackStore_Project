@@ -51,7 +51,7 @@ public sealed class HexOrbitCamera : MonoBehaviour
     }
     public void SetPitch(float value) { pitch = Mathf.Clamp(value, minimumPitch, maximumPitch); }
     public void SetZoom(float value) { zoom = Mathf.Clamp(value, minimumZoom, maximumZoom); }
-    public void Orbit(float delta) { SetPitch(pitch + delta * .15f); }
+    public void Orbit(float delta) { SetPitch(pitch + delta * (HexTestSettings.Current?HexTestSettings.Current.camera.orbitSensitivity:.15f)); }
     public void Scroll(float delta) { SetZoom(zoom - delta * zoomSpeed); }
     public void Pan(Vector2 pixels)
     {
@@ -62,13 +62,13 @@ public sealed class HexOrbitCamera : MonoBehaviour
         panOffset -= (right * pixels.x + forward * pixels.y) * scale;
         bool held=IsPanning;IsPanning=true;ConstrainPan(0);IsPanning=held;
     }
-    public void ResetView() { pitch = 30; yaw = 0; zoom = 1; panOffset = Vector3.zero; }
+    public void ResetView() { var c=HexTestSettings.Current?HexTestSettings.Current.camera:null;pitch=c!=null?c.initialPitch:30;yaw=c!=null?c.yaw:0;zoom=c!=null?c.initialZoom:1;panOffset = Vector3.zero; }
     void LateUpdate()
     {
         if (!target) return;
         SetPitch(pitch); SetZoom(zoom);
         ConstrainPan(Time.unscaledDeltaTime);
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
-        transform.SetPositionAndRotation(target.position + floorOffset + panOffset + Vector3.up * .3f - rotation * Vector3.forward * baseDistance * zoom, rotation);
+        transform.SetPositionAndRotation(target.position + floorOffset + panOffset + Vector3.up * (HexTestSettings.Current?HexTestSettings.Current.camera.focusHeight:.3f) - rotation * Vector3.forward * baseDistance * zoom, rotation);
     }
 }

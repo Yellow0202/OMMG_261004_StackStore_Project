@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad0c25217215da24eacc0a86ff6e33e8, type: 3}
+  m_Name: PrototypeTestSettings_Baseline
+  m_EditorClassIdentifier:
+  camera:
+    minimumPitch: 4
+    maximumPitch: 50
+    initialPitch: 30
+    baseDistance: 18
+    minimumZoom: 0.6
+    maximumZoom: 1.8
+    initialZoom: 1
+    yaw: 0
+    fieldOfView: 48
+    zoomSpeed: 0.009
+    orbitSensitivity: 0.15
+    panMargin: 3
+    overscroll: 2
+    returnSpeed: 5
+    focusHeight: 0.3
+    dragThresholdPixels: 8
+  visual:
+    pitchFollow: 0.65
+    maximumTilt: 18
+    maximumGroundLean: 0.3
+    gaugeHeight: 1.5
+    walkFramesPerSecond: 7
+    outlineWidth: 0.035
+    wallThickness: 0.24
+    wallHeight: 1.125
+    unresponsiveColor: {r: 0, g: 0, b: 0, a: 0.4}
+    customerSaturation: 0.36
+    customerBrightness: 0.96
+  guests:
+    spawnSeconds: 1.155
+    maxCustomers: 32
+    visitorChance: 0.4
+    directQueueChance: 0.5
+    browsingQueueChance: 0.35
+    lodgingChance: 0.25
+    browseDecisionSeconds: 3
+    fullAreaRetrySeconds: 0.5
+    walkSpeed: 1.9
+    spawnX: 11
+    destinationX: 12
+    despawnX: 11.8
+    spawnZ: 6
+    browseZ: 3
+    browseX: {x: 2.7, y: 5}
+    turnSeconds: {x: 1, y: 3}
+    verticalDeviation: 1
+    verticalSpeed: 0.5
+    stallClearance: 1.6
+    standingSlotsPerCell: 6
+    standingRadius: 0.8
+    separation: 0.65
+    contactDistance: 0.2
+    waypointDistance: 0.05
+    groundHeight: 0.22
+  service:
+    preparationSeconds: 5
+    patienceSeconds: 10
+    walkSpeed: 3.8
+    eatingSeconds: 3.5
+    baseFoodCount: 1
+    standingGold: 1
+    stationOffset: {x: 0, y: 0.22, z: -0.65}
+    stationDistance: 0.1
+    arrivalDistance: 0.18
+    deliveryDistance: 0.25
+    mealRadius: 0.4
+    mealHeight: 1.4
+  start:
+    gold: 0
+    tilesPerType: 2
+    level: 1
+    rewardChoices: 3
+  levelCurve: {fileID: 11400000, guid: 6dd48fbd70d0ec742a9b7eaaf56ed9ac, type: 2}
+  itemCatalog: {fileID: 11400000, guid: 201f324cb3f56114393cd2c3a8e6c2f7, type: 2}
+  tileTypes:
+  - {fileID: 11400000, guid: e5fdffdf975192e4098801e0bb870a30, type: 2}
+  - {fileID: 11400000, guid: e0d30177d6f7b284886750d3a2afd610, type: 2}
+  - {fileID: 11400000, guid: 933af627c5d188c4396c7c21dacadd5d, type: 2}
+  - {fileID: 11400000, guid: 90d02aebbd6327c4eb97c4a2e064e144, type: 2}
+  - {fileID: 11400000, guid: 401647cd058cc7749aae0a8e2dedebef, type: 2}
+  - {fileID: 11400000, guid: 2ad403f49e413a8428a98962f56760f4, type: 2}
+  - {fileID: 11400000, guid: 928ccc7863d0eb04e9f0482593ab314a, type: 2}
+  shopOffers:
+  - {fileID: 11400000, guid: bfd45856f4c17a74ebd6fb46743d1b12, type: 2}
+  - {fileID: 11400000, guid: 885968acc8dee3d46b489a257aeb2c3d, type: 2}
+  - {fileID: 11400000, guid: a267f4d2f7efb7a4daa55ba557ea59e0, type: 2}

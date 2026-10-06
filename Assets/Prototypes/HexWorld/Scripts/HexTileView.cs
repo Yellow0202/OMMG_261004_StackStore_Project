@@ -41,6 +41,7 @@ public sealed class HexTileView : MonoBehaviour
     }
     void LateUpdate()
     {
+        if(outline&&HexTestSettings.Current)outline.widthMultiplier=HexTestSettings.Current.visual.outlineWidth;
         if(labelCanvas&&Camera.main)labelCanvas.transform.rotation=Camera.main.transform.rotation;
         if(layout!=null&&owned&&layout.Floor(floor).model.Definition(coordinate)?.kind==HexTileKind.Kitchen&&kitchenOccupied!=HexKitchenOccupant.Present(floor,coordinate))ShowShop(layout,floor,owned);
     }

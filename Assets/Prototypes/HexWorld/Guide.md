@@ -23,7 +23,7 @@
 ## 카메라와 캐릭터
 
 - 3D 공간의 육각 좌표 위에 캐릭터와 가게·부품 건물 모두 2D 스프라이트로 배치했습니다. 캐릭터는 임시 두 프레임 걷기 모션을 사용합니다.
-- 초기 카메라는 가게 정면(좌우 회전 0°)에서 30°로 내려다봅니다. 왼쪽 마우스 버튼을 누른 채 위·아래로 드래그하거나 슬라이더로 4°부터 65°까지 조절합니다. 좌우 회전은 고정입니다.
+- 초기 카메라는 가게 정면(좌우 회전 0°)에서 30°로 내려다봅니다. 왼쪽 마우스 버튼을 누른 채 위·아래로 드래그하거나 슬라이더로 4°부터 50°까지 조절합니다. 좌우 회전은 고정입니다.
 - 휠 또는 슬라이더로 기본 거리의 0.6–1.8배까지 조절합니다. 휠 줌 속도는 최초의 6배(직전 버전의 2배)이며 Camera의 Zoom Speed에서 조절합니다. 휠 버튼(가운데 버튼)을 누른 채 드래그하면 반대 방향으로 화면 중심을 이동합니다. **시점 초기화**로 이동과 각도·줌을 복원합니다.
 - 캐릭터와 건물은 하단 피벗으로 바닥 기준 위치를 유지하고, 그림 면 전체를 카메라에 맞춰 정렬합니다. 각도가 높아져도 그림이 얇아지거나 세로로 눌리지 않습니다. 지면 그림자와 바닥 기준 깊이 정렬을 함께 사용하며 손님 게이지는 그림 위에 유지합니다.
 - `Art/ShopFront.png`, `ShelfFront.png`는 교체 가능한 정면 임시 아트입니다. 새 이미지를 사용할 때 하단 피벗과 크기를 맞춥니다. `HexCameraFacingSprite`가 에디터와 Play 양쪽에서 시점을 정렬합니다.
@@ -119,7 +119,7 @@
 - 벽은 두께 0.24의 6면 메시로 저장했습니다. 앞뒤는 기존 픽셀 벽 문양, 옆면은 어두운 색, 윗면은 밝은 색으로 표시합니다. 불투명 재질이 실제 깊이를 기록하므로 최대 내려다보기에서 벽 스프라이트 전체가 가구 위로 잘못 정렬되는 문제를 방지합니다. 캐릭터와 가구의 2D 스프라이트는 유지합니다.
 - 주방에 플레이어 또는 직원이 할당되어 있으면 직원 미배치 문구를 숨깁니다. 배달 이동이나 층 표시 변경은 할당을 해제하지 않습니다. 플레이어는 초기 가판대(전환된 주방)에 기본 할당되며, `HexKitchenOccupant.Assign(floor, cell)` / `Unassign()`으로 추후 직원 배치·해제 UI를 연결할 수 있습니다. 조리 시 할당된 위치를 우선 사용합니다. 실제 직원 획득·배치 UI는 아직 없습니다.
 - 레벨업에서 가게 부품 보상을 선택하면 무작위로 서로 다른 타일 최대 3종을 같은 UGUI 카드에서 제시합니다. 현재는 7종 중 3종이며, 종류가 늘어나면 `HexTileBoard.Tile Types` 목록에서 자동으로 후보를 구성합니다. 최종 선택한 타일 1개만 보관함에 들어가고 그때 게임이 재개됩니다. 상점에서 특정 부품을 구매하는 기존 방식은 유지합니다.
-- 가운데 버튼 화면 이동은 `World/Pan` 입력 액션입니다. 기능 단위 재바인딩과 UI 위에서 시작한 조작 제외를 유지합니다. 왼쪽 드래그는 시점 높낮이, 가운데 드래그는 바닥 평면상의 이동이며 줌 한계와 시점 4~65도는 같습니다.
+- 가운데 버튼 화면 이동은 `World/Pan` 입력 액션입니다. 기능 단위 재바인딩과 UI 위에서 시작한 조작 제외를 유지합니다. 왼쪽 드래그는 시점 높낮이, 가운데 드래그는 바닥 평면상의 이동이며 줌 한계와 시점 4~50도는 같습니다.
 
 자산: `Art/SolidWallMesh.asset`, `Art/SolidWall.mat`, `Art/SolidWall.shader`. 검증 메뉴: **Validate Solid Walls And Camera Assets**.
 화면 기록: [두께가 있는 벽의 낮은 시점](Documentation/Screenshots/27-Solid-Walls-Low-View.png), [최대 내려다보기](Documentation/Screenshots/28-Solid-Walls-High-View.png), [외부 접객](Documentation/Screenshots/29-Outdoor-Service.png), [플레이어가 있는 주방](Documentation/Screenshots/30-Occupied-Converted-Kitchen.png), [무작위 타일 선택](Documentation/Screenshots/31-Random-Tile-Rewards.png).
@@ -135,3 +135,5 @@
 화면 기록: [최대 시점의 위치 고정](Documentation/Screenshots/33-Upright-High-View.png), [착석 손님·게이지·테이블](Documentation/Screenshots/37-Anchored-Seated-Guest.png), [할당된 주방](Documentation/Screenshots/35-Assigned-Kitchen.png).
 
 부분 기울기 조정 (2026-10-06): 각 `HexCameraFacingSprite`의 `Pitch Follow`, `Maximum Tilt`, `Maximum Ground Lean`에서 추종 비율과 두 상한을 편집합니다. 각도 상한과 바닥 이동 상한 중 먼저 도달하는 제한을 적용합니다. 캐릭터·가구·음식 프리팹과 씬에 기본 설정을 저장했습니다.
+
+현재 내려다보기 최대값은 Rotation X 50°입니다. 과거 65° 화면·검증 기록은 변화 기록으로 보존합니다.

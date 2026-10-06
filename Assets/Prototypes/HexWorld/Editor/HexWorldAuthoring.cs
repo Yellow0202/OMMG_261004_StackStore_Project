@@ -216,7 +216,7 @@ public static class HexWorldAuthoring
         game.tileLabel=Label("Tile Stock",left,new Vector2(0,67),new Vector2(278,58),17);game.inventoryLabel=Label("Owned Items",left,new Vector2(0,-30),new Vector2(278,122),17);game.inventoryLabel.alignment=TextAnchor.UpperLeft;
         game.buildButton=Button("Build",left,new Vector2(0,-118),new Vector2(270,40),"hex.button.build");
         var right=Panel("Camera Controls",root.transform,new Vector2(650,-270),new Vector2(250,290),Navy);Label("Title",right,new Vector2(0,112),new Vector2(210,32),20,"hex.camera");
-        Label("Pitch",right,new Vector2(0,74),new Vector2(210,26),16,"hex.camera.pitch");game.pitchSlider=Slider("Pitch Slider",right,new Vector2(0,40),25,65,30);
+        Label("Pitch",right,new Vector2(0,74),new Vector2(210,26),16,"hex.camera.pitch");game.pitchSlider=Slider("Pitch Slider",right,new Vector2(0,40),4,50,30);
         Label("Zoom",right,new Vector2(0,2),new Vector2(210,26),16,"hex.camera.zoom");game.zoomSlider=Slider("Zoom Slider",right,new Vector2(0,-32),.6f,1.8f,1);
         game.resetCameraButton=Button("Reset Camera",right,new Vector2(0,-100),new Vector2(210,38),"hex.camera.reset");
         var service=Panel("Service Status",root.transform,new Vector2(0,-365),new Vector2(560,100),Navy);game.serviceLabel=Label("Service",service,new Vector2(0,15),new Vector2(520,34),18);game.cooldownBar=Gauge("Cooldown",service,new Vector2(0,-20),new Vector2(510,10));
@@ -256,7 +256,7 @@ public static class HexWorldAuthoring
         Add("hex.help.Recover","PAUSED: click a part to return it to inventory. The starting tile is fixed.","일시정지 중 · 부품을 클릭하면 보관함으로 회수합니다. 시작 타일은 고정입니다.");
         Add("hex.move.destination","Select a destination. The original part remains until confirmed.","이동할 위치를 선택하세요. 확정 전까지 기존 타일은 유지됩니다.");
         Add("hex.build.success","Done. The shop remains connected.","완료했습니다. 소유 영역의 연결을 유지했습니다.");Add("hex.build.invalid","Unavailable: check stock, adjacency, occupied cells and connectivity.","설치할 수 없습니다. 보관 수량·인접 여부·빈 칸·영역 연결을 확인하세요.");
-        Add("hex.camera","CAMERA","카메라");Add("hex.camera.pitch","Viewing angle 25–65°","내려다보기 각도 25–65°");Add("hex.camera.zoom","Zoom distance 0.6–1.8×","줌 거리 0.6–1.8배");Add("hex.camera.reset","RESET VIEW","시점 초기화");
+        Add("hex.camera","CAMERA","카메라");Add("hex.camera.pitch","Viewing angle 4–50°","내려다보기 각도 4–50°");Add("hex.camera.zoom","Zoom distance 0.6–1.8×","줌 거리 0.6–1.8배");Add("hex.camera.reset","RESET VIEW","시점 초기화");
         Add("hex.camera.help","Scroll: zoom / Right drag: viewing angle / Build mode: simulation paused","휠: 줌 · 오른쪽 드래그: 시선 높낮이 · 배치 모드: 게임 일시정지");
         Add("hex.test.gold","TEST: GOLD +1","테스트: 골드 +1");Add("hex.choice.title","LEVEL UP / CHOOSE ONE","레벨 상승 / 아이템 선택");
         Add("hex.choice.help","Gold is retained. Shop parts add a tile to inventory.","골드는 소비되지 않습니다. 가게 부품을 선택하면 보관 타일을 얻습니다.");

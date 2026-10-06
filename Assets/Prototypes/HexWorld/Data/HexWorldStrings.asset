@@ -235,8 +235,8 @@ MonoBehaviour:
     english: CAMERA
     korean: "\uCE74\uBA54\uB77C"
   - key: hex.camera.pitch
-    english: "Viewing angle 4\u201365\xB0"
-    korean: "\uB0B4\uB824\uB2E4\uBCF4\uAE30 \uAC01\uB3C4 4\u201365\xB0"
+    english: "Viewing angle 4\u201350\xB0"
+    korean: "\uB0B4\uB824\uB2E4\uBCF4\uAE30 \uAC01\uB3C4 4\u201350\xB0"
   - key: hex.camera.zoom
     english: "Zoom distance 0.6\u20131.8\xD7"
     korean: "\uC90C \uAC70\uB9AC 0.6\u20131.8\uBC30"

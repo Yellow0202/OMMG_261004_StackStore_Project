@@ -6172,7 +6172,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB0B4\uB824\uB2E4\uBCF4\uAE30 \uAC01\uB3C4 0\u201365\xB0"
+  m_Text: "\uB0B4\uB824\uB2E4\uBCF4\uAE30 \uAC01\uB3C4 4\u201350\xB0"
 --- !u!222 &659901448
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22004,7 +22004,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 792828891}
   m_Direction: 0
   m_MinValue: 4
-  m_MaxValue: 65
+  m_MaxValue: 50
   m_WholeNumbers: 0
   m_Value: 30
   m_OnValueChanged:
@@ -22169,7 +22169,7 @@ MonoBehaviour:
   target: {fileID: 229982671}
   pitch: 30
   minimumPitch: 4
-  maximumPitch: 65
+  maximumPitch: 50
   baseDistance: 18
   zoom: 1
   minimumZoom: 0.6

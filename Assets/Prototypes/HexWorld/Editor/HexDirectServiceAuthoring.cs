@@ -23,7 +23,7 @@ public static class HexDirectServiceAuthoring
         Add("service.ready","READY","준비 완료");Add("service.cooking","PREPARING","준비 중");Add("service.paused","AT STATION","현장 준비 대기");Add("service.blocked","CHECK ROUTE","통로 확인");
         Add("service.summary","Waiting {queue} / Ready {ready} of {count}","배달 대기 {queue}명 / 준비 {ready}·{count}개");
         Add("service.build.worker","The worker is on this tile. Wait until they leave before moving or recovering it.","플레이어가 서 있는 타일입니다. 이동한 뒤 옮기거나 회수하세요.");
-        Add("hex.camera.pitch","Viewing angle 4–65°","내려다보기 각도 4–65°");
+        Add("hex.camera.pitch","Viewing angle 4–50°","내려다보기 각도 4–50°");
         Add("hex.camera.help","Wheel: zoom / Left drag: viewing angle / Click: tile / Build mode: paused","휠: 줌 · 왼쪽 드래그: 시선 높낮이 · 클릭: 타일 선택 · 배치 중 일시정지");
         Add("hex.help.Walls","Select an owned tile. Green + builds; red − removes a wall.","소유 타일 선택 · 외곽의 녹색 +는 벽 설치, 빨간 −는 벽 철거입니다.");
         Add("hex.item.extra_servings.description","Prepare +{FoodThrowCount} additional dish per level. Each dish has its own gauge. MAX 3.","레벨당 준비 가능한 음식 +{FoodThrowCount}개. 음식마다 준비 게이지를 따로 관리합니다. 최대 3레벨.");
@@ -62,7 +62,7 @@ public static class HexDirectServiceAuthoring
         edge.board=game.board;foreach(var button in edge.buttons)button.gameObject.SetActive(false);foreach(var line in edge.connectors)line.gameObject.SetActive(false);edge.transform.SetSiblingIndex(game.choicePanel.transform.GetSiblingIndex());existing.SetSiblingIndex(game.choicePanel.transform.GetSiblingIndex());
         var buildings=UnityEngine.Object.FindFirstObjectByType<HexShopBuildingUI>();foreach(var button in buildings.sides)button.gameObject.SetActive(false);buildings.wallMode.transform.parent.GetComponent<RectTransform>().sizeDelta=new Vector2(250,110);
         var anchor=game.transform.Find("Camera View Center");if(!anchor){var go=new GameObject("Camera View Center");go.transform.SetParent(game.transform);go.transform.position=service.worker.transform.position;anchor=go.transform;}game.orbit.target=anchor;
-        game.orbit.minimumPitch=4;game.pitchSlider.minValue=4;game.orbit.SetPitch(game.orbit.pitch);
+        game.orbit.minimumPitch=4;game.orbit.maximumPitch=50;game.pitchSlider.minValue=4;game.pitchSlider.maxValue=50;game.orbit.SetPitch(game.orbit.pitch);
         foreach(var dropdown in game.GetComponentsInChildren<Dropdown>(true))Style(dropdown);
         StylePrefab(Root+"/Prefabs/HexWorldUI.prefab");StylePrefab(Root+"/Prefabs/ShopBuildingUI.prefab");
         var binding=game.GetComponent<PrototypeFontBinding>();binding.Apply();EditorUtility.SetDirty(game);EditorUtility.SetDirty(service);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();Debug.Log("HEX_DIRECT_SERVICE_AUTHORED");

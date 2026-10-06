@@ -70,7 +70,7 @@ public sealed class HexTileBoard : MonoBehaviour
     {
         if (!tile || Mode == HexBuildMode.None) return;
         var at = tile.coordinate; bool success = false;
-        if(game.service&&game.service.Occupies(CurrentFloor,at)&&(Mode==HexBuildMode.Recover||Mode==HexBuildMode.Move&&!MoveSource.HasValue)){game.SetMessage("service.build.worker");return;}
+        if((game.service&&game.service.Occupies(CurrentFloor,at)||game.staffSystem&&game.staffSystem.BlocksEdit(CurrentFloor,at))&&(Mode==HexBuildMode.Recover||Mode==HexBuildMode.Move&&!MoveSource.HasValue)){game.SetMessage(game.staffSystem&&game.staffSystem.BlocksEdit(CurrentFloor,at)?"staff.build.worker":"service.build.worker");return;}
         if(Mode==HexBuildMode.Walls){if(Model.IsOwned(at))WallSelection=at;Refresh();return;}
         if(Model.IsOwned(at)){WallSelection=at;if(Mode==HexBuildMode.Place){Refresh();return;}}
         if (Mode == HexBuildMode.Place) success = Layout.TryPlace(CurrentFloor,at,Selected);
@@ -89,8 +89,8 @@ public sealed class HexTileBoard : MonoBehaviour
     bool Valid(Vector2Int at)
     {
         if (Mode == HexBuildMode.Place) return Model.Stock(Selected) > 0 && Model.CanPlace(at);
-        if (Mode == HexBuildMode.Recover) return (!game.service||!game.service.Occupies(CurrentFloor,at))&&Layout.CanRecover(CurrentFloor,at);
-        if (Mode == HexBuildMode.Move) return MoveSource.HasValue ? Layout.CanMove(CurrentFloor,MoveSource.Value, at) : at != Model.Root && Model.IsOwned(at)&&(!game.service||!game.service.Occupies(CurrentFloor,at));
+        if (Mode == HexBuildMode.Recover) return (!game.service||!game.service.Occupies(CurrentFloor,at))&&(!game.staffSystem||!game.staffSystem.BlocksEdit(CurrentFloor,at))&&Layout.CanRecover(CurrentFloor,at);
+        if (Mode == HexBuildMode.Move) return MoveSource.HasValue ? Layout.CanMove(CurrentFloor,MoveSource.Value, at) : at != Model.Root && Model.IsOwned(at)&&(!game.service||!game.service.Occupies(CurrentFloor,at))&&(!game.staffSystem||!game.staffSystem.BlocksEdit(CurrentFloor,at));
         return false;
     }
     void EnsureFrontier()

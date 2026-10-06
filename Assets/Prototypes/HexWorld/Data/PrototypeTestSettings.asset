@@ -85,6 +85,52 @@ MonoBehaviour:
     tilesPerType: 2
     level: 1
     rewardChoices: 3
+  staff:
+    maximumEmployees: 6
+    wageSeconds: 30
+    passiveExperiencePerSecond: 0.5
+    jobExperiencePerSecond: 1
+    gradeExperience:
+    - 0
+    - 60
+    - 180
+    - 360
+    - 600
+    - 900
+    - 1260
+    gradeEfficiency:
+    - 0.6
+    - 0.75
+    - 0.9
+    - 1
+    - 1.2
+    - 1.4
+    - 1.7
+    walkSpeed: 2.4
+    workDistance: 0.25
+    recruitRadius: 5
+    recruitSeconds: 4
+    ejectionSeconds: 10
+    persuasionBaseChance: 0.2
+    persuasionPerGrade: 0.08
+    kitchenOffset: {x: 0.55, y: 0.22, z: 0}
+    patrolRadius: 2.8
+    patrolSeconds: 4
+    candidates:
+    - {fileID: 11400000, guid: 06d3fe9a4422ba6449b27bd774b27946, type: 2}
+    - {fileID: 11400000, guid: 196cb96f4dca44043a43460f62dc769d, type: 2}
+    - {fileID: 11400000, guid: 6750dd310b1065644abb780fe14baeeb, type: 2}
+    skills:
+    - {fileID: 11400000, guid: 9b38f673fc1adbd4ca6356e7443acfc3, type: 2}
+    - {fileID: 11400000, guid: 88c232f95455b0145bfb6f0b2c534919, type: 2}
+    - {fileID: 11400000, guid: 6a1ceabf36069c742b5cf43c7d1949cf, type: 2}
+    - {fileID: 11400000, guid: 6237caa660cd0a64cac4de4d16356f8a, type: 2}
+    trashTestPrefab: {fileID: 7818148991503270337, guid: c53116774a9a3304cbfb448e629bab16, type: 3}
+    disruptionTestPrefab: {fileID: 3099861766617128551, guid: 70dbd90eaa3a2c840b2e1bce83ba80f9, type: 3}
+    testGold: 20
+    testExperience: 180
+    trashTestOffset: {x: -0.5, y: 0.22, z: 0.35}
+    disruptionTestOffset: {x: 0.6, y: 0.22, z: 0.35}
   levelCurve: {fileID: 11400000, guid: 6dd48fbd70d0ec742a9b7eaaf56ed9ac, type: 2}
   itemCatalog: {fileID: 11400000, guid: 201f324cb3f56114393cd2c3a8e6c2f7, type: 2}
   tileTypes:

@@ -505,3 +505,285 @@ MonoBehaviour:
     korean: "\uBB34\uC791\uC704 \uD0C0\uC77C 3\uC885 \uC911 \uD558\uB098\uB97C \uC120\uD0DD\uD574
       \uAC00\uAC8C\uB97C \uD655\uC7A5\uD569\uB2C8\uB2E4. \uC120\uD0DD\uD55C \uBD80\uD488\uC758
       \uAE30\uC874 \uAC15\uD654 \uD6A8\uACFC\uB3C4 \uC801\uC6A9\uB429\uB2C8\uB2E4."
+  - key: staff.open
+    english: EMPLOYEES
+    korean: "\uC544\uB974\uBC14\uC774\uD2B8"
+  - key: staff.title
+    english: EMPLOYEE MANAGEMENT
+    korean: "\uC544\uB974\uBC14\uC774\uD2B8 \uACE0\uC6A9 \xB7 \uC5C5\uBB34 \uAD00\uB9AC"
+  - key: staff.tab.hiring
+    english: HIRE
+    korean: "\uC9C1\uC6D0 \uACE0\uC6A9"
+  - key: staff.tab.roster
+    english: ROSTER / ASSIGNMENTS
+    korean: "\uC9C1\uC6D0 \uBAA9\uB85D \xB7 \uC5C5\uBB34 \uC9C0\uC2DC"
+  - key: staff.hire
+    english: HIRE
+    korean: "\uACE0\uC6A9\uD558\uAE30"
+  - key: staff.assign
+    english: ASSIGN
+    korean: "\uC5C5\uBB34 \uC801\uC6A9"
+  - key: staff.close
+    english: BACK TO GAME
+    korean: "\uAC8C\uC784\uC73C\uB85C \uB3CC\uC544\uAC00\uAE30"
+  - key: staff.help
+    english: Hire, select an employee and assign a task. Unpaid staff stop work until
+      wages are paid.
+    korean: "\uACE0\uC6A9 \uD6C4 \uC9C1\uC6D0 \uBAA9\uB85D\uC5D0\uC11C \uC5C5\uBB34\uB97C
+      \uC801\uC6A9\uD558\uC138\uC694. \uAE09\uC5EC \uBD80\uC871 \uC2DC \uC911\uB2E8,
+      \uBBF8\uC9C0\uAE09 \uAE09\uC5EC \uC9C0\uAE09 \uD6C4 \uC7AC\uAC1C\uD569\uB2C8\uB2E4."
+  - key: staff.paused
+    english: Game time and wages pause while this panel is open.
+    korean: "\uAD00\uB9AC \uCC3D\uC774 \uC5F4\uB824 \uC788\uC73C\uBA74 \uAC8C\uC784
+      \uC2DC\uAC04\uACFC \uAE09\uC5EC \uC8FC\uAE30\uAC00 \uC77C\uC2DC\uC815\uC9C0\uB429\uB2C8\uB2E4."
+  - key: staff.balance
+    english: Gold {gold} / Employees {count} of {max}
+    korean: "\uBCF4\uC720 \uACE8\uB4DC {gold} \xB7 \uC9C1\uC6D0 {count}/{max}\uBA85"
+  - key: staff.terms
+    english: 'Hire: {price} gold
+
+      Wage: {wage} gold every {seconds}s'
+    korean: "\uACE0\uC6A9 {price}\uACE8\uB4DC\n\uAE09\uC5EC {seconds}\uCD08\uB9C8\uB2E4
+      {wage}\uACE8\uB4DC"
+  - key: staff.candidate.title
+    english: '{name} / {grade}'
+    korean: "{name} \xB7 \uC885\uD569 {grade}"
+  - key: staff.employee.option
+    english: '#{id} {name}'
+    korean: '#{id} {name}'
+  - key: staff.none
+    english: No employees hired.
+    korean: "\uACE0\uC6A9\uB41C \uC9C1\uC6D0\uC774 \uC5C6\uC2B5\uB2C8\uB2E4."
+  - key: staff.hire.failed
+    english: Not enough gold or employee limit reached.
+    korean: "\uACE8\uB4DC\uAC00 \uBD80\uC871\uD558\uAC70\uB098 \uACE0\uC6A9 \uD55C\uB3C4\uC5D0
+      \uB3C4\uB2EC\uD588\uC2B5\uB2C8\uB2E4."
+  - key: staff.hired
+    english: Employee hired. Assign a task in the roster.
+    korean: "\uACE0\uC6A9 \uC644\uB8CC. \uC9C1\uC6D0 \uBAA9\uB85D\uC5D0\uC11C \uC5C5\uBB34\uB97C
+      \uC9C0\uC815\uD558\uC138\uC694."
+  - key: staff.assigned
+    english: Task assigned.
+    korean: "\uC5C5\uBB34\uB97C \uC801\uC6A9\uD588\uC2B5\uB2C8\uB2E4."
+  - key: staff.assign.route
+    english: Kitchen missing or unreachable. Check the route.
+    korean: "\uC8FC\uBC29\uC774 \uC5C6\uAC70\uB098 \uC774\uB3D9\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.
+      \uD1B5\uB85C\uB97C \uD655\uC778\uD558\uC138\uC694."
+  - key: staff.assign.occupied
+    english: Another employee is already assigned to this kitchen.
+    korean: "\uB2E4\uB978 \uC9C1\uC6D0\uC774 \uBC30\uCE58\uB41C \uC8FC\uBC29\uC785\uB2C8\uB2E4."
+  - key: staff.build.worker
+    english: An employee occupies or is assigned to this tile. Reassign them before
+      moving it.
+    korean: "\uC9C1\uC6D0\uC774 \uC788\uAC70\uB098 \uBC30\uCE58\uB41C \uD0C0\uC77C\uC785\uB2C8\uB2E4.
+      \uC5C5\uBB34\uB97C \uBCC0\uACBD\uD55C \uB4A4 \uC774\uB3D9\xB7\uD68C\uC218\uD558\uC138\uC694."
+  - key: staff.job.Standby
+    english: Stand by
+    korean: "\uB300\uAE30"
+  - key: staff.job.Kitchen
+    english: Cook in kitchen
+    korean: "\uC8FC\uBC29 \xB7 \uC74C\uC2DD \uC0DD\uC0B0"
+  - key: staff.job.Cleaning
+    english: Clean litter
+    korean: "\uC4F0\uB808\uAE30 \uCCAD\uC18C"
+  - key: staff.job.Recruiting
+    english: Persuade customers
+    korean: "\uC8FC\uBCC0 \uACE0\uAC1D \uD68C\uC720"
+  - key: staff.job.Security
+    english: Remove disruptions
+    korean: "\uC9C4\uC0C1 \uACE0\uAC1D \uD1F4\uCE58"
+  - key: staff.ability.Cooking
+    english: Cooking
+    korean: "\uC694\uB9AC"
+  - key: staff.ability.Cleaning
+    english: Cleaning
+    korean: "\uCCAD\uC18C"
+  - key: staff.ability.Persuasion
+    english: Persuasion
+    korean: "\uD68C\uC720"
+  - key: staff.ability.Strength
+    english: Strength
+    korean: "\uD798"
+  - key: staff.grade.short
+    english: '{ability}: {grade}'
+    korean: '{ability} {grade}'
+  - key: staff.ability.line
+    english: "{ability}: {grade} / XP {xp} \u2192 {next}"
+    korean: "{ability} {grade} \xB7 \uACBD\uD5D8\uCE58 {xp} / {next}"
+  - key: staff.max
+    english: MAX
+    korean: "\uCD5C\uB300"
+  - key: staff.employee.summary
+    english: Overall {grade} / {job} / {status}
+    korean: "\uC885\uD569 {grade} \xB7 {job} \xB7 {status}"
+  - key: staff.payroll
+    english: 'Wage {wage} gold / Next in {seconds}s
+
+      Unpaid: {debt} gold'
+    korean: "\uAE09\uC5EC {wage}\uACE8\uB4DC \xB7 \uB2E4\uC74C \uC9C0\uAE09 {seconds}\uCD08\n\uBBF8\uC9C0\uAE09
+      \uAE09\uC5EC {debt}\uACE8\uB4DC"
+  - key: staff.results
+    english: 'Cooked {food} / Persuaded {recruited}
+
+      Cleaned {cleaned} / Removed
+      {removed} / Ejected {ejected}'
+    korean: "\uC74C\uC2DD {food}\uAC1C \xB7 \uD68C\uC720 {recruited}\uBA85\n\uCCAD\uC18C
+      {cleaned}\uD68C \xB7 \uD1F4\uCE58 {removed}\uD68C \xB7 \uC190\uB2D8 \uD1F4\uCD9C
+      {ejected}\uBA85"
+  - key: staff.kitchen.option
+    english: Floor {floor} / Kitchen ({x}, {y})
+    korean: "{floor}\uCE35 \uC8FC\uBC29 ({x}, {y})"
+  - key: staff.kitchen.none
+    english: No kitchens available.
+    korean: "\uBC30\uCE58 \uAC00\uB2A5\uD55C \uC8FC\uBC29 \uC5C6\uC74C"
+  - key: staff.skills
+    english: SKILLS
+    korean: "\uD68D\uB4DD \uC2A4\uD0AC"
+  - key: staff.skills.none
+    english: No skills yet. Higher overall grades unlock skills.
+    korean: "\uC544\uC9C1 \uC5C6\uC2B5\uB2C8\uB2E4. \uC885\uD569 \uB4F1\uAE09 \uC131\uC7A5
+      \uC2DC \uC2A4\uD0AC\uC744 \uC5BB\uC2B5\uB2C8\uB2E4."
+  - key: staff.flaws
+    english: FLAWS
+    korean: "\uB2E8\uC810"
+  - key: staff.skill.line
+    english: '{name}: {description}'
+    korean: "{name} \xB7 {description}"
+  - key: staff.rookie.name
+    english: Sprout
+    korean: "\uC0C8\uC2F9"
+  - key: staff.rookie.desc
+    english: A beginner who grows with paid employment.
+    korean: "\uB0AE\uC740 \uB4F1\uAE09\uC5D0\uC11C \uAFB8\uC900\uD788 \uC131\uC7A5\uD558\uB294
+      \uC2E0\uC785\uC785\uB2C8\uB2E4."
+  - key: staff.promoter.name
+    english: Chatter
+    korean: "\uC218\uB2E4"
+  - key: staff.promoter.desc
+    english: A persuasive promoter with unreliable customer manners.
+    korean: "\uD68C\uC720\uC5D0 \uB2A5\uD558\uC9C0\uB9CC \uC190\uB2D8 \uC751\uB300\uC640
+      \uD798\uC5D0 \uC57D\uC810\uC774 \uC788\uC2B5\uB2C8\uB2E4."
+  - key: staff.veteran.name
+    english: Steady
+    korean: "\uB4E0\uB4E0"
+  - key: staff.veteran.desc
+    english: A seasoned all-rounder with a careful cooking pace.
+    korean: "\uC5EC\uB7EC \uC5C5\uBB34\uC5D0 \uB2A5\uD558\uC9C0\uB9CC \uC694\uB9AC
+      \uC18D\uB3C4\uAC00 \uC870\uAE08 \uB290\uB9BD\uB2C8\uB2E4."
+  - key: staff.flaw.cooking
+    english: Own cooking speed -{value}%.
+    korean: "\uC790\uC2E0\uC758 \uC74C\uC2DD \uC0DD\uC0B0 \uC18D\uB3C4 -{value}%"
+  - key: staff.flaw.cleaning
+    english: Own cleaning speed -{value}%.
+    korean: "\uC790\uC2E0\uC758 \uCCAD\uC18C \uC18D\uB3C4 -{value}%"
+  - key: staff.flaw.persuasion
+    english: Persuasion chance -{value} percentage points.
+    korean: "\uD68C\uC720 \uC131\uACF5 \uD655\uB960 -{value}%p"
+  - key: staff.flaw.ejection
+    english: 'Each check: {value}% chance to drive away a nearby waiting guest.'
+    korean: "\uC8FC\uAE30\uC801 \uD655\uC778 \uC2DC {value}% \uD655\uB960\uB85C \uC8FC\uBCC0
+      \uB300\uAE30 \uC190\uB2D8 \uD1F4\uCD9C"
+  - key: staff.flaw.weak
+    english: Cannot remove disruptive customers.
+    korean: "\uD798\uC774 \uC57D\uD558\uC5EC \uC9C4\uC0C1 \uACE0\uAC1D \uD1F4\uCE58
+      \uBD88\uAC00"
+  - key: staff.skill.QuickHands.name
+    english: Quick Hands
+    korean: "\uBE60\uB978 \uC190\uB180\uB9BC"
+  - key: staff.skill.QuickHands.desc
+    english: Own cooking speed +{value}%.
+    korean: "\uC74C\uC2DD \uC0DD\uC0B0 \uC18D\uB3C4 +{value}%"
+  - key: staff.skill.SilverTongue.name
+    english: Silver Tongue
+    korean: "\uC124\uB4DD\uC758 \uB2EC\uC778"
+  - key: staff.skill.SilverTongue.desc
+    english: Persuasion chance +{value} percentage points.
+    korean: "\uD68C\uC720 \uD655\uB960 +{value}%p"
+  - key: staff.skill.VeteranInstinct.name
+    english: Veteran Instinct
+    korean: "\uBCA0\uD14C\uB791\uC758 \uAC10\uAC01"
+  - key: staff.skill.VeteranInstinct.desc
+    english: Own task efficiency +{value}%.
+    korean: "\uC790\uC2E0\uC758 \uC5C5\uBB34 \uD6A8\uC728 +{value}%"
+  - key: staff.skill.LoyalPartner.name
+    english: Loyal Partner
+    korean: "\uC624\uB79C \uB3D9\uB8CC"
+  - key: staff.skill.LoyalPartner.desc
+    english: Wage -{value}% (minimum 1 gold).
+    korean: "\uAE09\uC5EC -{value}% \xB7 \uCD5C\uC18C 1\uACE8\uB4DC"
+  - key: staff.status.standby
+    english: Standing by
+    korean: "\uB300\uAE30 \uC911"
+  - key: staff.status.unpaid
+    english: 'SUSPENDED: unpaid wages'
+    korean: "\uBBF8\uC9C0\uAE09 \uAE09\uC5EC \xB7 \uC5C5\uBB34 \uC911\uB2E8"
+  - key: staff.status.moving
+    english: Moving to task
+    korean: "\uC5C5\uBB34 \uC704\uCE58\uB85C \uC774\uB3D9 \uC911"
+  - key: staff.status.blocked
+    english: Route blocked
+    korean: "\uD1B5\uB85C \uD655\uC778 \uD544\uC694"
+  - key: staff.status.cooking
+    english: Preparing food
+    korean: "\uC74C\uC2DD \uC0DD\uC0B0 \uC911"
+  - key: staff.status.food.ready
+    english: All dishes ready
+    korean: "\uBAA8\uB4E0 \uC74C\uC2DD \uC900\uBE44 \uC644\uB8CC"
+  - key: staff.status.kitchen.missing
+    english: Assign an available kitchen
+    korean: "\uC0AC\uC6A9 \uAC00\uB2A5\uD55C \uC8FC\uBC29 \uBC30\uCE58 \uD544\uC694"
+  - key: staff.status.recruiting
+    english: Seeking customers
+    korean: "\uC8FC\uBCC0 \uACE0\uAC1D \uD68C\uC720 \uC911"
+  - key: staff.status.cleaning
+    english: Cleaning litter
+    korean: "\uC4F0\uB808\uAE30 \uCCAD\uC18C \uC911"
+  - key: staff.status.security
+    english: Removing disruption
+    korean: "\uBC29\uD574\uBB3C \uD1F4\uCE58 \uC911"
+  - key: staff.status.clean.wait
+    english: Awaiting litter (future comfort system)
+    korean: "\uC4F0\uB808\uAE30 \uB300\uAE30 \xB7 \uCF8C\uC801\uD568 \uC2DC\uC2A4\uD15C\uC740
+      \uCD94\uD6C4 \uCD94\uAC00"
+  - key: staff.status.security.wait
+    english: Awaiting disruptions (future update)
+    korean: "\uC9C4\uC0C1\xB7\uBC29\uD574\uBB3C \uB300\uAE30 \xB7 \uBCF8 \uC2DC\uC2A4\uD15C\uC740
+      \uCD94\uD6C4 \uCD94\uAC00"
+  - key: staff.status.weak
+    english: Insufficient strength for disruption
+    korean: "\uD798 \uB2A5\uB825 \uB610\uB294 \uB2E8\uC810\uC73C\uB85C \uD1F4\uCE58
+      \uBD88\uAC00"
+  - key: staff.target.trash
+    english: Test litter
+    korean: "\uD14C\uC2A4\uD2B8 \uC4F0\uB808\uAE30"
+  - key: staff.target.disruption
+    english: Test disruption
+    korean: "\uD14C\uC2A4\uD2B8 \uBC29\uD574\uBB3C"
+  - key: staff.test.trash
+    english: 'TEST: ADD LITTER'
+    korean: "\uD14C\uC2A4\uD2B8 \xB7 \uC4F0\uB808\uAE30 \uC0DD\uC131"
+  - key: staff.test.disruption
+    english: 'TEST: ADD DISRUPTION'
+    korean: "\uD14C\uC2A4\uD2B8 \xB7 \uBC29\uD574\uBB3C \uC0DD\uC131"
+  - key: staff.test.gold
+    english: 'TEST: +{gold} GOLD'
+    korean: "\uD14C\uC2A4\uD2B8 \xB7 \uACE8\uB4DC +{gold}"
+  - key: staff.test.xp
+    english: 'TEST: +{xp} XP'
+    korean: "\uD14C\uC2A4\uD2B8 \xB7 \uACBD\uD5D8\uCE58 +{xp}"
+  - key: staff.data.missing
+    english: Configure this data string key.
+    korean: "\uBB38\uC790\uC5F4 \uD0A4\uB97C \uC124\uC815\uD574\uC8FC\uC138\uC694."
+  - key: staff.status.station.wait
+    english: Other employees are preparing remaining dishes.
+    korean: "\uB2E4\uB978 \uC9C1\uC6D0\uC774 \uB0A8\uC740 \uC74C\uC2DD\uC744 \uC900\uBE44
+      \uC911"
+  - key: staff.page
+    english: Candidates {count} / Page {page} of {pages}
+    korean: "\uD6C4\uBCF4 {count}\uBA85 \xB7 {page}/{pages}\uD398\uC774\uC9C0"
+  - key: staff.page.previous
+    english: PREVIOUS
+    korean: "\uC774\uC804 \uD6C4\uBCF4"
+  - key: staff.page.next
+    english: NEXT
+    korean: "\uB2E4\uC74C \uD6C4\uBCF4"

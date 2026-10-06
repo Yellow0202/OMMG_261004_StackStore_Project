@@ -21,6 +21,7 @@ public sealed class HexFoodService : MonoBehaviour
     bool returning=true;
     public bool AtStation { get; private set; }
     public bool RouteBlocked { get; private set; }
+    public readonly HashSet<int> EmployeeCookingSlots=new HashSet<int>();
     public Vector3 Position=>worker.transform.position;
     public bool Occupies(int floor,Vector2Int cell)=>floor==Floor&&HexShopLayout.Cell(Position)==cell;
 
@@ -68,7 +69,7 @@ public sealed class HexFoodService : MonoBehaviour
             if(i>=Food.Count)continue;
             slotViews[i].GetComponent<RectTransform>().anchoredPosition=new Vector2((i-(Food.Count-1)*.5f)*130,-6);
             gauges[i].fillAmount=Food[i];
-            labels[i].text=LocalizationService.Text("service.food.slot","number",i+1,"state",LocalizationService.Text(RouteBlocked?"service.blocked":Food[i]>=1?"service.ready":AtStation?"service.cooking":"service.paused"));
+            labels[i].text=LocalizationService.Text("service.food.slot","number",i+1,"state",LocalizationService.Text(RouteBlocked&&!EmployeeCookingSlots.Contains(i)?"service.blocked":Food[i]>=1?"service.ready":EmployeeCookingSlots.Contains(i)||AtStation?"service.cooking":"service.paused"));
         }
     }
     bool FindStation(HexNavNode start,out HexNavNode station)

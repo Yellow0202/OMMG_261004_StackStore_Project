@@ -11,6 +11,7 @@ public sealed class HexTestSettings : ScriptableObject
     [Header("손님 / 속도는 즉시, 생성·예약 값은 다음 대상부터")] public GuestOptions guests = new GuestOptions();
     [Header("접객 / 준비 속도 즉시, 대기 시간은 다음 손님부터")] public ServiceOptions service = new ServiceOptions();
     [Header("시작 조건 / 다음 Play부터")] public StartOptions start = new StartOptions();
+    [Header("아르바이트 / 고용·급여·성장·업무")] public StaffOptions staff = new StaffOptions();
     [Header("데이터 원본 / 아래 Inspector에서 펼쳐 편집")]
     public GoldLevelCurve levelCurve;
     public ItemCatalog itemCatalog;
@@ -67,6 +68,25 @@ public sealed class HexTestSettings : ScriptableObject
         [Min(0)] public int gold,tilesPerType=2;
         [Min(1)] public int level=1;
         [Range(1,3)] public int rewardChoices=3;
+    }
+    [Serializable] public sealed class StaffOptions
+    {
+        [Min(1)] public int maximumEmployees=6;
+        [Min(.1f)] public float wageSeconds=30,passiveExperiencePerSecond=.5f,jobExperiencePerSecond=1;
+        public float[] gradeExperience={0,60,180,360,600,900,1260};
+        public float[] gradeEfficiency={.6f,.75f,.9f,1,1.2f,1.4f,1.7f};
+        [Min(.01f)] public float walkSpeed=2.4f;
+        [Min(.1f)] public float workDistance=.25f,recruitRadius=5,recruitSeconds=4,ejectionSeconds=10;
+        [Range(0,1)] public float persuasionBaseChance=.2f,persuasionPerGrade=.08f;
+        public Vector3 kitchenOffset=new Vector3(.55f,.22f,0);
+        [Min(0)] public float patrolRadius=2.8f;
+        [Min(.1f)] public float patrolSeconds=4;
+        public HexStaffDefinition[] candidates=Array.Empty<HexStaffDefinition>();
+        public HexStaffSkill[] skills=Array.Empty<HexStaffSkill>();
+        [Header("테스트 대상 / prototype")] public HexStaffWorkTarget trashTestPrefab,disruptionTestPrefab;
+        [Min(0)] public int testGold=20;
+        [Min(0)] public float testExperience=180;
+        public Vector3 trashTestOffset=new Vector3(-.5f,.22f,.35f),disruptionTestOffset=new Vector3(.6f,.22f,.35f);
     }
     void OnValidate()
     {

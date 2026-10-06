@@ -33,3 +33,6 @@ HexCameraFacingSprite의 Override Shared Visual을 켠 개별 오브젝트만
 
 추후 테스트 가능한 조절값은 기능별 카테고리에 계속 추가합니다.
 알파 버전 개발 시에는 배포 가능한 정식 폰트를 추가해야 합니다.
+
+아르바이트 추가: Staff에서 급여/성장/업무를 조절하고 Inspector 하단에서
+직원 후보, 스킬, 작업 대상 원본 데이터를 편집합니다. 상세 내용은 EmployeeGuide.txt 참고.

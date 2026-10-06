@@ -15,5 +15,10 @@ public sealed class HexFoodPreparation
         for(int i=0;i<progress.Count;i++)progress[i]=Mathf.Clamp01(progress[i]+Mathf.Max(0,seconds)/Mathf.Max(.1f,duration));
     }
     public int ReadySlot(){for(int i=0;i<progress.Count;i++)if(progress[i]>=1)return i;return -1;}
+    public int PreparingSlot(){for(int i=0;i<progress.Count;i++)if(progress[i]<1)return i;return -1;}
+    public void TickSlot(int slot,float seconds,float duration)
+    {
+        if(slot>=0&&slot<Count)progress[slot]=Mathf.Clamp01(progress[slot]+Mathf.Max(0,seconds)/Mathf.Max(.1f,duration));
+    }
     public bool Consume(int slot){if(slot<0||slot>=Count||progress[slot]<1)return false;progress[slot]=0;return true;}
 }

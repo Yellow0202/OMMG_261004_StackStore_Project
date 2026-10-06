@@ -19,6 +19,10 @@ public sealed class HexTestSettingsEditor : Editor
         }
         if(settings.tileTypes!=null)foreach(var tile in settings.tileTypes)DrawAsset(tile,"타일 / "+(tile?tile.key:""));
         if(settings.shopOffers!=null)foreach(var offer in settings.shopOffers)DrawAsset(offer,"상점 / "+(offer?offer.name:""));
+        if(settings.staff.candidates!=null)foreach(var employee in settings.staff.candidates)DrawAsset(employee,"아르바이트 / "+(employee?employee.key:""));
+        if(settings.staff.skills!=null)foreach(var skill in settings.staff.skills)DrawAsset(skill,"직원 스킬 / "+(skill?skill.key:""));
+        if(settings.staff.trashTestPrefab)DrawAsset(settings.staff.trashTestPrefab.definition,"청소 대상 설정");
+        if(settings.staff.disruptionTestPrefab)DrawAsset(settings.staff.disruptionTestPrefab.definition,"퇴치 대상 설정");
     }
     void DrawAsset(Object asset,string title)
     {

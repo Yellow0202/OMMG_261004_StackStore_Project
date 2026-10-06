@@ -32,6 +32,7 @@ public sealed class HexPrototype : MonoBehaviour
     public HexFoodProjectile foodPrefab;
     public Transform foodOrigin;
     public HexFoodService service;
+    public HexStaffSystem staffSystem;
     [SerializeField] int gold, level = 1;
     [SerializeField] long earnedGold;
     [SerializeField] List<HexOwnedItem> ownedItems = new List<HexOwnedItem>();
@@ -151,7 +152,7 @@ public sealed class HexPrototype : MonoBehaviour
             if (BuffRemaining == 0) { float previous=ServiceInterval; temporarySpeedBonus=0; cooldown*=ServiceInterval/previous; }
         }
         if (spawnTimer <= 0 && guests.Count < maxCustomers) { Spawn(); spawnTimer = spawnSeconds; }
-        TickGuests(dt); if(service)service.Tick(dt);
+        TickGuests(dt); if(staffSystem)staffSystem.Tick(dt); if(service)service.Tick(dt);
     }
     void Spawn()
     {
@@ -335,6 +336,37 @@ public sealed class HexPrototype : MonoBehaviour
         foreach(var guest in guests)if(guest.view)guest.view.gameObject.SetActive(guest.floor==board.CurrentFloor);
         foreach(var guest in guests)if(guest.meal)guest.meal.SetActive(guest.floor==board.CurrentFloor);
         if(service)service.UpdateVisibility();
+        if(staffSystem)staffSystem.UpdateVisibility();
+    }
+    public bool FindRecruitGuest(Vector3 from,int floor,float radius,out int id,out HexNavNode node,out Vector3 spot)
+    {
+        id=0;node=default;spot=default;float nearest=radius;
+        foreach(var guest in guests)
+        {
+            if(!guest.view||guest.floor!=floor||!guest.interested||guest.state!=GuestState.Browsing)continue;
+            float distance=Vector3.Distance(from,guest.view.transform.position);
+            var target=new HexNavNode(floor,HexShopLayout.Cell(guest.view.transform.position));
+            if(distance<nearest&&board.Layout.Path(new HexNavNode(floor,HexShopLayout.Cell(from)),target)!=null)
+            {nearest=distance;id=guest.id;node=target;spot=guest.view.transform.position;}
+        }
+        return id!=0;
+    }
+    public bool PersuadeGuest(int id)
+    {
+        var guest=guests.Find(g=>g.id==id);
+        if(guest==null||!guest.view||!guest.interested||guest.state!=GuestState.Browsing)return false;
+        guest.state=GuestState.Approaching;guest.path=null;guest.browse=0;return true;
+    }
+    public bool EjectWaitingGuest(Vector3 from,int floor,float radius)
+    {
+        Guest selected=null;float nearest=radius;
+        foreach(var guest in waitingGuests)
+        {
+            if(!guest.view||guest.floor!=floor||guest.state!=GuestState.Waiting)continue;
+            float distance=Vector3.Distance(from,guest.view.transform.position);
+            if(distance<nearest&&board.Layout.Path(new HexNavNode(floor,HexShopLayout.Cell(from)),new HexNavNode(floor,HexShopLayout.Cell(guest.view.transform.position)))!=null){selected=guest;nearest=distance;}
+        }
+        if(selected==null)return false;waitingGuests.Remove(selected);Leave(selected,selected.originDirection);return true;
     }
     public bool NextService(HexNavNode start,out int id,out HexNavNode node)
     {

@@ -14,6 +14,7 @@ public sealed class HexBoardModel
     public IEnumerable<Vector2Int> Owned => owned.Keys;
     public int OwnedCount => owned.Count;
     public Vector2Int Root { get; private set; }
+    public void SetRootDefinition(HexTileDefinition definition) { owned[Root]=definition; }
     public HexBoardModel() : this(Vector2Int.zero,null) { }
     public HexBoardModel(Vector2Int root, HexTileDefinition landing) { Root=root;owned.Add(root,landing); }
     public HexBoardModel Clone()

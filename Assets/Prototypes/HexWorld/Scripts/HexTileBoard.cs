@@ -51,12 +51,12 @@ public sealed class HexTileBoard : MonoBehaviour
         if(Layout==null||!Layout.floors.ContainsKey(floor))return;
         CurrentFloor=floor;MoveSource=null;hover=null;WallSelection=null;
         game.orbit.floorOffset=floor==0?Vector3.zero:HexBoardModel.World(Model.Root);
-        if(startingShop)startingShop.SetActive(floor==0);if(player)player.SetActive(floor==0);
+        if(startingShop)startingShop.SetActive(floor==0&&!Layout.Floor(0).model.Definition(Layout.Floor(0).model.Root));
         EnsureFrontier();Refresh();game.UpdateFloorVisibility();
     }
     public void ToggleWall(int direction)
     {
-        if(!WallSelection.HasValue||Mode!=HexBuildMode.Walls)return;
+        if(!WallSelection.HasValue||!game.IsBuilding)return;
         bool success=Layout.SetWall(CurrentFloor,WallSelection.Value,direction,!Layout.HasWall(CurrentFloor,WallSelection.Value,direction));
         game.SetMessage(success?"shop.wall.changed":"shop.wall.blocked");Refresh();
     }
@@ -70,7 +70,9 @@ public sealed class HexTileBoard : MonoBehaviour
     {
         if (!tile || Mode == HexBuildMode.None) return;
         var at = tile.coordinate; bool success = false;
+        if(game.service&&game.service.Occupies(CurrentFloor,at)&&(Mode==HexBuildMode.Recover||Mode==HexBuildMode.Move&&!MoveSource.HasValue)){game.SetMessage("service.build.worker");return;}
         if(Mode==HexBuildMode.Walls){if(Model.IsOwned(at))WallSelection=at;Refresh();return;}
+        if(Model.IsOwned(at)){WallSelection=at;if(Mode==HexBuildMode.Place){Refresh();return;}}
         if (Mode == HexBuildMode.Place) success = Layout.TryPlace(CurrentFloor,at,Selected);
         if (Mode == HexBuildMode.Recover) success = Layout.TryRecover(CurrentFloor,at);
         if (Mode == HexBuildMode.Move)
@@ -87,8 +89,8 @@ public sealed class HexTileBoard : MonoBehaviour
     bool Valid(Vector2Int at)
     {
         if (Mode == HexBuildMode.Place) return Model.Stock(Selected) > 0 && Model.CanPlace(at);
-        if (Mode == HexBuildMode.Recover) return Layout.CanRecover(CurrentFloor,at);
-        if (Mode == HexBuildMode.Move) return MoveSource.HasValue ? Layout.CanMove(CurrentFloor,MoveSource.Value, at) : at != Model.Root && Model.IsOwned(at);
+        if (Mode == HexBuildMode.Recover) return (!game.service||!game.service.Occupies(CurrentFloor,at))&&Layout.CanRecover(CurrentFloor,at);
+        if (Mode == HexBuildMode.Move) return MoveSource.HasValue ? Layout.CanMove(CurrentFloor,MoveSource.Value, at) : at != Model.Root && Model.IsOwned(at)&&(!game.service||!game.service.Occupies(CurrentFloor,at));
         return false;
     }
     void EnsureFrontier()
@@ -107,6 +109,9 @@ public sealed class HexTileBoard : MonoBehaviour
     public void Refresh()
     {
         if (Model == null) return;
+        var kitchen=System.Array.Find(tileTypes,t=>t.kind==HexTileKind.Kitchen);
+        Layout.ConvertEnclosedStall(kitchen);
+        if(startingShop)startingShop.SetActive(CurrentFloor==0&&!Layout.Floor(0).model.Definition(Layout.Floor(0).model.Root));
         foreach (var pair in tiles)
         {
             bool adjacent=Model.IsOwned(pair.Key);foreach(var direction in HexBoardModel.Directions)adjacent|=Model.IsOwned(pair.Key+direction);

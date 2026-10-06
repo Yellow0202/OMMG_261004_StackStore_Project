@@ -31,7 +31,7 @@ public sealed class HexPrototype : MonoBehaviour
     [Min(2)] public float waitingRadius = 2.3f;
     public HexFoodProjectile foodPrefab;
     public Transform foodOrigin;
-    sealed class FoodDelivery { public Guest recipient; public HexFoodProjectile projectile; }
+    public HexFoodService service;
     [SerializeField] int gold, level = 1;
     [SerializeField] long earnedGold;
     [SerializeField] List<HexOwnedItem> ownedItems = new List<HexOwnedItem>();
@@ -47,7 +47,7 @@ public sealed class HexPrototype : MonoBehaviour
     readonly List<ItemDefinition> offered = new List<ItemDefinition>();
     readonly List<Guest> guests = new List<Guest>();
     readonly List<Guest> waitingGuests = new List<Guest>();
-    readonly List<FoodDelivery> deliveries = new List<FoodDelivery>();
+
     long contactSequence;
     float spawnTimer, cooldown, speedBonus, patienceBonus, attractionBonus, beforePause = 1;
     bool paused;
@@ -56,7 +56,7 @@ public sealed class HexPrototype : MonoBehaviour
     public int FoodPerThrow => 1+additionalFoodCount;
     public float ReactiveVisitorChance => Mathf.Clamp01(visitorChance+attractionBonus);
     string messageKey = "hex.help.None";
-    enum GuestState { Crossing, Browsing, Approaching, Waiting, Receiving, Lodging, Leaving }
+    enum GuestState { Crossing, Browsing, Approaching, Waiting, Receiving, Lodging, Leaving, Eating }
     sealed class Guest
     {
         public HexWorldActor view; public GuestState state; public Vector3 destination;
@@ -67,7 +67,7 @@ public sealed class HexPrototype : MonoBehaviour
         public HexNavNode facility, navigationGoal;
         public bool hasFacility, room;
         public List<HexNavNode> path;
-        public float stay;
+        public float stay; public GameObject meal;
     }
     public float ServiceInterval => serviceSeconds / Mathf.Max(.1f, 1 + speedBonus + temporarySpeedBonus);
     public int ItemLevel(ItemDefinition item) => ownedItems.Find(x => x.definition == item)?.level ?? 0;
@@ -92,10 +92,7 @@ public sealed class HexPrototype : MonoBehaviour
         LocalizationService.LanguageChanged -= RefreshLanguage;
         if (paused) { Time.timeScale = beforePause; paused = false; }
     }
-    void OnDestroy()
-    {
-        foreach(var delivery in deliveries)if(delivery.projectile)Destroy(delivery.projectile.gameObject);
-    }
+    void OnDestroy() { foreach(var guest in guests)if(guest.meal)Destroy(guest.meal); }
     void Pause()
     {
         if (!paused) { beforePause = Time.timeScale; paused = true; Time.timeScale = 0; }
@@ -145,10 +142,7 @@ public sealed class HexPrototype : MonoBehaviour
             if (BuffRemaining == 0) { float previous=ServiceInterval; temporarySpeedBonus=0; cooldown*=ServiceInterval/previous; }
         }
         if (spawnTimer <= 0 && guests.Count < maxCustomers) { Spawn(); spawnTimer = spawnSeconds; }
-        TickGuests(dt); cooldown = Mathf.Max(0, cooldown - dt);
-        TickDeliveries(dt);
-        if (cooldown <= 0 && waitingGuests.Count > 0 && foodPrefab && foodOrigin)
-            ThrowFood();
+        TickGuests(dt); if(service)service.Tick(dt);
     }
     void Spawn()
     {
@@ -165,43 +159,17 @@ public sealed class HexPrototype : MonoBehaviour
             browse=Mathf.Max(.1f,browseDecisionSeconds),
             destination=browsing?new Vector3(-direction*UnityEngine.Random.Range(2.7f,5f),.22f,UnityEngine.Random.Range(-3f,3f)):new Vector3(direction*12,.22f,view.transform.position.z),targetZ=view.transform.position.z});
     }
-    void ThrowFood()
-    {
-        for(int count=0;count<FoodPerThrow&&waitingGuests.Count>0;count++) ThrowOneFood();
-    }
-    void ThrowOneFood()
-    {
-        Guest recipient=null;
-        foreach(var guest in waitingGuests)
-            if(guest.view&&(recipient==null||guest.contactOrder<recipient.contactOrder))recipient=guest;
-        if(recipient==null)return;
-        waitingGuests.Remove(recipient);recipient.state=GuestState.Receiving;
-        recipient.view.ShowPatience(true,recipient.patience/recipient.initialPatience);
-        Vector3 origin=recipient.floor==0?foodOrigin.position:HexBoardModel.World(board.Layout.Floor(recipient.floor).model.Root)+Vector3.up*1.4f;
-        var food=Instantiate(foodPrefab,origin,Quaternion.identity);
-        food.Launch(origin,recipient.view.body.transform);food.gameObject.SetActive(board.CurrentFloor==recipient.floor);
-        deliveries.Add(new FoodDelivery{recipient=recipient,projectile=food});cooldown=ServiceInterval;
-    }
-    void TickDeliveries(float dt)
-    {
-        for(int i=deliveries.Count-1;i>=0;i--)
-        {
-            var delivery=deliveries[i];
-            if(!delivery.recipient.view||!delivery.projectile)
-            {
-                if(delivery.projectile)Destroy(delivery.projectile.gameObject);
-                board.Layout.Release(delivery.recipient.id);waitingGuests.Remove(delivery.recipient);guests.Remove(delivery.recipient);
-                deliveries.RemoveAt(i);continue;
-            }
-            if(!delivery.projectile.Advance(dt))continue;
-            Leave(delivery.recipient,delivery.recipient.originDirection);
-            AddGold(delivery.recipient.reward);Destroy(delivery.projectile.gameObject);deliveries.RemoveAt(i);
-        }
-    }
     Vector3 WaitingPosition(int slot)
     {
-        float angle=(slot%12)*Mathf.PI/6;float radius=waitingRadius+(slot/12)*.95f;
-        return new Vector3(Mathf.Cos(angle)*radius,.22f,Mathf.Sin(angle)*radius);
+        var cells=StandingCells();if(cells.Count==0)return Vector3.zero;
+        var cell=cells[Mathf.Clamp(slot/6,0,cells.Count-1)];float angle=(slot%6)*Mathf.PI/3;
+        return HexBoardModel.World(cell)+new Vector3(Mathf.Cos(angle)*.8f,.22f,Mathf.Sin(angle)*.8f);
+    }
+    List<Vector2Int> StandingCells()
+    {
+        var cells=new List<Vector2Int>();var model=board.Layout.Floor(0).model;
+        foreach(var cell in model.Owned){var definition=model.Definition(cell);if(!definition||definition.kind==HexTileKind.DisplayShelf||definition.kind==HexTileKind.Entrance||definition.kind==HexTileKind.Storage)cells.Add(cell);}
+        cells.Sort((a,b)=>a.x!=b.x?a.x.CompareTo(b.x):a.y.CompareTo(b.y));return cells;
     }
     void ReserveWaitingPosition(Guest guest)
     {
@@ -209,9 +177,12 @@ public sealed class HexPrototype : MonoBehaviour
         var used=new HashSet<int>();
         foreach(var other in guests)if(other!=guest&&other.waitingSlot>=0&&other.state!=GuestState.Leaving)used.Add(other.waitingSlot);
         float distance=float.PositiveInfinity;
-        for(int slot=0;slot<(guests.Count/12+1)*12;slot++)
+        for(int slot=0;slot<StandingCells().Count*6;slot++)
         {
             if(used.Contains(slot))continue;
+            bool occupied=false;Vector3 spot=WaitingPosition(slot);
+            foreach(var other in guests)if(other!=guest&&other.view&&(other.state==GuestState.Waiting||other.state==GuestState.Eating)&&Vector3.Distance(other.view.transform.position,spot)<.65f){occupied=true;break;}
+            if(occupied)continue;
             float candidate=(WaitingPosition(slot)-guest.view.transform.position).sqrMagnitude;
             if(candidate<distance&&board.Layout.Path(new HexNavNode(guest.floor,HexShopLayout.Cell(guest.view.transform.position)),new HexNavNode(0,HexShopLayout.Cell(WaitingPosition(slot))))!=null){distance=candidate;guest.waitingSlot=slot;}
         }
@@ -233,7 +204,8 @@ public sealed class HexPrototype : MonoBehaviour
         for (int i=guests.Count-1;i>=0;i--)
         {
             var guest=guests[i];
-            if(!guest.view){board.Layout.Release(guest.id);waitingGuests.Remove(guest);guests.RemoveAt(i);continue;}
+            if(!guest.view){if(guest.meal)Destroy(guest.meal);board.Layout.Release(guest.id);waitingGuests.Remove(guest);guests.RemoveAt(i);continue;}
+            if(guest.state==GuestState.Eating){guest.stay-=dt;if(guest.stay<=0)Leave(guest,guest.originDirection);}
             if(guest.state==GuestState.Lodging)
             {
                 guest.stay-=dt;guest.view.ShowPatience(true,guest.stay/guest.initialPatience);
@@ -270,9 +242,15 @@ public sealed class HexPrototype : MonoBehaviour
                     if(guest.room||board.Layout.Reserve(guest.view.GetInstanceID(),HexTileKind.Table,start,out facility,out seat)){guest.hasFacility=true;guest.facility=facility;guest.seat=seat;guest.targetFloor=facility.floor;}
                     else ReserveWaitingPosition(guest);
                 }
+                if(!guest.hasFacility&&guest.waitingSlot<0)
+                {
+                    guest.state=GuestState.Browsing;guest.browse=.5f;
+                    guest.destination=new Vector3(-guest.originDirection*UnityEngine.Random.Range(2.7f,5f),.22f,UnityEngine.Random.Range(-3f,3f));
+                    continue;
+                }
                 guest.destination=guest.hasFacility?board.Layout.SeatPosition(guest.facility,guest.seat):WaitingPosition(Mathf.Max(0,guest.waitingSlot));
-                // First contact is arrival at the reserved position around the shop.
-                if(guest.floor==guest.targetFloor&&Vector3.Distance(guest.view.transform.position,guest.destination)<.2f) JoinWaiting(guest);
+                // Contact begins after arriving inside an owned tile.
+                if((guest.hasFacility||guest.waitingSlot>=0)&&guest.floor==guest.targetFloor&&Vector3.Distance(guest.view.transform.position,guest.destination)<.2f) JoinWaiting(guest);
             }
             else if(guest.state==GuestState.Crossing||guest.state==GuestState.Leaving)
             {
@@ -290,6 +268,7 @@ public sealed class HexPrototype : MonoBehaviour
     }
     void Leave(Guest guest,int direction)
     {
+        if(guest.meal){Destroy(guest.meal);guest.meal=null;}
         board.Layout.Release(guest.view.GetInstanceID());guest.hasFacility=false;guest.targetFloor=0;
         guest.view.seated=false;
         guest.state=GuestState.Leaving;guest.view.waiting=false;guest.waitingSlot=-1;
@@ -298,7 +277,7 @@ public sealed class HexPrototype : MonoBehaviour
     }
     void MoveGuest(Guest guest,Vector3 target,float dt)
     {
-        if(guest.state==GuestState.Waiting||guest.state==GuestState.Receiving||guest.state==GuestState.Lodging)return;
+        if(guest.state==GuestState.Waiting||guest.state==GuestState.Receiving||guest.state==GuestState.Lodging||guest.state==GuestState.Eating)return;
         var goal=new HexNavNode(guest.targetFloor,HexShopLayout.Cell(target));
         if(guest.navigationRevision!=board.Layout.Revision||!guest.navigationGoal.Equals(goal)||guest.path==null)
         {
@@ -325,7 +304,38 @@ public sealed class HexPrototype : MonoBehaviour
     public void UpdateFloorVisibility()
     {
         foreach(var guest in guests)if(guest.view)guest.view.gameObject.SetActive(guest.floor==board.CurrentFloor);
-        foreach(var delivery in deliveries)if(delivery.projectile)delivery.projectile.gameObject.SetActive(delivery.recipient.floor==board.CurrentFloor);
+        foreach(var guest in guests)if(guest.meal)guest.meal.SetActive(guest.floor==board.CurrentFloor);
+        if(service)service.UpdateVisibility();
+    }
+    public bool NextService(HexNavNode start,out int id,out HexNavNode node)
+    {
+        id=0;node=default;Guest oldest=null;
+        foreach(var guest in waitingGuests)
+        {
+            if(!ServiceTarget(guest.id,out var candidate,out var spot)||board.Layout.Path(start,candidate,false,true)==null)continue;
+            if(oldest==null||guest.contactOrder<oldest.contactOrder){oldest=guest;node=candidate;}
+        }
+        if(oldest==null)return false;id=oldest.id;return true;
+    }
+    public bool ServiceTarget(int id,out HexNavNode node,out Vector3 position)
+    {
+        node=default;position=default;var guest=guests.Find(g=>g.id==id);
+        if(guest==null||!guest.view||guest.state!=GuestState.Waiting)return false;
+        position=guest.view.transform.position;node=new HexNavNode(guest.floor,HexShopLayout.Cell(position));
+        return board.Layout.floors.ContainsKey(node.floor)&&board.Layout.Floor(node.floor).model.IsOwned(node.cell);
+    }
+    public bool CompleteService(int id,SpriteRenderer mealPrefab)
+    {
+        var guest=guests.Find(g=>g.id==id);
+        if(!ServiceTarget(id,out var node,out var spot)||!service||service.Floor!=node.floor||Vector3.Distance(service.Position,spot)>.25f)return false;
+        waitingGuests.Remove(guest);AddGold(guest.reward);
+        if(guest.hasFacility)
+        {
+            guest.state=GuestState.Eating;guest.stay=3.5f;guest.view.ShowPatience(false,1);
+            if(mealPrefab){var meal=Instantiate(mealPrefab);float angle=guest.seat*Mathf.PI*2/board.Layout.Floor(node.floor).use[node.cell].capacity;meal.transform.position=HexBoardModel.World(node.cell)+new Vector3(Mathf.Cos(angle)*.4f,1.4f,Mathf.Sin(angle)*.4f);guest.meal=meal.gameObject;guest.meal.SetActive(node.floor==board.CurrentFloor);}
+        }
+        else Leave(guest,guest.originDirection);
+        return true;
     }
     void OpenChoice()
     {
@@ -387,8 +397,8 @@ public sealed class HexPrototype : MonoBehaviour
         goldLabel.text=LocalizationService.Text("hud.gold","gold",gold);
         levelLabel.text=LocalizationService.Text("hex.level","level",level,"next",NextThreshold,"gold",gold);
         levelBar.fillAmount=Mathf.Clamp01((float)gold/NextThreshold);
-        serviceLabel.text=LocalizationService.Text("hex.service","seconds",cooldown.ToString("0.0",System.Globalization.CultureInfo.InvariantCulture),"queue",waitingGuests.Count);
-        cooldownBar.fillAmount=1-Mathf.Clamp01(cooldown/ServiceInterval);
+        serviceLabel.text=LocalizationService.Text("service.summary","queue",waitingGuests.Count,"ready",service?service.Food.ReadyCount:0,"count",FoodPerThrow);
+        if(service){service.RefreshGauges();cooldownBar.fillAmount=service.Food.Count>0?service.Food[0]:0;}
         tileLabel.text=LocalizationService.Text("hex.stock","name",LocalizationService.Text(board.Selected.nameKey),"stock",board.Model.Stock(board.Selected),"owned",board.Model.OwnedCount);
         statusLabel.text=LocalizationService.Text(messageKey);
         var inventory=new StringBuilder();

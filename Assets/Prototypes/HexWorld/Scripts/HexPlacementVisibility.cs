@@ -30,7 +30,7 @@ public sealed class HexPlacementVisibility
         foreach (var facing in Object.FindObjectsByType<HexCameraFacingSprite>(FindObjectsSortMode.None)) facing.FaceCamera();
         foreach (var sprite in Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None))
         {
-            if (!sprite.enabled || !sprite.sprite || sprite.transform.IsChildOf(preview.transform)) continue;
+            if (!sprite.enabled || !sprite.sprite || sprite.transform.IsChildOf(preview.transform) || sprite.GetComponent<HexWallView>()) continue;
             var bounds = sprite.sprite.bounds;
             var quad = new Vector2[4];
             bool visible = true;

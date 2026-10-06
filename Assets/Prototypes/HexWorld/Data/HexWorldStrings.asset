@@ -235,8 +235,8 @@ MonoBehaviour:
     english: CAMERA
     korean: "\uCE74\uBA54\uB77C"
   - key: hex.camera.pitch
-    english: "Viewing angle 0\u201365\xB0"
-    korean: "\uB0B4\uB824\uB2E4\uBCF4\uAE30 \uAC01\uB3C4 0\u201365\xB0"
+    english: "Viewing angle 4\u201365\xB0"
+    korean: "\uB0B4\uB824\uB2E4\uBCF4\uAE30 \uAC01\uB3C4 4\u201365\xB0"
   - key: hex.camera.zoom
     english: "Zoom distance 0.6\u20131.8\xD7"
     korean: "\uC90C \uAC70\uB9AC 0.6\u20131.8\uBC30"
@@ -244,9 +244,10 @@ MonoBehaviour:
     english: RESET VIEW
     korean: "\uC2DC\uC810 \uCD08\uAE30\uD654"
   - key: hex.camera.help
-    english: 'Scroll: zoom / Right drag: viewing angle / Build mode: simulation paused'
-    korean: "\uD720: \uC90C \xB7 \uC624\uB978\uCABD \uB4DC\uB798\uADF8: \uC2DC\uC120
-      \uB192\uB0AE\uC774 \xB7 \uBC30\uCE58 \uBAA8\uB4DC: \uAC8C\uC784 \uC77C\uC2DC\uC815\uC9C0"
+    english: 'Wheel: zoom / Left drag: viewing angle / Click: tile / Build mode:
+      paused'
+    korean: "\uD720: \uC90C \xB7 \uC67C\uCABD \uB4DC\uB798\uADF8: \uC2DC\uC120 \uB192\uB0AE\uC774
+      \xB7 \uD074\uB9AD: \uD0C0\uC77C \uC120\uD0DD \xB7 \uBC30\uCE58 \uC911 \uC77C\uC2DC\uC815\uC9C0"
   - key: hex.test.gold
     english: 'TEST: GOLD +1'
     korean: "\uD14C\uC2A4\uD2B8: \uACE8\uB4DC +1"
@@ -337,11 +338,11 @@ MonoBehaviour:
     english: Generous Portions
     korean: "\uD478\uC9D0\uD55C \uD55C \uC0C1"
   - key: item.ability_extra_servings.description
-    english: Throw +{FoodThrowCount} food per level to different guests in contact
-      order. Max level 3 (4 food total).
-    korean: "\uB808\uBCA8\uB2F9 \uD22C\uCC99 \uC74C\uC2DD +{FoodThrowCount}\uAC1C.
-      \uC811\uCD09 \uC21C\uC11C\uB300\uB85C \uC11C\uB85C \uB2E4\uB978 \uC190\uB2D8\uC5D0\uAC8C
-      \uBC30\uBD80\uD569\uB2C8\uB2E4. \uCD5C\uB300 3\uB808\uBCA8 (\uCD1D 4\uAC1C)."
+    english: Prepare +{FoodThrowCount} additional dish per level. Each dish has its
+      own gauge. MAX 3.
+    korean: "\uB808\uBCA8\uB2F9 \uC900\uBE44 \uAC00\uB2A5\uD55C \uC74C\uC2DD +{FoodThrowCount}\uAC1C.
+      \uC74C\uC2DD\uB9C8\uB2E4 \uC900\uBE44 \uAC8C\uC774\uC9C0\uB97C \uB530\uB85C
+      \uAD00\uB9AC\uD569\uB2C8\uB2E4. \uCD5C\uB300 3\uB808\uBCA8."
   - key: item.ability_attention_call.name
     english: Street-Side Invitation
     korean: "\uAC70\uB9AC\uC758 \uCD08\uB300"
@@ -351,9 +352,9 @@ MonoBehaviour:
     korean: "\uB808\uBCA8\uB2F9 \uC678\uACFD \uC190\uB2D8\uC758 \uAD00\uC2EC\uC744
       \uB04C \uD655\uB960 +{VisitorChance}%p. \uCD5C\uB300 \uD655\uB960\uC740 100%\uC785\uB2C8\uB2E4."
   - key: hex.help.Walls
-    english: 'PAUSED: select an owned tile, then toggle one of its six sides.'
-    korean: "\uC77C\uC2DC\uC815\uC9C0 \xB7 \uC18C\uC720 \uD0C0\uC77C\uC744 \uC120\uD0DD\uD558\uACE0
-      \uC5EC\uC12F \uBC29\uD5A5\uC758 \uBCBD\uC744 \uD3B8\uC9D1\uD558\uC138\uC694."
+    english: "Select an owned tile. Green + builds; red \u2212 removes a wall."
+    korean: "\uC18C\uC720 \uD0C0\uC77C \uC120\uD0DD \xB7 \uC678\uACFD\uC758 \uB179\uC0C9
+      +\uB294 \uBCBD \uC124\uCE58, \uBE68\uAC04 \u2212\uB294 \uBCBD \uCCA0\uAC70\uC785\uB2C8\uB2E4."
   - key: shop.wall.mode
     english: EDIT WALLS
     korean: "\uBCBD \uD3B8\uC9D1"
@@ -451,3 +452,40 @@ MonoBehaviour:
   - key: shop.wall.build
     english: BUILD
     korean: "\uC9D3\uAE30"
+  - key: wall.icon.add
+    english: +
+    korean: +
+  - key: wall.icon.remove
+    english: "\u2212"
+    korean: "\u2212"
+  - key: service.food.slot
+    english: 'FOOD {number}
+
+      {state}'
+    korean: "\uC74C\uC2DD {number}\n{state}"
+  - key: service.ready
+    english: READY
+    korean: "\uC900\uBE44 \uC644\uB8CC"
+  - key: service.cooking
+    english: PREPARING
+    korean: "\uC900\uBE44 \uC911"
+  - key: service.paused
+    english: AT STATION
+    korean: "\uD604\uC7A5 \uC900\uBE44 \uB300\uAE30"
+  - key: service.summary
+    english: Waiting {queue} / Ready {ready} of {count}
+    korean: "\uBC30\uB2EC \uB300\uAE30 {queue}\uBA85 / \uC900\uBE44 {ready}\xB7{count}\uAC1C"
+  - key: hex.item.extra_servings.description
+    english: Prepare +{FoodThrowCount} additional dish per level. Each dish has its
+      own gauge. MAX 3.
+    korean: "\uB808\uBCA8\uB2F9 \uC900\uBE44 \uAC00\uB2A5\uD55C \uC74C\uC2DD +{FoodThrowCount}\uAC1C.
+      \uC74C\uC2DD\uB9C8\uB2E4 \uC900\uBE44 \uAC8C\uC774\uC9C0\uB97C \uB530\uB85C
+      \uAD00\uB9AC\uD569\uB2C8\uB2E4. \uCD5C\uB300 3\uB808\uBCA8."
+  - key: service.blocked
+    english: CHECK ROUTE
+    korean: "\uD1B5\uB85C \uD655\uC778"
+  - key: service.build.worker
+    english: The worker is on this tile. Wait until they leave before moving or recovering
+      it.
+    korean: "\uD50C\uB808\uC774\uC5B4\uAC00 \uC11C \uC788\uB294 \uD0C0\uC77C\uC785\uB2C8\uB2E4.
+      \uC774\uB3D9\uD55C \uB4A4 \uC62E\uAE30\uAC70\uB098 \uD68C\uC218\uD558\uC138\uC694."

@@ -145,11 +145,11 @@ public sealed class HexShopLayout
   }
   return false;
  }
- public List<HexNavNode> Path(HexNavNode start,HexNavNode goal,bool ignoreWalls=false)
+ public List<HexNavNode> Path(HexNavNode start,HexNavNode goal,bool ignoreWalls=false,bool ownedOnly=false)
  {
-  Bounds(out var min,out var max);if(!Passable(start,min,max)||!Passable(goal,min,max))return null;
+  Bounds(out var min,out var max);if(!Passable(start,min,max)||!Passable(goal,min,max)||ownedOnly&&(!Floor(start.floor).model.IsOwned(start.cell)||!Floor(goal.floor).model.IsOwned(goal.cell)))return null;
   var from=new Dictionary<HexNavNode,HexNavNode>();var seen=new HashSet<HexNavNode>{start};var pending=new Queue<HexNavNode>();pending.Enqueue(start);
-  while(pending.Count>0){var node=pending.Dequeue();if(node.Equals(goal)){var path=new List<HexNavNode>{node};while(!node.Equals(start)){node=from[node];path.Add(node);}path.Reverse();return path;}foreach(var next in Neighbours(node,min,max,ignoreWalls))if(seen.Add(next)){from.Add(next,node);pending.Enqueue(next);}}
+  while(pending.Count>0){var node=pending.Dequeue();if(node.Equals(goal)){var path=new List<HexNavNode>{node};while(!node.Equals(start)){node=from[node];path.Add(node);}path.Reverse();return path;}foreach(var next in Neighbours(node,min,max,ignoreWalls))if((!ownedOnly||Floor(next.floor).model.IsOwned(next.cell))&&seen.Add(next)){from.Add(next,node);pending.Enqueue(next);}}
   return null;
  }
  public bool Reserve(int guest,HexTileKind kind,HexNavNode start,out HexNavNode target,out int seat)
@@ -165,4 +165,12 @@ public sealed class HexShopLayout
  }
  public void Release(int guest){foreach(var floor in floors)foreach(var use in floor.Value.use.Values)for(int i=0;i<use.capacity;i++)if(use.occupants[i]==guest)use.occupants[i]=0;}
  public Vector3 SeatPosition(HexNavNode node,int seat){var use=Floor(node.floor).use[node.cell];float a=seat*Mathf.PI*2/use.capacity;return HexBoardModel.World(node.cell)+new Vector3(Mathf.Cos(a)*.65f,.22f,Mathf.Sin(a)*.65f);}
+ public bool ConvertEnclosedStall(HexTileDefinition kitchen)
+ {
+  var model=Floor(0).model;if(model.Definition(model.Root)||!kitchen)return false;
+  foreach(var direction in HexBoardModel.Directions)if(!model.IsOwned(model.Root+direction))return false;
+  foreach(var cell in model.Owned)for(int d=0;d<6;d++)if(!model.IsOwned(cell+HexBoardModel.Directions[d])&&!HasWall(0,cell,d))
+  {var definition=model.Definition(cell);if(!definition||definition.kind!=HexTileKind.Entrance)return false;}
+  if(!AllOwnedReachOutside())return false;model.SetRootDefinition(kitchen);Revision++;return true;
+ }
 }

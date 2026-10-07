@@ -787,3 +787,12 @@ MonoBehaviour:
   - key: staff.page.next
     english: NEXT
     korean: "\uB2E4\uC74C \uD6C4\uBCF4"
+  - key: actor.role.player
+    english: PLAYER
+    korean: "\uD50C\uB808\uC774\uC5B4"
+  - key: actor.role.employee
+    english: EMPLOYEE
+    korean: "\uC9C1\uC6D0"
+  - key: actor.role.employee.id
+    english: EMPLOYEE #{id}
+    korean: "\uC9C1\uC6D0 #{id}"

@@ -131,6 +131,20 @@ MonoBehaviour:
     testExperience: 180
     trashTestOffset: {x: -0.5, y: 0.22, z: 0.35}
     disruptionTestOffset: {x: 0.6, y: 0.22, z: 0.35}
+  identity:
+    showLabels: 1
+    showGroundMarkers: 1
+    playerColor: {r: 1, g: 0.72, b: 0.12, a: 1}
+    employeeColor: {r: 0.15, g: 0.85, b: 1, a: 1}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
+    labelHeight: 1.85
+    groundHeight: 0.025
+    labelScale: 0.009
+    groundRadius: 0.45
+    groundWidth: 0.06
+    labelSize: {x: 160, y: 38}
+    fontSize: 24
+    backgroundOpacity: 0.92
   levelCurve: {fileID: 11400000, guid: 6dd48fbd70d0ec742a9b7eaaf56ed9ac, type: 2}
   itemCatalog: {fileID: 11400000, guid: 201f324cb3f56114393cd2c3a8e6c2f7, type: 2}
   tileTypes:

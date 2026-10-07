@@ -12,6 +12,7 @@ public sealed class HexTestSettings : ScriptableObject
     [Header("접객 / 준비 속도 즉시, 대기 시간은 다음 손님부터")] public ServiceOptions service = new ServiceOptions();
     [Header("시작 조건 / 다음 Play부터")] public StartOptions start = new StartOptions();
     [Header("아르바이트 / 고용·급여·성장·업무")] public StaffOptions staff = new StaffOptions();
+    [Header("캐릭터 역할 표시 / 즉시 반영")] public IdentityOptions identity = new IdentityOptions();
     [Header("데이터 원본 / 아래 Inspector에서 펼쳐 편집")]
     public GoldLevelCurve levelCurve;
     public ItemCatalog itemCatalog;
@@ -87,6 +88,16 @@ public sealed class HexTestSettings : ScriptableObject
         [Min(0)] public int testGold=20;
         [Min(0)] public float testExperience=180;
         public Vector3 trashTestOffset=new Vector3(-.5f,.22f,.35f),disruptionTestOffset=new Vector3(.6f,.22f,.35f);
+    }
+    [Serializable] public sealed class IdentityOptions
+    {
+        public bool showLabels=true,showGroundMarkers=true;
+        public Color playerColor=new Color(1,.72f,.12f,1),employeeColor=new Color(.15f,.85f,1,1),textColor=Color.white;
+        [Min(0)] public float labelHeight=1.85f,groundHeight=.025f;
+        [Min(.001f)] public float labelScale=.009f,groundRadius=.45f,groundWidth=.06f;
+        public Vector2 labelSize=new Vector2(160,38);
+        [Range(12,40)] public int fontSize=24;
+        [Range(0,1)] public float backgroundOpacity=.92f;
     }
     void OnValidate()
     {

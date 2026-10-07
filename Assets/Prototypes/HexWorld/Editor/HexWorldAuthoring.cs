@@ -100,6 +100,7 @@ public static class HexWorldAuthoring
         HexShopPolishAuthoring.Upgrade();
         HexTestSettingsAuthoring.Upgrade();
         HexStaffAuthoring.Upgrade();
+        HexActorIdentityAuthoring.Upgrade();
     }
     static Material Material(string name,Color color)
     {

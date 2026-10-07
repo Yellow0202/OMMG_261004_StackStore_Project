@@ -33,6 +33,7 @@ public sealed class HexStaffSystem : MonoBehaviour
         var actor=Instantiate(employeePrefab,employeeRoot);actor.transform.position=game.service.Position;actor.body.color=definition.color;actor.ShowPatience(false,1);
         var marker=actor.GetComponent<HexKitchenOccupant>();marker.Unassign();
         var employee=new HexEmployee{state=new HexEmployeeState(nextId++,definition,Options),view=actor,assignment=marker,floor=game.service.Floor};
+        var identity=actor.GetComponentInChildren<HexActorIdentity>(true);if(identity)identity.SetEmployee(employee.state.id);
         employees.Add(employee);MessageKey="staff.hired";UpdateVisibility();return true;
     }
     public bool IsKitchen(HexNavNode node)

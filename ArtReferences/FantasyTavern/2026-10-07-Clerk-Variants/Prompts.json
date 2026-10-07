@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Clerk-Modeling-Sheet",
+    "prompt": "Preserve the SAME adult human female fantasy tavern clerk from the references: messy brown low ponytail, tired dark circles, cream rolled-sleeve blouse, burgundy apron tied at back, long brown skirt, short brown boots, normal human ears. Cute simplified Japanese cartoon SD proportions. Restore clearly visible spiral pupils inside narrowed sharp eyes, with a naturally wicked upturned grin. No ghosts. Create one clean modeling reference turnaround sheet on plain ivory background: full-body FRONT, SIDE, BACK views, matching scale, proportions and aligned feet. Neutral symmetric A-pose with arms slightly away from torso, hands empty, clothing and silhouette unobstructed, clear construction-friendly simple shapes. Front has visible spiral eyes and a restrained wicked smirk. Orthographic views, no perspective, flat cel colors, crisp dark brown outlines. Only these three views.",
+    "transparent_background": false
+  },
+  {
+    "name": "Clerk-Gold-Cascade",
+    "prompt": "Preserve the SAME adult human female fantasy tavern clerk from the references: messy brown low ponytail, tired dark circles, cream rolled-sleeve blouse, burgundy apron tied at back, long brown skirt, short brown boots, normal human ears. Cute simplified Japanese cartoon SD proportions. Restore clearly visible spiral pupils inside narrowed sharp eyes, with a naturally wicked upturned grin. No ghosts. Create one expressive full-body concept illustration. She laughs with a MORE wicked confident smile, sharply narrowed spiral eyes and raised mouth corners, delighted as a huge chaotic cascade of fantasy gold coins pours down BEHIND her. Exaggerated mischievous cartoon expression, no monsters or ghosts. Same costume and identity, light simple manga cartoon style, bold clean outlines, minimal shading, warm golden tavern atmosphere, clear character silhouette, portrait composition.",
+    "transparent_background": false
+  },
+  {
+    "name": "Clerk-Pixel-Idle",
+    "prompt": "Preserve the SAME adult human female fantasy tavern clerk from the references: messy brown low ponytail, tired dark circles, cream rolled-sleeve blouse, burgundy apron tied at back, long brown skirt, short brown boots, normal human ears. Cute simplified Japanese cartoon SD proportions. Restore clearly visible spiral pupils inside narrowed sharp eyes, with a naturally wicked upturned grin. No ghosts. Create ONE single-frame pixel art game sprite of this character standing in a relaxed front-facing IDLE pose, arms relaxed, hands empty, entire body visible including boots. Transparent background, ONLY the character, no ground, scenery, text, frame, coins, shadows outside the sprite or multiple poses. Authentic low-resolution pixel art: chunky deliberate square pixel clusters, limited palette, crisp hard edges, no antialiasing, visually about a 64x96 pixel sprite enlarged with nearest-neighbor. Preserve brown ponytail, cream blouse, burgundy apron, brown skirt, tired dark circles and small wicked smile with readable spiral eye details.",
+    "transparent_background": true
+  }
+]

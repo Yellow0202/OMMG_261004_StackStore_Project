@@ -1,0 +1,1502 @@
+﻿OMMG Stack Store 프로젝트 스크립트·함수·변수 설명서
+작성 기준: 2026-10-07 / 플레이어·직원 역할 표시 추가 완료 상태
+원본: Assets/Prototypes 아래 C# 소스. 경로는 프로젝트 루트 기준.
+
+메모장의 Ctrl+F로 스크립트·함수·변수 이름을 검색할 수 있습니다.
+클래스의 참조·설정·실행 상태와 주요 내부 함수까지 설명합니다.
+함수 안에서만 잠깐 쓰는 지역 변수는 처리 흐름으로 설명하고, 줄마다 나열하지 않습니다.
+끝에는 실제 소스 선언 색인을 덧붙입니다.
+
+목차
+1. 구조와 실행 흐름
+2. 공용 테스트 설정
+3. 게임 진행·손님·보상
+4. 타일·벽·시설·층·경로
+5. 조리·직접 배달
+6. 직원 고용·업무·급여·성장
+7. 카메라·입력·표시
+8. 상점·공통 아이템·언어·폰트
+9. 에디터 제작·검증 도구
+10. 보존된 구형 UGUI 프로토타입
+11. 수정 위치와 현재 구현 범위
+12. 실제 소스 선언 색인
+
+================================================================
+1. 구조와 실행 흐름
+================================================================
+현행 씬: Assets/Prototypes/HexWorld/Scenes/HexWorld.unity
+현행 코드/데이터/프리팹: Assets/Prototypes/HexWorld의 Scripts/Data/Prefabs
+공통 코드: Assets/Prototypes/Shared
+이전 프로토타입: Assets/Prototypes/LegacyUGUI
+규칙·작업 기록·설명: Assets/History
+
+ScriptableObject는 설정·후보 등 원본 데이터이다.
+MonoBehaviour는 씬·프리팹의 컴포넌트로 진행과 표시를 제어한다.
+일반 C# 모델은 배치·경로·음식 준비도·고용별 경험치 등 실행 상태를 관리한다.
+UGUI는 씬/프리팹에 저장된 Canvas/Text/Image/Button을 참조한다.
+Editor의 Authoring 코드는 에디터에서 UI/씬/프리팹을 제작해 저장하는 도구이며,
+매번 인게임 UI 전체를 런타임에 만드는 방식과 구별된다.
+
+초기화의 핵심 실행 순서(DefaultExecutionOrder)
+LocalizationService -1000: 언어 서비스 준비.
+HexSettingsBinding -500: 시작 조건·공용 설정 연결.
+HexTileBoard -200: 타일 모델 초기화.
+HexOrbitCamera -50: 카메라 갱신 순서 제어.
+HexActorIdentity 150: 캐릭터 표시 이후 역할 이름표 갱신.
+
+HexPrototype.Update → 소유 골드로 레벨업 확인 → 진행 가능 시 손님 생성
+→ TickGuests → staffSystem.Tick → service.Tick.
+배치/보상 선택/상점 중에는 게임 시간을 정지한다.
+별도 LateUpdate에서 카메라·2D 방향·게이지·역할 표시를 정리한다.
+
+접객 흐름
+생성 → 통행 또는 배회/접근 → 자리 예약 → 도착 시 인내 게이지 시작
+→ 접촉 순번 부여 → 도달 가능한 가장 오래된 대기 손님 선택
+→ 플레이어 직접 이동 → 음식 전달·골드 지급 → 식사 후/즉시 퇴장.
+숙박은 음식 배달과 별개로 체류 종료 시 숙박 골드를 지급한다.
+
+3D 바닥은 X/Z, 높이는 Y이다. 타일 Vector2Int는 육각 axial 좌표(q,r).
+내부 floor=0은 표시 1층이다.
+
+공통 Unity 함수
+Awake: 초기 참조·모델·UI 이벤트 준비. Start: 첫 프레임 전 준비.
+OnEnable/OnDisable: 이벤트 구독·해제 및 등록/정리.
+Update: 프레임별 처리. LateUpdate: 이동 이후 위치·방향·표시 정리.
+OnDestroy: 파괴 시 예약/정적 인스턴스 정리.
+OnValidate: 에디터 설정 유효 범위 보정 또는 캐시 초기화.
+
+================================================================
+2. 공용 테스트 설정
+================================================================
+[HexTestSettings.cs]
+역할: 테스트 조절값 ScriptableObject. 아래 값은 이 에셋에서 조절한다.
+Assets/Prototypes/HexWorld/Data/PrototypeTestSettings.asset
+Current: 현재 실행 공용 설정. 골드·직원 성장 상태 저장소가 아니다.
+camera/visual/guests/service/start/staff/identity: 기능별 설정 그룹.
+levelCurve/itemCatalog/tileTypes/shopOffers: 연결된 별도 원본 데이터.
+OnValidate(): 각도/줌 초기·최소·최대, 배회·퇴장 범위 및 전달 거리 보정.
+
+CameraOptions / Camera
+minimumPitch/maximumPitch/initialPitch: 시점 X 최저/최대/초기 각도.
+baseDistance: 줌을 곱하기 전 거리.
+minimumZoom/maximumZoom/initialZoom: 거리 배율 최저/최대/초기값.
+yaw: 수평 Y 회전. fieldOfView: 원근 시야각.
+zoomSpeed/orbitSensitivity: 휠 줌/시점 드래그 민감도.
+panMargin: 소유 영역 주변 이동 여유. overscroll: 드래그 중 추가 초과 여유.
+returnSpeed: 초과 위치에서 지수 곡선으로 돌아오는 속도 계수.
+focusHeight: 주시점 높이. dragThresholdPixels: 클릭/드래그 구분 픽셀 거리.
+
+VisualOptions / Visual
+pitchFollow: 카메라 각도를 그림에 반영하는 비율.
+maximumTilt: 그림 기울기 한계. maximumGroundLean: 그림 상단의 바닥 밀림 한계.
+gaugeHeight: 손님 게이지 높이. walkFramesPerSecond: 걷기 프레임 재생 속도.
+outlineWidth: 바닥 윤곽선 두께. wallThickness/wallHeight: 벽 두께/높이.
+unresponsiveColor: 비관심 손님 색·투명도.
+customerSaturation/customerBrightness: 관심 손님 랜덤 색 채도/명도.
+
+GuestOptions / Guests
+spawnSeconds/maxCustomers: 생성 간격/최대 활성 손님 수.
+visitorChance: 관심 손님 비율. directQueueChance: 바로 접근할 확률.
+browsingQueueChance: 배회 판단 때 접근으로 바뀔 확률.
+lodgingChance: 숙박 예약 시도 확률.
+browseDecisionSeconds/fullAreaRetrySeconds: 배회 판단/자리 없을 때 재시도 시간.
+walkSpeed: 이동 속도.
+spawnX/spawnZ: 생성 좌우 거리/Z 범위.
+destinationX/despawnX: 목적지 X 거리/실제 제거 경계.
+browseX/browseZ: 배회 X 절댓값 최소·최대/Z 범위.
+turnSeconds: 통행 중 세로 변화 재결정 주기 범위.
+verticalDeviation/verticalSpeed: 통행 중 Z 흔들림 폭/변화 속도.
+stallClearance: 가판대 중심 통행을 피할 Z 보정 거리.
+standingSlotsPerCell: 입식 셀당 대기 자리 수.
+standingRadius/separation: 입식 자리 반지름/손님 최소 간격.
+contactDistance/waypointDistance: 도착·중간 경로 지점 판정 거리.
+groundHeight: 손님 오브젝트 바닥 Y 높이.
+
+ServiceOptions / Service
+preparationSeconds/patienceSeconds: 기본 조리/일반 인내 시간.
+walkSpeed/eatingSeconds: 플레이어 이동 속도/테이블 식사 시간.
+baseFoodCount: 기본 음식 슬롯 수. 최종 슬롯 수는 1~4 제한.
+standingGold: 테이블 없이 접객한 보상 골드.
+stationOffset: 타일 중심 대비 플레이어 조리 위치.
+stationDistance/arrivalDistance/deliveryDistance: 조리 도착/배달 도착/전달 허용 거리.
+mealRadius/mealHeight: 테이블 위 음식 표시 반지름/높이.
+
+StartOptions / Start
+gold/level/tilesPerType: 초기 골드/레벨/종류별 타일 재고. 다음 Play부터 적용.
+rewardChoices: 보상 선택지 수. 현재 저장된 UI의 카드 3개 범위에서 사용.
+
+StaffOptions / Staff
+maximumEmployees: 고용 정원. wageSeconds: 급여 주기.
+passiveExperiencePerSecond: 모든 능력의 초당 고용 경험치.
+jobExperiencePerSecond: 명령된 업무 능력의 추가 초당 경험치.
+gradeExperience/gradeEfficiency: F,E,D,C,B,A,S 순 필요 경험치/효율 배율.
+walkSpeed/workDistance: 이동 속도/업무 도착 거리.
+recruitRadius: 회유 및 대기 고객 퇴장 단점 탐색 반경.
+recruitSeconds/ejectionSeconds: 회유 시도/퇴장 단점 판정 주기.
+persuasionBaseChance/persuasionPerGrade: 회유 기본 확률/등급별 추가 확률.
+kitchenOffset: 직원 조리 위치. patrolRadius/patrolSeconds: 순찰 반경/갱신 주기.
+candidates/skills: 직원 후보/등급 해금 스킬 원본 목록.
+trashTestPrefab/disruptionTestPrefab: 청소/퇴치 테스트 프리팹.
+testGold/testExperience: UI 테스트 버튼 지급량.
+trashTestOffset/disruptionTestOffset: 테스트 대상 생성 위치 오프셋.
+
+IdentityOptions / Identity
+showLabels/showGroundMarkers: 이름표/바닥 도형 표시 여부.
+playerColor/employeeColor/textColor: 플레이어/직원/글자 색.
+labelHeight/groundHeight: 캐릭터 대비 이름표 높이/바닥 표시 월드 Y.
+labelScale/labelSize/fontSize: Canvas 배율/이름표 가로·세로/글자 크기.
+groundRadius/groundWidth: 바닥 도형 반지름/선 두께.
+backgroundOpacity: 이름표 배경 불투명도.
+
+[HexSettingsBinding.cs]
+역할: 공용 에셋을 씬 실행 값과 연결, 즉시 반영 항목 동기화.
+settings/game: 설정 원본/반영 대상. pitchLabel/zoomLabel: 범위 안내 UGUI.
+Awake(): Current·시작 재고/종류/골드/레벨·초기 시점 설정.
+Apply(): 카메라·슬라이더·손님·조리·레벨곡선·아이템 목록 연결.
+Update(): Apply 반복. OnEnable/OnDisable: Current 등록/해제.
+시작 조건은 다음 Play, 좌석은 새 배치, 인내 시간은 새 대기 시작부터 적용.
+Play 중 원본 에셋을 수정한 값은 Play 종료 후에도 에셋에 남는다.
+
+================================================================
+3. 게임 진행·손님·보상
+================================================================
+[HexPrototype.cs]
+역할: 현행 게임의 골드·레벨·손님 상태·아이템 보상 총괄.
+
+참조와 변수
+board/orbit/customerPrefab/customerRoot: 보드/카메라/손님 원본/생성 부모.
+catalog/curve/tileRewards: 아이템 목록/레벨곡선/부품 아이템→타일 지급 대응표.
+service/staffSystem: 직접 배달/직원 시스템.
+goldLabel/levelLabel/serviceLabel/inventoryLabel/tileLabel/statusLabel:
+  골드·레벨·접객·보유·타일·안내 UGUI 텍스트.
+cooldownBar/levelBar: 대표 음식 준비도/골드 조건 진행 비율.
+choicePanel/buildingPanel/cards: 보상·배치 패널/보상 카드 참조.
+buildButton/endBuildButton/placeButton/moveButton/recoverButton:
+  배치 시작·종료·설치·이동·회수 버튼.
+testGoldButton/resetCameraButton/continueButton: 테스트 골드/시점 초기화/보상 소진 진행.
+tileDropdown/pitchSlider/zoomSlider: 타일 종류/시점/줌 입력 UI.
+spawnSeconds/serviceSeconds/patienceSeconds/visitorChance/directQueueChance/
+browsingQueueChance/browseDecisionSeconds/maxCustomers: 공용 설정에서 전달되는 실행 값.
+waitingRadius/foodPrefab/foodOrigin: 이전 둘러서기·투척 단계의 남은 참조.
+  현재 자리 계산은 GuestOptions, 전달은 HexFoodService가 담당한다.
+gold/Gold: 현재 소유 골드. 레벨업 비교 대상.
+earnedGold/EarnedGold: 획득 누계 통계. 레벨업 조건으로 사용하지 않는다.
+level/Level: 현재 레벨. 소비로 잔액이 줄어도 이미 오른 레벨은 내려가지 않음.
+ownedItems: 원본 아이템과 이번 런 강화 레벨 목록.
+IsBuilding/IsChoosing/IsShopping: 정지 사유 및 UI 진행 상태.
+BuffRemaining: 일시 속도 버프 남은 시간.
+NextThreshold: 다음 레벨의 보유 골드 목표. CustomerCount: 현재 손님 수.
+FoodPerThrow: 예전 이름이며 현재는 음식 슬롯 수(최대 4).
+ServiceInterval: 기본 조리 시간/(1+영구 속도 보너스+임시 속도 보너스).
+ReactiveVisitorChance: 기본 관심 확률+아이템 관심 보너스(0~1 제한).
+offered/offeredTiles: 제시한 아이템/타일 목록.
+pendingTileItem/IsChoosingTile/OfferedTiles: 부품 획득 후 세부 타일 선택 상태/후보.
+guests/waitingGuests: 전체/음식 대기 손님 목록. contactSequence: 접촉 순번 카운터.
+spawnTimer: 생성 타이머. cooldown: 이전 조리 카운트다운 흔적.
+  현행 음식별 준비도 원본은 service.Food이다.
+speedBonus/patienceBonus/attractionBonus/additionalFoodCount: 합산 아이템 보너스.
+temporarySpeedBonus: 일시 버프. beforePause/paused: 이전 배속/정지 소유 여부.
+messageKey: 안내 문자열 키. GuestOptions/ServiceOptions: 공용 또는 대체 설정.
+
+함수
+ConfigureStart(): 시작 골드·레벨과 획득 누계 초기화.
+ItemLevel(): 보유 강화 레벨 조회.
+Pause/Resume(): 정지·이전 배속 복원. 다른 정지 사유가 남으면 재개 안 함.
+SetMessage(): 안내 키 변경·HUD 갱신.
+BeginBuilding/EndBuilding(): 배치 모드·패널·정지 상태 제어.
+AddGold(): 양수 지급, 소유 및 누계 증가. TrySpendGold(): 잔액 검사 후 차감.
+BeginShopping/EndShopping(): 상점과 직원 UI에서 함께 쓰는 정지 상태.
+ActivateServiceBuff(): 중복 버프 거부 및 일시 속도 가산 시작.
+Spawn(): 좌우 생성, 관심 분류·색, 통행/배회/접근 시작 상태 지정.
+StandingCells(): 입식 가능한 소유 셀과 열린 가게 경계의 외부 셀 계산.
+WaitingPosition(): 입식 슬롯의 실제 위치 계산.
+HasAvailableTable(): 도달 가능한 빈 좌석 확인.
+ReserveWaitingPosition(): 겹치지 않고 경로가 있는 입식 자리 선택.
+JoinWaiting(): 도착 후 착석/숙박 상태·인내·보상·최초 접촉 순번 지정.
+TickGuests(): 인내 감소·배회 판단·시설 예약·이동·식사/숙박·제거 처리.
+Leave(): 테이블 음식/시설 예약 정리, 게이지 숨김, 퇴장 지정.
+MoveGuest(): 벽·계단 경로와 층 이동. 구조 Revision 변경 시 경로 재계산.
+UpdateFloorVisibility(): 현재 층 손님·음식·플레이어·직원만 표시.
+FindRecruitGuest(): 가까운 관심 배회 손님 탐색.
+PersuadeGuest(): 회유 성공 손님을 접근 상태로 전환.
+EjectWaitingGuest(): 직원 단점으로 가까운 대기 손님 퇴장.
+NextService(): 유효하고 경로가 있는 대기 손님 중 contactOrder가 가장 작은 대상.
+ServiceTarget(): 대기 상태·층·자리 검증 및 배달 목표 반환.
+ServicePath(): 내부끼리는 소유 셀만, 외부 접객은 일반 통행 경로를 사용.
+CompleteService(): 같은 층·가까운 거리 검증, 골드 지급·테이블 음식/퇴장 처리.
+OpenChoice(): 강화 가능한 중복 없는 후보 선정, 레벨 증가·선택 정지.
+Choose(): 아이템 선택. ShopPart는 랜덤 세부 타일 선택을 먼저 제시.
+CanGrantItem(): 강화 상한 확인. GrantItem/GrantItemInternal(): 보유 레벨 증가,
+  필요 시 대응 타일 지급·효과 재계산. 타일 선택 보상은 이중 지급 방지.
+ApplyEffects(): 효과×보유 레벨을 합산.
+CloseChoice(): 완료 후 패널 닫기. 세부 타일 미선택 시 종료 거부.
+RefreshCards/RefreshLanguage/RefreshHUD(): 후보·번역·수치·버튼 상태 표시.
+Awake(): UI 연결. Update(): 골드 조건·생성·손님/직원/배달 진행.
+OnEnable/OnDisable: 언어 구독/해제·소유 정지 복원. OnDestroy: 테이블 음식 정리.
+
+같은 파일의 자료구조
+HexOwnedItem.definition/level: 보유 원본/강화 레벨.
+HexTileReward.item/tile/count: 부품과 대응 타일/수량.
+HexChoiceCard.icon/title/description/button: 카드 UI 참조.
+GuestState: Crossing 통행, Browsing 배회, Approaching 접근, Waiting 대기,
+  Receiving 이전 수령 상태 흔적, Lodging 숙박, Leaving 퇴장, Eating 식사.
+Guest.view/state/destination: 오브젝트/상태/목적지.
+Guest.browse/patience/initialPatience/stay: 배회·인내·초기 인내·체류 타이머.
+Guest.direction/originDirection/turnTime/targetZ/interested: 방향·세로 변화·관심 여부.
+Guest.waitingSlot/contactOrder: 입식 자리/최초 접촉 순번.
+Guest.id/floor/targetFloor/seat/reward: 식별자/현재·목표 층/좌석/보상.
+Guest.facility/hasFacility/room: 시설 위치/예약/숙박 여부.
+Guest.path/navigationRevision/navigationGoal/waypoint: 경로 캐시 및 진행 상태.
+Guest.meal: 테이블 위 음식.
+
+================================================================
+4. 타일·벽·시설·층·경로
+================================================================
+[HexBoardModel.cs]
+역할: 단일 층 소유·재고·육각 연결 규칙. MonoBehaviour가 아닌 일반 C# 모델.
+Directions: 변을 공유하는 여섯 이웃. owned: 설치 좌표→타일 원본.
+stock: 타일 원본→미배치 수량. Owned/OwnedCount/Root: 소유 좌표/개수/보호 시작 셀.
+생성자: 기본 또는 지정 Root·계단 도착 셀 구성.
+ShareStock(): 여러 층 재고 공유. SetRootDefinition(): 가판대의 주방 전환.
+Clone(): 편집 복원용 사본. IsOwned/Definition/Stock(): 소유·정의·재고 조회.
+Grant(): 타일 재고 지급. World(): axial 좌표→월드 X/Z, 기본 반지름 1.4.
+CanPlace/Place(): 변 인접·빈 셀·재고 검사 후 설치.
+Connected(): 제거/이동 이후 Root에서 BFS로 전체 연결성 검사.
+CanRemove/CanMove(): Root 보호 및 최종 연결성 검사.
+Move/Recover(): 유효한 타일 이동/회수 및 재고 반환.
+
+[HexShopLayout.cs]
+역할: 층·벽·계단·시설 예약·우회 경로·실제 외부 통로 보장.
+floors: 층 번호→층 모델. stairs: 계단 출발→윗층 도착.
+Revision: 성공한 구조 변경 버전. 이동 캐릭터가 경로 재계산에 사용.
+Floor(): 층 조회. IsStair/HasLanding(): 계단 출발/도착 여부.
+Cell(): 월드 위치→육각 좌표 반올림 변환.
+HasWall(): 수동 기록 우선. 일반 소유/비소유 경계는 기본 벽,
+  내부 이웃과 초기 가판대·출입구 경계는 기본 통로.
+SetWall(): 벽 변경, 모든 소유 셀의 외부 연결이 막히면 롤백.
+TryPlace/TryRecover/TryMove(): 상위 시설·통로 규칙을 포함한 편집.
+CanRecover/CanMove(): 연결 단절·사용 중 시설·계단/윗층 보호 검사.
+InitialiseUse(): 테이블 랜덤 2~4석, 숙박 정원 1칸 생성.
+OpenInteriorEdges/RemoveEdges(): 설치·회수에 따라 수동 벽 기록 정리.
+ConnectStair(): 다음 층이 없으면 도착 타일 1개로 생성하고 재고 공유.
+RemoveStair(): 연결 제거. 마지막 계단이면 보호 조건 통과 후 해당 층 제거.
+Edit(): 사본 저장→편집→통로 보정·검증. 실패하면 전체 복원.
+OwnedNodes(): 모든 층 소유 위치 열거. Bounds(): 1층 외부 탐색 범위.
+Passable(): 1층 탐색 범위, 윗층 소유 셀만 허용.
+Neighbours(): 벽 없는 여섯 이웃과 양방향 계단 반환.
+ExteriorReach(): 외부 경계에서 도달 가능한 셀 BFS 탐색.
+AllOwnedReachOutside(): 모든 소유 셀의 실제 외부 연결 검사.
+RepairGroundExit(): 타일 편집으로 막힌 경우 외부 연결에 필요한 벽을 개방.
+Path(): BFS 경로. ignoreWalls=벽 무시, ownedOnly=소유 셀만 사용.
+Reserve/Release(): 도달 가능한 시설 빈 자리 예약/손님별 예약 해제.
+SeatPosition(): 좌석 번호→타일 주변 착석 위치.
+ConvertEnclosedStall(): Root 주변 여섯 소유 셀·외곽 벽·출입구·외부 연결 조건을
+  만족하면 초기 가판대를 주방으로 전환.
+
+같은 파일의 자료구조
+HexNavNode.floor/cell: 층+셀 위치. 생성자/Equals/GetHashCode: 키 생성·비교·해시.
+HexWallEdge.a/b: 두 이웃 좌표를 정렬한 동일 벽 키. 반대쪽에서 중복 관리 방지.
+  생성자/Equals/GetHashCode: 벽 식별·비교·해시.
+HexTileUse.capacity/occupants/Count: 정원/자리별 손님 ID(0=빈 자리)/사용 수.
+  생성자/Clone: 정원 배열 생성·예약 사본.
+HexShopFloor.model/walls/use: 단일 모델/수동 벽 여부/시설 예약.
+  생성자/Clone: 층 구성·편집 복원용 사본.
+
+[HexTileBoard.cs]
+역할: 모델↔씬 타일 연결 및 설치·이동·회수·벽·층 편집.
+HexBuildMode: None/Place/Move/Recover/Walls.
+tilePrefab/authoredTiles/tileRoot: 확장 프리팹/미리 놓은 셀/부모.
+preview: 예정 타일. tileTypes/initialStock: 선택 종류/시작 재고(공용 설정 연결).
+game/Layout/CurrentFloor/Model: 게임/가게 전체/현재 층/현재 단일 모델.
+Mode/SelectedType/Selected: 모드/종류 인덱스/선택 원본.
+MoveSource/WallSelection/hover: 이동 시작/벽 선택/포인터 셀.
+startingShop/player: 초기 가판대/플레이어 참조.
+tiles: 좌표별 표시 캐시. placementVisibility: 가림 보정 도우미.
+labelTimer: 시설 문구 갱신 주기.
+Awake(): 모델·기존 셀 등록·종류별 재고 지급.
+SelectType/SetMode(): 종류/모드 선택, 중간 상태 초기화.
+Grant(): 재고 지급. SetFloor(): 층 전환·카메라 기준·캐릭터 표시 갱신.
+ToggleWall(): 지정 변 설치/철거 및 안내.
+Hover(): 포인터 변경 시 미리보기. Click(): 모드별 편집 실행.
+Valid(): 해당 작업 가능 여부. 직원 위치/할당 타일 등 위험한 편집 제한.
+EnsureFrontier(): 소유 셀 이웃 표시 추가, 정지 중에도 Raycast되도록 동기화.
+Refresh(): 가판대 전환 검사·소유/선택/유효 강조·프리뷰 갱신.
+LateUpdate/OnDisable: 가림 보정·시설 문구 갱신/원래 색 복원.
+
+[HexTileDefinition.cs]
+역할: 타일 종류 ScriptableObject.
+key/nameKey/descriptionKey: 식별/이름·설명 문자열 키.
+icon/worldSprite/color/kind: UI 사진/월드 그림/색/종류.
+HexTileKind: DisplayShelf(진열), Table, Kitchen, Storage, Stairs, Lodging, Entrance.
+minimumSeats/maximumSeats: 새 테이블 좌석 범위(실제 2~4 제한).
+waitingSeconds/serviceGold: 시설 대기 시간/접객 보상.
+lodgingSeconds/lodgingGold: 숙박 시간/보상.
+
+[HexTileView.cs]
+역할: 타일 윤곽·가구·벽·시설 문구 표현.
+coordinate/surface/furniture/buildingSprite/outline: 좌표/면/가구/그림/윤곽.
+walls/labelCanvas/label: 여섯 벽/시설 UGUI.
+layout/floor/owned/kitchenOccupied: 표시 원본·층·소유·할당 캐시.
+Show(): 면 숨김, 윤곽·가구·미리보기 색 표시.
+ShowShop(): 공유 벽 중복 방지, 시설 이름/정원/직원 없음 표시.
+LateUpdate(): 윤곽 두께·문구 방향·주방 할당 변화 반영.
+
+[HexWallView.cs]
+역할: 깊이 버퍼를 사용하는 두께 있는 불투명 벽.
+image: 이전 벽 그림. volume: 현행 입체 MeshRenderer. obstacle: BoxCollider.
+실제 길찾기 벽 규칙의 원본은 Collider가 아닌 HexShopLayout이다.
+LateUpdate(): 이전 그림 숨김 및 공용 높이·두께 반영. Show(): 벽 활성/비활성.
+
+[HexShopBuildingUI.cs]
+역할: 벽 모드·층 이동·방향 버튼 UI.
+board/wallMode/previousFloor/nextFloor/floorDropdown/selection/sides:
+  보드/벽 편집/아래·윗층/층 선택/좌표 안내/방향 버튼.
+floorCount: 층 목록 캐시. Awake(): 이벤트 연결.
+LanguageChanged(): 층 이름 재생성 유도. Update(): 층·벽 안내와 가능 버튼 갱신.
+
+[HexWallEdgeUI.cs]
+역할: 선택 셀 여섯 변에 저장된 UGUI 설치/철거 아이콘을 투영.
+board/root/buttons/icons/connectors/symbols: 보드/UI 부모/버튼/아이콘/연결선/문자.
+positions/edges: 보정 버튼 위치/원래 변 위치.
+Awake(): 방향별 ToggleWall 연결.
+LateUpdate(): 변 투영→낮은 시점 겹침 벌리기→연결선·벽 색/문자 갱신.
+
+================================================================
+5. 조리·직접 배달
+================================================================
+[HexFoodPreparation.cs]
+역할: 음식별 독립적인 0~1 준비도 일반 C# 모델.
+progress/Count/ReadyCount/this[int slot]: 준비도 목록/슬롯 수/완료 수/슬롯 조회.
+SetCount(): 기존 준비도 유지하며 슬롯 증감, 새 슬롯은 0부터.
+Tick(): 플레이어가 조리 위치에 있을 때 모든 슬롯 진행.
+TickSlot(): 직원이 맡은 슬롯만 진행.
+ReadySlot/PreparingSlot(): 완료/미완료 첫 번호, 없으면 -1.
+Consume(): 완료 슬롯만 소비하고 해당 준비도만 0으로 초기화.
+
+[HexFoodService.cs]
+역할: 플레이어 조리 위치 복귀·준비·손님까지 직접 걸어서 전달.
+game/worker: 게임/플레이어. servedFoodPrefab/carriedFood: 테이블/운반 음식 그림.
+gauges/labels/slotViews: 음식별 게이지/상태/슬롯 UGUI.
+walkSpeed: 공용 이동 속도. Food: 공용 음식 준비도 모델.
+Floor/Position/AtStation/RouteBlocked: 현재 층/위치/조리 도착/경로 차단.
+targetGuest/returning: 배달 대상 ID/복귀 여부.
+goal/path/revision/waypoint: 목표·경로·구조 버전·진행 인덱스.
+EmployeeCookingSlots: 이번 프레임 직원 조리 슬롯, UI 상태 표시에 사용.
+Options/Defaults: 공용 설정/대체 기본값.
+Occupies(): 플레이어 현재 점유 타일 검사.
+Tick(): 슬롯 수 반영, 대상 유효성, 복귀·조리·배달·소비 처리.
+RefreshGauges(): 독립 준비도/상태/운반 음식 표시.
+FindStation(): 할당 주방 우선, 없으면 가까운 도달 가능 조리 장소 선택.
+StationPosition(): 타일 중심+조리 오프셋.
+Move(): 벽·계단 경로와 최종 위치 이동. UpdateVisibility(): 화면 층 표시.
+
+[HexKitchenOccupant.cs]
+역할: 실제 현재 위치와 별개인 지속 주방 할당.
+floor/kitchenCell/assigned: 할당 주방 층/셀/여부.
+active: 생성된 할당 컴포넌트 집합. 다른 층 숨김·외출로 할당이 사라지지 않음.
+Awake/OnDestroy: 집합 등록/제거. Assign/Unassign(): 할당/해제.
+Present(): 해당 주방에 할당된 플레이어/직원 확인, 직원 없음 문구 제어.
+
+[HexFoodProjectile.cs]
+역할: 이전 포물선 음식 투척 컴포넌트. 현행 정상 접객에서 호출되지 않는다.
+flightSeconds/arcHeight/start/recipient/elapsed: 비행 시간/높이/출발/수령자/경과.
+Launch(): 시작 위치·대상 초기화. Advance(): 포물선 위치 계산·도착 여부 반환.
+
+================================================================
+6. 직원 고용·업무·급여·성장
+================================================================
+[HexStaffDefinition.cs]
+역할: 직원 후보 ScriptableObject. 고용별 성장 상태는 이 원본에 쓰지 않는다.
+key/nameKey/descriptionKey/picture/color: 식별·번역 이름/설명·사진·색.
+hirePrice/wage: 고용비/기본 주기 급여.
+cooking/cleaning/persuasion/strength: 초기 개별 능력 등급. flaws: 단점 목록.
+Initial(): 능력에 맞는 초기 등급 반환.
+HexStaffFlaw.descriptionKey/kind/amount: 단점 설명·종류·정도(0~1).
+HexStaffGrade: F,E,D,C,B,A,S(0~6).
+HexStaffJob: Standby 대기, Kitchen 조리, Cleaning 청소, Recruiting 회유, Security 퇴치.
+HexStaffAbility: Cooking/Cleaning/Persuasion/Strength.
+HexStaffFlawKind: CookingSlow/CleaningSlow/PersuasionPenalty/WaitingGuestEjection/WeakStrength.
+HexStaffSkillKind: CookingBonus/PersuasionBonus/WorkBonus/WageDiscount.
+HexStaffTargetKind: Trash/Disruption.
+
+[HexStaffSkill.cs]
+역할: 종합 등급으로 해금되는 스킬 원본.
+key/nameKey/descriptionKey/requiredGrade/kind/amount: 식별·번역·조건 등급·종류·양.
+Staff.skills 목록 중 종합 등급 조건을 만족한 스킬이 현재 자동 적용된다.
+
+[HexEmployeeState.cs]
+역할: 고용 1건의 독립 경험치·명령·급여 상태.
+id/definition: 고용 번호/후보 원본.
+experience: Cooking/Cleaning/Persuasion/Strength 순 4개 경험치.
+job/kitchen/hasKitchen: 명령 업무/할당 주방/할당 여부.
+wageRemaining/arrears/Suspended: 급여 남은 시간/미지급분/업무 중지 여부.
+생성자: 초기 능력 등급에 대응하는 경험치·급여 주기 지정.
+Threshold(): 등급 경험치 기준, 비정상 증가표의 최소 증가 보정.
+Grade(): 능력별 경험치 등급. Overall(): 4등급 번호 평균 내림의 종합 등급.
+Flaw(): 같은 단점 합산(0~1). Skill(): 조건 충족한 같은 스킬 합산.
+Wage(): 급여 할인 후 실제 급여.
+Advance(): 시간 구간별 급여·경험치 처리, 실제 업무 가능한 시간 반환.
+  급여 부족 시 시계/업무/경험치 정지, 미지급분 납부 후 재개.
+Efficiency(): 등급 배율×스킬 이득×단점 감소.
+PersuasionChance(): 설득 등급·스킬·단점 반영 확률.
+CanRemove(): 힘 약함 단점이 없고 요구 힘 등급을 만족하는지.
+
+[HexStaffSystem.cs]
+역할: 고용·명령·직원 이동 및 업무 총괄.
+game/employeePrefab/employeeRoot: 게임/원본/생성 부모.
+employees/nextId: 고용 목록/다음 번호. Options/Defaults: 설정/대체값.
+MessageKey: 안내 문자열 키.
+CanHire(): 유효 후보·비용·정원·잔액 검사.
+Hire(): shopping 상태에서 차감·직원 프리팹 및 독립 상태·번호 생성.
+IsKitchen/Kitchens(): 유효 조리 타일 검사/목록. 초기 가판대도 조리 가능.
+Assign(): 명령/주방 변경, 경로·중복 주방 확인, 이전 작업 예약 정리.
+BlocksEdit(): 현재 직원 위치나 할당 주방의 위험한 편집 차단.
+Tick(): 급여·성장 후 유효 시간만 업무 수행, 단점에 의한 고객 퇴장 판정.
+Cook(): 주방 이동 및 개별 슬롯 조리. FreeCookSlot(): 다른 직원이 맡지 않은 슬롯.
+Recruit(): 관심 배회 손님에게 접근하여 주기·확률 회유.
+WorkTask(): 청소/퇴치 예약·이동·효율·힘 조건·완료 처리.
+Patrol(): 회유 대상 없을 때 가게 주변 순찰 목적지 선택.
+Move(): 경로 캐시·벽/계단·층·최종 도착 처리.
+UpdateVisibility(): 현재 층 직원/대상 표시.
+SpawnTestTarget(): 테스트 쓰레기/방해물 생성. OnDestroy: 작업 예약 해제.
+
+같은 파일 HexEmployee
+state/view/assignment: 고용 상태/월드 캐릭터/주방 할당 컴포넌트.
+floor/path/goal/waypoint/revision: 층/경로/목표/이동 진행/구조 버전.
+cookSlot/task: 담당 음식 슬롯/예약 작업 대상.
+recruitTimer/ejectionTimer/patrolTimer/patrolPoint: 업무 타이머·순찰 지점.
+statusKey: 업무 안내 키.
+cooked/recruited/cleaned/removed/ejected: 개인 조리/회유/청소/퇴치/손님 퇴장 실적.
+
+[HexStaffTargetDefinition.cs]
+역할: 작업 대상 원본. nameKey/kind/workSeconds/requiredStrength:
+이름 키/쓰레기·방해물 종류/기본 시간/퇴치 요구 힘 등급.
+
+[HexStaffWorkTarget.cs]
+역할: 실제 예약·처리 가능한 작업 대상.
+definition/view/floor/board: 원본/캐릭터·게이지/층/보드.
+Progress/Completed/ClaimedBy: 완료 비율/여부/담당 직원 번호(0=없음).
+Active: 발견 가능한 대상 집합. Claim/Release(): 직원별 작업 예약/해제.
+Work(): 담당 직원이 시간×효율로 처리, 완료 후 집합·오브젝트 제거.
+OnEnable/OnDisable: 집합 등록/제거·예약 초기화.
+LateUpdate: 현재 층에 따라 몸체/게이지/그림자 표시.
+현재 테스트 대상에 사용하며 이후 실제 쓰레기·진상 시스템 연결 지점이다.
+
+[HexStaffUI.cs]
+역할: 고용·명단·명령·테스트 UGUI.
+system/panel/hiringPanel/rosterPanel: 시스템/전체·고용·명단 패널.
+open/close/hiringTab/rosterTab/assign: 창·탭·명령 버튼.
+testGold/testExperience/testTrash/testDisruption: 테스트 버튼.
+previousPage/nextPage/pageLabel/Page: 후보 페이지 제어·표시·인덱스.
+employeeDropdown/jobDropdown/kitchenDropdown: 직원/업무/주방 선택.
+balance/message/summary/abilities/traits: 잔액/안내/개요/능력/스킬·단점 텍스트.
+cards/IsOpen: 고용 카드/열림 상태. kitchens: 주방 선택 캐시.
+listedCount/listedRevision: 직원/주방 목록 변경 감지.
+Awake(): 이벤트·테스트 기능 연결. Open/Close(): 공통 정지·창 상태 제어.
+ShowTab(): 고용/명단 전환. RefreshLanguage(): 업무 번역·목록 재생성.
+SelectEmployee(): 직원 현재 명령/주방을 UI에 반영.
+Refresh(): 후보 페이지·계약·능력/성장·업무·급여·실적·단점·스킬 표시.
+DataText(): 빈 키는 누락 안내 키로 대체. GradeSummary(): 후보 능력 등급 요약.
+Update: 열기 버튼 가능 여부 및 열린 창 갱신.
+HexStaffHireCard.definition/icon/title/description/terms/hire:
+  카드 후보/아이콘/이름/설명/계약/고용 버튼.
+
+================================================================
+7. 카메라·입력·표시
+================================================================
+[HexOrbitCamera.cs]
+역할: 시점/줌/화면 이동과 가게 확장에 따른 이동 한계·부드러운 복귀.
+target/pitch/yaw: 주시 기준/X·Y 회전.
+minimumPitch/maximumPitch/baseDistance/zoom/minimumZoom/maximumZoom:
+  각도·거리 배율 제한. floorOffset/panOffset: 층 기준/드래그 이동량.
+zoomSpeed/board/panMargin/overscroll/returnSpeed: 민감도/보드/여유/초과/복귀.
+IsPanning: 팬 드래그 여부. PanBounds: 현재 소유 셀을 감싼 이동 허용 영역.
+ConstrainPan(): 드래그 중 추가 한계, 해제 후 멀면 빠르고 가까우면 느린 복귀.
+SetPitch/SetZoom(): 범위 제한. Orbit/Scroll(): 입력→각도/거리 배율.
+Pan(): 화면 픽셀을 카메라 시야·거리 기준 월드 이동으로 변환.
+ResetView(): 공용 초기 시점과 panOffset=0 복원.
+LateUpdate: 제한 적용 후 위치·회전 확정, 게임 정지 중에도 동작.
+
+[HexWorldInput.cs]
+역할: 기능 액션으로 클릭·시점 드래그·팬·줌·배치 처리.
+actions/runtimeActions: 원본 InputActionAsset/실행 복제본.
+board/game/orbit: 제어 대상.
+pointer/confirm/cancel/rotate/delta/zoom/pan: World/Point, Confirm, Cancel,
+  Orbit, Look, Zoom, Pan 기능 액션 참조.
+delta는 Look 참조이며 현재 드래그 계산은 pointer와 gesture를 사용.
+panPrevious/panBlocked: 이전 팬 좌표/UI 시작 차단.
+Preferences: PlayerPrefs 바인딩 저장 키. hits: UI Raycast 재사용 목록.
+gesture/confirming: 클릭·드래그 판정/누르기 상태.
+OnEnable: 복제·저장 바인딩 로드·이벤트 연결·활성화.
+OnDisable: 구독 해제·복제본 제거·팬 상태 정리.
+Rebind(): 액션의 지정 바인딩 변경 및 JSON 저장.
+OverUI(): UGUI 위 여부. Tile(): 카메라 Raycast로 타일 선택.
+BeginConfirm/BeginOrbit(): 시작 위치/UI 차단 기억.
+BeginPan(): 팬 시작 위치/UI 차단 기억.
+Confirm(): 버튼을 뗄 때 클릭이면 배치 시작·셀 선택. Cancel(): 배치 종료.
+Update: 휠 버튼 팬·왼쪽 드래그 시점·휠 줌·Hover.
+물리 입력은 HexWorld.inputactions의 바인딩 데이터에 있고 코드에서는 기능으로 참조.
+
+[HexPointerGesture.cs]
+역할: 클릭과 위아래 시점 드래그 구별.
+start/last/blocked/Dragging: 시작/이전 위치/UI 차단/드래그 여부.
+Begin(): 초기화. Move(): 임계 거리 후 드래그 전환·세로 이동량 반환.
+Click(): 차단되지 않은 비드래그 클릭만 허용.
+
+[HexCameraFacingSprite.cs]
+역할: 바닥 고정 피벗의 2D 그림을 제한적으로 카메라에 기울임.
+sprite/groundAnchor/settings/Shared: 그림/바닥 기준/설정/공용 접근.
+overrideSharedVisual: 공용 대신 개별 기울기 사용 여부.
+pitchFollow/maximumTilt/maximumGroundLean: 개별 비율/각도/바닥 밀림 한계.
+TiltFor(): 그림 높이와 허용 밀림을 고려한 기울기 제한.
+FaceCamera(): 회전·카메라 깊이 sortingOrder 갱신, 바닥 피벗 유지.
+OnEnable/LateUpdate: ExecuteAlways로 에디터 포함 적용.
+
+[HexWorldActor.cs]
+역할: 손님·플레이어·직원의 공통 몸체/보행/착석/게이지 표현.
+body/walkFrames/seatedFrame/seated: 그림/보행 프레임/착석 그림/착석 여부.
+patience/patienceCanvas/shadow: 게이지/월드 UI 부모/그림자.
+patienceFraction/waiting/previous: 비율/게이지 표시/이전 위치.
+ShowPatience(): 게이지 활성·비율 적용.
+LateUpdate: 실제 이동에 따른 보행 프레임·착석·머리 위 게이지 위치/방향 갱신.
+
+[HexActorIdentity.cs]
+역할: 플레이어 금색 이름표·마름모, 직원 청록색 직원 #번호·원형 표시.
+HexActorRole: Player/Employee.
+role/settings/labelCanvas/background/label/groundMarker/employeeId:
+  역할/설정/이름표 Canvas·배경·글자/바닥 선/고용 번호.
+editorTable/Defaults: 에디터 번역 캐시/설정 부재 대체값.
+SetEmployee(): 직원 역할·번호 연결.
+Refresh(): 표시 여부·색·크기·위치·회전·문구 동기화.
+UnityEditorTable(): 실행 전 한글 미리보기 테이블 조회.
+OnEnable/LateUpdate: ExecuteAlways 초기·실시간 적용.
+저장 프리팹: PlayerIdentity/EmployeeIdentity. 손님에는 이 표시를 붙이지 않음.
+
+[HexPlacementVisibility.cs]
+역할: 미리보기 타일의 화면 영역을 가리는 그림만 임시 반투명화.
+originals/footprint: 원래 그림 색 캐시/타일 화면 다각형.
+Restore(): 원래 색 복원. Update(): 투영 겹침 비교 후 투명도 감소.
+Bounds(): 다각형 경계 사각형. Overlaps(): 화면 겹침·수평 시점 허용치 검사.
+Separated(): 분리축 다각형 분리 판정.
+투명도 배율 .35와 작은 화면 허용치는 현재 내부 상수이다.
+
+================================================================
+8. 상점·공통 아이템·언어·폰트
+================================================================
+[HexShopSystem.cs]
+역할: 골드 소비 상점과 소모품 버프.
+game/panel/openButton/closeButton/quickUseButton: 게임/창/열기·닫기·빠른 사용.
+balanceLabel/messageLabel/buffLabel/quickUseLabel: 잔액·안내·버프·수량 텍스트.
+quickConsumable/rows/IsOpen/consumables/message:
+  빠른 사용 상품/상품 UI/열림/소모품 보유 사전/안내 키.
+Awake: 구매·사용 이벤트 연결. Stock(): 소모품 수량.
+Open/Close(): shopping 정지 상태와 창 제어.
+Buy(): 유효성·상한·잔액 검사 후 차감, 타일/강화/소모품 지급.
+Use(): 버프 성공 시 소모품 1개 소비.
+Refresh(): 가격·번역·잔액·가능 버튼·버프·빠른 사용 수량 표시.
+OnEnable/OnDisable/Update: 언어 구독·정리·표시 유지.
+HexShopRow.offer/icon/title/description/price/buy/use: 원본과 상품 행 UI.
+
+[HexShopOffer.cs]
+역할: 판매 상품 원본. HexShopKind: Tile/Upgrade/Consumable.
+key/nameKey/descriptionKey/picture/kind/price/quantity:
+  식별/번역/사진/종류/가격/지급 수량.
+tile/upgrade/buffSeconds/speedBonus: 타일·강화 원본/버프 시간·속도 가산.
+IsValid: 가격·수량·종류별 필요한 참조 확인.
+Description: count/seconds/speed/effect를 채워 반환한 번역 설명.
+
+이하 Shared 폴더 공통 스크립트
+[ItemDefinition.cs]
+역할: 아이템 종류 원본. 획득 레벨은 실행 상태에 따로 저장.
+ItemKind: Food/Ability/ShopPart.
+ItemEffectKind: ServiceSpeedPercent/CustomerPatienceSeconds/VisitorChance/FoodThrowCount.
+picture/nameKey/descriptionKey/key/kind/maxLevel/effects:
+  사진/번역 이름·설명/식별/종류/상한/효과 목록. maxLevel=0은 무제한.
+ItemEffect.kind/amountPerLevel: 효과 종류/레벨당 양.
+DisplayName: 이름 번역. DisplayDescription(): 효과 합산·비율 퍼센트 변환·설명 치환.
+
+[ItemCatalog.cs]
+역할: 후보 원본 목록. items: ItemDefinition List.
+실제 소유량·강화 레벨 목록이 아니다.
+
+[GoldLevelCurve.cs]
+역할: 다음 레벨 보유 골드 목표 계산.
+firstRequiredGold/additionalGoldPerLevel: 첫 조건/단계별 추가 필요량.
+ThresholdForNextLevel(n): n×첫 조건+n×(n-1)/2×추가량.
+기본 3/2라면 다음 목표는 3,8,15골드이다.
+목표 금액이 단계별로 커지는 것이며 누적 획득 판정을 뜻하지 않는다.
+현행은 현재 Gold와 비교하고 레벨업 자체로 골드는 소비하지 않는다.
+
+[LocalizationTable.cs]
+역할: 영어·한글 ScriptableObject 문자열 테이블.
+DisplayLanguage: English/Korean. TranslationEntry.key/english/korean: 키/두 언어 원문.
+entries/index/missing: 원본 목록/조회 캐시/누락 경고 중복 방지.
+Rebuild(): 키 사전 작성·중복 경고.
+Resolve(): 언어 원문, 한글 누락 시 영어, 키 누락 시 [키]·경고.
+OnEnable/OnValidate: 캐시 무효화.
+현행 원본: Assets/Prototypes/HexWorld/Data/HexWorldStrings.asset.
+
+[LocalizationService.cs]
+역할: 현재 언어와 Key+데이터 문자열 치환.
+table/language/Instance/LanguageChanged: 원본/초기 한글 언어/현재 서비스/변경 이벤트.
+Variable/reported/appliedLanguage: {name} 정규식/변수 경고 집합/적용 언어 캐시.
+Awake/OnDestroy: 서비스 등록/해제. Update: Inspector 언어 변경 감지.
+SetLanguage(): 언어 변경·알림.
+Text(key,nameValuePairs): 키 뒤에 이름/값 쌍을 받아 포맷.
+  예 Text("hud.gold","gold",12). 홀수 쌍은 예외.
+Format(key,data): 원문 내 변수 치환, 수치는 InvariantCulture.
+  누락 변수는 경고하고 자리표시자를 유지.
+
+[LocalizedLabel.cs]
+역할: 정적 UGUI Text에 문자열 키 연결. key: 표시 키.
+Refresh(): 번역 반영. OnEnable/OnDisable: 언어 변경 구독/해제.
+수치형 HUD는 각 시스템에서 Text(key,data)로 갱신한다.
+
+[PrototypeFontBinding.cs]
+역할: OS 맑은 고딕을 동적 Font로 생성해 하위 비활성 Text까지 적용.
+liveFont/warned: 공유 폰트/설치 누락 경고 중복 방지.
+Apply(): 설치 검사·폰트 지정·재그리기. OnEnable: ExecuteAlways로 초기 적용.
+알파 버전에는 프로젝트 포함·배포 가능한 정식 폰트를 추가해야 한다.
+
+================================================================
+9. 에디터 제작·검증 도구
+================================================================
+경로: Assets/Prototypes/HexWorld/Editor
+일반 밸런스 테스트는 설정 에셋을 사용한다. Authoring은 씬/프리팹/데이터를
+제작해 저장하므로 매번 실행할 필요가 없고 기존 수동 편집을 바꿀 수 있다.
+
+공통 변수·함수
+Root: 에셋 루트 경로. font/strings/table: 제작 중 폰트·번역 캐시.
+white/whiteSprite/frames: 제작용 UI 그림·캐릭터 프레임.
+Rect/Panel/Text/Label/Button/Gauge/Slider/Dropdown(): 저장할 UGUI 계층·위치 제작.
+Add/AddStrings(): 고유 키와 두 언어 등록.
+Paint/GenerateSprites(): 픽셀 이미지 생성·임포트 설정.
+
+[HexWorldAuthoring.cs]
+Build(): 초기 현행 씬·모델 참조·프리팹·UI·입력 및 후속 제작 도구 연결.
+Material/Icon(): 재질/아이콘 준비. GenerateSprites(): 초기 그림 제작.
+MakeTile/MakeActor/MakeStall(): 타일/손님/가판대 프리팹.
+Cube(): 초기 도형. MakeActions(): 기능 기반 액션.
+MakeUI(): HUD·보상·배치·카메라 UI 및 참조. AddStrings(): 초기 문자열.
+tileMaterial/wood/roof/spriteMaterial/ghostMaterial: 제작용 재질 캐시.
+
+[HexPresentationAuthoring.cs]
+GenerateArt/Paint(): 정면 2D 그림. SetBottomPivot(): 바닥 피벗 설정.
+Sprite/SpriteMaterial: 그림/재질 조회.
+Visual/Shadow/ClearChildren(): 그림·그림자 생성/이전 계층 제거.
+ConfigureTile/ConfigureActor/ConfigureShop(): 타일/캐릭터/가게 2D 연결.
+Upgrade(): 정면 2D 표현과 카메라를 씬/프리팹에 저장.
+
+[HexShopAuthoring.cs]
+Upgrade(): 윤곽 타일·상점 UGUI 구성.
+RefreshProductData(): 물약 그림·상품 데이터 준비.
+ConfigureOutline(): 윤곽 설정. Offer(): 상품 원본 구성.
+
+[HexSurroundAuthoring.cs]
+Upgrade(): 이전 둘러서기·투척 음식 프리팹/출발점 연결.
+현재 직접 배달 이전 제작 단계이며 현재 접객 변경 지점이 아니다.
+
+[HexUpgradeItemsAuthoring.cs]
+Upgrade(): 음식 수/관심 확률 강화 원본·목록·번역 추가.
+Make(): 아이콘·상한·효과 종류/양을 갖는 아이템 제작.
+
+[HexShopExpansionAuthoring.cs]
+Upgrade(): 시설·벽·층 데이터/UGUI 연결.
+ConfigureTile(): 벽·시설 그림/문구. StyleDropdown(): 드롭다운 대비.
+BuildUI(): 벽·층 UI 제작.
+
+[HexDirectServiceAuthoring.cs]
+Upgrade(): 직접 배달·독립 음식 게이지·외곽 벽 아이콘 연결.
+MakeMeal(): 음식 프리팹. FoodUI/EdgesUI(): 음식/벽 UGUI 제작.
+Style/StylePrefab(): 관련 드롭다운·프리팹 스타일 저장.
+
+[HexShopPolishAuthoring.cs]
+Upgrade(): 입체 벽·할당·카메라·타일 선택 보완.
+ConfigurePitch/ConfigureWall(): 그림 기울기/입체 벽 연결.
+CreateWallMesh/내부 Face(): 두께 있는 여섯 면 메시 구성.
+
+[HexTestSettingsAuthoring.cs]
+SettingsPath: 공용 에셋 경로. Upgrade(): 기존 값 이관·씬/프리팹 설정 연결.
+
+[HexTestSettingsEditor.cs]
+역할: 공용 설정 전용 Inspector.
+expanded: 원본별 펼침 상태. OnInspectorGUI(): 기본 설정 및 연결 원본 목록 표시.
+DrawAsset(): 레벨/아이템/타일/상품/직원/스킬/대상 원본 속성을 같은 창에서 편집.
+
+[HexStaffAuthoring.cs]
+Upgrade(): 고용/명단 UI·직원·테스트 대상·후보/단점/스킬 구성.
+Employee/Flaw/Skill(): 원본 데이터. MakeActor(): 직원/대상 프리팹.
+Resolve(): 제작 시 표시 문구. AddPagination(): 고용 후보 페이지 UI.
+RefreshStrings/AddStrings(): 직원 두 언어 문구.
+
+[HexActorIdentityAuthoring.cs]
+Upgrade(): 역할 프리팹·번역·씬 플레이어/직원 연결.
+Make(): 이름표 UGUI와 마름모/원 바닥 표시 저장.
+Stretch(): 자식 UI를 부모 전체에 맞춤.
+
+검증 도구 공통
+Check(): 조건 불일치 시 예외. Load(): 검사할 타일 원본 조회.
+아래는 기존 검사 코드의 역할 설명이며 문서 작성 작업에서 재실행했다는 뜻이 아니다.
+
+[HexWorldChecks.cs] Run(): 인접·간격·Root·연결 단절·반복 재고 보존 검사.
+[HexShopExpansionModelChecks.cs] Run(): 벽·실제 외부 통로·시설 예약·사용 중 보호·
+  계단/윗층·재고 공유·우회·둘러싼 영역 검사, HexWorldChecks도 호출.
+[HexDirectServiceChecks.cs] Run(): 독립 준비/소비·조리 장소 제한·클릭/드래그·
+  주방 전환·배달 경로 및 기존 모델 규칙 검사.
+[HexDirectServiceAssetChecks.cs] Run(): 음식 UI·벽 아이콘·참조·대비·액션·번역·
+  씬 누락 컴포넌트·Legacy 의존 검사. CheckComponents(): 컴포넌트 검사 도우미.
+[HexShopPolishChecks.cs] Run(): 입체 벽/깊이 재질·주방 할당·팬 입력·보상 번역 검사.
+[HexCameraAnchorChecks.cs] Run(): Play 검사 진입. Validate(): 기울기·밀림·
+  게이지 위치·팬 제한/복귀·지속 할당 검사.
+[HexTestSettingsChecks.cs] Run(): Play 밖 설정 연결 검사.
+  ValidateLive(): Play에서 값 반영·기존/새 그림·시작 상태·원본 보존 검사.
+[HexStaffChecks.cs] Rules(): 급여 경계·미지급 정지/재개·독립 고용·등급/스킬/단점.
+  Assets(): 직원 UI/페이지·프리팹·설정·번역. All(): Rules+Assets.
+  AuthorAndValidate(): 직원 제작 후 직원·배달·벽·설정까지 연결 검사.
+[HexActorIdentityChecks.cs] Assets(): 저장된 역할 UI·참조·도형·손님 무표시.
+  ValidatePlay(): 4/50도 위치·방향·폰트·번역·번호 검사.
+  현재 이 클래스에는 MenuItem이 없으며 코드에서 호출한다.
+
+================================================================
+10. 보존된 구형 UGUI 프로토타입
+================================================================
+Assets/Prototypes/LegacyUGUI는 변화 이력을 보존한 별도 구현이다.
+아래 기능을 현행 육각 월드에 적용되는 방식으로 혼동하지 않는다.
+
+[StackStorePrototype.cs]
+역할: Canvas 안의 가판대·손님 통행/배회·줄 서기·골드 접객.
+equipment: 교체 가능한 ServiceEquipment.
+ServiceEquipment.displayName/intervalSeconds: 내부 장비 표시명/접객 주기.
+patienceSeconds/spawnSeconds/walkSpeed/maxCustomers: 인내/생성/이동/정원.
+visitChance/verticalWanderDistance/avoidancePadding: 관심/세로 움직임/회피 여유.
+minBrowseSeconds/maxBrowseSeconds/returnToOriginChance: 배회 시간/되돌아갈 확률.
+field/stall/customerPrefab: 화면 영역/가판대/UGUI 손님 원본.
+cooldownBar/goldLabel/cooldownLabel/statsLabel/notice: 운영 UI.
+customers/queue: 전체/대기 줄. cooldown/spawnTimer/noticeTimer: 각 타이머.
+gold/served/lost/nextId: 골드/접객 수/이탈 수/손님 번호.
+itemSpeedBonus/itemPatienceBonus/itemVisitorBonus: 아이템 가산값.
+Gold/EffectivePatience/EffectiveVisitChance/ServiceInterval/Interval:
+  외부 조회용 골드·실제 운영 수치.
+MinY/MaxY/SpawnX/ExitX: Canvas 생성/표시/퇴장 경계. Teal: 기본 청록색.
+SetItemBonuses(): 가산값 적용·남은 주기 비율 유지. Equip(): 장비·주기 교체.
+Start(): 참조 검증·첫 손님. Update(): 이동·인내·줄·접객·골드·통계.
+QueuePoint(): 여러 행으로 접힌 줄 위치. AvoidanceRect(): 가판대 회피 영역.
+BrowsePoint/MoveBrowsing(): 배회 목적지/이동·접근 판단.
+MoveTraffic(): 좌우 통행·세로 흔들림·회피. Spawn/Leave(): 생성/퇴장.
+State: Browsing/Passing/Wandering/Queued/Leaving.
+Customer.root/bar/label/state/destination: UI/상태/목적지.
+Customer.wander/patience/initialPatience/id/direction/originalDirection:
+  시간/번호/현재·원래 방향.
+Customer.targetY/turnTimer/avoiding/reachedShop/statusKey: 흔들림·회피·도착·안내 상태.
+
+[CustomerView.cs]
+역할: 구형 손님 프리팹 참조. body/patienceBar/patienceLabel: 몸체/게이지/텍스트.
+
+[GoldLevelSystem.cs]
+역할: 구형 소유 골드 레벨업·3개 선택·아이템 효과.
+store/curve/catalog: 가게/조건/목록.
+choicePanel/levelLabel/progressLabel/inventoryLabel/choiceTitle/progressBar/cards/
+continueButton: 저장된 선택·진행·보유 UI.
+playerLevel/ownedItems/offered: 레벨/보유 강화/선택 후보.
+ownsPause/previousTimeScale: 보상 정지 여부/복원할 배속.
+PlayerLevel/IsChoosing/NextGoldThreshold/OwnedItems: 외부 조회 프로퍼티.
+OwnedItem.definition/level: 보유 원본/강화 레벨.
+Awake(): 참조·카드 3개 검사 및 이벤트 연결.
+Update(): 현재 store.Gold 판정. ItemLevel(): 키로 강화 레벨 조회.
+OpenChoice(): 후보 선정·레벨 증가·정지. Choose(): 획득/강화.
+ContinueWithoutItem(): 후보 소진 시 진행.
+CloseChoice(): 시간 복원, 다음 조건도 충족 시 보상을 차례로 제공.
+ApplyEffects(): 속도/인내/관심을 가게에 전달.
+RefreshHUD/RefreshLanguage(): 상태·선택 번역. OnEnable/OnDisable: 이벤트/정지 정리.
+
+[ItemChoiceView.cs]
+역할: 구형 보상 카드. button/picture/itemName/description/kindLabel/levelLabel: UI.
+Display(): 사진·번역·종류·신규 또는 다음 레벨 표시.
+
+[InventoryInput.cs]
+역할: 기능 액션으로 구형 보유 목록 토글.
+openInventory/inventoryPanel/levelSystem: 액션/패널/선택 상태.
+wasEnabled/OverridesKey: 이전 액션 상태/저장 키.
+OnEnable/OnDisable: 저장 바인딩 로드·구독/해제.
+Toggle(): 보상 선택 중이 아니면 토글.
+SetInventoryBinding(): 물리 경로 변경·PlayerPrefs 저장.
+
+[StackStoreUIAuthoring.cs / Editor]
+Install(): 미리 제작된 LegacyUGUI/Prefabs/StackStoreUI.prefab 설치.
+기존 인스턴스가 있으면 선택만 하며 UI 레이아웃을 다시 생성하지 않는다.
+
+================================================================
+11. 수정 위치와 현재 구현 범위
+================================================================
+손님 수/속도/관심/배회: PrototypeTestSettings → Guests.
+조리/플레이어 이동/일반 접객 보상: Service.
+초기 골드/레벨/재고: Start (다음 Play).
+카메라 각도/줌/팬 제한·복귀: Camera.
+그림 기울기/벽/손님 게이지: Visual.
+플레이어·직원 이름표/도형: Identity.
+급여 주기/성장/업무 효율: Staff.
+개별 직원 비용/초기 등급/단점: Staff.candidates의 원본.
+스킬: Staff.skills의 원본.
+타일 정원/시설 대기/접객·숙박 보상: tileTypes의 HexTileDefinition 원본.
+보상 아이템/강화 상한·효과: itemCatalog의 ItemDefinition 원본.
+레벨 목표: levelCurve의 GoldLevelCurve 원본.
+판매 가격·지급·물약: shopOffers의 HexShopOffer 원본.
+영어·한글: HexWorldStrings.asset.
+기능 입력 바인딩: HexWorld.inputactions 및 HexWorldInput.Rebind().
+UGUI 실제 계층·배치: HexWorld 씬과 관련 프리팹.
+
+원본/실행 상태 및 범위
+- 직원 경험치·미지급분은 HexEmployeeState에 있으며 후보 에셋은 변경하지 않는다.
+- 골드·보유 아이템·타일 재고·손님은 실행 상태. 저장/불러오기 시스템은 없다.
+- 모든 내부 숫자가 공용 설정에 있는 것은 아니다. 일부 좌표 반지름·UI 배치·
+  투명화 배율 및 이전 투척·Legacy 값 등은 기존 코드/프리팹에 남아 있다.
+- 테이블 정원은 배치 시 정해져 이동 후에도 보존, 사용 중 회수는 제한된다.
+- 직원은 현재 공용 음식 슬롯을 조리하고 배달은 플레이어가 담당한다.
+  직원별 독립 음식 창고·직원 배달 명령은 현재 범위에 없다.
+- 창고 재료 관리·쾌적함·자연 발생 쓰레기·실제 진상 행동은 이후 확장 대상.
+- 입력 재설정 API·저장 구조는 있으나 사용자 설정 화면은 별도 작업이다.
+- 알파 버전에는 배포 가능한 정식 폰트를 추가해야 한다.
+- Assets/TutorialInfo의 Readme.cs/Editor/ReadmeEditor.cs는 Unity 템플릿 안내이며
+  제작한 게임 로직과 무관해 아래 프로젝트 소스 색인에서 제외한다.
+- 이 설명서는 작성 시점 기준이며 이후 기능 변경 시 함께 갱신해야 한다.
+
+================================================================
+12. 실제 소스 선언 색인
+================================================================
+이하 파일별 클래스·함수 선언과 작성 시점의 소스 줄 번호입니다.
+함수 본문은 생략합니다. 변수 역할은 위 기능별 본문을 참조합니다.
+줄 번호는 이후 코드 수정에 따라 바뀔 수 있습니다.
+
+Assets/Prototypes/HexWorld/Editor/HexActorIdentityAuthoring.cs
+  6: public static class HexActorIdentityAuthoring
+  10: public static void Upgrade()
+  25: static GameObject Make(string name,HexActorRole role,HexTestSettings settings,LocalizationTable table)
+  44: static void Stretch(RectTransform rect)
+  45: static void Add(LocalizationTable table,string key,string en,string ko)
+
+Assets/Prototypes/HexWorld/Editor/HexActorIdentityChecks.cs
+  6: public static class HexActorIdentityChecks
+  8: static void Check(bool ok,string message)
+  9: public static void Assets()
+  19: public static void ValidatePlay(HexPrototype game)
+
+Assets/Prototypes/HexWorld/Editor/HexCameraAnchorChecks.cs
+  6: public static class HexCameraAnchorChecks
+  8: static void Check(bool ok,string message)
+  10: public static void Run()
+  15: public static void Validate(HexPrototype game)
+
+Assets/Prototypes/HexWorld/Editor/HexDirectServiceAssetChecks.cs
+  9: public static class HexDirectServiceAssetChecks
+  12: public static void Run()
+  32: static void CheckComponents(UnityEngine.SceneManagement.Scene scene)
+
+Assets/Prototypes/HexWorld/Editor/HexDirectServiceAuthoring.cs
+  8: public static class HexDirectServiceAuthoring
+  15: public static void Upgrade()
+  70: static SpriteRenderer MakeMeal()
+  76: static GameObject FoodUI(Transform parent)
+  88: static GameObject EdgesUI(Transform parent)
+  99: static GameObject Rect(string name,Transform parent,Vector2 position,Vector2 size)
+  103: static Text Text(string name,Transform parent,Vector2 position,Vector2 size,int fontSize)
+  107: static void Style(Dropdown dropdown)
+  116: static void StylePrefab(string path)
+  117: static void Add(string key,string english,string korean)
+
+Assets/Prototypes/HexWorld/Editor/HexDirectServiceChecks.cs
+  5: public static class HexDirectServiceChecks
+  7: static void Check(bool condition,string message)
+  8: static HexTileDefinition Load(string name)
+  10: public static void Run()
+
+Assets/Prototypes/HexWorld/Editor/HexPresentationAuthoring.cs
+  7: public static class HexPresentationAuthoring
+  12: public static void GenerateArt()
+  51: static void Paint(string name,int width,int height,System.Func<int,int,Color> pixel,int ppu,bool bottom=true)
+  61: static void SetBottomPivot(string path)
+  66: static Sprite Sprite(string name)
+  67: static SpriteRenderer Visual(Transform parent,string name,string art,Vector3 offset)
+  73: static void Shadow(Transform parent,Vector3 offset,Vector3 scale)
+  78: static void ClearChildren(Transform parent)
+  79: public static void ConfigureTile(HexTileView tile)
+  85: public static void ConfigureActor(HexWorldActor actor)
+  92: public static void ConfigureShop(GameObject shop)
+  98: public static void Upgrade()
+
+Assets/Prototypes/HexWorld/Editor/HexShopAuthoring.cs
+  8: public static class HexShopAuthoring
+  14: public static void Upgrade()
+  83: public static void RefreshProductData()
+  108: static void ConfigureOutline(HexTileView view,Material material)
+  113: static HexShopOffer Offer(string key,HexShopKind kind,int price,string strings,string icon)
+  118: static void Add(LocalizationTable table,string key,string en,string ko)
+  119: static RectTransform Rect(string name,Transform parent,Vector2 pos,Vector2 size)
+  120: static RectTransform Panel(string name,Transform parent,Vector2 pos,Vector2 size,Color color)
+  121: static Text Text(string name,Transform parent,Vector2 pos,Vector2 size,int fontSize,string key=null)
+  122: static Button Button(string name,Transform parent,Vector2 pos,Vector2 size,string key)
+
+Assets/Prototypes/HexWorld/Editor/HexShopExpansionAuthoring.cs
+  7: public static class HexShopExpansionAuthoring
+  11: public static void Upgrade()
+  50: static void Add(string key,string english,string korean)
+  51: static void StyleDropdown(Dropdown dropdown)
+  52: static void Paint(string name,int width,int height,Func<int,int,Color> pixel,bool bottom,int ppu=16)
+  57: static void ConfigureTile(HexTileView tile)
+  73: static GameObject Rect(string name,Transform parent,Vector2 position,Vector2 size)
+  77: static Text Text(string name,Transform parent,Vector2 pos,Vector2 size,string key,int fontSize=18)
+  81: static Button Button(string name,Transform parent,Vector2 pos,Vector2 size,string key)
+  85: static GameObject BuildUI(Transform parent)
+
+Assets/Prototypes/HexWorld/Editor/HexShopExpansionModelChecks.cs
+  4: public static class HexShopExpansionModelChecks
+  6: static void Check(bool value,string message)
+  7: static HexTileDefinition Load(string name)
+  9: public static void Run()
+
+Assets/Prototypes/HexWorld/Editor/HexShopPolishAuthoring.cs
+  10: public static class HexShopPolishAuthoring
+  14: public static void Upgrade()
+  54: static void Add(LocalizationTable table,string key,string en,string ko)
+  60: static void ConfigurePitch(HexCameraFacingSprite facing)
+  65: static void ConfigureWall(HexWallView wall,Mesh mesh,Material material)
+  76: static Mesh CreateWallMesh()
+  82: void Face(Vector3 a,Vector3 b,Vector3 c,Vector3 d,Color tint,bool texture)
+
+Assets/Prototypes/HexWorld/Editor/HexShopPolishChecks.cs
+  7: public static class HexShopPolishChecks
+  10: public static void Run()
+
+Assets/Prototypes/HexWorld/Editor/HexStaffAuthoring.cs
+  8: public static class HexStaffAuthoring
+  15: public static void Upgrade()
+  75: static HexStaffDefinition Employee(string key,string text,int hire,int wage,Color color,int cooking,int cleaning,int persuasion,int strength,params HexStaffFlaw[] flaws)
+  80: static HexStaffFlaw Flaw(HexStaffFlawKind kind,float amount,string key)
+  81: static HexStaffSkill Skill(string key,HexStaffGrade grade,HexStaffSkillKind kind,float amount)
+  85: static void MakeActor(string name,HexTestSettings settings,HexStaffTargetDefinition target)
+  93: static Dropdown Dropdown(string name,Transform parent,Dropdown source,Vector2 position,Vector2 size)
+  97: static RectTransform Rect(string name,Transform parent,Vector2 position,Vector2 size)
+  98: static RectTransform Panel(string name,Transform parent,Vector2 position,Vector2 size,Color color)
+  99: static Text Label(string name,Transform parent,Vector2 position,Vector2 size,int fontSize,string key=null)
+  100: static Button Button(string name,Transform parent,Vector2 position,Vector2 size,string key)
+  101: static string Resolve(string key)
+  102: static void AddPagination(HexStaffUI ui)
+  109: public static void RefreshStrings()
+  110: static void Add(string key,string en,string ko)
+  111: static void AddStrings()
+
+Assets/Prototypes/HexWorld/Editor/HexStaffChecks.cs
+  8: public static class HexStaffChecks
+  10: static void Check(bool ok,string message)
+  12: public static void Rules()
+  37: public static void Assets()
+  54: public static void All()
+  55: public static void AuthorAndValidate()
+
+Assets/Prototypes/HexWorld/Editor/HexSurroundAuthoring.cs
+  6: public static class HexSurroundAuthoring
+  10: public static void Upgrade()
+
+Assets/Prototypes/HexWorld/Editor/HexTestSettingsAuthoring.cs
+  8: public static class HexTestSettingsAuthoring
+  13: public static void Upgrade()
+
+Assets/Prototypes/HexWorld/Editor/HexTestSettingsChecks.cs
+  6: public static class HexTestSettingsChecks
+  8: static void Check(bool ok,string message)
+  10: public static void Run()
+  30: public static void ValidateLive(HexPrototype game)
+
+Assets/Prototypes/HexWorld/Editor/HexTestSettingsEditor.cs
+  6: public sealed class HexTestSettingsEditor : Editor
+  9: public override void OnInspectorGUI()
+  27: void DrawAsset(Object asset,string title)
+
+Assets/Prototypes/HexWorld/Editor/HexUpgradeItemsAuthoring.cs
+  4: public static class HexUpgradeItemsAuthoring
+  8: public static void Upgrade()
+  21: static void Add(LocalizationTable table,string key,string english,string korean)
+  22: static void Make(string key,int maximum,ItemEffectKind effect,float amount,string art,bool attraction)
+
+Assets/Prototypes/HexWorld/Editor/HexWorldAuthoring.cs
+  13: public static class HexWorldAuthoring
+  23: public static void Build()
+  105: static Material Material(string name,Color color)
+  109: static Sprite Icon(string name)
+  114: static void GenerateSprites()
+  137: static HexTileView MakeTile()
+  157: static HexWorldActor MakeActor()
+  168: static GameObject MakeStall()
+  173: static void Cube(string name,Transform parent,Vector3 position,Vector3 scale,Material material)
+  177: static InputActionAsset MakeActions()
+  186: static RectTransform Rect(string name,Transform parent,Vector2 position,Vector2 size)
+  190: static RectTransform Panel(string name,Transform parent,Vector2 pos,Vector2 size,Color color)
+  194: static Text Label(string name,Transform parent,Vector2 pos,Vector2 size,int fontsize,string key=null)
+  199: static Button Button(string name,Transform parent,Vector2 pos,Vector2 size,string key)
+  203: static Image Gauge(string name,Transform parent,Vector2 pos,Vector2 size)
+  207: static Slider Slider(string name,Transform parent,Vector2 pos,float min,float max,float value)
+  212: static void MakeUI(HexPrototype game)
+  248: static void AddStrings(LocalizationTable table)
+  250: void Add(string key,string en,string ko)
+
+Assets/Prototypes/HexWorld/Editor/HexWorldChecks.cs
+  7: public static class HexWorldChecks
+  9: static void Check(bool valid, string message)
+  11: public static void Run()
+
+Assets/Prototypes/HexWorld/Scripts/HexActorIdentity.cs
+  4: public enum HexActorRole
+  8: public sealed class HexActorIdentity : MonoBehaviour
+  19: public void SetEmployee(int id)
+  20: void OnEnable()
+  21: void LateUpdate()
+  22: public void Refresh()
+  44: LocalizationTable UnityEditorTable()
+
+Assets/Prototypes/HexWorld/Scripts/HexBoardModel.cs
+  5: public sealed class HexBoardModel
+  13: public void ShareStock(HexBoardModel source)
+  17: public void SetRootDefinition(HexTileDefinition definition)
+  20: public HexBoardModel Clone()
+  27: public bool IsOwned(Vector2Int at)
+  28: public HexTileDefinition Definition(Vector2Int at)
+  29: public int Stock(HexTileDefinition item)
+  30: public void Grant(HexTileDefinition item, int count)
+  31: public static Vector3 World(Vector2Int at, float radius = 1.4f)
+  33: public bool CanPlace(Vector2Int at)
+  39: public bool Place(Vector2Int at, HexTileDefinition item)
+  44: public bool CanRemove(Vector2Int at)
+  49: public bool CanMove(Vector2Int from, Vector2Int to)
+  55: bool Connected(Vector2Int removed, Vector2Int? added)
+  68: public bool Move(Vector2Int from, Vector2Int to)
+  73: public bool Recover(Vector2Int at)
+
+Assets/Prototypes/HexWorld/Scripts/HexCameraFacingSprite.cs
+  5: public sealed class HexCameraFacingSprite : MonoBehaviour
+  15: public float TiltFor(float cameraPitch)
+  29: public void FaceCamera()
+  39: void OnEnable()
+  40: void LateUpdate()
+
+Assets/Prototypes/HexWorld/Scripts/HexEmployeeState.cs
+  5: public sealed class HexEmployeeState
+  21: public static float Threshold(int rank,HexTestSettings.StaffOptions options)
+  26: public HexStaffGrade Grade(HexStaffAbility ability,HexTestSettings.StaffOptions options)
+  31: public HexStaffGrade Overall(HexTestSettings.StaffOptions options)
+  35: public float Flaw(HexStaffFlawKind kind)
+  40: public float Skill(HexStaffSkillKind kind,HexTestSettings.StaffOptions options)
+  46: public int Wage(HexTestSettings.StaffOptions options)
+  48: public float Advance(float seconds,HexTestSettings.StaffOptions options,Func<int,bool> spend)
+  69: public float Efficiency(HexStaffAbility ability,HexTestSettings.StaffOptions options)
+  78: public float PersuasionChance(HexTestSettings.StaffOptions options)
+  79: public bool CanRemove(HexStaffGrade required,HexTestSettings.StaffOptions options)
+
+Assets/Prototypes/HexWorld/Scripts/HexFoodPreparation.cs
+  5: public sealed class HexFoodPreparation
+  11: public void SetCount(int count)
+  12: public void Tick(float seconds,float duration,bool atStation)
+  17: public int ReadySlot()
+  18: public int PreparingSlot()
+  19: public void TickSlot(int slot,float seconds,float duration)
+  23: public bool Consume(int slot)
+
+Assets/Prototypes/HexWorld/Scripts/HexFoodProjectile.cs
+  4: public sealed class HexFoodProjectile : MonoBehaviour
+  11: public void Launch(Vector3 origin, Transform target)
+  12: public bool Advance(float dt)
+
+Assets/Prototypes/HexWorld/Scripts/HexFoodService.cs
+  6: public sealed class HexFoodService : MonoBehaviour
+  26: public bool Occupies(int floor,Vector2Int cell)
+  30: public void Tick(float dt)
+  63: public void RefreshGauges()
+  75: bool FindStation(HexNavNode start,out HexNavNode station)
+  100: Vector3 StationPosition(HexNavNode station)
+  101: void Move(HexNavNode destination,Vector3 spot,float dt)
+  120: public void UpdateVisibility()
+
+Assets/Prototypes/HexWorld/Scripts/HexKitchenOccupant.cs
+  5: public sealed class HexKitchenOccupant : MonoBehaviour
+  11: void Awake()
+  12: void OnDestroy()
+  13: public void Assign(int kitchenFloor, Vector2Int cell)
+  14: public void Unassign()
+  15: public static bool Present(int floor, Vector2Int cell)
+
+Assets/Prototypes/HexWorld/Scripts/HexOrbitCamera.cs
+  4: public sealed class HexOrbitCamera : MonoBehaviour
+  33: public void ConstrainPan(float dt)
+  52: public void SetPitch(float value)
+  53: public void SetZoom(float value)
+  54: public void Orbit(float delta)
+  55: public void Scroll(float delta)
+  56: public void Pan(Vector2 pixels)
+  65: public void ResetView()
+  66: void LateUpdate()
+
+Assets/Prototypes/HexWorld/Scripts/HexPlacementVisibility.cs
+  5: public sealed class HexPlacementVisibility
+  9: public void Restore()
+  14: public void Update(HexTileView preview)
+  51: static Rect Bounds(IList<Vector2> polygon)
+  57: static bool Overlaps(IList<Vector2> a, IList<Vector2> b)
+  66: static bool Separated(IList<Vector2> a, IList<Vector2> b)
+
+Assets/Prototypes/HexWorld/Scripts/HexPointerGesture.cs
+  2: public sealed class HexPointerGesture
+  7: public void Begin(Vector2 point,bool overUI)
+  8: public float Move(Vector2 point)
+  15: public bool Click(Vector2 point)
+
+Assets/Prototypes/HexWorld/Scripts/HexPrototype.cs
+  7: [Serializable] public sealed class HexOwnedItem
+  8: [Serializable] public sealed class HexTileReward
+  9: [Serializable] public sealed class HexChoiceCard
+  11: public sealed class HexPrototype : MonoBehaviour
+  62: public void ConfigureStart(int startingGold,int startingLevel)
+  69: enum GuestState
+  70: sealed class Guest
+  83: public int ItemLevel(ItemDefinition item)
+  85: void Awake()
+  99: void OnEnable()
+  100: void OnDisable()
+  105: void OnDestroy()
+  106: void Pause()
+  110: void Resume()
+  114: public void SetMessage(string key)
+  115: public void BeginBuilding()
+  120: public void EndBuilding()
+  124: public void AddGold(int count)
+  125: public bool TrySpendGold(int amount)
+  130: public bool BeginShopping()
+  135: public void EndShopping()
+  136: public bool ActivateServiceBuff(float seconds, float bonus)
+  142: void Update()
+  157: void Spawn()
+  172: Vector3 WaitingPosition(int slot)
+  178: List<Vector2Int> StandingCells()
+  192: bool HasAvailableTable(HexNavNode start)
+  201: void ReserveWaitingPosition(Guest guest)
+  220: void JoinWaiting(Guest guest)
+  232: void TickGuests(float dt)
+  299: void Leave(Guest guest,int direction)
+  308: void MoveGuest(Guest guest,Vector3 target,float dt)
+  334: public void UpdateFloorVisibility()
+  341: public bool FindRecruitGuest(Vector3 from,int floor,float radius,out int id,out HexNavNode node,out Vector3 spot)
+  354: public bool PersuadeGuest(int id)
+  360: public bool EjectWaitingGuest(Vector3 from,int floor,float radius)
+  371: public bool NextService(HexNavNode start,out int id,out HexNavNode node)
+  381: public bool ServiceTarget(int id,out HexNavNode node,out Vector3 position)
+  390: public List<HexNavNode> ServicePath(HexNavNode start,HexNavNode destination)
+  396: public bool CompleteService(int id,SpriteRenderer mealPrefab)
+  409: void OpenChoice()
+  417: public void Choose(int index)
+  440: public bool CanGrantItem(ItemDefinition item)
+  441: public bool GrantItem(ItemDefinition item)
+  442: bool GrantItemInternal(ItemDefinition item,bool grantMappedTile)
+  450: void ApplyEffects()
+  463: public void CloseChoice()
+  464: void RefreshCards()
+  490: void RefreshLanguage()
+  497: void RefreshHUD()
+
+Assets/Prototypes/HexWorld/Scripts/HexSettingsBinding.cs
+  5: public sealed class HexSettingsBinding : MonoBehaviour
+  10: void Awake()
+  19: void OnEnable()
+  20: void OnDisable()
+  21: void Update()
+  22: public void Apply()
+
+Assets/Prototypes/HexWorld/Scripts/HexShopBuildingUI.cs
+  5: public sealed class HexShopBuildingUI : MonoBehaviour
+  14: void Awake()
+  31: void OnEnable()
+  32: void OnDisable()
+  33: void LanguageChanged()
+  35: void Update()
+
+Assets/Prototypes/HexWorld/Scripts/HexShopLayout.cs
+  5: public readonly struct HexNavNode : IEquatable<HexNavNode>
+  9: public bool Equals(HexNavNode other)
+  10: public override bool Equals(object obj)
+  11: public override int GetHashCode()
+  13: public readonly struct HexWallEdge : IEquatable<HexWallEdge>
+  17: public bool Equals(HexWallEdge other)
+  18: public override bool Equals(object obj)
+  19: public override int GetHashCode()
+  21: public sealed class HexTileUse
+  25: public HexTileUse Clone()
+  28: public sealed class HexShopFloor
+  34: public HexShopFloor Clone()
+  36: public sealed class HexShopLayout
+  42: public HexShopFloor Floor(int floor)
+  43: public bool IsStair(HexNavNode node)
+  44: bool HasLanding(HexNavNode node)
+  45: public static Vector2Int Cell(Vector3 world)
+  52: public bool HasWall(int floor,Vector2Int at,int direction)
+  60: public bool SetWall(int floor,Vector2Int at,int direction,bool present)
+  67: public bool TryPlace(int floor,Vector2Int at,HexTileDefinition definition)
+  74: public bool CanRecover(int floor,Vector2Int at)
+  84: public bool TryRecover(int floor,Vector2Int at)
+  88: public bool CanMove(int floor,Vector2Int from,Vector2Int to)
+  89: public bool TryMove(int floor,Vector2Int from,Vector2Int to)
+  95: void InitialiseUse(HexShopFloor f,Vector2Int at,HexTileDefinition definition)
+  100: void OpenInteriorEdges(HexShopFloor f,Vector2Int at)
+  101: void RemoveEdges(HexShopFloor f,Vector2Int at)
+  102: void ConnectStair(int floor,Vector2Int at,HexTileDefinition definition)
+  108: void RemoveStair(HexNavNode node)
+  112: bool Edit(Func<bool> operation)
+  118: public IEnumerable<HexNavNode> OwnedNodes()
+  119: void Bounds(out Vector2Int min,out Vector2Int max)
+  123: bool Passable(HexNavNode node,Vector2Int min,Vector2Int max)
+  124: IEnumerable<HexNavNode> Neighbours(HexNavNode node,Vector2Int min,Vector2Int max,bool ignoreWalls=false)
+  129: HashSet<HexNavNode> ExteriorReach(bool ignoreWalls=false)
+  135: public bool AllOwnedReachOutside()
+  136: bool RepairGroundExit()
+  148: public List<HexNavNode> Path(HexNavNode start,HexNavNode goal,bool ignoreWalls=false,bool ownedOnly=false)
+  155: public bool Reserve(int guest,HexTileKind kind,HexNavNode start,out HexNavNode target,out int seat)
+  166: public void Release(int guest)
+  167: public Vector3 SeatPosition(HexNavNode node,int seat)
+  168: public bool ConvertEnclosedStall(HexTileDefinition kitchen)
+
+Assets/Prototypes/HexWorld/Scripts/HexShopOffer.cs
+  3: public enum HexShopKind
+  5: public sealed class HexShopOffer : ScriptableObject
+
+Assets/Prototypes/HexWorld/Scripts/HexShopSystem.cs
+  6: [Serializable] public sealed class HexShopRow
+  7: public sealed class HexShopSystem : MonoBehaviour
+  18: void Awake()
+  25: void OnEnable()
+  26: void OnDisable()
+  27: void Update()
+  28: public int Stock(HexShopOffer offer)
+  29: public void Open()
+  30: public void Close()
+  31: public bool Buy(HexShopOffer offer)
+  41: public bool Use(HexShopOffer offer)
+  47: void Refresh()
+
+Assets/Prototypes/HexWorld/Scripts/HexStaffDefinition.cs
+  4: public enum HexStaffGrade
+  5: public enum HexStaffJob
+  6: public enum HexStaffAbility
+  7: public enum HexStaffFlawKind
+  8: public enum HexStaffSkillKind
+  11: public sealed class HexStaffDefinition : ScriptableObject
+  19: public HexStaffGrade Initial(HexStaffAbility ability)
+  21: [Serializable] public sealed class HexStaffFlaw
+  27: public enum HexStaffTargetKind
+
+Assets/Prototypes/HexWorld/Scripts/HexStaffSkill.cs
+  4: public sealed class HexStaffSkill : ScriptableObject
+
+Assets/Prototypes/HexWorld/Scripts/HexStaffSystem.cs
+  4: public sealed class HexEmployee
+  18: public sealed class HexStaffSystem : MonoBehaviour
+  28: public bool CanHire(HexStaffDefinition definition)
+  29: public bool Hire(HexStaffDefinition definition)
+  39: public bool IsKitchen(HexNavNode node)
+  45: public List<HexNavNode> Kitchens()
+  50: public bool Assign(int index,HexStaffJob job,HexNavNode kitchen)
+  64: public bool BlocksEdit(int floor,Vector2Int cell)
+  69: public void Tick(float seconds)
+  93: void Cook(HexEmployee employee,float seconds)
+  105: int FreeCookSlot(HexEmployee employee)
+  115: void Recruit(HexEmployee employee,float seconds)
+  128: void WorkTask(HexEmployee employee,float seconds)
+  152: void Patrol(HexEmployee employee,float seconds)
+  163: bool Move(HexEmployee employee,HexNavNode goal,Vector3 spot,float seconds)
+  179: public void UpdateVisibility()
+  185: public HexStaffWorkTarget SpawnTestTarget(bool disruption)
+  191: void OnDestroy()
+
+Assets/Prototypes/HexWorld/Scripts/HexStaffTargetDefinition.cs
+  4: public sealed class HexStaffTargetDefinition : ScriptableObject
+
+Assets/Prototypes/HexWorld/Scripts/HexStaffUI.cs
+  7: [Serializable] public sealed class HexStaffHireCard
+  14: public sealed class HexStaffUI : MonoBehaviour
+  28: void Awake()
+  41: void OnEnable()
+  42: void OnDisable()
+  43: void Update()
+  44: public void Open()
+  45: public void Close()
+  46: void ShowTab(bool roster)
+  47: void RefreshLanguage()
+  53: void SelectEmployee()
+  59: public void Refresh()
+  115: static string DataText(string key,params object[] data)
+  116: static string GradeSummary(HexEmployeeState state,HexTestSettings.StaffOptions options)
+
+Assets/Prototypes/HexWorld/Scripts/HexStaffWorkTarget.cs
+  6: public sealed class HexStaffWorkTarget : MonoBehaviour
+  16: void OnEnable()
+  17: void OnDisable()
+  18: void LateUpdate()
+  23: public bool Claim(int id)
+  24: public void Release(int id)
+  25: public bool Work(int id,float seconds,float efficiency)
+
+Assets/Prototypes/HexWorld/Scripts/HexTestSettings.cs
+  6: public sealed class HexTestSettings : ScriptableObject
+  22: [Serializable] public sealed class CameraOptions
+  33: [Serializable] public sealed class VisualOptions
+  42: [Serializable] public sealed class GuestOptions
+  58: [Serializable] public sealed class ServiceOptions
+  67: [Serializable] public sealed class StartOptions
+  73: [Serializable] public sealed class StaffOptions
+  92: [Serializable] public sealed class IdentityOptions
+  102: void OnValidate()
+
+Assets/Prototypes/HexWorld/Scripts/HexTileBoard.cs
+  4: public enum HexBuildMode
+  7: public sealed class HexTileBoard : MonoBehaviour
+  29: void LateUpdate()
+  34: void OnDisable()
+  36: void Awake()
+  42: public void SelectType(int index)
+  43: public void SetMode(HexBuildMode mode)
+  48: public void Grant(HexTileDefinition item, int count)
+  49: public void SetFloor(int floor)
+  57: public void ToggleWall(int direction)
+  63: public void Hover(HexTileView tile)
+  69: public void Click(HexTileView tile)
+  89: bool Valid(Vector2Int at)
+  96: void EnsureFrontier()
+  109: public void Refresh()
+
+Assets/Prototypes/HexWorld/Scripts/HexTileDefinition.cs
+  2: public enum HexTileKind
+  5: public sealed class HexTileDefinition : ScriptableObject
+
+Assets/Prototypes/HexWorld/Scripts/HexTileView.cs
+  4: public sealed class HexTileView : MonoBehaviour
+  17: public void Show(bool owned, HexTileDefinition definition, Color? highlight = null)
+  26: public void ShowShop(HexShopLayout layout,int floor,bool owned)
+  42: void LateUpdate()
+
+Assets/Prototypes/HexWorld/Scripts/HexWallEdgeUI.cs
+  5: public sealed class HexWallEdgeUI : MonoBehaviour
+  13: void Awake()
+  14: void LateUpdate()
+
+Assets/Prototypes/HexWorld/Scripts/HexWallView.cs
+  2: public sealed class HexWallView : MonoBehaviour
+  7: void LateUpdate()
+  17: public void Show(bool visible)
+
+Assets/Prototypes/HexWorld/Scripts/HexWorldActor.cs
+  4: public sealed class HexWorldActor : MonoBehaviour
+  16: public void ShowPatience(bool visible, float fraction)
+  21: void LateUpdate()
+
+Assets/Prototypes/HexWorld/Scripts/HexWorldInput.cs
+  6: public sealed class HexWorldInput : MonoBehaviour
+  20: void OnEnable()
+  31: void OnDisable()
+  38: public void Rebind(string actionName, int binding, string path)
+  44: bool OverUI()
+  50: HexTileView Tile()
+  56: void BeginConfirm(InputAction.CallbackContext context)
+  57: void BeginOrbit(InputAction.CallbackContext context)
+  58: void BeginPan(InputAction.CallbackContext context)
+  59: void Confirm(InputAction.CallbackContext context)
+  69: void Cancel(InputAction.CallbackContext context)
+  70: void Update()
+
+Assets/Prototypes/LegacyUGUI/CustomerView.cs
+  5: public sealed class CustomerView : MonoBehaviour
+
+Assets/Prototypes/LegacyUGUI/Editor/StackStoreUIAuthoring.cs
+  6: public static class StackStoreUIAuthoring
+  9: public static void Install()
+
+Assets/Prototypes/LegacyUGUI/GoldLevelSystem.cs
+  9: public sealed class OwnedItem
+  15: public sealed class GoldLevelSystem : MonoBehaviour
+  37: void Awake()
+  57: void Update()
+  63: public int ItemLevel(string key)
+  69: void OpenChoice()
+  103: public void Choose(int index)
+  114: public void ContinueWithoutItem()
+  119: void CloseChoice()
+  131: void ApplyEffects()
+  151: void RefreshHUD()
+  165: void OnEnable()
+  166: void RefreshLanguage()
+  175: void OnDisable()
+
+Assets/Prototypes/LegacyUGUI/InventoryInput.cs
+  5: public sealed class InventoryInput : MonoBehaviour
+  13: void OnEnable()
+  23: void OnDisable()
+  29: void Toggle(InputAction.CallbackContext context)
+  33: public void SetInventoryBinding(string controlPath)
+
+Assets/Prototypes/LegacyUGUI/ItemChoiceView.cs
+  4: public sealed class ItemChoiceView : MonoBehaviour
+  10: public void Display(ItemDefinition item, int currentLevel)
+
+Assets/Prototypes/LegacyUGUI/StackStorePrototype.cs
+  6: public sealed class StackStorePrototype : MonoBehaviour
+  25: public class ServiceEquipment
+  31: enum State
+  32: class Customer
+  66: public void SetItemBonuses(float speed, float patience, float visitors)
+  75: public void Equip(ServiceEquipment replacement)
+  82: void Start()
+  97: void Update()
+  168: Vector2 QueuePoint(int index)
+  180: Rect AvoidanceRect()
+  188: Vector2 BrowsePoint(Customer c)
+  200: void MoveBrowsing(Customer c, float dt)
+  224: void MoveTraffic(Customer c, float dt)
+  264: void Spawn()
+  286: void Leave(Customer c, bool success)
+
+Assets/Prototypes/Shared/GoldLevelCurve.cs
+  4: public sealed class GoldLevelCurve : ScriptableObject
+  9: public long ThresholdForNextLevel(int currentLevel)
+
+Assets/Prototypes/Shared/ItemCatalog.cs
+  5: public sealed class ItemCatalog : ScriptableObject
+
+Assets/Prototypes/Shared/ItemDefinition.cs
+  5: public enum ItemKind
+  6: public enum ItemEffectKind
+  9: public struct ItemEffect
+  16: public sealed class ItemDefinition : ScriptableObject
+  28: public string DisplayDescription()
+
+Assets/Prototypes/Shared/LocalizationService.cs
+  8: public sealed class LocalizationService : MonoBehaviour
+  18: void Awake()
+  19: void Update()
+  20: void OnDestroy()
+  21: public void SetLanguage(DisplayLanguage value)
+  23: public static string Text(string key, params object[] nameValuePairs)
+  32: public string Format(string key, IReadOnlyDictionary<string, object> data)
+
+Assets/Prototypes/Shared/LocalizationTable.cs
+  5: public enum DisplayLanguage
+  8: public class TranslationEntry
+  16: public sealed class LocalizationTable : ScriptableObject
+  22: public void Rebuild()
+  34: public string Resolve(string key, DisplayLanguage language)
+  41: void OnEnable()
+  42: void OnValidate()
+
+Assets/Prototypes/Shared/LocalizedLabel.cs
+  5: public sealed class LocalizedLabel : MonoBehaviour
+  8: void OnEnable()
+  9: void OnDisable()
+  10: void Refresh()
+
+Assets/Prototypes/Shared/PrototypeFontBinding.cs
+  7: public sealed class PrototypeFontBinding : MonoBehaviour
+  12: void OnEnable()
+  14: public void Apply()
+

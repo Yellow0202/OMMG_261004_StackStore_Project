@@ -1,0 +1,4 @@
+Direction: right-facing side/three-quarter, natural standing Idle. Neutral tired expression, no evil grin or spiral eyes.
+Canvas: 64x64, transparent. Keep the same canvas, character scale and foot baseline for future frames; do not trim frames independently.
+Suggested Unity pivot: bottom center, with baseline calibrated to the visible soles. Point filtering and no mipmaps for pixel display.
+Future animation work: use this as a design reference, then manually keep proportions, palette, limb lengths and outline consistent across Idle/walk/run frames. This single frame does not include a rig, separated layers, animation or a guaranteed production sprite sheet.

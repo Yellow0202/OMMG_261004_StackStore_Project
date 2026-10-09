@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0c25217215da24eacc0a86ff6e33e8, type: 3}
   m_Name: PrototypeTestSettings_Baseline
   m_EditorClassIdentifier:
+  playerAnimation:
+    clips: {fileID: 11400000, guid: 347e249a26f0eb94c90d8da62c3d743c, type: 2}
+    framesPerSecond: 10
+    minimumMovement: 0.0001
+    teleportDistance: 2
+    scale: 1
   camera:
     minimumPitch: 4
     maximumPitch: 50

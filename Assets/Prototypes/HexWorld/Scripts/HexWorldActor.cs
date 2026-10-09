@@ -13,6 +13,7 @@ public sealed class HexWorldActor : MonoBehaviour
     public float patienceFraction = 1;
     public bool waiting;
     Vector3 previous;
+    [System.NonSerialized] public bool externalAnimation;
     public void ShowPatience(bool visible, float fraction)
     {
         waiting=visible;patienceFraction=Mathf.Clamp01(fraction);
@@ -27,8 +28,11 @@ public sealed class HexWorldActor : MonoBehaviour
             patienceCanvas.position = transform.position + Vector3.up * (HexTestSettings.Current?HexTestSettings.Current.visual.gaugeHeight:1.5f);
         }
         bool moving = (transform.position - previous).sqrMagnitude > .000001f;
-        if(seated&&seatedFrame)body.sprite=seatedFrame;
-        else if (walkFrames.Length > 0) body.sprite = walkFrames[moving ? Mathf.FloorToInt(Time.time * (HexTestSettings.Current?HexTestSettings.Current.visual.walkFramesPerSecond:7)) % walkFrames.Length : 0];
+        if(!externalAnimation)
+        {
+            if(seated&&seatedFrame)body.sprite=seatedFrame;
+            else if (walkFrames.Length > 0) body.sprite = walkFrames[moving ? Mathf.FloorToInt(Time.time * (HexTestSettings.Current?HexTestSettings.Current.visual.walkFramesPerSecond:7)) % walkFrames.Length : 0];
+        }
         ShowPatience(waiting,patienceFraction);
         previous = transform.position;
     }

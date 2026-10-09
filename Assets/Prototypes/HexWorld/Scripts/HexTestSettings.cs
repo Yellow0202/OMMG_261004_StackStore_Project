@@ -6,6 +6,15 @@ using UnityEngine;
 public sealed class HexTestSettings : ScriptableObject
 {
     public static HexTestSettings Current { get; internal set; }
+    [Header("플레이어 이동 애니메이션 / 즉시 반영")] public PlayerAnimationOptions playerAnimation = new PlayerAnimationOptions();
+    [Serializable] public sealed class PlayerAnimationOptions
+    {
+        public HexPlayerAnimationSet clips;
+        [Min(0)] public float framesPerSecond=10;
+        [Min(0)] public float minimumMovement=.0001f;
+        [Min(.01f)] public float teleportDistance=2;
+        [Min(.01f)] public float scale=1;
+    }
     [Header("카메라 / 즉시 반영")] public CameraOptions camera = new CameraOptions();
     [Header("2D 표시 / 즉시 반영")] public VisualOptions visual = new VisualOptions();
     [Header("손님 / 속도는 즉시, 생성·예약 값은 다음 대상부터")] public GuestOptions guests = new GuestOptions();

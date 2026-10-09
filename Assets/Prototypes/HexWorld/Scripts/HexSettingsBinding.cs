@@ -11,6 +11,13 @@ public sealed class HexSettingsBinding : MonoBehaviour
     {
         if(!settings)return;
         HexTestSettings.Current=settings;
+        if(game.service&&game.service.worker&&settings.playerAnimation.clips)
+        {
+            var actor=game.service.worker;
+            var animation=actor.GetComponent<HexPlayerAnimation>();
+            if(!animation)animation=actor.gameObject.AddComponent<HexPlayerAnimation>();
+            animation.Configure(actor,settings);
+        }
         game.board.initialStock=settings.start.tilesPerType;
         if(settings.tileTypes!=null&&settings.tileTypes.Length>0)game.board.tileTypes=settings.tileTypes;
         game.ConfigureStart(settings.start.gold,settings.start.level);

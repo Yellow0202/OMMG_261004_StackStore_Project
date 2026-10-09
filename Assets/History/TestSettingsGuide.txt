@@ -42,3 +42,17 @@ HexCameraFacingSprite의 Override Shared Visual을 켠 개별 오브젝트만
 Show Labels/Show Ground Markers로 표시 여부, Label Height/Scale/Size/Font Size로 이름표,
 Ground Height/Radius/Width로 바닥 표시를 조절할 수 있습니다. 색상과 배경 불투명도도 즉시 반영됩니다.
 저장된 UI는 Prefabs/PlayerIdentity, EmployeeIdentity에서 편집할 수 있습니다.
+
+플레이어 이동 애니메이션 (2026-10-09)
+PrototypeTestSettings > Player Animation에서 조절합니다.
+- Clips: 8방향 걷기 클립 및 정지 스프라이트 데이터 (PlayerAnimationSet).
+- Frames Per Second: 초당 프레임 수. 기본 10, Play 중 즉시 반영.
+- Minimum Movement: 걷기 시작으로 판단할 프레임 간 XZ 이동 거리.
+- Teleport Distance: 이 거리 이상 순간 이동하면 걷기로 처리하지 않음.
+- Scale: 플레이어의 원래 Sprite Body 크기에 곱하는 배율.
+기존 Visual > Walk Frames Per Second는 손님/직원용이며 플레이어는 위 값을 사용합니다.
+실제 접객 이동에 8방향이 적용되고, 정지하면 마지막 방향의 첫 프레임을 유지합니다.
+방향은 카메라의 수평 회전을 기준으로 결정합니다. 기존 빌보드 기울기/깊이 정렬은 유지합니다.
+Art/PlayerAnimation/Walk의 원본 프레임은 Point 필터, 압축 없음으로 임포트합니다.
+Art/PlayerAnimation/Walk_*.anim에서 클립을 확인할 수 있습니다.
+원본 프레임 변경 후 Stack Store > Hex World > Rebuild Player Walk Animations로 재생성합니다.

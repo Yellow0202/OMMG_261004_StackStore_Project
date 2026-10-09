@@ -1,0 +1,30 @@
+{
+  "frames": 8,
+  "frameSize": [
+    256,
+    256
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "durationsMs": [
+    80,
+    70,
+    80,
+    100,
+    70,
+    70,
+    90,
+    80
+  ],
+  "loop": true,
+  "footBaselineY": 240,
+  "unityPivot": [
+    0.5,
+    0.0625
+  ],
+  "filter": "Point",
+  "mipmaps": false,
+  "note": "Single generated pose loop; inspect palette and silhouettes before final production animation."
+}

@@ -160,7 +160,10 @@ public sealed class HexPrototype : MonoBehaviour
         var view=Instantiate(customerPrefab,customerRoot);
         view.transform.position=new Vector3(-direction*GuestOptions.spawnX,GuestOptions.groundHeight,UnityEngine.Random.Range(-GuestOptions.spawnZ,GuestOptions.spawnZ));
         bool interested=UnityEngine.Random.value<ReactiveVisitorChance;
-        view.body.color=interested?Color.HSVToRGB(UnityEngine.Random.value,HexTestSettings.Current?HexTestSettings.Current.visual.customerSaturation:.36f,HexTestSettings.Current?HexTestSettings.Current.visual.customerBrightness:.96f):(HexTestSettings.Current?HexTestSettings.Current.visual.unresponsiveColor:new Color(0,0,0,.4f));
+        var animation=view.GetComponent<HexCustomerAnimation>();
+        if(!animation)animation=view.gameObject.AddComponent<HexCustomerAnimation>();
+        bool animated=animation.Configure(view,HexTestSettings.Current);
+        view.body.color=interested?(animated?Color.white:Color.HSVToRGB(UnityEngine.Random.value,HexTestSettings.Current?HexTestSettings.Current.visual.customerSaturation:.36f,HexTestSettings.Current?HexTestSettings.Current.visual.customerBrightness:.96f)):(HexTestSettings.Current?HexTestSettings.Current.visual.unresponsiveColor:new Color(0,0,0,.4f));
         view.waiting=false;view.patienceCanvas.gameObject.SetActive(false);
         view.gameObject.SetActive(board.CurrentFloor==0);
         bool browsing=interested&&UnityEngine.Random.value>=directQueueChance;

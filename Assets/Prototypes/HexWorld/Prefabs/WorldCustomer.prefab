@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1908
-  m_Sprite: {fileID: 21300000, guid: 2518bafdc41d188419cb8c26b3506722, type: 3}
+  m_Sprite: {fileID: 1284647483036081791, guid: f5c0198fc2bc3604e8f7500f2de8dc93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &3622625185590196993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 189478741477372111}
   - component: {fileID: 8461525692330776799}
+  - component: {fileID: 9113029763663237095}
   m_Layer: 0
   m_Name: WorldCustomer
   m_TagString: Untagged
@@ -225,6 +226,18 @@ MonoBehaviour:
   shadow: {fileID: 5589847395921121985}
   patienceFraction: 1
   waiting: 0
+--- !u!114 &9113029763663237095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5813720417305631839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d648d6ac5799d1342b04c6c09bf9fc86, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &6537658165037232900
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,20 @@ using UnityEngine;
 public sealed class HexTestSettings : ScriptableObject
 {
     public static HexTestSettings Current { get; internal set; }
+    [Header("손님 이동 애니메이션 / 목록은 다음 생성, 속도·크기는 즉시 반영")]
+    public CustomerAnimationOptions customerAnimation = new CustomerAnimationOptions();
+    [Serializable] public sealed class CustomerAnimationOptions
+    {
+        public HexCustomerAnimationCatalog catalog;
+        [Min(0)] public float framesPerSecond=8;
+        [Min(0)] public float minimumMovement=.0001f;
+        [Min(.01f)] public float teleportDistance=2;
+        [Min(.01f)] public float scale=1;
+        [Header("시트 재분할 메뉴 실행 시 반영")]
+        [Min(.1f)] public float authoredHeight=1.333333f;
+        [Range(1,254)] public int alphaCutoff=128;
+        [Range(0,8)] public int framePadding=2;
+    }
     [Header("플레이어 이동 애니메이션 / 즉시 반영")] public PlayerAnimationOptions playerAnimation = new PlayerAnimationOptions();
     [Serializable] public sealed class PlayerAnimationOptions
     {

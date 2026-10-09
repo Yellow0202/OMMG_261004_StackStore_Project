@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0c25217215da24eacc0a86ff6e33e8, type: 3}
   m_Name: PrototypeTestSettings
   m_EditorClassIdentifier:
+  customerAnimation:
+    catalog: {fileID: 11400000, guid: 88847958c22d1f7489c731af7fb9cbe7, type: 2}
+    framesPerSecond: 8
+    minimumMovement: 0.0001
+    teleportDistance: 2
+    scale: 1
+    authoredHeight: 1.333333
+    alphaCutoff: 128
+    framePadding: 2
   playerAnimation:
     clips: {fileID: 11400000, guid: 347e249a26f0eb94c90d8da62c3d743c, type: 2}
     framesPerSecond: 10

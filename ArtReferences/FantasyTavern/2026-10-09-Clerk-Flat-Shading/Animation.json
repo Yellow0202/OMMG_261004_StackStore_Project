@@ -1,0 +1,24 @@
+{
+  "frames": 16,
+  "frameSize": [
+    352,
+    352
+  ],
+  "grid": [
+    4,
+    4
+  ],
+  "durationMs": 100,
+  "loopDurationMs": 1600,
+  "loop": true,
+  "footBaselineY": 336,
+  "unityPivot": [
+    0.5,
+    0.045454545454545456
+  ],
+  "filter": "Point",
+  "mipmaps": false,
+  "nativePixelsPreserved": true,
+  "paletteColors": 12,
+  "alpha": "binary"
+}

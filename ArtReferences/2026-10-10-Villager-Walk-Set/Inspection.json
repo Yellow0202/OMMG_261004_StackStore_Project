@@ -1,0 +1,722 @@
+[
+  {
+    "file": "Female-01\\East.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-01\\North-East.png",
+    "size": [
+      1418,
+      1109
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      1,
+      0,
+      0,
+      1
+    ]
+  },
+  {
+    "file": "Female-01\\North-West.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-01\\North.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  {
+    "file": "Female-01\\South-East.png",
+    "size": [
+      1447,
+      1087
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  {
+    "file": "Female-01\\South-West.png",
+    "size": [
+      1774,
+      887
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-01\\South.png",
+    "size": [
+      1448,
+      1086
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      1,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-01\\West.png",
+    "size": [
+      1466,
+      1073
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-02\\East.png",
+    "size": [
+      1448,
+      1086
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-02\\North-East.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-02\\North-West.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-02\\North.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      1,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-02\\South-East.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  {
+    "file": "Female-02\\South-West.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-02\\South.png",
+    "size": [
+      1427,
+      1102
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  {
+    "file": "Female-02\\West.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-03\\East.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-03\\North-East.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      1,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-03\\North-West.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-03\\North.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-03\\South-East.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Female-03\\South-West.png",
+    "size": [
+      1402,
+      1122
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  {
+    "file": "Female-03\\South.png",
+    "size": [
+      1422,
+      1106
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      1,
+      1
+    ]
+  },
+  {
+    "file": "Female-03\\West.png",
+    "size": [
+      1448,
+      1086
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-01\\East.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      1
+    ]
+  },
+  {
+    "file": "Male-01\\North-East.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-01\\North-West.png",
+    "size": [
+      1422,
+      1106
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-01\\North.png",
+    "size": [
+      1464,
+      1074
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  {
+    "file": "Male-01\\South-East.png",
+    "size": [
+      1448,
+      1086
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-01\\South-West.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-01\\South.png",
+    "size": [
+      1265,
+      1243
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  {
+    "file": "Male-01\\West.png",
+    "size": [
+      1437,
+      1094
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-02\\East.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  {
+    "file": "Male-02\\North-East.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-02\\North-West.png",
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-02\\North.png",
+    "size": [
+      1269,
+      1240
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      1,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-02\\South-East.png",
+    "size": [
+      1448,
+      1086
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-02\\South-West.png",
+    "size": [
+      1447,
+      1087
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-02\\South.png",
+    "size": [
+      1453,
+      1083
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "file": "Male-02\\West.png",
+    "size": [
+      1414,
+      1113
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+]

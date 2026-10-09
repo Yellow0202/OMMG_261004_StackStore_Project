@@ -1,0 +1,101 @@
+{
+  "Idle-Reference": {
+    "size": [
+      1261,
+      1247
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  "South": {
+    "size": [
+      1447,
+      1087
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  "South-East": {
+    "size": [
+      1446,
+      1087
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  "East": {
+    "size": [
+      1445,
+      1088
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  "North-East": {
+    "size": [
+      1446,
+      1087
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  "North": {
+    "size": [
+      1446,
+      1087
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  "North-West": {
+    "size": [
+      1446,
+      1087
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  "West": {
+    "size": [
+      1446,
+      1087
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  "South-West": {
+    "size": [
+      1446,
+      1087
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  }
+}

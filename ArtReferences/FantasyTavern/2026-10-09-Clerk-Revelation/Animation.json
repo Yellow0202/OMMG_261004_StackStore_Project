@@ -1,0 +1,30 @@
+{
+  "frames": 8,
+  "frameSize": [
+    256,
+    256
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "durationsMs": [
+    60,
+    70,
+    60,
+    70,
+    60,
+    70,
+    60,
+    70
+  ],
+  "loop": true,
+  "footBaselineY": 240,
+  "unityPivot": [
+    0.5,
+    0.0625
+  ],
+  "filter": "Point",
+  "mipmaps": false,
+  "note": "Ecstatic revelation: two quick shallow joyful breaths with fine trembling per loop; silent animation. Inspect silhouette consistency for final production."
+}

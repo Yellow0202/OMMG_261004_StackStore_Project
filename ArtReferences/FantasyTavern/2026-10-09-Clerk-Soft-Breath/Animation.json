@@ -1,0 +1,38 @@
+{
+  "frames": 16,
+  "frameSize": [
+    256,
+    256
+  ],
+  "grid": [
+    4,
+    4
+  ],
+  "durationsMs": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "loop": true,
+  "footBaselineY": 240,
+  "unityPivot": [
+    0.5,
+    0.0625
+  ],
+  "filter": "Point",
+  "mipmaps": false,
+  "note": "Slow shallow breath, brief shiver only around frames 11-12. No added continuous lateral jitter."
+}

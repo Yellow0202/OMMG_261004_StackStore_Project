@@ -128,7 +128,19 @@ public static class HexCustomerAnimationAuthoring
             rects[f]=new Rect(f%columns*size,(rows-1-f/columns)*size,size,size);
         }
         atlas.SetPixels32(output);atlas.Apply();path=Path.ChangeExtension(path,null)+"_Frames.png";
-        File.WriteAllBytes(path,atlas.EncodeToPNG());
+        // Corrected pixel-authored diagonal atlases already use the fixed frame canvas.
+        // Keep their foot phases/registration instead of extracting and rescaling again.
+        string corrected=path.Replace("_Frames.png","_Alternating.png");
+        if(File.Exists(corrected))
+        {
+            var authored=new Texture2D(2,2,TextureFormat.RGBA32,false);
+            authored.LoadImage(File.ReadAllBytes(corrected));
+            bool matches=authored.width==columns*size&&authored.height==rows*size;
+            UnityEngine.Object.DestroyImmediate(authored);
+            if(!matches)throw new Exception("Corrected atlas cell size must match frameCanvasSize: "+corrected);
+            File.Copy(corrected,path,true);
+        }
+        else File.WriteAllBytes(path,atlas.EncodeToPNG());
         UnityEngine.Object.DestroyImmediate(texture);UnityEngine.Object.DestroyImmediate(atlas);
         AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
         var importer=(TextureImporter)AssetImporter.GetAtPath(path);

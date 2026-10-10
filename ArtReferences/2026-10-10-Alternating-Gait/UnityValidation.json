@@ -1,0 +1,6 @@
+{
+  "customerImport": "CUSTOMER_ANIMATION_VALIDATED: 6 characters, 384 walk sprites, 48 looping clips; samples, spawn pool, seated identity and tint passed.",
+  "playerImport": "PLAYER_ANIMATION_VALIDATED: 64 imported sprites, 8 looping clips, all frame samples and camera-relative directions passed.",
+  "customerPlay": "CUSTOMER_ANIMATION_PLAY_CHECKS_PASSED: all six characters/eight directions, idle, seating, tint, teleport, re-enable, actual scene spawn; waypoint distance budget, short-gap clock continuity, direction hysteresis, real stop and resume.",
+  "playerPlay": "PLAYER_ANIMATION_PLAY_CHECKS_PASSED: eight walk/idle directions, teleport, disable/re-enable and sprite ownership."
+}

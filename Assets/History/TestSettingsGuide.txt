@@ -77,3 +77,7 @@ Customer Animation > Direction Hysteresis Degrees: 현재 방향에서 다른 �
 재생 시계는 짧은 공백/방향 전환/정지 후 재개에서 유지합니다. 새 생성 및 순간이동은 초기화합니다. 기존 Frames Per Second 기본 8은 유지합니다.
 재분할 메뉴는 머리 중심으로 가로 정렬하며 발 기준 피벗과 256x256 캔버스는 유지합니다.
 주의: 등록 프레임 8개와 독립 보행 자세 8개는 다릅니다. 현재 손님 대각선 원본에 네 가지 주요 자세의 유사 반복이 남아 있습니다. 감사 및 전후 재생 GIF는 ArtReferences/2026-10-10-Customer-Animation-Smooth에서 확인합니다.
+
+
+[대각선 원본 보정]
+재생 속도 등 런타임 조절값은 기존 Customer Animation/Player Animation 항목 사용. 손님 대각선 *_Alternating.png는 균일 셀로 보정된 저작 원본이며 Rebuild Customer Walk Animations 실행 시 우선 적용된다. 프레임 크기 256 설정 기준으로 제작되었으므로 수정 원본의 셀 크기와 frameCanvasSize는 일치시켜야 한다. 플레이어는 기존 84x84 개별 PNG를 사용한다.

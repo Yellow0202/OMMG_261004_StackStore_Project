@@ -1303,3 +1303,8 @@ HexCustomerAnimation.AdvanceMotion(delta, dt, cameraYaw): LateUpdate에서 받�
 HexPrototype.MoveGuest: 프레임 이동 예산 remaining을 계산한 후 경로 지점을 통과할 때 남은 거리를 다음 경로 지점에 사용. Waypoint Distance 허용 거리 내 지점은 이동 없이 건너뛰고, 경로 끝에는 남은 예산으로 최종 목적지 이동. 층 변경은 기존처럼 순간이동 및 표시 층 갱신 후 종료. 경로 탐색과 벽 판정은 유지.
 HexCustomerAnimationAuthoring.Import: 상단 25%의 머리 영역 경계 중심을 가로 정렬 기준으로 사용. 팔·다리 포즈에 따라 전체 폭이 달라져도 몸 중심이 움직이지 않도록 개선. 고정 캔버스/발 여백/연결 영역 추출 방식 유지.
 HexCustomerAnimationPlayChecks.CheckWaypointBudget: 실제 MoveGuest에 중간 지점 직전의 손님과 두 지점 경로를 전달, 지점을 통과한 프레임에서도 전체 이동 거리가 보존되는지 검사. 추가로 AdvanceMotion의 짧은 공백, 방향 경계, 실제 정지/재개 및 30/60/120 FPS 시계 일치 검사.
+
+
+[2026-10-10 대각선 발 교대 수정]
+HexCustomerAnimationAuthoring.Import: *_Alternating.png가 있으면 픽셀 작화된 4x2 시트를 그대로 *_Frames.png로 가져온다. 고정 셀/피벗과 기존 Sprite 참조를 유지하며 재추출/스케일링으로 보행 위치가 변하는 것을 방지한다.
+Tools/Art/repair_diagonal_gaits.py: 게임 런타임이 아닌 이미지 저작 도구. Sources 백업을 읽어 상체 원본을 유지하고, 좌우 다리를 4프레임 차의 반대 위상으로 재작화한다. 발 접촉/통과 단계 검사와 프리뷰 GIF 및 GaitVerification.json을 출력한다.

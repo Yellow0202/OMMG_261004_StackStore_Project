@@ -1,0 +1,79 @@
+{
+  "status": "Completed: 28 diagonal cycles / 224 pixel-authored frames; immutable upper-body source retained",
+  "sourceCommit": "096d668",
+  "characters": [
+    "Male-01",
+    "Male-02",
+    "Male-03",
+    "Female-01",
+    "Female-02",
+    "Female-03",
+    "Player"
+  ],
+  "directions": [
+    "North-East",
+    "South-East",
+    "South-West",
+    "North-West"
+  ],
+  "targetFrameCount": 8,
+  "gait": [
+    {
+      "frame": 0,
+      "phase": "left contact",
+      "left": "forward and grounded",
+      "right": "back and grounded"
+    },
+    {
+      "frame": 1,
+      "phase": "left down",
+      "left": "supports weight",
+      "right": "heel lifts"
+    },
+    {
+      "frame": 2,
+      "phase": "right passing",
+      "left": "supports weight",
+      "right": "knee passes support leg"
+    },
+    {
+      "frame": 3,
+      "phase": "right up",
+      "left": "trails behind",
+      "right": "raised forward"
+    },
+    {
+      "frame": 4,
+      "phase": "right contact",
+      "left": "back and grounded",
+      "right": "forward and grounded"
+    },
+    {
+      "frame": 5,
+      "phase": "right down",
+      "left": "heel lifts",
+      "right": "supports weight"
+    },
+    {
+      "frame": 6,
+      "phase": "left passing",
+      "left": "knee passes support leg",
+      "right": "supports weight"
+    },
+    {
+      "frame": 7,
+      "phase": "left up",
+      "left": "raised forward",
+      "right": "trails behind"
+    }
+  ],
+  "proposedWorkflow": [
+    "Preserve source art through Git and separate reference assets.",
+    "Separate original body, legs and boots without replacing the character design.",
+    "Place left/right leg segments from fixed anatomical hip joints using opposite phases.",
+    "Recombine with nearest-neighbour pixel sampling; align head and feet to a common canvas.",
+    "Persist 8-frame direction clips and check contact 0 vs 4, passing 2 vs 6, and 7 to 0 loop.",
+    "Verify all 28 direction cycles in Unity, then update History and commit/push."
+  ],
+  "generationAttempts": "Two built-in image_gen attempts with explicit colored limb guide still repeated the lead foot; rejected and not applied."
+}

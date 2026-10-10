@@ -1,0 +1,4 @@
+Mode: built-in image_gen; new asset, no bitmap post-processing.
+Asset: Assets/Prototypes/HexWorld/Art/Environment/Market/MarketFacade.png
+Prompt: Square opaque game building facade texture for a simple 3D house front. Perfectly straight-on rectangular medieval fantasy village market storefront wall filling square edge to edge, no roof, sky, ground or perspective. Warm cream plaster with dark brown timber frame, upper two shutter windows, lower central wooden door and two shop windows. Restrained clean pixel art, flat colors and simple hard shadows, cozy Japanese fantasy tavern atmosphere. No letters, people, gradients, antialiasing or border. Wall touches all four edges. Roof and awning provided by geometry.
+Validation: six authored collider-free houses; real roof, side, awning and post geometry. Existing ownership/floor/ghost/collider checks plus shop boundary scenery clearance. Camera pitch 4/30/50 and maximum zoom 4/50 renders.

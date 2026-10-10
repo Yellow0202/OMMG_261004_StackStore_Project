@@ -40,7 +40,12 @@ MonoBehaviour:
   pavingRepeatMeters: 2.8
   backdropMaterial: {fileID: 2100000, guid: 93ffb00f1d5584f4eb98e9a73b39fa90, type: 2}
   backdropTint: {r: 1, g: 1, b: 1, a: 1}
-  backdropDistance: 12
+  backdropDistance: 32
   backdropWidth: 80
   backdropHeight: 26.66667
   backdropBaseHeight: -0.6
+
+  showDepthBuildings: 1
+  buildingClearance: 9
+  buildingDepthSpacing: 4
+  buildingScale: 1

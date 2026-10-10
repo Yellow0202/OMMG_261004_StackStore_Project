@@ -99,3 +99,6 @@ PrototypeTestSettings.asset > 환경(environment)에 MarketEnvironment.asset 연
 [바닥 경계 융화]
 PrototypeTestSettings > 환경 > 연결된 MarketEnvironment 원본의 Floor Blend Width 조절.
 기본 .45(월드 단위). 0은 경계를 섞지 않음. 값을 높이면 더 넓은 가장자리에서 이웃 바닥/시장 지면과 혼합됨. 최대 1이며 역할별 중앙 특징은 유지. Play 중 즉시 반영. 미소유 셀에는 별도 바닥을 생성하지 않음.
+
+[시장 입체 배경] MarketEnvironment.asset
+showDepthBuildings: 입체 건물 표시. buildingClearance: 가게 외곽과 건물 간격(최소 5). buildingDepthSpacing: 뒤쪽 건물의 깊이 간격. buildingScale: 전체 건물 크기. backdropDistance: 먼 배경판 거리(기본 32). 배치 상세는 MarketEnvironment 프리팹의 Market Depth Buildings 하위 오브젝트에서 확인 가능.

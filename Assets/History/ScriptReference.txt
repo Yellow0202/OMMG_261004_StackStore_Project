@@ -1326,3 +1326,6 @@ HexTileView.ApplyFloor/ShowShop: 바닥 높이와 융화 데이터 갱신. ShowS
 HexFloorBlend.shader: 육각형 각 변까지의 거리로 혼합 가중치를 계산. 소유 이웃과는 서로의 원본 이미지 좌표를 공유해 경계에서 동일한 혼합색을 만들고, 외곽은 월드 고정 지면으로 연결. 중앙 원본 픽셀은 유지하며 투명 정렬/충돌체를 바꾸지 않는 불투명 바닥 표시.
 HexEnvironmentAuthoring: 7종 Floor 재질에 전용 융화 셰이더를 연결하고 셰이더 오류 검사.
 HexEnvironmentChecks.CaptureFloorComparison: 검증 중 바닥만 별도 렌더 레이어로 촬영한 뒤 카메라/레이어/혼합 폭 복원. 전후 비교 및 이웃 정보 연결 검증 추가.
+
+HexMarketDepth.cs: 배경 건물 위치를 가게 소유 영역 경계에 맞춰 갱신한다. buildings는 저장된 건물 Transform, anchors는 경계 기준 상대 배치. Refresh는 환경 테마의 간격/크기/표시 여부를 적용한다. 게임 이동 충돌과 소유권에는 관여하지 않는다.
+HexMarketDepthAuthoring.cs: 신규 정면 도트 텍스처와 지붕/차양/기둥 등의 실제 메시를 조합하여 기존 시장 환경 프리팹에 저장한다. Build는 배경 장식 그룹만 재생성한다.

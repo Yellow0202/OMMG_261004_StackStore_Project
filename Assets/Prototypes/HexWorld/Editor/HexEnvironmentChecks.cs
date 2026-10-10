@@ -66,6 +66,7 @@ public static class HexEnvironmentChecks
             }
             if(board.authoredTiles.Count(x=>x.surface.enabled)!=board.Model.OwnedCount)throw new Exception("Owned floor visibility mismatch");
             if(environment.GetComponentsInChildren<Collider>().Length!=0)throw new Exception("Environment blocks movement");
+            var depth=environment.GetComponentInChildren<HexMarketDepth>(); if(!depth||depth.buildings.Length!=6)throw new Exception("Missing depth buildings"); depth.Refresh(); foreach(var house in depth.buildings)if(house.position.z<=board.Model.Owned.Max(c=>HexBoardModel.World(c).z))throw new Exception("Scenery overlaps shop");
             CaptureFloorComparison(board,theme,environment);
             // Render at camera limits as well as the initial angle, using the actual URP camera.
             foreach(float pitch in new[]{4f,30f,50f})
@@ -97,7 +98,7 @@ public static class HexEnvironmentChecks
             target.Create();var request=new UniversalRenderPipeline.SingleCameraRequest{destination=target};
             RenderPipeline.SubmitRenderRequest(camera,request);RenderPipeline.SubmitRenderRequest(camera,request);
             RenderTexture.active=target;image.ReadPixels(new Rect(0,0,1280,720),0,0);image.Apply();
-            string directory=Path.GetFullPath("../../ArtReferences/2026-10-10-Floor-Blending");Directory.CreateDirectory(directory);
+            string directory=Path.GetFullPath("../../ArtReferences/2026-10-10-Market-Depth");Directory.CreateDirectory(directory);
             File.WriteAllBytes(Path.Combine(directory,name),image.EncodeToPNG());
         }
         finally{RenderTexture.active=previous;target.Release();UnityEngine.Object.DestroyImmediate(target);UnityEngine.Object.DestroyImmediate(image);}

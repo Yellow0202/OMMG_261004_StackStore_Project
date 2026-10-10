@@ -25,6 +25,11 @@ public sealed class HexEnvironmentTheme : ScriptableObject
     public Color backdropTint=Color.white;
     [Min(1)] public float backdropDistance=12,backdropWidth=80,backdropHeight=26.66667f;
     public float backdropBaseHeight=-.6f;
+    [Header("시장 입체 배경 / 건물 배치")]
+    public bool showDepthBuildings=true;
+    [Min(5)] public float buildingClearance=9;
+    [Min(1)] public float buildingDepthSpacing=4;
+    [Range(.5f,2)] public float buildingScale=1;
     public Material Floor(HexTileKind kind)
     {
         if(floors!=null)foreach(var entry in floors)if(entry!=null&&entry.kind==kind)return entry.material;

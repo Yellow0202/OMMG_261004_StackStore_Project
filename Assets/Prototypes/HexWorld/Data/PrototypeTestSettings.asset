@@ -21,6 +21,8 @@ MonoBehaviour:
     authoredHeight: 1.333333
     alphaCutoff: 128
     framePadding: 2
+    frameCanvasSize: 256
+    frameBodyHeight: 192
   playerAnimation:
     clips: {fileID: 11400000, guid: 347e249a26f0eb94c90d8da62c3d743c, type: 2}
     framesPerSecond: 10

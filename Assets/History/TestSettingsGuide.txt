@@ -66,4 +66,7 @@ Assets/Prototypes/HexWorld/Data/PrototypeTestSettings.asset > Customer Animation
 정지·테이블 대기 중에는 선택된 캐릭터의 방향별 정지 프레임을 유지합니다. 전용 착석 그림은 아직 없어 걷기만 멈추며 기존 공용 착석 그림으로 바뀌지 않습니다.
 반응 가능 손님은 의상 원래 색, 반응하지 않는 손님은 Visual > Unresponsive Color를 사용합니다.
 기존 Visual > Walk Frames Per Second는 직원 및 새 카탈로그가 없는 손님의 공용 표시용입니다.
-Art/CustomerAnimation의 각 PNG는 Sprite Editor에서 분할된 8개 Sprite를 확인할 수 있습니다. Walk_*.anim은 방향별 반복 클립입니다.
+Art/CustomerAnimation의 *_Frames.png에서 동일 크기로 분할된 Sprite를 확인합니다. 원본 방향 PNG는 제작 참조용이며 게임은 정규화된 프레임만 사용합니다. Walk_*.anim은 방향별 반복 클립입니다.
+- Frame Canvas Size: 모든 프레임의 정사각 캔버스 크기(기본 256).
+- Frame Body Height: 캔버스 안 캐릭터 최대 높이(기본 192). Frame Padding은 발 아래 여백입니다. 변경 후 재분할 메뉴를 실행합니다.
+- 좌우는 East의 8프레임을 공용 사용하며 West에서 SpriteRenderer Flip X를 적용합니다. HexPlayerAnimationSet의 Mirror West로 구분하며 플레이어 세트에는 기본 적용하지 않습니다.

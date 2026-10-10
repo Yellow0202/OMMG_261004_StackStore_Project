@@ -1291,9 +1291,9 @@ Editor/HexPlayerAnimationAuthoring.cs: Build로 64개 프레임 임포트, 8개 
 
 [2026-10-10 추가: 손님 6종 이동 애니메이션]
 HexCustomerAnimationCatalog.cs: characters에 6종 HexPlayerAnimationSet을 보관하는 ScriptableObject. IsValid는 목록과 모든 방향/프레임 참조 검사. Pick은 유효 후보에서 균등 무작위 선택.
-HexCustomerAnimation.cs: Configure가 생성 시 한 번 외형을 선택하고 actor/settings/character/previous/originalScale을 보관. phase는 손님별 프레임 진행 시각, direction은 마지막 카메라 기준 방향, wasMoving은 이동 시작 감지. LateUpdate는 실제 XZ 변위를 기준으로 8방향 프레임을 표시하며 정지/착석/순간이동에는 같은 인물의 정지 프레임 사용. 색상과 빌보드 회전은 변경하지 않음. OnEnable/OnDisable에서 이전 위치와 externalAnimation 소유 여부 처리. Character/Direction/Moving으로 표시 상태 조회.
-HexTestSettings.CustomerAnimationOptions: catalog, framesPerSecond, minimumMovement, teleportDistance, scale은 런타임 조절값. authoredHeight, alphaCutoff, framePadding은 재분할 시 사용.
+HexCustomerAnimation.cs: Configure가 생성 시 한 번 외형을 선택하고 actor/settings/character/previous/originalScale을 보관. phase는 손님별 프레임 진행 시각, direction은 마지막 카메라 기준 방향, wasMoving은 이동 시작 감지. LateUpdate는 실제 XZ 변위를 기준으로 8방향 프레임을 표시하며 정지/착석/순간이동에는 같은 인물의 정지 프레임 사용. mirrorWest가 설정된 세트의 West 방향에서는 body.flipX를 적용하고 다른 방향에서 해제. 색상과 빌보드 회전은 변경하지 않음. OnEnable/OnDisable에서 이전 위치와 externalAnimation 소유 여부 처리. Character/Direction/Moving으로 표시 상태 조회.
+HexTestSettings.CustomerAnimationOptions: catalog, framesPerSecond, minimumMovement, teleportDistance, scale은 런타임 조절값. authoredHeight, alphaCutoff, framePadding, frameCanvasSize, frameBodyHeight는 재분할 시 사용.
 HexPrototype.Spawn: 손님 프리팹의 HexCustomerAnimation.Configure 호출. 관심 손님은 원본 색상 유지, 무관심 손님은 검정 반투명 유지. 기존 이동/접객/인내심 로직은 유지.
 HexWorldActor.externalAnimation: 이제 플레이어뿐 아니라 손님의 개별 애니메이션도 기존 walkFrames/seatedFrame으로 덮어쓰지 않도록 함.
-Editor/HexCustomerAnimationAuthoring.cs: Build가 48개 방향 시트를 384개 Sprite로 분할, 발 기준 피벗/방향별 높이 정규화, 48개 반복 클립/6종 세트/카탈로그를 생성하고 두 테스트 설정과 프리팹을 연결. Import는 알파 범위를 읽어 셀별 캐릭터 경계를 검출하며 원본 PNG는 변경하지 않음. Validate는 참조/반복 클립/샘플 일치/무작위 후보/착석 외형/색상 보존 검사.
+Editor/HexCustomerAnimationAuthoring.cs: Build가 48개 방향 시트를 384개 Sprite로 분할, 발 기준 피벗/방향별 높이 정규화, 48개 반복 클립/6종 세트/카탈로그를 생성하고 두 테스트 설정과 프리팹을 연결. Import는 알파 연결 영역 중 큰 캐릭터 영역을 선택해 행/열 순서로 정렬하고, 해당 영역의 픽셀만 발 기준으로 고정 크기 *_Frames.png에 배치. 격자 경계에 걸린 이웃 프레임 조각을 제거하며 원본과 분할 결과를 별도 보관. West는 East 프레임 공유 및 Flip X 클립 사용. Validate는 참조/반복 클립/샘플 일치/무작위 후보/착석 외형/색상 보존 검사.
 Editor/HexCustomerAnimationPlayChecks.cs: 별도 검증 프로젝트 Play Mode에서 6종 x 8방향 이동·정지, 착석, 색상 유지, 순간이동, 비활성화/재활성화, 실제 HexWorld 손님 생성 연결 확인.

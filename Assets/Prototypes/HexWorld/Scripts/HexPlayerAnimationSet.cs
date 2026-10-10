@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Stack Store/Hex World/Player Animation Set")]
 public sealed class HexPlayerAnimationSet : ScriptableObject
 {
+    public bool mirrorWest;
     public AnimationClip[] walk = new AnimationClip[8];
     public Sprite[] idle = new Sprite[8];
     [System.Serializable] public sealed class Frames { public Sprite[] sprites; }

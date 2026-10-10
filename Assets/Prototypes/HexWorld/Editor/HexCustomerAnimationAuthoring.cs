@@ -24,15 +24,17 @@ public static class HexCustomerAnimationAuthoring
         {
             string folder=Root+"/Art/CustomerAnimation/"+Names[c];
             var set=LoadOrCreate<HexPlayerAnimationSet>(dataFolder+"/"+Names[c]+".asset");
+            set.mirrorWest=true;
             set.walk=new AnimationClip[8];set.idle=new Sprite[8];set.frames=new HexPlayerAnimationSet.Frames[8];
             for(int d=0;d<8;d++)
             {
-                var sprites=Import(folder+"/"+Directions[d]+".png",4,2,options);
+                var sprites=d==6?set.frames[2].sprites:Import(folder+"/"+Directions[d]+".png",4,2,options);
                 if(sprites.Length!=8)throw new Exception("Missing frames "+Names[c]+"/"+Directions[d]);
                 set.frames[d]=new HexPlayerAnimationSet.Frames{sprites=sprites};set.idle[d]=sprites[2];
                 var clip=LoadOrCreateClip(folder+"/Walk_"+Directions[d]+".anim");
                 var keys=new ObjectReferenceKeyframe[9];
                 for(int f=0;f<9;f++)keys[f]=new ObjectReferenceKeyframe{time=f/HexPlayerAnimationSet.ClipFramesPerSecond,value=sprites[f%8]};
+                AnimationUtility.SetEditorCurve(clip,EditorCurveBinding.FloatCurve("",typeof(SpriteRenderer),"m_FlipX"),AnimationCurve.Constant(0,.8f,d==6?1:0));
                 clip.frameRate=HexPlayerAnimationSet.ClipFramesPerSecond;
                 AnimationUtility.SetObjectReferenceCurve(clip,new EditorCurveBinding{path="",type=typeof(SpriteRenderer),propertyName="m_Sprite"},keys);
                 var loop=AnimationUtility.GetAnimationClipSettings(clip);loop.loopTime=true;loop.stopTime=.8f;
@@ -72,40 +74,75 @@ public static class HexCustomerAnimationAuthoring
     }
     static Sprite[] Import(string path,int columns,int rows,HexTestSettings.CustomerAnimationOptions options)
     {
-        // Read original pixels for rect detection only; source PNG art remains untouched.
+        // Extract connected figures globally so a grid boundary cannot cut a head or include a neighbour.
         var texture=new Texture2D(2,2,TextureFormat.RGBA32,false);
         texture.LoadImage(File.ReadAllBytes(path));var pixels=texture.GetPixels32();
         int width=texture.width,height=texture.height;
-        var rects=new Rect[columns*rows];float maxHeight=1;
-        for(int f=0;f<rects.Length;f++)
+        var labels=new int[pixels.Length];var figures=new System.Collections.Generic.List<System.Collections.Generic.List<int>>();
+        var queue=new System.Collections.Generic.Queue<int>();
+        for(int start=0;start<pixels.Length;start++)
         {
-            int x0=f%columns*width/columns,x1=(f%columns+1)*width/columns;
-            int y0=(rows-1-f/columns)*height/rows,y1=(rows-f/columns)*height/rows;
-            int left=x1,right=x0,bottom=y1,top=y0;
-            for(int y=y0;y<y1;y++)for(int x=x0;x<x1;x++)
-                if(pixels[y*width+x].a>=options.alphaCutoff){left=Math.Min(left,x);right=Math.Max(right,x);bottom=Math.Min(bottom,y);top=Math.Max(top,y);}
-            if(right<=left||top<=bottom)throw new Exception("Empty cell "+path+"/"+f);
-            left=Math.Max(x0,left-options.framePadding);right=Math.Min(x1-1,right+options.framePadding);
-            bottom=Math.Max(y0,bottom-options.framePadding);top=Math.Min(y1-1,top+options.framePadding);
-            rects[f]=new Rect(left,bottom,right-left+1,top-bottom+1);maxHeight=Mathf.Max(maxHeight,rects[f].height);
+            if(labels[start]!=0||pixels[start].a<options.alphaCutoff)continue;
+            int label=figures.Count+1;var figure=new System.Collections.Generic.List<int>();
+            labels[start]=label;queue.Enqueue(start);
+            while(queue.Count>0)
+            {
+                int index=queue.Dequeue();figure.Add(index);int x=index%width,y=index/width;
+                for(int dy=-1;dy<=1;dy++)for(int dx=-1;dx<=1;dx++)
+                {
+                    int nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=width||ny>=height)continue;
+                    int next=ny*width+nx;
+                    if(labels[next]==0&&pixels[next].a>=options.alphaCutoff){labels[next]=label;queue.Enqueue(next);}
+                }
+            }
+            figures.Add(figure);
         }
-        UnityEngine.Object.DestroyImmediate(texture);
+        int count=columns*rows;
+        var selected=figures.OrderByDescending(x=>x.Count).Take(count).ToArray();
+        if(selected.Length!=count||selected.Any(x=>x.Count<100))throw new Exception("Missing connected figure: "+path);
+        selected=selected.OrderByDescending(x=>x.Average(i=>i/width)).ToArray();
+        selected=Enumerable.Range(0,rows).SelectMany(r=>selected.Skip(r*columns).Take(columns).OrderBy(x=>x.Average(i=>i%width))).ToArray();
+        int size=Mathf.Clamp(options.frameCanvasSize,128,512),padding=Mathf.Clamp(options.framePadding,1,8);
+        int bodyHeight=Mathf.Clamp(options.frameBodyHeight,64,size-padding*2);
+        float maxHeight=selected.Max(x=>x.Max(i=>i/width)-x.Min(i=>i/width)+1),ratio=bodyHeight/maxHeight;
+        var atlas=new Texture2D(size*columns,size*rows,TextureFormat.RGBA32,false);
+        var output=new Color32[atlas.width*atlas.height];var rects=new Rect[count];
+        for(int f=0;f<count;f++)
+        {
+            var figure=selected[f];int left=figure.Min(i=>i%width),right=figure.Max(i=>i%width);
+            int bottom=figure.Min(i=>i/width),top=figure.Max(i=>i/width),label=labels[figure[0]];
+            int dw=Mathf.Max(1,Mathf.RoundToInt((right-left+1)*ratio)),dh=Mathf.Max(1,Mathf.RoundToInt((top-bottom+1)*ratio));
+            if(dw>size-padding*2)throw new Exception("Frame canvas too narrow: "+path);
+            int ox=f%columns*size+(size-dw)/2,oy=(rows-1-f/columns)*size+padding;
+            for(int y=0;y<dh;y++)for(int x=0;x<dw;x++)
+            {
+                int sx=Mathf.Min(right,left+Mathf.FloorToInt(x/ratio)),sy=Mathf.Min(top,bottom+Mathf.FloorToInt(y/ratio));
+                int source=sy*width+sx;
+                if(labels[source]==label)output[(oy+y)*atlas.width+ox+x]=pixels[source];
+            }
+            rects[f]=new Rect(f%columns*size,(rows-1-f/columns)*size,size,size);
+        }
+        atlas.SetPixels32(output);atlas.Apply();path=Path.ChangeExtension(path,null)+"_Frames.png";
+        File.WriteAllBytes(path,atlas.EncodeToPNG());
+        UnityEngine.Object.DestroyImmediate(texture);UnityEngine.Object.DestroyImmediate(atlas);
+        AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
         var importer=(TextureImporter)AssetImporter.GetAtPath(path);
         importer.textureType=TextureImporterType.Sprite;importer.spriteImportMode=SpriteImportMode.Multiple;
         importer.filterMode=FilterMode.Point;importer.mipmapEnabled=false;importer.isReadable=false;
         importer.textureCompression=TextureImporterCompression.Uncompressed;
         importer.npotScale=TextureImporterNPOTScale.None;importer.maxTextureSize=2048;
-        importer.alphaIsTransparency=true;importer.spritePixelsPerUnit=maxHeight/Mathf.Max(.1f,options.authoredHeight);
+        importer.alphaIsTransparency=true;importer.spritePixelsPerUnit=bodyHeight/Mathf.Max(.1f,options.authoredHeight);
         var importSettings=new TextureImporterSettings();importer.ReadTextureSettings(importSettings);
         importSettings.spriteMeshType=SpriteMeshType.FullRect;importer.SetTextureSettings(importSettings);
         var metadata=new SpriteMetaData[rects.Length];
-        for(int f=0;f<rects.Length;f++)metadata[f]=new SpriteMetaData{name="Frame_"+f.ToString("D2"),rect=rects[f],alignment=(int)SpriteAlignment.Custom,pivot=new Vector2(.5f,options.framePadding/rects[f].height)};
+        for(int f=0;f<rects.Length;f++)metadata[f]=new SpriteMetaData{name="Frame_"+f.ToString("D2"),rect=rects[f],alignment=(int)SpriteAlignment.Custom,pivot=new Vector2(.5f,padding/rects[f].height)};
         #pragma warning disable 0618
         importer.spritesheet=metadata;
         #pragma warning restore 0618
         importer.SaveAndReimport();
         return AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().OrderBy(x=>x.name,StringComparer.Ordinal).ToArray();
     }
+    static int sharedSize()=>AssetDatabase.LoadAssetAtPath<HexTestSettings>(Root+"/Data/PrototypeTestSettings.asset").customerAnimation.frameCanvasSize;
     public static void Validate()
     {
         var catalog=AssetDatabase.LoadAssetAtPath<HexCustomerAnimationCatalog>(Root+"/Data/CustomerAnimation/CustomerAnimationCatalog.asset");
@@ -116,7 +153,10 @@ public static class HexCustomerAnimationAuthoring
             var keys=AnimationUtility.GetObjectReferenceCurve(clip,binding);
             if(keys.Length!=9||!AnimationUtility.GetAnimationClipSettings(clip).loopTime)throw new Exception("Invalid loop "+clip.name);
             for(int f=0;f<8;f++)
+            {
+                if(set.frames[d].sprites[f].rect.size!=new Vector2(sharedSize(),sharedSize()))throw new Exception("Non-uniform frame");
                 if(set.Sample(d,(f+.25f)/HexPlayerAnimationSet.ClipFramesPerSecond)!=keys[f].value)throw new Exception("Frame mismatch");
+            }
         }
         var shared=AssetDatabase.LoadAssetAtPath<HexTestSettings>(Root+"/Data/PrototypeTestSettings.asset");
         var actorObject=new GameObject("Customer animation verification");

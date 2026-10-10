@@ -19,6 +19,8 @@ public sealed class HexTestSettings : ScriptableObject
         [Min(.1f)] public float authoredHeight=1.333333f;
         [Range(1,254)] public int alphaCutoff=128;
         [Range(0,8)] public int framePadding=2;
+        [Range(128,512)] public int frameCanvasSize=256;
+        [Range(64,400)] public int frameBodyHeight=192;
     }
     [Header("플레이어 이동 애니메이션 / 즉시 반영")] public PlayerAnimationOptions playerAnimation = new PlayerAnimationOptions();
     [Serializable] public sealed class PlayerAnimationOptions

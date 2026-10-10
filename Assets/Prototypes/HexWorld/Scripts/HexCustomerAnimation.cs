@@ -43,6 +43,7 @@ public sealed class HexCustomerAnimation : MonoBehaviour
             actor.body.sprite=character.Sample(direction,phase);
         }
         else {phase=0;actor.body.sprite=character.idle[direction];}
+        actor.body.flipX=character.mirrorWest&&direction==6;
         actor.body.transform.localScale=originalScale*Mathf.Max(.01f,options.scale);
         wasMoving=Moving;
     }

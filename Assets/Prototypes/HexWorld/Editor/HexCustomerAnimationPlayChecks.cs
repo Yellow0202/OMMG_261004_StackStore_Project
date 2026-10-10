@@ -36,6 +36,7 @@ public static class HexCustomerAnimationPlayChecks
                     go.transform.position+=Quaternion.Euler(0,(Camera.main?Camera.main.transform.eulerAngles.y:0)+d*45,0)*Vector3.forward*.02f;
                     tick.Invoke(animation,null);
                     if(!animation.Moving||animation.Direction!=d)throw new Exception("Walk direction "+character.name+"/"+d);
+                    if(actor.body.flipX!=(character.mirrorWest&&d==6))throw new Exception("Wrong horizontal mirroring");
                     tick.Invoke(animation,null);
                     if(animation.Moving||actor.body.sprite!=character.idle[d])throw new Exception("Idle direction "+d);
                 }

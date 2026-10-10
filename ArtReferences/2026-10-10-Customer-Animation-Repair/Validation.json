@@ -1,0 +1,482 @@
+[
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-01\\East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-01\\Idle-Reference_Frames.png",
+    "frames": 1,
+    "unique": 1,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-01\\North-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-01\\North-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-01\\North_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-01\\South-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-01\\South-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-01\\South_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-02\\East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-02\\Idle-Reference_Frames.png",
+    "frames": 1,
+    "unique": 1,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-02\\North-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-02\\North-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-02\\North_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-02\\South-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-02\\South-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-02\\South_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-03\\East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-03\\Idle-Reference_Frames.png",
+    "frames": 1,
+    "unique": 1,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-03\\North-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-03\\North-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-03\\North_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-03\\South-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-03\\South-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Female-03\\South_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-01\\East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-01\\Idle-Reference_Frames.png",
+    "frames": 1,
+    "unique": 1,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-01\\North-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-01\\North-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-01\\North_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-01\\South-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-01\\South-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-01\\South_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-02\\East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-02\\Idle-Reference_Frames.png",
+    "frames": 1,
+    "unique": 1,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-02\\North-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-02\\North-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-02\\North_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-02\\South-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-02\\South-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-02\\South_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-03\\East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-03\\Idle-Reference_Frames.png",
+    "frames": 1,
+    "unique": 1,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-03\\North-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-03\\North-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-03\\North_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-03\\South-East_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-03\\South-West_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  },
+  {
+    "file": "Assets\\Prototypes\\HexWorld\\Art\\CustomerAnimation\\Male-03\\South_Frames.png",
+    "frames": 8,
+    "unique": 8,
+    "size": [
+      256,
+      256
+    ],
+    "clearBorder": true
+  }
+]

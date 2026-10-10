@@ -1,0 +1,1346 @@
+[
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "frame": 0,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "frame": 0,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "frame": 0,
+    "headCenterX": 129.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "frame": 0,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "frame": 0,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "frame": 0,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "frame": 0,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "frame": 0,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "frame": 0,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "frame": 0,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "frame": 0,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "frame": 0,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "frame": 0,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "frame": 0,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "frame": 1,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "frame": 1,
+    "headCenterX": 129.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "frame": 1,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "frame": 1,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "frame": 1,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "frame": 1,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "frame": 1,
+    "headCenterX": 129.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "frame": 1,
+    "headCenterX": 129.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "frame": 1,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "frame": 1,
+    "headCenterX": 129.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "frame": 1,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "frame": 1,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "frame": 1,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "frame": 2,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "frame": 2,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "frame": 2,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "frame": 2,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "frame": 2,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "frame": 2,
+    "headCenterX": 127.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "frame": 2,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "frame": 2,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "frame": 2,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "frame": 2,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "frame": 2,
+    "headCenterX": 129.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "frame": 2,
+    "headCenterX": 129.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "frame": 2,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "frame": 2,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "frame": 2,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "frame": 3,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "frame": 3,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "frame": 3,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "frame": 3,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "frame": 3,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "frame": 3,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "frame": 3,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "frame": 3,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "frame": 3,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "frame": 3,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "frame": 3,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "frame": 3,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "frame": 3,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "frame": 4,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "frame": 4,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "frame": 4,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "frame": 4,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "frame": 4,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "frame": 4,
+    "headCenterX": 129.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "frame": 4,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "frame": 4,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "frame": 4,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "frame": 4,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "frame": 4,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "frame": 4,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "frame": 4,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "frame": 5,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "frame": 5,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "frame": 5,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "frame": 5,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "frame": 5,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "frame": 5,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "frame": 5,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "frame": 5,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "frame": 5,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "frame": 6,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "frame": 6,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "frame": 6,
+    "headCenterX": 127.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "frame": 6,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "frame": 6,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "frame": 6,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "frame": 6,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "frame": 6,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "frame": 6,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "frame": 6,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "frame": 6,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "frame": 7,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "frame": 7,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "frame": 7,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "frame": 7,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "frame": 7,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "frame": 7,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "frame": 7,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "frame": 7,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "frame": 7,
+    "headCenterX": 128.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "frame": 7,
+    "headCenterX": 129.0,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "frame": 7,
+    "headCenterX": 127.5,
+    "clearBorder": true
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "frame": 7,
+    "headCenterX": 128.0,
+    "clearBorder": true
+  }
+]

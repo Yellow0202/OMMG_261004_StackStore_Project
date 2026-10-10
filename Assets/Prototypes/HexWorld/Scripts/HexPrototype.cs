@@ -324,16 +324,26 @@ public sealed class HexPrototype : MonoBehaviour
             if(guest.state==GuestState.Browsing){guest.destination=guest.view.transform.position;guest.browse=Mathf.Min(guest.browse,1f);}
             return;
         }
-        if(guest.waypoint<guest.path.Count)
+        // Spend this frame's complete distance budget, even when crossing a waypoint.
+        // Discarding the remainder caused periodic slow frames and idle-animation resets.
+        float remaining=Mathf.Max(0,dt*GuestOptions.walkSpeed);
+        while(guest.waypoint<guest.path.Count)
         {
             var next=guest.path[guest.waypoint];
             if(next.floor!=guest.floor){guest.floor=next.floor;guest.view.transform.position=HexBoardModel.World(next.cell)+Vector3.up*GuestOptions.groundHeight;guest.view.gameObject.SetActive(guest.floor==board.CurrentFloor);guest.waypoint++;return;}
             Vector3 point=HexBoardModel.World(next.cell)+Vector3.up*GuestOptions.groundHeight;
-            guest.view.transform.position=Vector3.MoveTowards(guest.view.transform.position,point,dt*GuestOptions.walkSpeed);
-            if(Vector3.Distance(guest.view.transform.position,point)<GuestOptions.waypointDistance)guest.waypoint++;
+            float distance=Vector3.Distance(guest.view.transform.position,point);
+            if(distance<=Mathf.Max(.00001f,GuestOptions.waypointDistance)){guest.waypoint++;continue;}
+            if(remaining<=0)return;
+            float travel=Mathf.Min(distance,remaining);
+            guest.view.transform.position=Vector3.MoveTowards(guest.view.transform.position,point,travel);
+            remaining-=travel;
+            if(travel<distance)return;
+            guest.waypoint++;
         }
-        else guest.view.transform.position=Vector3.MoveTowards(guest.view.transform.position,target,dt*GuestOptions.walkSpeed);
+        if(remaining>0)guest.view.transform.position=Vector3.MoveTowards(guest.view.transform.position,target,remaining);
     }
+
     public void UpdateFloorVisibility()
     {
         foreach(var guest in guests)if(guest.view)guest.view.gameObject.SetActive(guest.floor==board.CurrentFloor);

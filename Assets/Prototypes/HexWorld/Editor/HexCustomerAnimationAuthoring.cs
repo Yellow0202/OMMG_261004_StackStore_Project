@@ -113,7 +113,12 @@ public static class HexCustomerAnimationAuthoring
             int bottom=figure.Min(i=>i/width),top=figure.Max(i=>i/width),label=labels[figure[0]];
             int dw=Mathf.Max(1,Mathf.RoundToInt((right-left+1)*ratio)),dh=Mathf.Max(1,Mathf.RoundToInt((top-bottom+1)*ratio));
             if(dw>size-padding*2)throw new Exception("Frame canvas too narrow: "+path);
-            int ox=f%columns*size+(size-dw)/2,oy=(rows-1-f/columns)*size+padding;
+            int headBottom=top-Mathf.RoundToInt((top-bottom+1)*.25f);
+            var head=figure.Where(i=>i/width>=headBottom).ToArray();
+            float anchorX=(head.Min(i=>i%width)+head.Max(i=>i%width))*.5f;
+            int offsetX=Mathf.RoundToInt(size*.5f+(left-anchorX)*ratio);
+            offsetX=Mathf.Clamp(offsetX,padding,size-padding-dw);
+            int ox=f%columns*size+offsetX,oy=(rows-1-f/columns)*size+padding;
             for(int y=0;y<dh;y++)for(int x=0;x<dw;x++)
             {
                 int sx=Mathf.Min(right,left+Mathf.FloorToInt(x/ratio)),sy=Mathf.Min(top,bottom+Mathf.FloorToInt(y/ratio));

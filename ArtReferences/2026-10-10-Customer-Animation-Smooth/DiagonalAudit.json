@@ -1,0 +1,218 @@
+[
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "frameReferences": 8,
+    "loopKeys": 9,
+    "exactUniqueImages": 8,
+    "poseReview": "Eight registered images; four-phase near-repetition present. Exact pixel hashes do not establish eight distinct gait phases."
+  },
+  {
+    "character": "Player",
+    "direction": "North-East",
+    "sourceFrameFiles": 8,
+    "frameReferences": 8
+  },
+  {
+    "character": "Player",
+    "direction": "South-East",
+    "sourceFrameFiles": 8,
+    "frameReferences": 8
+  },
+  {
+    "character": "Player",
+    "direction": "South-West",
+    "sourceFrameFiles": 8,
+    "frameReferences": 8
+  },
+  {
+    "character": "Player",
+    "direction": "North-West",
+    "sourceFrameFiles": 8,
+    "frameReferences": 8
+  }
+]

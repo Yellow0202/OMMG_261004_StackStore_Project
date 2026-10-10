@@ -1297,3 +1297,9 @@ HexPrototype.Spawn: 손님 프리팹의 HexCustomerAnimation.Configure 호출. �
 HexWorldActor.externalAnimation: 이제 플레이어뿐 아니라 손님의 개별 애니메이션도 기존 walkFrames/seatedFrame으로 덮어쓰지 않도록 함.
 Editor/HexCustomerAnimationAuthoring.cs: Build가 48개 방향 시트를 384개 Sprite로 분할, 발 기준 피벗/방향별 높이 정규화, 48개 반복 클립/6종 세트/카탈로그를 생성하고 두 테스트 설정과 프리팹을 연결. Import는 알파 연결 영역 중 큰 캐릭터 영역을 선택해 행/열 순서로 정렬하고, 해당 영역의 픽셀만 발 기준으로 고정 크기 *_Frames.png에 배치. 격자 경계에 걸린 이웃 프레임 조각을 제거하며 원본과 분할 결과를 별도 보관. West는 East 프레임 공유 및 Flip X 클립 사용. Validate는 참조/반복 클립/샘플 일치/무작위 후보/착석 외형/색상 보존 검사.
 Editor/HexCustomerAnimationPlayChecks.cs: 별도 검증 프로젝트 Play Mode에서 6종 x 8방향 이동·정지, 착석, 색상 유지, 순간이동, 비활성화/재활성화, 실제 HexWorld 손님 생성 연결 확인.
+
+[2026-10-10 손님 걷기 끊김 수정]
+HexCustomerAnimation.AdvanceMotion(delta, dt, cameraYaw): LateUpdate에서 받은 실제 변위/경과 시간으로 이동·정지 상태와 프레임을 결정. stationarySeconds는 연속 무이동 시간. stopGraceSeconds 이내의 짧은 공백에는 이동 상태와 재생 시계를 유지. 착석 및 순간이동은 즉시 정지. phase는 방향 전환/정지 재개에서 유지하고 0.8초 주기로 순환. 방향 각도가 기존 중심에서 22.5도 + directionHysteresisDegrees를 넘을 때만 방향을 변경. Configure/OnEnable은 공백 상태 초기화, 순간이동은 재생 시계 초기화.
+HexPrototype.MoveGuest: 프레임 이동 예산 remaining을 계산한 후 경로 지점을 통과할 때 남은 거리를 다음 경로 지점에 사용. Waypoint Distance 허용 거리 내 지점은 이동 없이 건너뛰고, 경로 끝에는 남은 예산으로 최종 목적지 이동. 층 변경은 기존처럼 순간이동 및 표시 층 갱신 후 종료. 경로 탐색과 벽 판정은 유지.
+HexCustomerAnimationAuthoring.Import: 상단 25%의 머리 영역 경계 중심을 가로 정렬 기준으로 사용. 팔·다리 포즈에 따라 전체 폭이 달라져도 몸 중심이 움직이지 않도록 개선. 고정 캔버스/발 여백/연결 영역 추출 방식 유지.
+HexCustomerAnimationPlayChecks.CheckWaypointBudget: 실제 MoveGuest에 중간 지점 직전의 손님과 두 지점 경로를 전달, 지점을 통과한 프레임에서도 전체 이동 거리가 보존되는지 검사. 추가로 AdvanceMotion의 짧은 공백, 방향 경계, 실제 정지/재개 및 30/60/120 FPS 시계 일치 검사.

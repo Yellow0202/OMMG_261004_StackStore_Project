@@ -15,6 +15,8 @@ MonoBehaviour:
   customerAnimation:
     catalog: {fileID: 11400000, guid: 88847958c22d1f7489c731af7fb9cbe7, type: 2}
     framesPerSecond: 8
+    stopGraceSeconds: 0.1
+    directionHysteresisDegrees: 6
     minimumMovement: 0.0001
     teleportDistance: 2
     scale: 1

@@ -12,6 +12,8 @@ public sealed class HexTestSettings : ScriptableObject
     {
         public HexCustomerAnimationCatalog catalog;
         [Min(0)] public float framesPerSecond=8;
+        [Range(0,.3f)] public float stopGraceSeconds=.1f;
+        [Range(0,20)] public float directionHysteresisDegrees=6;
         [Min(0)] public float minimumMovement=.0001f;
         [Min(.01f)] public float teleportDistance=2;
         [Min(.01f)] public float scale=1;

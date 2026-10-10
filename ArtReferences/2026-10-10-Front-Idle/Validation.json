@@ -1,0 +1,135 @@
+[
+  {
+    "file": "Assets/Prototypes/HexWorld/Art/IdleFront/Female-01.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaqueBounds": [
+      450,
+      120,
+      805,
+      1188
+    ],
+    "feetPivot": [
+      0.5003987240829346,
+      0.05263157894736842
+    ],
+    "pixelsPerUnit": 762.8571428571429,
+    "review": "Front-facing, full body, relaxed arms, feet planted; source and final native image visually inspected"
+  },
+  {
+    "file": "Assets/Prototypes/HexWorld/Art/IdleFront/Female-02.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaqueBounds": [
+      441,
+      122,
+      802,
+      1179
+    ],
+    "feetPivot": [
+      0.4956140350877193,
+      0.05980861244019139
+    ],
+    "pixelsPerUnit": 755.0,
+    "review": "Front-facing, full body, relaxed arms, feet planted; source and final native image visually inspected"
+  },
+  {
+    "file": "Assets/Prototypes/HexWorld/Art/IdleFront/Female-03.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaqueBounds": [
+      445,
+      116,
+      798,
+      1196
+    ],
+    "feetPivot": [
+      0.4956140350877193,
+      0.046251993620414676
+    ],
+    "pixelsPerUnit": 771.4285714285714,
+    "review": "Front-facing, full body, relaxed arms, feet planted; source and final native image visually inspected"
+  },
+  {
+    "file": "Assets/Prototypes/HexWorld/Art/IdleFront/Male-01.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaqueBounds": [
+      434,
+      121,
+      810,
+      1184
+    ],
+    "feetPivot": [
+      0.4960127591706539,
+      0.05582137161084529
+    ],
+    "pixelsPerUnit": 759.2857142857143,
+    "review": "Front-facing, full body, relaxed arms, feet planted; source and final native image visually inspected"
+  },
+  {
+    "file": "Assets/Prototypes/HexWorld/Art/IdleFront/Male-02.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaqueBounds": [
+      422,
+      116,
+      828,
+      1165
+    ],
+    "feetPivot": [
+      0.4984051036682616,
+      0.07097288676236045
+    ],
+    "pixelsPerUnit": 749.2857142857143,
+    "review": "Front-facing, full body, relaxed arms, feet planted; source and final native image visually inspected"
+  },
+  {
+    "file": "Assets/Prototypes/HexWorld/Art/IdleFront/Male-03.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaqueBounds": [
+      432,
+      123,
+      813,
+      1179
+    ],
+    "feetPivot": [
+      0.4964114832535885,
+      0.05980861244019139
+    ],
+    "pixelsPerUnit": 754.2857142857143,
+    "review": "Front-facing, full body, relaxed arms, feet planted; source and final native image visually inspected"
+  },
+  {
+    "file": "Assets/Prototypes/HexWorld/Art/IdleFront/Player.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaqueBounds": [
+      457,
+      196,
+      775,
+      1125
+    ],
+    "feetPivot": [
+      0.49122807017543857,
+      0.10287081339712918
+    ],
+    "pixelsPerUnit": 663.5714285714287,
+    "review": "Front-facing, full body, relaxed arms, feet planted; source and final native image visually inspected"
+  }
+]

@@ -40,12 +40,39 @@ MonoBehaviour:
   pavingRepeatMeters: 2.8
   backdropMaterial: {fileID: 2100000, guid: 93ffb00f1d5584f4eb98e9a73b39fa90, type: 2}
   backdropTint: {r: 1, g: 1, b: 1, a: 1}
-  backdropDistance: 32
+  backdropDistance: 12
   backdropWidth: 80
   backdropHeight: 26.66667
   backdropBaseHeight: -0.6
-
-  showDepthBuildings: 1
-  buildingClearance: 9
-  buildingDepthSpacing: 4
-  buildingScale: 1
+  useLayeredBackground: 1
+  backgroundLayers:
+  - key: near
+    material: {fileID: 2100000, guid: d837c0c7280ddba4e9ef6fad6099363c, type: 2}
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    distance: 26
+    width: 72
+    height: 24
+    baseHeight: -0.6
+    horizontalOffset: 0
+    horizontalCopies: 3
+    alphaCutoff: 0.7
+  - key: middle
+    material: {fileID: 2100000, guid: 478329d1434241b489512cc1c27366b0, type: 2}
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    distance: 50
+    width: 100
+    height: 33.333332
+    baseHeight: 1
+    horizontalOffset: 0
+    horizontalCopies: 3
+    alphaCutoff: 0.7
+  - key: far
+    material: {fileID: 2100000, guid: 1b12969d3c0f2e04fad5c1295d8f23ee, type: 2}
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    distance: 90
+    width: 180
+    height: 60
+    baseHeight: -0.6
+    horizontalOffset: 0
+    horizontalCopies: 3
+    alphaCutoff: 0.7

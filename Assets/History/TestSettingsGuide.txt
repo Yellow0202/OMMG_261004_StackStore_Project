@@ -100,5 +100,10 @@ PrototypeTestSettings.asset > 환경(environment)에 MarketEnvironment.asset 연
 PrototypeTestSettings > 환경 > 연결된 MarketEnvironment 원본의 Floor Blend Width 조절.
 기본 .45(월드 단위). 0은 경계를 섞지 않음. 값을 높이면 더 넓은 가장자리에서 이웃 바닥/시장 지면과 혼합됨. 최대 1이며 역할별 중앙 특징은 유지. Play 중 즉시 반영. 미소유 셀에는 별도 바닥을 생성하지 않음.
 
-[시장 입체 배경] MarketEnvironment.asset
-showDepthBuildings: 입체 건물 표시. buildingClearance: 가게 외곽과 건물 간격(최소 5). buildingDepthSpacing: 뒤쪽 건물의 깊이 간격. buildingScale: 전체 건물 크기. backdropDistance: 먼 배경판 거리(기본 32). 배치 상세는 MarketEnvironment 프리팹의 Market Depth Buildings 하위 오브젝트에서 확인 가능.
+
+[시장 거리별 2D 배경]
+MarketEnvironment.asset > 거리별 2D 배경 > Background Layers (근경/중경/원경).
+각 레이어의 Distance는 가게 외곽 뒤의 거리, Width/Height는 이미지 크기, Base Height는 이미지 하단 높이, Horizontal Offset은 좌우 위치, Tint는 색조. 기본 거리 26/50/90. 이미지 원본 비율은 3:1.
+Use Layered Background 해제 시 기존 단일 배경으로 전환. 가게 확장에는 따라가지만 카메라 이동에는 고정되어 거리별 자연스러운 시차가 발생함.
+Hierarchy > Village Market Environment > Distance Background Layers에서 저장된 Near/Middle/Far 배경 평면 확인 가능. 앞쪽 두 이미지의 하늘은 투명하며 실제 두께를 가진 건물은 제거됨.
+Horizontal Copies: 가로 반복 수(기본 3). 개별 이미지 비율을 유지하며 배경 좌우 표시 범위를 확장하여 최대 줌아웃과 좌우 이동 시 이미지 끝 노출 방지. Alpha Cutoff: 투명 실루엣 경계 기준(기본 .7).

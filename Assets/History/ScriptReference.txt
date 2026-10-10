@@ -1,4 +1,4 @@
-﻿OMMG Stack Store 프로젝트 스크립트·함수·변수 설명서
+OMMG Stack Store 프로젝트 스크립트·함수·변수 설명서
 작성 기준: 2026-10-07 / 플레이어·직원 역할 표시 추가 완료 상태
 원본: Assets/Prototypes/HexWorld 아래 C# 소스만 포함. 경로는 프로젝트 루트 기준.
 HexWorld 밖 스크립트의 개별 역할·함수·변수 설명은 제외합니다.
@@ -1327,5 +1327,7 @@ HexFloorBlend.shader: 육각형 각 변까지의 거리로 혼합 가중치를 �
 HexEnvironmentAuthoring: 7종 Floor 재질에 전용 융화 셰이더를 연결하고 셰이더 오류 검사.
 HexEnvironmentChecks.CaptureFloorComparison: 검증 중 바닥만 별도 렌더 레이어로 촬영한 뒤 카메라/레이어/혼합 폭 복원. 전후 비교 및 이웃 정보 연결 검증 추가.
 
-HexMarketDepth.cs: 배경 건물 위치를 가게 소유 영역 경계에 맞춰 갱신한다. buildings는 저장된 건물 Transform, anchors는 경계 기준 상대 배치. Refresh는 환경 테마의 간격/크기/표시 여부를 적용한다. 게임 이동 충돌과 소유권에는 관여하지 않는다.
-HexMarketDepthAuthoring.cs: 신규 정면 도트 텍스처와 지붕/차양/기둥 등의 실제 메시를 조합하여 기존 시장 환경 프리팹에 저장한다. Build는 배경 장식 그룹만 재생성한다.
+HexEnvironmentTheme.BackgroundLayer: key, material, tint, distance, width, height, baseHeight, horizontalOffset을 통해 거리별 배경을 조절한다. useLayeredBackground는 기존 단일 배경과 전환.
+HexMarketEnvironment.backgroundLayers: 에디터에 저장된 배경 MeshRenderer 배열. Refresh에서 각 레이어를 가게 소유 영역 뒤의 서로 다른 거리로 배치. 카메라의 위치를 따라가지 않아 원근 시차 발생. 바닥·캐릭터·손님 이동에는 영향 없음.
+HexMarketLayerAuthoring.Build: 투명 실루엣을 보존하는 이미지 임포트와 2D 배경 머티리얼/프리팹 저장. 기존 조절값 보존. Validate: 레이어 수/거리 순서/셰이더/충돌체 및 이전 건물 제거 확인.
+BackgroundLayer.horizontalCopies: 가로 이미지 반복 수. 원본 도트 비율을 유지하며 배경 평면 가로 범위만 확장. alphaCutoff: 투명 가장자리 판정 기준. EnvironmentLayer.shader는 알파 경계 바깥을 버리고 깊이 버퍼를 사용해 앞뒤 레이어와 캐릭터 가림을 처리한다.

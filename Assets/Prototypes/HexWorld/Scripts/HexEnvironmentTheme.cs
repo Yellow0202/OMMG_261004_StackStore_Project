@@ -25,11 +25,19 @@ public sealed class HexEnvironmentTheme : ScriptableObject
     public Color backdropTint=Color.white;
     [Min(1)] public float backdropDistance=12,backdropWidth=80,backdropHeight=26.66667f;
     public float backdropBaseHeight=-.6f;
-    [Header("시장 입체 배경 / 건물 배치")]
-    public bool showDepthBuildings=true;
-    [Min(5)] public float buildingClearance=9;
-    [Min(1)] public float buildingDepthSpacing=4;
-    [Range(.5f,2)] public float buildingScale=1;
+    [Serializable] public sealed class BackgroundLayer
+    {
+        public string key;
+        public Material material;
+        public Color tint=Color.white;
+        [Min(1)] public float distance=12,width=80,height=26.66667f;
+        public float baseHeight=-.6f,horizontalOffset;
+        [Min(1)] public int horizontalCopies=3;
+        [Range(0,1)] public float alphaCutoff=.7f;
+    }
+    [Header("거리별 2D 배경 / 근경 → 중경 → 원경")]
+    public bool useLayeredBackground=true;
+    public BackgroundLayer[] backgroundLayers;
     public Material Floor(HexTileKind kind)
     {
         if(floors!=null)foreach(var entry in floors)if(entry!=null&&entry.kind==kind)return entry.material;

@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MarketHouseFacade
-  m_Shader: {fileID: 4800000, guid: 874cae033e272534ea5b3befaa2ea8c7, type: 3}
+  m_Name: MarketLayerMiddle
+  m_Shader: {fileID: 4800000, guid: 80124698ed2c96842abd4fe9dbf6a5f6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,13 +24,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 07ec0b39d7b332e4e9a0a0688257d3d4, type: 3}
+        m_Texture: {fileID: 2800000, guid: df47aad8553164b4b99320333f30e8e8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Contrast: 1
-    - _Height: 0
+    - _Cutoff: 0.7
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

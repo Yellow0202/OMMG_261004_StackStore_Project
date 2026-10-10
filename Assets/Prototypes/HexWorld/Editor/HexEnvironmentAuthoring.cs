@@ -83,7 +83,7 @@ public static class HexEnvironmentAuthoring
             environment.Refresh();PrefabUtility.SaveAsPrefabAsset(root,Root+"/Prefabs/MarketEnvironment.prefab");
         }
         finally{UnityEngine.Object.DestroyImmediate(root);}
-        AssetDatabase.SaveAssets();HexMarketDepthAuthoring.Build();Validate();
+        AssetDatabase.SaveAssets();HexMarketLayerAuthoring.Build();Validate();
     }
     public static void Validate()
     {

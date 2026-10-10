@@ -1,0 +1,11 @@
+{
+  "unity": "6000.0.73f1",
+  "build": "MARKET_LAYERS_BUILD_PASSED",
+  "play": "MARKET_ENVIRONMENT_PLAY_PASSED",
+  "parallax": "MARKET_LAYERS_PARALLAX_PASSED",
+  "checks": ["Three persisted 2D planes, no previous building volumes", "No scenery colliders", "Layer positions remain fixed when camera pans", "Near layer screen displacement exceeds far layer", "Layers remain behind expanded owned shop bounds", "Legacy panorama fallback", "Existing floor and ownership checks"],
+  "distanceDefaults": [26, 50, 90],
+  "horizontalCopies": 3,
+  "screenshots": "Pitch 4/30/50, maximum zoom 4/50, maximum zoom with left/right pan limit, centre and right pan comparison",
+  "visualReview": "Inspected silhouettes and actual camera renders; corrected initial zoom-out edge exposure with horizontal repeats. At pitch 50 the camera looks down at the shop and the distant street is outside the view."
+}

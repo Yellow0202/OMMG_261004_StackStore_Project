@@ -6,6 +6,7 @@ public sealed class HexMarketEnvironment : MonoBehaviour
 {
     public HexTestSettings settings;
     public MeshRenderer ground,backdrop;
+    public MeshRenderer[] backgroundLayers;
     HexTileBoard board;
     MaterialPropertyBlock properties;
     public HexEnvironmentTheme Theme => HexTestSettings.Current&&Application.isPlaying?HexTestSettings.Current.environment:settings?settings.environment:null;
@@ -38,6 +39,22 @@ public sealed class HexMarketEnvironment : MonoBehaviour
         backdrop.transform.SetPositionAndRotation(new Vector3(center.x,theme.backdropBaseHeight+theme.backdropHeight*.5f,center.z)+forward*(theme.backdropDistance+extent),rotation);
         backdrop.transform.localScale=new Vector3(theme.backdropWidth,theme.backdropHeight,1);backdrop.sharedMaterial=theme.backdropMaterial;
         properties.Clear();properties.SetColor("_BaseColor",theme.backdropTint);backdrop.SetPropertyBlock(properties);
+        bool layered=theme.useLayeredBackground&&theme.backgroundLayers!=null&&backgroundLayers!=null&&theme.backgroundLayers.Length>0&&backgroundLayers.Length==theme.backgroundLayers.Length;
+        backdrop.enabled=!layered;
+        if(backgroundLayers!=null)for(int i=0;i<backgroundLayers.Length;i++)
+        {
+            var renderer=backgroundLayers[i];if(!renderer)continue;
+            var layer=layered?theme.backgroundLayers[i]:null;
+            renderer.enabled=layer!=null&&layer.material;
+            if(!renderer.enabled)continue;
+            // Stationary world planes: camera movement naturally produces distance-dependent parallax.
+            renderer.transform.SetPositionAndRotation(new Vector3(center.x,layer.baseHeight+layer.height*.5f,center.z)+forward*(extent+layer.distance)+(rotation*Vector3.right)*layer.horizontalOffset,rotation);
+            int copies=Mathf.Max(1,layer.horizontalCopies);
+            renderer.transform.localScale=new Vector3(layer.width*copies,layer.height,1);renderer.sharedMaterial=layer.material;
+            properties.Clear();properties.SetColor("_BaseColor",layer.tint);
+            properties.SetVector("_BaseMap_ST",new Vector4(copies,1,-(copies-1)*.5f,0));
+            properties.SetFloat("_Cutoff",layer.alphaCutoff);renderer.SetPropertyBlock(properties);
+        }
         // Saved scene starts with one owned stall. Preview this in Edit mode as well.
         if(!Application.isPlaying&&board&&board.authoredTiles!=null)
             foreach(var tile in board.authoredTiles)if(tile)tile.ApplyFloor(theme,tile.coordinate==Vector2Int.zero,null);

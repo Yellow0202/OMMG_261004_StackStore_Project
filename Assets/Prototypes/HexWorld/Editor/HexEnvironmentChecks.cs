@@ -66,7 +66,8 @@ public static class HexEnvironmentChecks
             }
             if(board.authoredTiles.Count(x=>x.surface.enabled)!=board.Model.OwnedCount)throw new Exception("Owned floor visibility mismatch");
             if(environment.GetComponentsInChildren<Collider>().Length!=0)throw new Exception("Environment blocks movement");
-            var depth=environment.GetComponentInChildren<HexMarketDepth>(); if(!depth||depth.buildings.Length!=6)throw new Exception("Missing depth buildings"); depth.Refresh(); foreach(var house in depth.buildings)if(house.position.z<=board.Model.Owned.Max(c=>HexBoardModel.World(c).z))throw new Exception("Scenery overlaps shop");
+            HexMarketLayerAuthoring.Validate();
+            CheckLayerParallax(environment);
             CaptureFloorComparison(board,theme,environment);
             // Render at camera limits as well as the initial angle, using the actual URP camera.
             foreach(float pitch in new[]{4f,30f,50f})
@@ -84,6 +85,15 @@ public static class HexEnvironmentChecks
                 foreach(var facing in UnityEngine.Object.FindObjectsByType<HexCameraFacingSprite>(FindObjectsSortMode.None))facing.FaceCamera();
                 Capture(Camera.main,"Market-FarZoom-Pitch-"+pitch.ToString("0")+".png");
             }
+            game.orbit.pitch=4;
+            typeof(HexOrbitCamera).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(game.orbit,null);
+            var savedCameraPosition=Camera.main.transform.position;
+            foreach(int direction in new[]{-1,1})
+            {
+                Camera.main.transform.position=savedCameraPosition+Camera.main.transform.right*(game.orbit.PanBounds.extents.x+game.orbit.overscroll)*direction;
+                Capture(Camera.main,"Market-FarZoom-Pan-"+direction+".png");
+            }
+            Camera.main.transform.position=savedCameraPosition;
             Debug.Log("MARKET_ENVIRONMENT_PLAY_PASSED: seven floor mappings, six neighbour flags/textures, ownership, ghost visibility, stable anchors/colliders, before/after blending, three angles and far-zoom renders.");
         }
         catch(Exception exception){Debug.LogException(exception);result=1;}
@@ -98,10 +108,37 @@ public static class HexEnvironmentChecks
             target.Create();var request=new UniversalRenderPipeline.SingleCameraRequest{destination=target};
             RenderPipeline.SubmitRenderRequest(camera,request);RenderPipeline.SubmitRenderRequest(camera,request);
             RenderTexture.active=target;image.ReadPixels(new Rect(0,0,1280,720),0,0);image.Apply();
-            string directory=Path.GetFullPath("../../ArtReferences/2026-10-10-Market-Depth");Directory.CreateDirectory(directory);
+            string directory=Path.GetFullPath("../../ArtReferences/2026-10-10-Market-Layers");Directory.CreateDirectory(directory);
             File.WriteAllBytes(Path.Combine(directory,name),image.EncodeToPNG());
         }
         finally{RenderTexture.active=previous;target.Release();UnityEngine.Object.DestroyImmediate(target);UnityEngine.Object.DestroyImmediate(image);}
+    }
+    static void CheckLayerParallax(HexMarketEnvironment environment)
+    {
+        var theme=environment.Theme;var camera=Camera.main;
+        if(camera.orthographic||environment.backdrop.enabled)throw new Exception("Perspective/layer setup invalid");
+        var position=camera.transform.position;var rotation=camera.transform.rotation;
+        var layers=environment.backgroundLayers;
+        var board=UnityEngine.Object.FindFirstObjectByType<HexTileBoard>();
+        var forward=Quaternion.Euler(0,environment.settings.camera.yaw,0)*Vector3.forward;
+        float shopEdge=board.Model.Owned.Max(c=>Vector3.Dot(HexBoardModel.World(c),forward));
+        foreach(var layer in layers)if(!layer.enabled||Vector3.Dot(layer.transform.position,forward)<=shopEdge)throw new Exception("Background intersects owned shop bounds");
+        var original=layers.Select(x=>x.transform.position).ToArray();
+        var before=layers.Select(x=>camera.WorldToViewportPoint(x.bounds.center).x).ToArray();
+        try
+        {
+            Capture(camera,"Parallax-Centre.png");
+            camera.transform.position+=camera.transform.right*2;
+            environment.Refresh();
+            var after=layers.Select(x=>camera.WorldToViewportPoint(x.bounds.center).x).ToArray();
+            for(int i=0;i<layers.Length;i++)if(layers[i].transform.position!=original[i])throw new Exception("Background follows camera instead of remaining in world");
+            if(Mathf.Abs(after[0]-before[0])<=Mathf.Abs(after[2]-before[2]))throw new Exception("Near layer does not show greater parallax");
+            Capture(camera,"Parallax-Pan-Right.png");
+            theme.useLayeredBackground=false;environment.Refresh();
+            if(!environment.backdrop.enabled||layers.Any(x=>x.enabled))throw new Exception("Fallback panorama invalid");
+            Debug.Log("MARKET_LAYERS_PARALLAX_PASSED: fixed world planes, near shift greater than far, expansion clearance and legacy fallback.");
+        }
+        finally{theme.useLayeredBackground=true;environment.Refresh();camera.transform.SetPositionAndRotation(position,rotation);}
     }
     static void CaptureFloorComparison(HexTileBoard board,HexEnvironmentTheme theme,HexMarketEnvironment environment)
     {

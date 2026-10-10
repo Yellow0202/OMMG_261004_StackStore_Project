@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6164fc7c5521d24e8b9ed333512c233, type: 3}
   m_Name: PlayerAnimationSet
   m_EditorClassIdentifier:
+  mirrorWest: 0
   walk:
   - {fileID: 7400000, guid: 9f7351ae0eb3ff54b9c18192514d64fe, type: 2}
   - {fileID: 7400000, guid: 2662d80c62147df41a08e6b61353cbde, type: 2}
@@ -22,14 +23,14 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 120ba20a42bd55f4fbf410a21dc831e4, type: 2}
   - {fileID: 7400000, guid: 7b1a21bead7b0fd4fa8fd0059b0ee864, type: 2}
   idle:
-  - {fileID: 21300000, guid: 18a66342dbbcdb342a3e15651ddbc431, type: 3}
-  - {fileID: 21300000, guid: 8201672ae58224d4cb8e076583b34a3f, type: 3}
-  - {fileID: 21300000, guid: 42f7612e9f4afc64798419c4b650cdd6, type: 3}
-  - {fileID: 21300000, guid: 9374099d94f7c0142a302138f5252548, type: 3}
-  - {fileID: 21300000, guid: 1caefbc5b2f74024aaf73a3a29b10363, type: 3}
-  - {fileID: 21300000, guid: d50e15c275658f64b810ff26dcbcc86f, type: 3}
-  - {fileID: 21300000, guid: 2aaceb082c6eb6d458e2c87dabf25cff, type: 3}
-  - {fileID: 21300000, guid: 19b8b73496021204e99be0f708ff6c94, type: 3}
+  - {fileID: 21300000, guid: b77e1e33053b58f47a58fc67bd5cc769, type: 3}
+  - {fileID: 21300000, guid: 7c1e72c2cb60c6545b2b24e4dc346762, type: 3}
+  - {fileID: 21300000, guid: c7b823c84a1ead54194786dbf310cc2b, type: 3}
+  - {fileID: 21300000, guid: a1a0233d82e711d4d94d1440e4642ad9, type: 3}
+  - {fileID: 21300000, guid: 078b87c709a2c6c409a428a38b237fe6, type: 3}
+  - {fileID: 21300000, guid: af6006c754251e645b67d4429f12cea7, type: 3}
+  - {fileID: 21300000, guid: 8cc3d444524b2c145972a530efdd83ad, type: 3}
+  - {fileID: 21300000, guid: 7a7c98547ce06b64a81a3e9249545892, type: 3}
   frames:
   - sprites:
     - {fileID: 21300000, guid: 18a66342dbbcdb342a3e15651ddbc431, type: 3}

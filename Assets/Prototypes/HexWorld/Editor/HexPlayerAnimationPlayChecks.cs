@@ -25,6 +25,7 @@ public static class HexPlayerAnimationPlayChecks
             var actor=go.AddComponent<HexWorldActor>();actor.enabled=false;
             actor.body=go.AddComponent<SpriteRenderer>();
             var animation=go.AddComponent<HexPlayerAnimation>();animation.Configure(actor,settings);
+            HexPlayerIdleAuthoring.Validate();
             if(!actor.externalAnimation||actor.body.color!=Color.white)throw new Exception("Player configuration failed");
             for(int d=0;d<8;d++)
             {

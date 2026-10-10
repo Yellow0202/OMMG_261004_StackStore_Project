@@ -52,7 +52,9 @@ public static class HexPlayerAnimationAuthoring
             var settings=AssetDatabase.LoadAssetAtPath<HexTestSettings>(Root+"/Data/"+name+".asset");
             settings.playerAnimation.clips=set;EditorUtility.SetDirty(settings);
         }
-        AssetDatabase.SaveAssets();Validate();
+        AssetDatabase.SaveAssets();
+        if(Directory.Exists(folder+"/Idle"))HexPlayerIdleAuthoring.Build();
+        Validate();
     }
     public static void Validate()
     {

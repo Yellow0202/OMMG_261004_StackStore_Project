@@ -72,3 +72,10 @@
 검수: 7장 원본에서 정면, 의상, 손/발과 윤곽 확인. 이미지 투명 알파 및 전체 신체 여백 검사. 생성 프롬프트와 파일별 경계/피벗 정보는 ArtReferences/2026-10-10-Front-Idle에 저장.
 범위: 단일 Idle 스프라이트 제작 및 Unity 임포트 설정. 기존 이동 클립 및 런타임 애니메이션 연결은 이번 요청에서 변경하지 않음. 작은 픽셀 손은 손가락 세부를 단순화한 표현.
 Unity 검증 결과: IDLE_FRONT_IMPORT_PASSED. 7개 단일 스프라이트, 1254x1254, Point 필터, 밉맵 없음, 무압축 정상 임포트 확인. 격리 Unity 종료 코드 0.
+
+[추가 작업: 플레이어 전 방향 Idle 적용]
+지시: 플레이어블 캐릭터의 Idle 애니메이션을 전 방위로 제작하고 추가.
+수행: 기존 정면 Idle을 유지하고 후면·좌우·전후 대각선 7방향을 추가 생성하여 총 8방향 단일 Idle 이미지 구성. Assets/Prototypes/HexWorld/Art/PlayerAnimation/Idle에 저장. 각 방향 단일 프레임 반복 Idle 클립도 저장. PlayerAnimationSet.idle 8개 참조를 전용 Idle로 교체하여 이동 후 정지 시 마지막 방향 대기 이미지 표시.
+정렬: 원본 PNG는 유지하고 임포트 Pixels Per Unit/발 피벗을 계산해 기존 정면 이동 스프라이트의 표시 높이와 일치시킴. 기존 이동 클립·프레임 데이터는 유지. 이동 애니메이션 다시 빌드 시 새 Idle 연결도 유지.
+검증: 격리 Unity에서 PLAYER_IDLE_ASSETS_PASSED. 8방향 전용 이미지/높이/발 기준 검증 통과. Play에서 8방향 이동→정지, 순간이동, 비활성/재활성 전환 검사 PLAYER_ANIMATION_PLAY_CHECKS_PASSED. 작은 손 표현은 픽셀 밀도에 맞춰 단순화.
+기록: 내장 imagegen 생성 프롬프트와 검증 정보는 ArtReferences/2026-10-10-Player-Eight-Idle.

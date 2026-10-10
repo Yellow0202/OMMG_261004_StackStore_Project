@@ -1331,3 +1331,6 @@ HexEnvironmentTheme.BackgroundLayer: key, material, tint, distance, width, heigh
 HexMarketEnvironment.backgroundLayers: 에디터에 저장된 배경 MeshRenderer 배열. Refresh에서 각 레이어를 가게 소유 영역 뒤의 서로 다른 거리로 배치. 카메라의 위치를 따라가지 않아 원근 시차 발생. 바닥·캐릭터·손님 이동에는 영향 없음.
 HexMarketLayerAuthoring.Build: 투명 실루엣을 보존하는 이미지 임포트와 2D 배경 머티리얼/프리팹 저장. 기존 조절값 보존. Validate: 레이어 수/거리 순서/셰이더/충돌체 및 이전 건물 제거 확인.
 BackgroundLayer.horizontalCopies: 가로 이미지 반복 수. 원본 도트 비율을 유지하며 배경 평면 가로 범위만 확장. alphaCutoff: 투명 가장자리 판정 기준. EnvironmentLayer.shader는 알파 경계 바깥을 버리고 깊이 버퍼를 사용해 앞뒤 레이어와 캐릭터 가림을 처리한다.
+
+HexPlayerIdleAuthoring.cs: Build는 Idle 폴더의 8방향 원본을 단일 Sprite로 임포트하고 PlayerAnimationSet.idle에 연결한다. Body는 투명 알파 경계로 신체 영역을 측정한다. 기존 정면 이동 Sprite의 보이는 높이에서 PPU를 계산하며 발 하단을 피벗으로 등록. Idle_방향.anim은 한 이미지가 반복되는 대기 클립. Validate는 참조 방향, 표시 높이 및 발 위치 일치 확인.
+HexPlayerAnimationAuthoring.Build: 이동 리소스 재생성 후 Idle 폴더가 있으면 전용 Idle 재연결. HexPlayerAnimation의 기존 정지 분기가 전용 idle[direction]을 표시하므로 런타임 방향 계산은 동일.

@@ -1,0 +1,10 @@
+{
+  "unity": "6000.0.73f1",
+  "assetValidation": "PLAYER_IDLE_ASSETS_PASSED",
+  "playValidation": "PLAYER_ANIMATION_PLAY_CHECKS_PASSED",
+  "directions": ["North", "North-East", "East", "South-East", "South", "South-West", "West", "North-West"],
+  "art": "Eight transparent 1254-square single-frame idle sprites; south reuses the completed front idle. Generated with built-in image_gen. Native images visually inspected for orientation, rear costume, hand/foot silhouette and margins.",
+  "registration": "Original PNG pixels preserved; importer pixels-per-unit matches visible height of the existing south walk frame. Foot baseline registered as sprite pivot.",
+  "runtime": "Eight walk-to-idle transitions, teleport handling, disable/re-enable and sprite ownership verified. Existing movement clips and movement frame references retained.",
+  "motion": "Single stationary frame per direction, with authored looping idle clips. No multi-frame breathing motion requested or added."
+}

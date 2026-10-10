@@ -1,0 +1,11 @@
+손님 워킹 스타일 수정 (2026-10-11, Asia/Seoul)
+
+범위: 남성 3종, 여성 3종. 방향별 8프레임. 7방향 직접 제작 + 서쪽은 기존 동작대로 동쪽 반전 = 48방향 루프 / 384개 런타임 샘플.
+외형 기준: Assets/Prototypes/HexWorld/Art/IdleFront의 각 손님 Idle.
+스타일 기준: Assets/Prototypes/HexWorld/Art/PlayerAnimation/WalkSources의 승인된 플레이어 워킹.
+대각선 자세 기준: c24b8a1 버전 CustomerAnimation의 *_Alternating.png. 기존 발 교차 순서를 참조해 재제작.
+내장 imagegen으로 제작. 최종 방향별 프롬프트와 저장 위치는 Prompts.json에 기록.
+프레임 캔버스 256x256, 발 기준점, Point 필터, 재생 속도, 기존 메타/GUID와 Idle 원본 유지.
+최종 검증 결과: CUSTOMER_ANIMATION_VALIDATED 및 CUSTOMER_ANIMATION_PLAY_CHECKS_PASSED 통과. 384개 프레임의 256x256 캔버스·투명 여백·잘림 검사 통과. 6종/8방향 이동·정지·착석·색상·순간이동·재활성화·실제 스폰 검사 통과. 기존 Idle와 메타/GUID 파일 불변 확인. 여성 3번 South-West 윤곽 대비를 보정한 최종 이미지까지 재검증 완료.
+비교 자료: 캐릭터별 All-Frames.png(원본 크기), Idle-Walk.png 및 Idle-Walk-2x.png(최근접 정수 확대), Walk-Idle.gif. 전체 손님 비교는 Customers-Idle-Walk.png / Customers-Walk-Idle.gif.
+재묘사에 따른 자세별 윤곽 변화는 있으며 픽셀 단위 복제는 아님. 작은 손은 손바닥·엄지 중심의 자연스러운 실루엣으로 단순화됨.

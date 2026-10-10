@@ -1,0 +1,382 @@
+[
+  {
+    "character": "Male-01",
+    "direction": "South",
+    "mode": "built-in imagegen",
+    "prompt": "Edit target input1 is eight walking sprites of this SAME man; input2 is his approved standing Idle, the exact identity/proportion master. The walking body currently looks wider and its head is too big. Correct ALL8 walking poses: shrink whole head (hair/face/ears) to 80% current width AND height. Slim shoulders/torso/upper arms to85% current width. Extend neck/torso/legs naturally so overall figure height stays the same. MATCH input2's head-to-body and shoulder widths precisely. Preserve all original face/hair/clothing details, gold tunic, cream sleeves, belt, dark trousers/brown boots, no new accessories. Same4x2layout8frames, preserve current gait poses, genuine transparent gaps, crisp chunky pixelart with broad shade clusters, no color halo, no background, no labels. Only proportion correction; same man as Idle.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-26c6e1d6-9d14-4a1b-9414-ea1acbfc598a.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-01/South.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle the FIRST sprite sheet, retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. This is an eight-frame walk of a man, front three-quarter screen-right. Image2 is his Idle identity/proportions. Image3 is a DIFFERENT character, use ONLY its clean pixel rendering style, never its poses or clothes. Redraw the same man in the style of image3 with same face and clothing as image2. Preserve first sheet's leg sequence and foot placement in each of8cells: top row left/right-leg phase and bottom row opposite-leg phase. Do not change pose or exchange leg identity! No huge head: same Idle head/body ratios. Improve upper-body/arm movement slightly to complement existing legs, preserving natural compact hands. 4columns2rows8fullbodyfigures transparent generous gaps. Pixelart darkoutline broad flat shadeclusters, consistent palette. No text/background/extra items. The original leg motion is intentional and must stay intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-aaee7279-d5dc-4835-bc8c-27eff749e2b6.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-01/South-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-01",
+    "direction": "East",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: East. Exact side profile facing screen RIGHT.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-bdb8d5ea-ddbe-41a7-adfc-cf2f7720b072.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-01/East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-52c14fde-3a04-4d4a-94ed-8a7f9171dfd2.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-01/North-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-01",
+    "direction": "North",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: North. Back facing away from viewer; NO face/chest.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-d398b5bc-e40a-4498-98ed-ccbe0b9695c6.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-01/North.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-01",
+    "direction": "North-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-603f6c9c-1b63-4474-982a-9df62c966c11.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-01/North-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-01",
+    "direction": "South-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-ca262158-cb4d-4318-9e77-7c73d1bf4cc4.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-01/South-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-02",
+    "direction": "South",
+    "mode": "built-in imagegen",
+    "prompt": "Edit target input1 is eight walking sprites of this SAME person; input2 is approved standing Idle, exact identity/proportion master. Walking head and shoulders are too big. Correct ALL8: shrink whole head (hair/face/ears) to80% current width AND height; slim shoulders/torso/upper arms to85% current width. Extend neck/torso/legs naturally to retain total figure height. Match input2 head/body and shoulder ratios precisely. Preserve identical face, hairstyle, clothing and colors from input2. Same4x2layout8frames, same gait poses, genuine transparent gaps, crisp chunky pixelart with broad shades, no halo/background/text. Only proportion correction.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-ea0970f6-a802-4fec-ba17-6926057e38f3.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-02/South.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-d5b5e98d-acee-4165-b4ae-144ed848ceb1.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-02/South-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-02",
+    "direction": "East",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: East. Exact side profile facing screen RIGHT.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-243355e4-8b78-4afb-af27-6313bb48111f.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-02/East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-4e4172d9-4e1e-4c28-b9d5-750c7bc58f07.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-02/North-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-02",
+    "direction": "North",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: North. Back facing away from viewer; NO face/chest.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-548fd0a8-fe29-4a69-9031-2e5216ab00ed.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-02/North.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-02",
+    "direction": "North-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-54c3cf72-9e98-4384-a2a9-fec1318a3c3a.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-02/North-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-02",
+    "direction": "South-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-79d55122-3fbb-4580-8cf7-7cff4e0c0da6.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-02/South-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-03",
+    "direction": "South",
+    "mode": "built-in imagegen",
+    "prompt": "Edit target input1 is eight walking sprites of this SAME person; input2 is approved standing Idle, exact identity/proportion master. Walking head and shoulders are too big. Correct ALL8: shrink whole head (hair/face/ears) to80% current width AND height; slim shoulders/torso/upper arms to85% current width. Extend neck/torso/legs naturally to retain total figure height. Match input2 head/body and shoulder ratios precisely. Preserve identical face, hairstyle, clothing and colors from input2. Same4x2layout8frames, same gait poses, genuine transparent gaps, crisp chunky pixelart with broad shades, no halo/background/text. Only proportion correction.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-4c7178d1-56ac-4a41-bcb5-c4c31394b2da.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-03/South.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-b4d1c8a0-96ab-475c-b8d5-978bc14bfd97.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-03/South-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-03",
+    "direction": "East",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: East. Exact side profile facing screen RIGHT.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.\nImportant: frames1 and5 must be opposite leg forward; frames1-4 near leg advances/far leg recedes, frames5-8 far leg advances/near leg recedes. BOTH feet must clearly pass each other. Do not keep one boot leading all eight frames.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-87e8359f-a85b-4a6e-9a93-965c81bf0ba4.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-03/East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-2a403621-a43c-42bc-a65a-ea8938bfaa0f.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-03/North-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-03",
+    "direction": "North",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: North. Back facing away from viewer; NO face/chest.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.\nImportant: frames1 and5 must be opposite leg forward; frames1-4 near leg advances/far leg recedes, frames5-8 far leg advances/near leg recedes. BOTH feet must clearly pass each other. Do not keep one boot leading all eight frames.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-35fffd3f-6d17-4eb5-bd2a-5e5c57e8d05c.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-03/North.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-03",
+    "direction": "North-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-250c52fa-ee3e-4f0b-ad21-7febe68accbe.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-03/North-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Male-03",
+    "direction": "South-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-e3501812-1e91-4dc4-93a7-5705b9180acb.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Male-03/South-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-01",
+    "direction": "South",
+    "mode": "built-in imagegen",
+    "prompt": "Edit input1 eight walking sprites, identity master input2 existing Idle. Restore the exact Idle face: large open brown eyes and neutral expression, original bangs and single side braid; do NOT make her sleepy. Walking head is too big. Shrink head/hair/face to80% current width AND height, shoulders/torso to85% width. Extend body/legs naturally to keep same total height, matching Idle proportions. Keep blue dress with cream hem, cream sleeves, belt, dark stockings and brown boots. Same4x2layout8frames, preserve walking poses and motion, coherent compact hands. Crisp pixelart broad flat shades and darkoutline, no background/text/halo. Transparent gaps. Same woman as Idle.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-154527f4-c516-4356-98a5-417ed8efe444.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-01/South.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-0b5a13b0-561f-49c2-9e11-ee0423800a15.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-01/South-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-01",
+    "direction": "East",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: East. Exact side profile facing screen RIGHT.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.\nImportant: frames1 and5 must be opposite leg forward; frames1-4 near leg advances/far leg recedes, frames5-8 far leg advances/near leg recedes. BOTH feet must clearly pass each other. Do not keep one boot leading all eight frames.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-2c905bcf-51ed-4bb9-a251-0153a1fa2ad0.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-01/East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-0344b64d-8842-45ba-999f-d6acaebe4290.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-01/North-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-01",
+    "direction": "North",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: North. Back facing away from viewer; NO face/chest.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.\nImportant: frames1 and5 must be opposite leg forward; frames1-4 near leg advances/far leg recedes, frames5-8 far leg advances/near leg recedes. BOTH feet must clearly pass each other. Do not keep one boot leading all eight frames.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-003e6f1b-45dd-40fb-8a7a-aa98bde27744.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-01/North.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-01",
+    "direction": "North-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-9aa656c9-a58d-4025-9f57-b698bd9a085e.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-01/North-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-01",
+    "direction": "South-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-5fce8cde-8c66-4a5a-ac86-27100a19e041.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-01/South-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-02",
+    "direction": "South",
+    "mode": "built-in imagegen",
+    "prompt": "Edit input1 eight walking sprites, identity master input2 existing Idle. Restore exact Idle face and hairstyle, open brown eyes and original neutral expression. Walking head is too big. Shrink whole head/hair/face to80% current width AND height, shoulders/torso to85% width. Extend body/legs naturally to keep same total height, matching Idle proportions precisely. Preserve exact clothing, hems, sleeves, waist and all original colors/accessories in input2. Same4x2layout8frames, preserve gait poses and genuine opposite foot phases. Compact natural hands, crisp pixelart broad flat shades and dark outlines. Transparent background/gaps, no text/halo. Same woman as Idle.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-5e6f4540-8359-470f-b6ba-496fa627d0a4.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-02/South.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-cdb00707-8487-48f0-b08e-1b0df54e54ea.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-02/South-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-02",
+    "direction": "East",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: East. Exact side profile facing screen RIGHT.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.\nImportant: frames1 and5 must be opposite leg forward; frames1-4 near leg advances/far leg recedes, frames5-8 far leg advances/near leg recedes. BOTH feet must clearly pass each other. Do not keep one boot leading all eight frames.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-a1883ccd-c505-46b2-b7c6-6917a62d9d4d.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-02/East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-2b4deee1-7079-4cff-bbeb-129fe3c506ee.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-02/North-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-02",
+    "direction": "North",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: North. Back facing away from viewer; NO face/chest.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.\nImportant: frames1 and5 must be opposite leg forward; frames1-4 near leg advances/far leg recedes, frames5-8 far leg advances/near leg recedes. BOTH feet must clearly pass each other. Do not keep one boot leading all eight frames.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-4fa58589-6e8a-46e2-a61d-3a77fe838bf3.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-02/North.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-02",
+    "direction": "North-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-f0a69078-0539-45a4-9a82-a16ef27f2fc5.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-02/North-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-02",
+    "direction": "South-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-07d1eaba-ea2b-4583-9339-eb1ad097d5f3.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-02/South-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-03",
+    "direction": "South",
+    "mode": "built-in imagegen",
+    "prompt": "Edit input1 eight walking sprites, identity master input2 existing Idle. Restore exact Idle face and hairstyle, open brown eyes and original neutral expression. Walking head is too big. Shrink whole head/hair/face to80% current width AND height, shoulders/torso to85% width. Extend body/legs naturally to keep same total height, matching Idle proportions precisely. Preserve exact clothing, hems, sleeves, waist and all original colors/accessories in input2. Same4x2layout8frames, preserve gait poses and genuine opposite foot phases. Compact natural hands, crisp pixelart broad flat shades and dark outlines. Transparent background/gaps, no text/halo. Same woman as Idle.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-94d90d63-bfd2-430e-a0b1-d3e3d93bfd22.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-03/South.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-15285cd6-658f-4bd5-b0d6-5224492ba961.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-03/South-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-03",
+    "direction": "East",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: East. Exact side profile facing screen RIGHT.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.\nImportant: frames1 and5 must be opposite leg forward; frames1-4 near leg advances/far leg recedes, frames5-8 far leg advances/near leg recedes. BOTH feet must clearly pass each other. Do not keep one boot leading all eight frames.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-c7801c93-8499-422f-a8b0-f6b949102611.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-03/East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-East",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-East: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-939c6580-252a-459a-b656-80a74a55f526.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-03/North-East.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-03",
+    "direction": "North",
+    "mode": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create one 4-column x2-row EIGHT-FRAME WALK LOOP sprite sheet.\nINPUT1 = this customer's IDENTITY AND PROPORTIONS master standing Idle. INPUT2 = a different character's APPROVED WALKING motion and pixel-art style master for the requested direction. Replace ONLY character identity/outfit of input2 with input1, preserving pose sequence, facing and sprite scale style. The final character MUST look exactly like input1 when stopped: same face, hair shape, head/body ratio, clothes lengths/colors, build. DO NOT give a huge chibi head. Head width approximately28-30% of full-body height. Narrow shoulders and compact hands like Idle.\nDIRECTION: North. Back facing away from viewer; NO face/chest.\nExactly8 separate fully visible figures, reading left to right across top4 then bottom4. Large equal empty transparent gaps, no clipping, each figure same dimensions. Natural smooth full gait: LEFT contact,down,passing,up then RIGHT contact,down,passing,up; two opposite-foot half-cycles, counter swinging arms, minimal body bob. No repeated same-foot steps. Crisp pixel art dark outlines and simple broad shading matching input2, no antialias blur, no noisy speckles or glow. Genuine transparent background, no text, no shadows. All8 figures same costume, hairstyle and body; do not copy player apron/ribbon.\nImportant: frames1 and5 must be opposite leg forward; frames1-4 near leg advances/far leg recedes, frames5-8 far leg advances/near leg recedes. BOTH feet must clearly pass each other. Do not keep one boot leading all eight frames.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-de288a5e-1997-4253-9411-0e7f25d4068f.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-03/North.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-03",
+    "direction": "North-West",
+    "mode": "built-in imagegen",
+    "prompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction North-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-4ad779b4-e63e-466b-a8bb-5146e033b90d.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-03/North-West.png",
+    "inputAssetRevision": "c24b8a1"
+  },
+  {
+    "character": "Female-03",
+    "direction": "South-West",
+    "mode": "built-in imagegen",
+    "prompt": "Correct ONLY transparency/outline defect in this sprite sheet. Preserve exactly all8figures, positions, gait poses, hairstyle, expression, clothing and proportions. Front three-quarter LEFT-facing same woman. Every character pixel must be FULLY OPAQUE including sleeves, hands, skirt, legs and brown boots; only surrounding empty background transparent. Restore clear continuous dark pixel-art outlines on the skirt hem, boots and hands matching the strong hair outline. Current lower body and boots look washed out/partly transparent with broken outlines. Repair that without changing identity or poses. Crisp pixelart flat shades, same4x2eightframe layout, generous transparent empty gaps, no text/background/shadow.",
+    "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-ad0cb002-7569-4a6c-9229-72427b54f4db.png",
+    "savedPath": "Assets/Prototypes/HexWorld/Art/CustomerAnimation/Female-03/South-West.png",
+    "inputAssetRevision": "c24b8a1",
+    "precedingPrompt": "Restyle FIRST sprite sheet retaining ALL8 pose silhouettes and LOWER BODY LEG POSITIONS EXACTLY. Image2 is this SAME person's approved Idle identity/proportions. Image3 is a DIFFERENT character: use ONLY clean pixel rendering style, never its poses or clothes. Redraw the person in image3 style with SAME face, hairstyle, build and costume as image2. Direction South-West: keep original facing of image1 in all8 cells. Preserve image1 LEG sequence and foot placement per cell: first row one leg phase, bottom row opposite-leg phase. Do NOT exchange leg identity or repeat one leading foot. No huge head: match Idle head/body ratios, head width28% of full height. Small natural compact hands. Improve reciprocal arm swing gently to complement existing legs. Exactly4columns2rows8fullbody figures, large transparent gaps, all same scale. Crisp pixelart dark outlines, large flat shades, no tiny noisy highlights, no blur, no halo, no background/text. Existing alternating leg motion must remain intact.",
+    "precedingSource": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-83f07b05-847d-47a8-b393-5404febaf316.png"
+  }
+]

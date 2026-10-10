@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Stack Store/Hex World/Test Settings")]
 public sealed class HexTestSettings : ScriptableObject
 {
+    [Header("환경 / 현재 장소의 바닥·배경 / 즉시 반영")]
+    public HexEnvironmentTheme environment;
     public static HexTestSettings Current { get; internal set; }
     [Header("손님 이동 애니메이션 / 목록은 다음 생성, 속도·크기는 즉시 반영")]
     public CustomerAnimationOptions customerAnimation = new CustomerAnimationOptions();

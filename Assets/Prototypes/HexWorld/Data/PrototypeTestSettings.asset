@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0c25217215da24eacc0a86ff6e33e8, type: 3}
   m_Name: PrototypeTestSettings
   m_EditorClassIdentifier:
+  environment: {fileID: 11400000, guid: b2b7086df730d0c4e93d558179e640bd, type: 2}
   customerAnimation:
     catalog: {fileID: 11400000, guid: 88847958c22d1f7489c731af7fb9cbe7, type: 2}
     framesPerSecond: 8

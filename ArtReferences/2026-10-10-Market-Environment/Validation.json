@@ -1,0 +1,15 @@
+{
+  "unity": "6000.0.73f1",
+  "checks": {
+    "assets": "MARKET_ENVIRONMENT_ASSETS_PASSED: seven floors, UV hex, market panorama/paving, collider-free saved prefab and shader.",
+    "play": "MARKET_ENVIRONMENT_PLAY_PASSED: seven floor mappings, ownership, ghost visibility, stable anchors/colliders, actual placements, three angles and far-zoom renders."
+  },
+  "renders": [
+    "Market-Pitch-4.png",
+    "Market-Pitch-30.png",
+    "Market-Pitch-50.png",
+    "Market-FarZoom-Pitch-4.png",
+    "Market-FarZoom-Pitch-50.png"
+  ],
+  "stageProgression": "deferred by request"
+}

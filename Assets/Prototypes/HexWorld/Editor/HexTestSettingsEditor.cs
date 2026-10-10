@@ -11,6 +11,7 @@ public sealed class HexTestSettingsEditor : Editor
         EditorGUILayout.HelpBox("이 에셋 하나에서 공용 테스트 값을 조절합니다. Play 중 에셋 수정은 종료 후에도 유지됩니다. 시작 골드·재고는 다음 Play, 좌석 수·대기 시간은 새 배치/예약부터 적용됩니다. 초기 시점은 시점 초기화 버튼 또는 다음 Play에 적용됩니다.",MessageType.Info);
         DrawDefaultInspector();
         var settings=(HexTestSettings)target;
+        DrawAsset(settings.environment,"환경 / 바닥·마을 시장 배경");
         DrawAsset(settings.levelCurve,"레벨업 조건");
         if(settings.itemCatalog)
         {

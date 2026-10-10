@@ -14,10 +14,24 @@ public sealed class HexTileView : MonoBehaviour
     HexShopLayout layout;
     int floor;
     bool owned, kitchenOccupied;
+    bool shownOwned,ghostFloor;
+    HexTileDefinition shownDefinition;
+    MaterialPropertyBlock floorProperties;
+    public void ApplyFloor(HexEnvironmentTheme theme,bool isOwned,HexTileDefinition definition)
+    {
+        var material=theme?theme.Floor(definition?definition.kind:HexTileKind.DisplayShelf):null;
+        surface.enabled=isOwned&&material&&theme.floorMesh;
+        if(!surface.enabled)return;
+        surface.sharedMaterial=material;
+        surface.GetComponent<MeshFilter>().sharedMesh=theme.floorMesh;
+        if(floorProperties==null)floorProperties=new MaterialPropertyBlock();
+        floorProperties.Clear();floorProperties.SetFloat("_Height",theme.floorHeight);surface.SetPropertyBlock(floorProperties);
+    }
     public void Show(bool owned, HexTileDefinition definition, Color? highlight = null)
     {
         Color color = highlight ?? (owned ? (definition ? definition.color : new Color(.24f,.66f,.58f)) : new Color(.20f,.27f,.33f));
-        surface.enabled = false;
+        shownOwned=owned;shownDefinition=definition;ghostFloor=highlight.HasValue&&highlight.Value.a<.99f;
+        ApplyFloor(HexTestSettings.Current?HexTestSettings.Current.environment:null,owned&&!ghostFloor,definition);
         if (outline) { outline.sortingOrder = -32000; outline.startColor = outline.endColor = color; }
         furniture.SetActive(owned && definition);
         if(buildingSprite&&definition)buildingSprite.sprite=definition.worldSprite?definition.worldSprite:definition.icon;
@@ -41,6 +55,7 @@ public sealed class HexTileView : MonoBehaviour
     }
     void LateUpdate()
     {
+        if(HexTestSettings.Current)ApplyFloor(HexTestSettings.Current.environment,shownOwned&&!ghostFloor,shownDefinition);
         if(outline&&HexTestSettings.Current)outline.widthMultiplier=HexTestSettings.Current.visual.outlineWidth;
         if(labelCanvas&&Camera.main)labelCanvas.transform.rotation=Camera.main.transform.rotation;
         if(layout!=null&&owned&&layout.Floor(floor).model.Definition(coordinate)?.kind==HexTileKind.Kitchen&&kitchenOccupied!=HexKitchenOccupant.Present(floor,coordinate))ShowShop(layout,floor,owned);

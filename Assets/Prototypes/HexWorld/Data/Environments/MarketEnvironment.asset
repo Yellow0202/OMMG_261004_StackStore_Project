@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc9650ec3fdc1946b8c4efbcee8f27f, type: 3}
+  m_Name: MarketEnvironment
+  m_EditorClassIdentifier:
+  key: village_market
+  floors:
+  - kind: 0
+    material: {fileID: 2100000, guid: f58454e5a4e1d7a448afc794da42eb8b, type: 2}
+  - kind: 1
+    material: {fileID: 2100000, guid: 9fec2d7047b78ea4c8b33ac3ad3897f3, type: 2}
+  - kind: 2
+    material: {fileID: 2100000, guid: 615f519710443ce48bd8be571e975b48, type: 2}
+  - kind: 3
+    material: {fileID: 2100000, guid: ac4882515092fcf42a4acf0e02b9055c, type: 2}
+  - kind: 4
+    material: {fileID: 2100000, guid: 27a0fed93ef4ecf4dadd14444f728e01, type: 2}
+  - kind: 5
+    material: {fileID: 2100000, guid: 5220dd77ed47a504d9deddda4f136db9, type: 2}
+  - kind: 6
+    material: {fileID: 2100000, guid: f7220daa1a9ecab48b7986a0d347a2c1, type: 2}
+  floorMesh: {fileID: 4300000, guid: a93aa34c825aa9445823540ca8ea0964, type: 2}
+  floorHeight: 0.215
+  groundMaterial: {fileID: 2100000, guid: 08eef0aaf4748854b8879dfc3f6bd51c, type: 2}
+  groundTint: {r: 1, g: 1, b: 1, a: 1}
+  groundContrast: 0.5
+  groundHeight: 0.18
+  minimumGroundSpan: 180
+  expansionMargin: 50
+  pavingRepeatMeters: 2.8
+  backdropMaterial: {fileID: 2100000, guid: 93ffb00f1d5584f4eb98e9a73b39fa90, type: 2}
+  backdropTint: {r: 1, g: 1, b: 1, a: 1}
+  backdropDistance: 12
+  backdropWidth: 80
+  backdropHeight: 26.66667
+  backdropBaseHeight: -0.6

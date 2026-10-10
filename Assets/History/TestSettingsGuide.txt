@@ -81,3 +81,16 @@ Customer Animation > Direction Hysteresis Degrees: 현재 방향에서 다른 �
 
 [대각선 원본 보정]
 재생 속도 등 런타임 조절값은 기존 Customer Animation/Player Animation 항목 사용. 손님 대각선 *_Alternating.png는 균일 셀로 보정된 저작 원본이며 Rebuild Customer Walk Animations 실행 시 우선 적용된다. 프레임 크기 256 설정 기준으로 제작되었으므로 수정 원본의 셀 크기와 frameCanvasSize는 일치시켜야 한다. 플레이어는 기존 84x84 개별 PNG를 사용한다.
+
+
+[2026-10-10 마을 시장 환경]
+PrototypeTestSettings.asset > 환경(environment)에 MarketEnvironment.asset 연결.
+동일 Inspector 하단의 [환경 / 바닥·마을 시장 배경]을 펼쳐 연결된 원본을 일괄 수정 가능.
+별도 원본 경로: Assets/Prototypes/HexWorld/Data/Environments/MarketEnvironment.asset
+- Floors: 진열대/테이블/주방/창고/계단/숙박/출입구별 바닥 Material. 이미지 교체는 각 Material의 Texture로 지정.
+- Floor Height: 캐릭터 지면(.22)보다 낮게 유지. 기본 .215. 소유 타일만 표시하며 중립 셀/반투명 배치 미리보기에는 채운 바닥을 표시하지 않음.
+- Ground Tint/Contrast: 시장 바닥 색과 대비. Paving Repeat Meters: 이미지 1회 반복의 월드 길이.
+- Minimum Ground Span/Expansion Margin: 초기 지면 크기/가게 확장 시 여유. 확장 중 지면 무늬의 월드 위치 유지.
+- Backdrop Distance: 가게 범위 뒤로 띄울 거리. Width/Height: 배경 크기(현재 원본 3:1 비율 권장). Base Height: 이미지 바닥선 높이.
+- Hierarchy > Village Market Environment: 저장된 배경 프리팹. Market Paving와 Distant Market Panorama를 에디터에서도 확인 가능.
+테마를 별도 ScriptableObject로 두었으며 향후 다른 장소 테마로 교체 가능. 단계 진행/자동 해금 로직은 이번 범위에 포함하지 않음.

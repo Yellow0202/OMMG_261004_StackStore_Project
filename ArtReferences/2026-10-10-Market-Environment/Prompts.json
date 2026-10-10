@@ -1,0 +1,45 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "name": "Stall",
+      "source": "C:/Users/Chang/.codex/generated_images/01a1021f-68a4-7fd1-86af-860c38e5bff3/exec-7b2f0767-7645-46c8-b719-fe7e04e0e6e3.png",
+      "prompt": "Use case: stylized-concept. Asset type: square game floor albedo texture for a 3D hex mesh under 2D pixel-art characters. Primary request: warm medium walnut wooden floorboards, modest fantasy street tavern sales stall floor, horizontal timber planks, restrained golden brown. Orthographic STRAIGHT TOP DOWN view, completely flat square full-bleed texture, all four corners fully covered. Crisp restrained Japanese fantasy pixel game art, chunky intentional pixel clusters, black-brown fine separators, limited flat palette, very simple two-tone material definition, no gradients, no painterly noise. As if authored on a 128x128 pixel grid with clean nearest-neighbor enlarged pixels. Similar scale to small 84px tall town NPC sprites. Softly weathered but readable from a distance. No objects, furniture, characters, walls, shadows, perspective, hexagon borders, text, lettering, UI or watermark. No empty margins. This is a floor surface ONLY, not an isometric tile illustration."
+    },
+    {
+      "name": "Table",
+      "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-92afc277-dfae-4630-aef5-edfdca078b3f.png",
+      "prompt": "Use case: stylized-concept. Asset type: square game floor albedo texture for a 3D hex mesh under 2D pixel-art characters. Primary request: honey oak floorboards with a simple small muted rust-red woven rectangular rug in the center, tavern dining floor. Orthographic STRAIGHT TOP DOWN view, completely flat square full-bleed texture, all four corners fully covered. Crisp restrained Japanese fantasy pixel game art, chunky intentional pixel clusters, dark-brown fine separators, limited flat palette, simple two-tone material definition, no gradients or painterly noise. As if authored on a 128x128 pixel grid and nearest-neighbor enlarged. No objects, furniture, characters, walls, cast shadows, perspective, hexagon borders, text, UI or watermark. No empty margins. Floor surface ONLY."
+    },
+    {
+      "name": "Kitchen",
+      "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-1c4ed6ad-ab1b-4ff7-b783-25e2e2f2a75d.png",
+      "prompt": "Use case: stylized-concept. Asset type: square game floor albedo texture for a 3D hex mesh under 2D pixel-art characters. Primary request: worn grey slate flagstones with subtle terracotta border tiles, medieval tavern kitchen floor. Orthographic STRAIGHT TOP DOWN view, completely flat square full-bleed texture, all four corners fully covered. Crisp restrained Japanese fantasy pixel game art, chunky intentional pixel clusters, dark-brown fine separators, limited flat palette, simple two-tone material definition, no gradients or painterly noise. As if authored on a 128x128 pixel grid and nearest-neighbor enlarged. No objects, furniture, characters, walls, cast shadows, perspective, hexagon borders, text, UI or watermark. No empty margins. Floor surface ONLY."
+    },
+    {
+      "name": "Storage",
+      "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-dbb5589b-631d-464c-be6a-8e332143c1aa.png",
+      "prompt": "Use case: stylized-concept. Asset type: square game floor albedo texture for a 3D hex mesh under 2D pixel-art characters. Primary request: weathered dark brown timber planks, humble tavern storeroom floor. Orthographic STRAIGHT TOP DOWN view, completely flat square full-bleed texture, all four corners fully covered. Crisp restrained Japanese fantasy pixel game art, chunky intentional pixel clusters, dark-brown fine separators, limited flat palette, simple two-tone material definition, no gradients or painterly noise. As if authored on a 128x128 pixel grid and nearest-neighbor enlarged. No objects, furniture, characters, walls, cast shadows, perspective, hexagon borders, text, UI or watermark. No empty margins. Floor surface ONLY."
+    },
+    {
+      "name": "Stairs",
+      "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-184e9fab-7da7-437b-8640-b5a1a7117946.png",
+      "prompt": "Use case: stylized-concept. Asset type: square game floor albedo texture for a 3D hex mesh under 2D pixel-art characters. Primary request: warm grey fitted stone paving with a restrained parallel dark stone threshold band across the center indicating a stair landing; no actual raised steps. Orthographic STRAIGHT TOP DOWN view, completely flat square full-bleed texture, all four corners fully covered. Crisp restrained Japanese fantasy pixel game art, chunky intentional pixel clusters, dark-brown fine separators, limited flat palette, simple two-tone material definition, no gradients or painterly noise. As if authored on a 128x128 pixel grid and nearest-neighbor enlarged. No objects, furniture, characters, walls, cast shadows, perspective, hexagon borders, text, UI or watermark. No empty margins. Floor surface ONLY."
+    },
+    {
+      "name": "Lodging",
+      "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-b6f33598-1523-45d5-ad47-2995d9845a2d.png",
+      "prompt": "Use case: stylized-concept. Asset type: square game floor albedo texture for a 3D hex mesh under 2D pixel-art characters. Primary request: warm brown timber planks with a small muted blue rectangular woven rug in the center, humble fantasy inn bedroom floor. Orthographic STRAIGHT TOP DOWN view, completely flat square full-bleed texture, all four corners fully covered. Crisp restrained Japanese fantasy pixel game art, chunky intentional pixel clusters, dark-brown fine separators, limited flat palette, simple two-tone material definition, no gradients or painterly noise. As if authored on a 128x128 pixel grid and nearest-neighbor enlarged. No objects, furniture, characters, walls, cast shadows, perspective, hexagon borders, text, UI or watermark. No empty margins. Floor surface ONLY."
+    },
+    {
+      "name": "Entrance",
+      "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-c9653ded-0d26-4519-af72-007231bf4e19.png",
+      "prompt": "Use case: stylized-concept. Asset type: square game floor albedo texture for a 3D hex mesh under 2D pixel-art characters. Primary request: light warm beige-grey cobblestone paving with irregular small fitted stones, medieval village marketplace entrance ground. Orthographic STRAIGHT TOP DOWN view, completely flat square full-bleed texture, all four corners fully covered. Crisp restrained Japanese fantasy pixel game art, chunky intentional pixel clusters, dark-brown fine separators, limited flat palette, simple two-tone material definition, no gradients or painterly noise. As if authored on a 128x128 pixel grid and nearest-neighbor enlarged. No objects, furniture, characters, walls, cast shadows, perspective, hexagon borders, text, UI or watermark. No empty margins. Floor surface ONLY."
+    },
+    {
+      "name": "MarketBackground",
+      "source": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-48c847a9-85b2-4b2d-9068-08d5135ba885.png",
+      "prompt": "Use case: stylized-concept. Asset type: very wide 3:1 distant backdrop panorama for a Japanese fantasy pixel-art tavern management game with 2D characters on a 3D floor. Primary request: a welcoming ordinary medieval fantasy village marketplace, timber-frame plaster houses with warm tiled roofs, muted red and green striped cloth market awnings, wooden stalls, a few hanging lanterns, baskets and signs WITHOUT lettering. Straight-on elevation, level horizon, long continuous row of small market buildings. Bottom edge is the base of the shop fronts at ground level; NO large foreground plaza or floor. Generous pale warm blue sky above the roof silhouettes. Composition extends fully across both sides. Restrained clean pixel art, deliberate chunky clusters, limited flat color palette, simple large shadow shapes, crisp edges, no smooth digital painting, no grain, no intricate micro-detail. Match modest 84px fantasy town NPC pixel sprites in visual language. Slightly desaturated distance colors so gameplay characters remain clear. No people, no readable text, no UI, no watermarks. This is one complete landscape panorama, not a sprite sheet or collage."
+    }
+  ]
+}

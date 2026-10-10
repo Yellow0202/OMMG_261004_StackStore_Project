@@ -1,0 +1,58 @@
+[
+  {
+    "direction": "North",
+    "frames": 8,
+    "uniqueFrames": 8,
+    "idleBodyHeight": 192,
+    "walkFirstBodyHeight": 192
+  },
+  {
+    "direction": "North-East",
+    "frames": 8,
+    "uniqueFrames": 8,
+    "idleBodyHeight": 192,
+    "walkFirstBodyHeight": 192
+  },
+  {
+    "direction": "East",
+    "frames": 8,
+    "uniqueFrames": 8,
+    "idleBodyHeight": 192,
+    "walkFirstBodyHeight": 192
+  },
+  {
+    "direction": "South-East",
+    "frames": 8,
+    "uniqueFrames": 8,
+    "idleBodyHeight": 192,
+    "walkFirstBodyHeight": 192
+  },
+  {
+    "direction": "South",
+    "frames": 8,
+    "uniqueFrames": 8,
+    "idleBodyHeight": 192,
+    "walkFirstBodyHeight": 192
+  },
+  {
+    "direction": "South-West",
+    "frames": 8,
+    "uniqueFrames": 8,
+    "idleBodyHeight": 192,
+    "walkFirstBodyHeight": 192
+  },
+  {
+    "direction": "West",
+    "frames": 8,
+    "uniqueFrames": 8,
+    "idleBodyHeight": 192,
+    "walkFirstBodyHeight": 192
+  },
+  {
+    "direction": "North-West",
+    "frames": 8,
+    "uniqueFrames": 8,
+    "idleBodyHeight": 192,
+    "walkFirstBodyHeight": 192
+  }
+]

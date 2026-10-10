@@ -1,0 +1,8 @@
+플레이어 Idle/Walk 외형 연속성 수정
+기준: Assets/Prototypes/HexWorld/Art/PlayerAnimation/Idle의 기존 8방향 이미지 유지. 각 방향의 Idle을 외형과 그림체의 직접 기준으로 사용.
+교체: WalkSources 8개 시트와 Walk 폴더의 64개 PNG. 기존 GUID/프레임 순서/10fps/Idle 연결 유지.
+비교: {방향}-Idle-Walk.png와 {방향}-Comparison-2x.png. 왼쪽 기존 Idle, 오른쪽 수정 워킹 첫 프레임. 같은 표시 높이/발 기준으로 비교. Walk-To-Idle.gif는 8프레임 이동 후 4프레임 정지 반복.
+검수: 정면·측면·대각선에서 피곤한 눈매/앞머리/리본/복장 길이 및 신체 비율 비교. 큰 머리 비율이 남는 방향에 추가 보정. 원래 워킹 포즈 기준이지만 새 외형에 맞춰 재묘사하여 윤곽은 픽셀 단위 복제가 아님.
+Unity: PLAYER_IDLE_ASSETS_PASSED, PLAYER_ANIMATION_VALIDATED, PLAYER_WALK_SHEETS_PASSED, PLAYER_ANIMATION_PLAY_CHECKS_PASSED.
+QA: 64개 256x256 PNG, 투명 여백과 잘린 가장자리 없음. 원본 Idle의 PNG 및 meta는 변경하지 않음.
+생성 모드: 내장 imagegen. Prompts.json 및 ProportionCorrections.json에 생성/보정 프롬프트 저장.

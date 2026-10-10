@@ -1,0 +1,30 @@
+{
+  "mode": "built-in imagegen precise-object-edit",
+  "records": [
+    {
+      "direction": "South",
+      "file": "exec-8eee4318-e58c-45e9-9bf5-49a94cb47c36.png",
+      "prompt": "Precise sprite-sheet correction. Image 1 is the walking sheet EDIT TARGET. Image 2 is the approved same-direction IDLE, authoritative anatomy. The walk head is too big relative to its body: reduce each head INCLUDING hair/face/ribbon to 80 percent of its current width and height, and extend the upper torso slightly to preserve the same overall full-body height and foot baseline. Make the resulting head/body ratio match image 2 EXACTLY when both are displayed at the same full-body height. Keep face features, red half-lidded eyes, hairstyle, clothing colors/details, hand poses and all leg poses/gait phases unchanged. Do not draw a new face or make a chibi. Every one of the 8 frames must use identical corrected proportions. Exactly 4 columns x2 rows, eight full-body frames, same order, transparent background alpha zero outside figures, NO glow or haze. Crisp hard square pixel clusters like IDLE. Change only these proportions, not identity or gait."
+    },
+    {
+      "direction": "South-East",
+      "file": "exec-66c7f7e9-c8ec-465c-86ca-a609799c24aa.png",
+      "prompt": "Precise sprite-sheet correction. Image 1 is the walking sheet EDIT TARGET. Image 2 is the approved same-direction IDLE, authoritative anatomy. The walk head is too big relative to its body: reduce each head INCLUDING hair/face/ribbon to 80 percent of its current width and height, and extend the upper torso slightly to preserve the same overall full-body height and foot baseline. Make the resulting head/body ratio match image 2 EXACTLY when both are displayed at the same full-body height. Keep face features, red half-lidded eyes, hairstyle, clothing colors/details, hand poses and all leg poses/gait phases unchanged. Do not draw a new face or make a chibi. Every one of the 8 frames must use identical corrected proportions. Exactly 4 columns x2 rows, eight full-body frames, same order, transparent background alpha zero outside figures, NO glow or haze. Crisp hard square pixel clusters like IDLE. Change only these proportions, not identity or gait."
+    },
+    {
+      "direction": "East",
+      "file": "exec-cd6d64e4-d8f5-4133-ab63-2f4542460cde.png",
+      "prompt": "Precise sprite-sheet correction. Image 1 is the walking sheet EDIT TARGET. Image 2 is the approved same-direction IDLE, authoritative anatomy. The walk head is too big relative to its body: reduce each head INCLUDING hair/face/ribbon to 85 percent of its current width and height, and extend the upper torso slightly to preserve the same overall full-body height and foot baseline. Make the resulting head/body ratio match image 2 EXACTLY when both are displayed at the same full-body height. Keep face features, red half-lidded eyes, hairstyle, clothing colors/details, hand poses and all leg poses/gait phases unchanged. Do not draw a new face or make a chibi. Every one of the 8 frames must use identical corrected proportions. Exactly 4 columns x2 rows, eight full-body frames, same order, transparent background alpha zero outside figures, NO glow or haze. Crisp hard square pixel clusters like IDLE. Change only these proportions, not identity or gait."
+    },
+    {
+      "direction": "West",
+      "file": "exec-4112e0eb-9235-4073-a462-563efca46385.png",
+      "prompt": "Precise sprite-sheet correction. Image 1 is the walking sheet EDIT TARGET. Image 2 is the approved same-direction IDLE, authoritative anatomy. The walk head is too big relative to its body: reduce each head INCLUDING hair/face/ribbon to 85 percent of its current width and height, and extend the upper torso slightly to preserve the same overall full-body height and foot baseline. Make the resulting head/body ratio match image 2 EXACTLY when both are displayed at the same full-body height. Keep face features, red half-lidded eyes, hairstyle, clothing colors/details, hand poses and all leg poses/gait phases unchanged. Do not draw a new face or make a chibi. Every one of the 8 frames must use identical corrected proportions. Exactly 4 columns x2 rows, eight full-body frames, same order, transparent background alpha zero outside figures, NO glow or haze. Crisp hard square pixel clusters like IDLE. Change only these proportions, not identity or gait."
+    },
+    {
+      "direction": "South-West",
+      "file": "exec-87412968-b84a-4f3f-93d0-2bf468738205.png",
+      "prompt": "Precise sprite-sheet correction. Image 1 is the walking sheet EDIT TARGET. Image 2 is the approved same-direction IDLE, authoritative anatomy. The walk head is too big relative to its body: reduce each head INCLUDING hair/face/ribbon to 85 percent of its current width and height, and extend the upper torso slightly to preserve the same overall full-body height and foot baseline. Make the resulting head/body ratio match image 2 EXACTLY when both are displayed at the same full-body height. Keep face features, red half-lidded eyes, hairstyle, clothing colors/details, hand poses and all leg poses/gait phases unchanged. Do not draw a new face or make a chibi. Every one of the 8 frames must use identical corrected proportions. Exactly 4 columns x2 rows, eight full-body frames, same order, transparent background alpha zero outside figures, NO glow or haze. Crisp hard square pixel clusters like IDLE. Change only these proportions, not identity or gait."
+    }
+  ]
+}

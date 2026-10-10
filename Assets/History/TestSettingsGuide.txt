@@ -111,3 +111,9 @@ Horizontal Copies: 가로 반복 수(기본 3). 개별 이미지 비율을 유�
 [플레이어 8방향 Idle]
 PrototypeTestSettings > Player Animation > Clips > PlayerAnimationSet의 Idle 배열 순서: North, North-East, East, South-East, South, South-West, West, North-West. 각 방향은 단일 대기 이미지이며 현재 숨쉬기 등 다중 프레임 모션은 없음.
 Idle 원본: Art/PlayerAnimation/Idle. 인게임 크기는 기존 Player Animation의 Scale로 조절. 원본 교체 후 Stack Store > Hex World > Apply Player Eight Direction Idle 메뉴로 임포트/크기/발 기준을 다시 맞춤. 자동 정렬 기준은 기존 정면 이동 첫 프레임의 보이는 높이.
+
+[플레이어 워킹 그림체 교체 / 2026-10-10]
+원본 시트: Assets/Prototypes/HexWorld/Art/PlayerAnimation/WalkSources. 4열 2행, 좌상단부터 8프레임 순서. 분할 결과는 기존 Walk/방향/방향_0001~0008.png에 저장하며 GUID와 클립 순서는 유지.
+PrototypeTestSettings > Player Animation의 워킹 시트 재분할 항목: Authored Height(표시 높이), Alpha Cutoff(배경 경계), Frame Padding(발 밑 여백), Frame Canvas Size(프레임 크기), Frame Body Height(첫 포즈 신체 높이, 다른 프레임은 같은 배율).
+기본값: 1.208333 / 128 / 2 / 256 / 192. 원본 교체 또는 재분할값 변경 후 Stack Store > Hex World > Import Player Walk Source Sheets 실행. 잘린 이웃 프레임이 섞이지 않도록 연결된 인물 단위로 분리하고 가장 가까운 픽셀로 샘플링한다. 전용 Idle 참조도 다시 연결.
+Frames Per Second와 Scale은 기존처럼 Play 중 즉시 반영. 재분할 값은 메뉴 실행 후 반영되며 기존 Idle 원본 PNG는 바꾸지 않는다.

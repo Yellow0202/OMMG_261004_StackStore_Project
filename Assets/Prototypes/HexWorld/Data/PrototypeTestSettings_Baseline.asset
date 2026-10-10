@@ -32,6 +32,11 @@ MonoBehaviour:
     minimumMovement: 0.0001
     teleportDistance: 2
     scale: 1
+    authoredHeight: 1.208333
+    alphaCutoff: 128
+    framePadding: 2
+    frameCanvasSize: 256
+    frameBodyHeight: 192
   camera:
     minimumPitch: 4
     maximumPitch: 50

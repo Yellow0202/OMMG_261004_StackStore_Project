@@ -11,6 +11,7 @@ public static class HexPlayerAnimationAuthoring
     public static void Build()
     {
         string folder=Root+"/Art/PlayerAnimation";
+        var options=AssetDatabase.LoadAssetAtPath<HexTestSettings>(Root+"/Data/PrototypeTestSettings.asset").playerAnimation;
         string[] directions={"North","North-East","East","South-East","South","South-West","West","North-West"};
         string path=Root+"/Data/PlayerAnimationSet.asset";
         var set=AssetDatabase.LoadAssetAtPath<HexPlayerAnimationSet>(path);
@@ -28,9 +29,9 @@ public static class HexPlayerAnimationAuthoring
                 importer.textureType=TextureImporterType.Sprite;importer.spriteImportMode=SpriteImportMode.Single;
                 importer.filterMode=FilterMode.Point;importer.mipmapEnabled=false;
                 importer.textureCompression=TextureImporterCompression.Uncompressed;importer.npotScale=TextureImporterNPOTScale.None;
-                importer.alphaIsTransparency=true;importer.spritePixelsPerUnit=48;
+                importer.alphaIsTransparency=true;importer.spritePixelsPerUnit=options.frameBodyHeight/Mathf.Max(.1f,options.authoredHeight);
                 var importSettings=new TextureImporterSettings();importer.ReadTextureSettings(importSettings);
-                importSettings.spriteAlignment=(int)SpriteAlignment.Custom;importSettings.spritePivot=new Vector2(.5f,11f/84f);
+                importSettings.spriteAlignment=(int)SpriteAlignment.Custom;importSettings.spritePivot=new Vector2(.5f,(float)options.framePadding/options.frameCanvasSize);
                 importSettings.spriteMeshType=SpriteMeshType.FullRect;importer.SetTextureSettings(importSettings);importer.SaveAndReimport();
                 var sprite=AssetDatabase.LoadAssetAtPath<Sprite>(source);
                 if(!sprite)throw new Exception("Missing sprite: "+source);

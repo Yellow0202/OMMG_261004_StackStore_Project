@@ -1,0 +1,898 @@
+[
+  {
+    "direction": "North",
+    "frame": 1,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      90,
+      62,
+      166,
+      254
+    ]
+  },
+  {
+    "direction": "North",
+    "frame": 2,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      90,
+      62,
+      167,
+      254
+    ]
+  },
+  {
+    "direction": "North",
+    "frame": 3,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      89,
+      66,
+      165,
+      254
+    ]
+  },
+  {
+    "direction": "North",
+    "frame": 4,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      90,
+      62,
+      167,
+      254
+    ]
+  },
+  {
+    "direction": "North",
+    "frame": 5,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      90,
+      61,
+      168,
+      254
+    ]
+  },
+  {
+    "direction": "North",
+    "frame": 6,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      90,
+      61,
+      166,
+      254
+    ]
+  },
+  {
+    "direction": "North",
+    "frame": 7,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      91,
+      66,
+      166,
+      254
+    ]
+  },
+  {
+    "direction": "North",
+    "frame": 8,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      90,
+      66,
+      167,
+      254
+    ]
+  },
+  {
+    "direction": "North-East",
+    "frame": 1,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      88,
+      62,
+      164,
+      254
+    ]
+  },
+  {
+    "direction": "North-East",
+    "frame": 2,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      88,
+      65,
+      164,
+      254
+    ]
+  },
+  {
+    "direction": "North-East",
+    "frame": 3,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      88,
+      68,
+      164,
+      254
+    ]
+  },
+  {
+    "direction": "North-East",
+    "frame": 4,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      88,
+      67,
+      164,
+      254
+    ]
+  },
+  {
+    "direction": "North-East",
+    "frame": 5,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      88,
+      67,
+      164,
+      254
+    ]
+  },
+  {
+    "direction": "North-East",
+    "frame": 6,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      88,
+      67,
+      164,
+      254
+    ]
+  },
+  {
+    "direction": "North-East",
+    "frame": 7,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      88,
+      62,
+      164,
+      254
+    ]
+  },
+  {
+    "direction": "North-East",
+    "frame": 8,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      88,
+      61,
+      164,
+      254
+    ]
+  },
+  {
+    "direction": "East",
+    "frame": 1,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      62,
+      173,
+      254
+    ]
+  },
+  {
+    "direction": "East",
+    "frame": 2,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      58,
+      173,
+      254
+    ]
+  },
+  {
+    "direction": "East",
+    "frame": 3,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      58,
+      173,
+      254
+    ]
+  },
+  {
+    "direction": "East",
+    "frame": 4,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      57,
+      174,
+      254
+    ]
+  },
+  {
+    "direction": "East",
+    "frame": 5,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      58,
+      176,
+      254
+    ]
+  },
+  {
+    "direction": "East",
+    "frame": 6,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      61,
+      173,
+      254
+    ]
+  },
+  {
+    "direction": "East",
+    "frame": 7,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      60,
+      173,
+      254
+    ]
+  },
+  {
+    "direction": "East",
+    "frame": 8,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      58,
+      173,
+      254
+    ]
+  },
+  {
+    "direction": "South-East",
+    "frame": 1,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      78,
+      62,
+      177,
+      254
+    ]
+  },
+  {
+    "direction": "South-East",
+    "frame": 2,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      78,
+      62,
+      178,
+      254
+    ]
+  },
+  {
+    "direction": "South-East",
+    "frame": 3,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      79,
+      62,
+      179,
+      254
+    ]
+  },
+  {
+    "direction": "South-East",
+    "frame": 4,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      78,
+      62,
+      178,
+      254
+    ]
+  },
+  {
+    "direction": "South-East",
+    "frame": 5,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      78,
+      58,
+      178,
+      254
+    ]
+  },
+  {
+    "direction": "South-East",
+    "frame": 6,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      78,
+      58,
+      178,
+      254
+    ]
+  },
+  {
+    "direction": "South-East",
+    "frame": 7,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      79,
+      61,
+      179,
+      254
+    ]
+  },
+  {
+    "direction": "South-East",
+    "frame": 8,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      79,
+      61,
+      179,
+      254
+    ]
+  },
+  {
+    "direction": "South",
+    "frame": 1,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      85,
+      62,
+      174,
+      254
+    ]
+  },
+  {
+    "direction": "South",
+    "frame": 2,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      57,
+      173,
+      254
+    ]
+  },
+  {
+    "direction": "South",
+    "frame": 3,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      81,
+      53,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "South",
+    "frame": 4,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      79,
+      57,
+      179,
+      254
+    ]
+  },
+  {
+    "direction": "South",
+    "frame": 5,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      85,
+      61,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "South",
+    "frame": 6,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      84,
+      60,
+      173,
+      254
+    ]
+  },
+  {
+    "direction": "South",
+    "frame": 7,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      81,
+      51,
+      180,
+      254
+    ]
+  },
+  {
+    "direction": "South",
+    "frame": 8,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      80,
+      56,
+      180,
+      254
+    ]
+  },
+  {
+    "direction": "South-West",
+    "frame": 1,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      78,
+      62,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "South-West",
+    "frame": 2,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      79,
+      62,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "South-West",
+    "frame": 3,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      78,
+      62,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "South-West",
+    "frame": 4,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      79,
+      62,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "South-West",
+    "frame": 5,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      78,
+      68,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "South-West",
+    "frame": 6,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      79,
+      66,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "South-West",
+    "frame": 7,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      78,
+      66,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "South-West",
+    "frame": 8,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      79,
+      66,
+      175,
+      254
+    ]
+  },
+  {
+    "direction": "West",
+    "frame": 1,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      83,
+      62,
+      174,
+      254
+    ]
+  },
+  {
+    "direction": "West",
+    "frame": 2,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      83,
+      60,
+      174,
+      254
+    ]
+  },
+  {
+    "direction": "West",
+    "frame": 3,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      83,
+      58,
+      174,
+      254
+    ]
+  },
+  {
+    "direction": "West",
+    "frame": 4,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      82,
+      58,
+      173,
+      254
+    ]
+  },
+  {
+    "direction": "West",
+    "frame": 5,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      80,
+      59,
+      174,
+      254
+    ]
+  },
+  {
+    "direction": "West",
+    "frame": 6,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      83,
+      63,
+      174,
+      254
+    ]
+  },
+  {
+    "direction": "West",
+    "frame": 7,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      83,
+      61,
+      174,
+      254
+    ]
+  },
+  {
+    "direction": "West",
+    "frame": 8,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      83,
+      62,
+      174,
+      254
+    ]
+  },
+  {
+    "direction": "North-West",
+    "frame": 1,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      92,
+      62,
+      170,
+      254
+    ]
+  },
+  {
+    "direction": "North-West",
+    "frame": 2,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      93,
+      65,
+      171,
+      254
+    ]
+  },
+  {
+    "direction": "North-West",
+    "frame": 3,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      92,
+      62,
+      170,
+      254
+    ]
+  },
+  {
+    "direction": "North-West",
+    "frame": 4,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      92,
+      58,
+      170,
+      254
+    ]
+  },
+  {
+    "direction": "North-West",
+    "frame": 5,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      92,
+      56,
+      170,
+      254
+    ]
+  },
+  {
+    "direction": "North-West",
+    "frame": 6,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      93,
+      63,
+      171,
+      254
+    ]
+  },
+  {
+    "direction": "North-West",
+    "frame": 7,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      93,
+      63,
+      171,
+      254
+    ]
+  },
+  {
+    "direction": "North-West",
+    "frame": 8,
+    "size": [
+      256,
+      256
+    ],
+    "bounds": [
+      92,
+      59,
+      170,
+      254
+    ]
+  }
+]

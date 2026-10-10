@@ -1,0 +1,45 @@
+{
+  "mode": "built-in imagegen, transparent style-transfer edit",
+  "records": [
+    {
+      "direction": "South-East",
+      "file": "exec-3c2d64ac-a29b-4a54-9a90-b1ea74e02ae6.png",
+      "prompt": "Edit IMAGE 1 in place. This is not a redesign or new animation. Preserve the 8 walking figures' silhouettes and exact poses pixel-for-pixel in relative coordinates: same head, torso, elbow, hand, knee, toe and heel locations for each corresponding cell. Use IMAGE 2 solely for line quality, palette clustering and clean pixel drawing technique. Retouch IMAGE 1's player walking sheet to match IMAGE 2 customer pixel-art rendering. Do not copy customer's dress, face or poses. Keep image 1's small tired brown-haired female tavern clerk, cream sleeves, red apron, dark skirt and brown boots. Exactly same 4x2 grid and 8 poses as image 1. Especially preserve that frame 5 has the OPPOSITE leading leg from frame 1. No enlarged head, no changed proportions, no identical feet across frames, no gradients, no antialiasing, no text. Transparent background. Treat source 1 as a locked pose tracing template, only improve the rendering style."
+    },
+    {
+      "direction": "South-West",
+      "file": "exec-3f841503-2c28-4269-82e7-fcc10950cc35.png",
+      "prompt": "Edit IMAGE 1 in place. This is not a redesign or new animation. Preserve the 8 walking figures' silhouettes and exact poses pixel-for-pixel in relative coordinates: same head, torso, elbow, hand, knee, toe and heel locations for each corresponding cell. Use IMAGE 2 solely for line quality, palette clustering and clean pixel drawing technique. Retouch IMAGE 1's player walking sheet to match IMAGE 2 customer pixel-art rendering. Do not copy customer's dress, face or poses. Keep image 1's small tired brown-haired female tavern clerk, cream sleeves, red apron, dark skirt and brown boots. Exactly same 4x2 grid and 8 poses as image 1. Especially preserve that frame 5 has the OPPOSITE leading leg from frame 1. No enlarged head, no changed proportions, no identical feet across frames, no gradients, no antialiasing, no text. Transparent background. Treat source 1 as a locked pose tracing template, only improve the rendering style."
+    },
+    {
+      "direction": "North-East",
+      "file": "exec-7dc39d11-c78e-4028-86c4-f4a9d1ab3bb5.png",
+      "prompt": "Edit IMAGE 1 in place. This is not a redesign or new animation. Preserve the 8 walking figures' silhouettes and exact poses pixel-for-pixel in relative coordinates: same head, torso, elbow, hand, knee, toe and heel locations for each corresponding cell. Use IMAGE 2 solely for line quality, palette clustering and clean pixel drawing technique. Retouch IMAGE 1's player walking sheet to match IMAGE 2 customer pixel-art rendering. Do not copy customer's dress, face or poses. Keep image 1's small tired brown-haired female tavern clerk, cream sleeves, red apron, dark skirt and brown boots. Exactly same 4x2 grid and 8 poses as image 1. Especially preserve that frame 5 has the OPPOSITE leading leg from frame 1. No enlarged head, no changed proportions, no identical feet across frames, no gradients, no antialiasing, no text. Transparent background. Treat source 1 as a locked pose tracing template, only improve the rendering style. Every figure is back-right facing, rear view, never front view."
+    },
+    {
+      "direction": "North-West",
+      "file": "exec-7d483ddb-154d-473c-9308-8e89aa4b1193.png",
+      "prompt": "Edit IMAGE 1 in place. This is not a redesign or new animation. Preserve the 8 walking figures' silhouettes and exact poses pixel-for-pixel in relative coordinates: same head, torso, elbow, hand, knee, toe and heel locations for each corresponding cell. Use IMAGE 2 solely for line quality, palette clustering and clean pixel drawing technique. Retouch IMAGE 1's player walking sheet to match IMAGE 2 customer pixel-art rendering. Do not copy customer's dress, face or poses. Keep image 1's small tired brown-haired female tavern clerk, cream sleeves, red apron, dark skirt and brown boots. Exactly same 4x2 grid and 8 poses as image 1. Especially preserve that frame 5 has the OPPOSITE leading leg from frame 1. No enlarged head, no changed proportions, no identical feet across frames, no gradients, no antialiasing, no text. Transparent background. Treat source 1 as a locked pose tracing template, only improve the rendering style. Every figure is back-left facing, rear view, never front view."
+    },
+    {
+      "direction": "East",
+      "file": "exec-b8feacd8-2f4f-436c-bcf2-c0223217f46f.png",
+      "prompt": "Edit IMAGE 1 in place. This is not a redesign or new animation. Preserve the 8 walking figures' silhouettes and exact poses pixel-for-pixel in relative coordinates: same head, torso, elbow, hand, knee, toe and heel locations for each corresponding cell. Use IMAGE 2 solely for line quality, palette clustering and clean pixel drawing technique. Retouch IMAGE 1's player walking sheet to match IMAGE 2 customer pixel-art rendering. Do not copy customer's dress, face or poses. Keep image 1's small tired brown-haired female tavern clerk, cream sleeves, red apron, dark skirt and brown boots. Exactly same 4x2 grid and 8 poses as image 1. Especially preserve that frame 5 has the OPPOSITE leading leg from frame 1. No enlarged head, no changed proportions, no identical feet across frames, no gradients, no antialiasing, no text. Transparent background. Treat source 1 as a locked pose tracing template, only improve the rendering style. Every figure is a right-facing side profile."
+    },
+    {
+      "direction": "West",
+      "file": "exec-d030bcf0-ac1d-4e34-b6bd-192ae8d24ea0.png",
+      "prompt": "Edit IMAGE 1 in place. This is not a redesign or new animation. Preserve the 8 walking figures' silhouettes and exact poses pixel-for-pixel in relative coordinates: same head, torso, elbow, hand, knee, toe and heel locations for each corresponding cell. Use IMAGE 2 solely for line quality, palette clustering and clean pixel drawing technique. Retouch IMAGE 1's player walking sheet to match IMAGE 2 customer pixel-art rendering. Do not copy customer's dress, face or poses. Keep image 1's small tired brown-haired female tavern clerk, cream sleeves, red apron, dark skirt and brown boots. Exactly same 4x2 grid and 8 poses as image 1. Especially preserve that frame 5 has the OPPOSITE leading leg from frame 1. No enlarged head, no changed proportions, no identical feet across frames, no gradients, no antialiasing, no text. Transparent background. Treat source 1 as a locked pose tracing template, only improve the rendering style. Every figure is a left-facing side profile."
+    },
+    {
+      "direction": "South",
+      "file": "exec-495fa8a5-7335-484c-bc6c-5c63eaa9ac1f.png",
+      "prompt": "Edit IMAGE 1 in place. This is not a redesign or new animation. Preserve the 8 walking figures' silhouettes and exact poses pixel-for-pixel in relative coordinates: same head, torso, elbow, hand, knee, toe and heel locations for each corresponding cell. Use IMAGE 2 solely for line quality, palette clustering and clean pixel drawing technique. Retouch IMAGE 1's player walking sheet to match IMAGE 2 customer pixel-art rendering. Do not copy customer's dress, face or poses. Keep image 1's small tired brown-haired female tavern clerk, cream sleeves, red apron, dark skirt and brown boots. Exactly same 4x2 grid and 8 poses as image 1. Especially preserve that frame 5 has the OPPOSITE leading leg from frame 1. No enlarged head, no changed proportions, no identical feet across frames, no gradients, no antialiasing, no text. Transparent background. Treat source 1 as a locked pose tracing template, only improve the rendering style. Every figure faces straight toward viewer. Keep the existing tired half-lidded eyes."
+    },
+    {
+      "direction": "North",
+      "file": "exec-a5fd6ab7-4b0e-4de9-952a-7f6013ad3370.png",
+      "prompt": "Edit IMAGE 1 in place. This is not a redesign or new animation. Preserve the 8 walking figures' silhouettes and exact poses pixel-for-pixel in relative coordinates: same head, torso, elbow, hand, knee, toe and heel locations for each corresponding cell. Use IMAGE 2 solely for line quality, palette clustering and clean pixel drawing technique. Retouch IMAGE 1's player walking sheet to match IMAGE 2 customer pixel-art rendering. Do not copy customer's dress, face or poses. Keep image 1's small tired brown-haired female tavern clerk, cream sleeves, red apron, dark skirt and brown boots. Exactly same 4x2 grid and 8 poses as image 1. Especially preserve that frame 5 has the OPPOSITE leading leg from frame 1. No enlarged head, no changed proportions, no identical feet across frames, no gradients, no antialiasing, no text. Transparent background. Treat source 1 as a locked pose tracing template, only improve the rendering style. Every figure faces straight AWAY from viewer, full rear view, no face visible."
+    }
+  ]
+}

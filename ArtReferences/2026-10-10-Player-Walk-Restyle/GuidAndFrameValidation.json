@@ -1,0 +1,37 @@
+{
+  "preservedFrameGuids": 64,
+  "directions": {
+    "East": {
+      "frames": 8,
+      "uniqueFrames": 8
+    },
+    "North": {
+      "frames": 8,
+      "uniqueFrames": 8
+    },
+    "North-East": {
+      "frames": 8,
+      "uniqueFrames": 8
+    },
+    "North-West": {
+      "frames": 8,
+      "uniqueFrames": 8
+    },
+    "South": {
+      "frames": 8,
+      "uniqueFrames": 8
+    },
+    "South-East": {
+      "frames": 8,
+      "uniqueFrames": 8
+    },
+    "South-West": {
+      "frames": 8,
+      "uniqueFrames": 8
+    },
+    "West": {
+      "frames": 8,
+      "uniqueFrames": 8
+    }
+  }
+}

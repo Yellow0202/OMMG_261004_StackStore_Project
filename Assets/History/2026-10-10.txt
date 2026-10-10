@@ -79,3 +79,11 @@ Unity 검증 결과: IDLE_FRONT_IMPORT_PASSED. 7개 단일 스프라이트, 1254
 정렬: 원본 PNG는 유지하고 임포트 Pixels Per Unit/발 피벗을 계산해 기존 정면 이동 스프라이트의 표시 높이와 일치시킴. 기존 이동 클립·프레임 데이터는 유지. 이동 애니메이션 다시 빌드 시 새 Idle 연결도 유지.
 검증: 격리 Unity에서 PLAYER_IDLE_ASSETS_PASSED. 8방향 전용 이미지/높이/발 기준 검증 통과. Play에서 8방향 이동→정지, 순간이동, 비활성/재활성 전환 검사 PLAYER_ANIMATION_PLAY_CHECKS_PASSED. 작은 손 표현은 픽셀 밀도에 맞춰 단순화.
 기록: 내장 imagegen 생성 프롬프트와 검증 정보는 ArtReferences/2026-10-10-Player-Eight-Idle.
+
+[추가 작업: 플레이어 워킹 그림체 통일]
+지시: 플레이어 이동 애니메이션을 손님 리소스와 동일한 그림체로 교체하되 기존 워킹 포즈 유지.
+수행: 기존 8방향 8프레임을 포즈 참고 시트로 보관하고 손님 도트 표현을 기준으로 방향별 워킹 원본 시트 생성. 자세가 달라진 최초 시도는 제외하고 기존 프레임을 직접 참조하여 재생성. 기존 Walk 경로/GUID와 프레임 순서를 유지하며 64개 PNG 교체. 256x256 프레임, 발 기준 피벗, Point 필터/무압축/밉맵 없음 적용. 기존 8방향 전용 Idle 원본 유지.
+도구: HexPlayerWalkSheetAuthoring 추가. 원본의 연결된 인물 8개를 순서대로 분리하고 동일 배율로 정렬하여 저장. authoredHeight/alphaCutoff/framePadding/frameCanvasSize/frameBodyHeight를 공용 ScriptableObject 플레이어 애니메이션 항목에 추가. 조절 안내와 스크립트 문서 갱신.
+검증: 격리 Unity 임포트/64프레임 연결/8방향 및 카메라 기준 매핑/Idle 높이와 발 피벗 검사 통과. Play에서 8방향 이동→Idle, 순간이동 및 비활성/재활성 검사 통과. 원본 및 분할 결과 시각 비교와 PNG 투명 여백/잘림 검사. 프레임은 기존 포즈 기준 재묘사이며 그림체에 따른 윤곽/세부 묘사 차이는 있음.
+기록: ArtReferences/2026-10-10-Player-Walk-Restyle에 최종 생성 프롬프트, 기존/교체 비교 시트, 반복 재생 미리보기와 검증 결과 보관.
+보류: 없음. 사용자 씬/빌드 설정 및 무관한 기록 변경은 커밋 대상에서 제외.

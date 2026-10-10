@@ -34,6 +34,13 @@ public sealed class HexTestSettings : ScriptableObject
         [Min(0)] public float minimumMovement=.0001f;
         [Min(.01f)] public float teleportDistance=2;
         [Min(.01f)] public float scale=1;
+        [Header("워킹 시트 재분할 메뉴 실행 시 반영")]
+        [Min(.1f)] public float authoredHeight=1.208333f;
+        [Range(1,254)] public int alphaCutoff=128;
+        [Range(1,8)] public int framePadding=2;
+        [Range(128,512)] public int frameCanvasSize=256;
+        [Tooltip("방향별 첫 포즈의 신체 높이. 나머지 프레임에도 같은 배율을 적용합니다.")]
+        [Range(64,400)] public int frameBodyHeight=192;
     }
     [Header("카메라 / 즉시 반영")] public CameraOptions camera = new CameraOptions();
     [Header("2D 표시 / 즉시 반영")] public VisualOptions visual = new VisualOptions();

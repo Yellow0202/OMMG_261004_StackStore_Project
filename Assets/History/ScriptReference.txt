@@ -1285,6 +1285,7 @@ Assets/Prototypes/HexWorld/Scripts/HexWorldInput.cs
 HexPlayerAnimationSet.cs: 카메라 기준 N/NE/E/SE/S/SW/W/NW 순서의 걷기 클립, 8개 원본 프레임 배열과 정지 스프라이트를 관리하는 ScriptableObject. IsValid로 8방향 참조를 검사.
 HexPlayerAnimation.cs: Configure가 플레이어와 공용 설정을 연결하고 기본 스프라이트 색을 흰색으로 초기화. LateUpdate가 실제 XZ 이동을 감지해 방향별 원본 프레임을 재생. DirectionFor가 카메라 수평 회전을 고려해 방향 계산. clock은 개별 플레이어의 재생 시각, direction은 마지막 방향, previous는 이전 위치, originalScale은 원래 크기. Moving/Direction으로 현재 재생 상태 조회. 정지/순간이동 때 정지 프레임 사용. 비활성화 후 다시 켜지면 이전 위치 초기화.
 HexTestSettings.PlayerAnimationOptions: clips, framesPerSecond, minimumMovement, teleportDistance, scale을 공용 테스트 값으로 제공.
+추가 워킹 임포트 값: authoredHeight, alphaCutoff, framePadding, frameCanvasSize, frameBodyHeight. 원본 시트 재분할 메뉴 실행 시 사용.
 HexSettingsBinding.Awake: 서비스 담당 플레이어에 HexPlayerAnimation을 연결. 기존 씬 및 손님/직원 리소스는 교체하지 않음.
 HexWorldActor.externalAnimation: 플레이어 전용 애니메이션이 표시 중인 스프라이트를 기존 2프레임 루프가 덮어쓰지 않도록 함.
 Editor/HexPlayerAnimationAuthoring.cs: Build로 64개 프레임 임포트, 8개 반복 클립, PlayerAnimationSet 및 테스트 설정 참조 생성. Validate로 모든 프레임 샘플링과 8방향/카메라 회전 매핑 검증.
@@ -1334,3 +1335,5 @@ BackgroundLayer.horizontalCopies: 가로 이미지 반복 수. 원본 도트 비
 
 HexPlayerIdleAuthoring.cs: Build는 Idle 폴더의 8방향 원본을 단일 Sprite로 임포트하고 PlayerAnimationSet.idle에 연결한다. Body는 투명 알파 경계로 신체 영역을 측정한다. 기존 정면 이동 Sprite의 보이는 높이에서 PPU를 계산하며 발 하단을 피벗으로 등록. Idle_방향.anim은 한 이미지가 반복되는 대기 클립. Validate는 참조 방향, 표시 높이 및 발 위치 일치 확인.
 HexPlayerAnimationAuthoring.Build: 이동 리소스 재생성 후 Idle 폴더가 있으면 전용 Idle 재연결. HexPlayerAnimation의 기존 정지 분기가 전용 idle[direction]을 표시하므로 런타임 방향 계산은 동일.
+
+HexPlayerWalkSheetAuthoring.cs: Build가 WalkSources의 8방향 시트를 Slice하고 기존 이동 클립/Idle 연결을 재빌드한다. Slice는 알파로 연결된 인물 8개를 찾고 4열 2행 순서로 정렬하여 동일한 정사각 프레임에 발 하단과 머리 중심을 맞춰 저장한다. 포즈를 합성하지 않으며 원본 프레임 순서대로 분리한다. Validate는 64개 프레임의 경로/순서/크기/발 피벗/Point 임포트를 확인한다. 기존 Walk 파일의 meta/GUID는 유지한다.

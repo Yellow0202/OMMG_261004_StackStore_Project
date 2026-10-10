@@ -1,0 +1,10 @@
+플레이어 워킹 스프라이트 그림체 교체
+
+생성: 내장 imagegen 사용. SelectedPrompts.json이 최종 선택 이미지의 방향별 프롬프트이며 Prompts.json은 최초 생성 시도 기록.
+참조: 기존 플레이어 워킹의 8방향 8프레임을 PoseReferences에 정수 3배 확대 보관. 손님 Female-01/South_Frames.png의 외곽선/도트/음영 표현을 그림체 참조로 사용.
+최종 원본: Assets/Prototypes/HexWorld/Art/PlayerAnimation/WalkSources/{방향}.png
+적용 결과: 기존 Walk/{방향}/{방향}_0001~0008.png 경로/GUID를 유지하여 64프레임 교체. 원본에서 인물별 분리, 동일 배율의 최근접 샘플링, 256x256 캔버스와 발 피벗 정렬. 프레임별 포즈를 코드로 합성하지 않음.
+포즈 검수: 기존 시트와 각 방향 재묘사 시트를 비교. 좌우 팔 움직임, 작은 보폭, 정면/후면/측면/대각선 방향과 다리 교대 흐름을 기준으로 선택. 최초 생성 중 자세가 달라진 결과는 제외하고 기존 프레임 직접 참조 방식으로 재생성. 그림체 변경에 따른 윤곽/세부 묘사 차이는 있음.
+재생: 기존 8방향 x 8프레임, 기본 10fps, .8초 반복을 유지. 기존 전용 Idle 이미지 유지 및 표시 높이 재정렬.
+검증: Unity 격리 프로젝트의 PLAYER_WALK_SHEETS_PASSED, PLAYER_ANIMATION_VALIDATED, PLAYER_IDLE_ASSETS_PASSED, PLAYER_ANIMATION_PLAY_CHECKS_PASSED. 64개 PNG의 정사각 크기/투명 여백/프레임 경계 잘림 검사.
+시각 자료: 방향-Imported.png(분할 후), 방향-Pose-Comparison.png(위 기존/아래 교체), Eight-Direction-Preview.gif(10fps 반복).

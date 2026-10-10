@@ -1,0 +1,42 @@
+{
+  "checks": "MARKET_ENVIRONMENT_PLAY_PASSED: seven floor mappings, six neighbour flags/textures, ownership, ghost visibility, stable anchors/colliders, before/after blending, three angles and far-zoom renders.",
+  "centerPreservation": [
+    {
+      "worldCenter": [
+        0,
+        0
+      ],
+      "maximumCenterPixelDifference": 0
+    },
+    {
+      "worldCenter": [
+        2.42487113,
+        0
+      ],
+      "maximumCenterPixelDifference": 0
+    },
+    {
+      "worldCenter": [
+        1.212435565,
+        -2.1
+      ],
+      "maximumCenterPixelDifference": 0
+    },
+    {
+      "worldCenter": [
+        -1.212435565,
+        -2.1
+      ],
+      "maximumCenterPixelDifference": 0
+    },
+    {
+      "worldCenter": [
+        -2.42487113,
+        0
+      ],
+      "maximumCenterPixelDifference": 0
+    }
+  ],
+  "changedBoundaryPixels": 176688,
+  "defaultBlendWidthMeters": 0.45
+}

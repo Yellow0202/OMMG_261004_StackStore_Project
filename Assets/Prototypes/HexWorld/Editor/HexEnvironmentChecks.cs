@@ -42,15 +42,31 @@ public static class HexEnvironmentChecks
                 test.Show(false,null);if(test.surface.enabled)throw new Exception("Unowned floor visible");
                 test.Show(true,board.tileTypes[0],new Color(0,1,0,.4f));if(test.surface.enabled)throw new Exception("Preview covers installed floor");
             }
-            finally{UnityEngine.Object.Destroy(test.gameObject);}
+            finally{UnityEngine.Object.DestroyImmediate(test.gameObject);}
             foreach(var kind in new[]{HexTileKind.Table,HexTileKind.Kitchen,HexTileKind.Storage,HexTileKind.Lodging})
             {
                 var definition=board.tileTypes.First(x=>x.kind==kind);int index=Array.IndexOf(new[]{HexTileKind.Table,HexTileKind.Kitchen,HexTileKind.Storage,HexTileKind.Lodging},kind);
                 board.Grant(definition,1);if(!board.Layout.TryPlace(0,HexBoardModel.Directions[index],definition))throw new Exception("Placement failed");
             }
             board.Refresh();environment.Refresh();
+            foreach(var tile in board.authoredTiles.Where(x=>board.Model.IsOwned(x.coordinate)))
+            {
+                var properties=new MaterialPropertyBlock();tile.surface.GetPropertyBlock(properties);
+                var flagsA=properties.GetVector("_OwnedA");var flagsB=properties.GetVector("_OwnedB");
+                for(int d=0;d<6;d++)
+                {
+                    var neighbor=tile.coordinate+HexBoardModel.Directions[d];bool owned=board.Model.IsOwned(neighbor);
+                    if((d<4?flagsA[d]:flagsB[d-4])!=(owned?1:0))throw new Exception("Wrong blend neighbour "+d);
+                    if(owned)
+                    {
+                        var definition=board.Model.Definition(neighbor);
+                        if(properties.GetTexture("_Neighbor"+d)!=theme.Floor(definition?definition.kind:HexTileKind.DisplayShelf).GetTexture("_BaseMap"))throw new Exception("Wrong neighbour texture");
+                    }
+                }
+            }
             if(board.authoredTiles.Count(x=>x.surface.enabled)!=board.Model.OwnedCount)throw new Exception("Owned floor visibility mismatch");
             if(environment.GetComponentsInChildren<Collider>().Length!=0)throw new Exception("Environment blocks movement");
+            CaptureFloorComparison(board,theme,environment);
             // Render at camera limits as well as the initial angle, using the actual URP camera.
             foreach(float pitch in new[]{4f,30f,50f})
             {
@@ -67,7 +83,7 @@ public static class HexEnvironmentChecks
                 foreach(var facing in UnityEngine.Object.FindObjectsByType<HexCameraFacingSprite>(FindObjectsSortMode.None))facing.FaceCamera();
                 Capture(Camera.main,"Market-FarZoom-Pitch-"+pitch.ToString("0")+".png");
             }
-            Debug.Log("MARKET_ENVIRONMENT_PLAY_PASSED: seven floor mappings, ownership, ghost visibility, stable anchors/colliders, actual placements, three angles and far-zoom renders.");
+            Debug.Log("MARKET_ENVIRONMENT_PLAY_PASSED: seven floor mappings, six neighbour flags/textures, ownership, ghost visibility, stable anchors/colliders, before/after blending, three angles and far-zoom renders.");
         }
         catch(Exception exception){Debug.LogException(exception);result=1;}
         finally{EditorApplication.Exit(result);}
@@ -78,11 +94,32 @@ public static class HexEnvironmentChecks
         var previous=RenderTexture.active;
         try
         {
-            target.Create();RenderPipeline.SubmitRenderRequest(camera,new UniversalRenderPipeline.SingleCameraRequest{destination=target});
+            target.Create();var request=new UniversalRenderPipeline.SingleCameraRequest{destination=target};
+            RenderPipeline.SubmitRenderRequest(camera,request);RenderPipeline.SubmitRenderRequest(camera,request);
             RenderTexture.active=target;image.ReadPixels(new Rect(0,0,1280,720),0,0);image.Apply();
-            string directory=Path.GetFullPath("../../ArtReferences/2026-10-10-Market-Environment");Directory.CreateDirectory(directory);
+            string directory=Path.GetFullPath("../../ArtReferences/2026-10-10-Floor-Blending");Directory.CreateDirectory(directory);
             File.WriteAllBytes(Path.Combine(directory,name),image.EncodeToPNG());
         }
         finally{RenderTexture.active=previous;target.Release();UnityEngine.Object.DestroyImmediate(target);UnityEngine.Object.DestroyImmediate(image);}
+    }
+    static void CaptureFloorComparison(HexTileBoard board,HexEnvironmentTheme theme,HexMarketEnvironment environment)
+    {
+        var camera=Camera.main;var position=camera.transform.position;var rotation=camera.transform.rotation;
+        bool orthographic=camera.orthographic;float size=camera.orthographicSize,width=theme.floorBlendWidth;int mask=camera.cullingMask;
+        var objects=board.authoredTiles.Select(x=>x.surface.gameObject).Append(environment.ground.gameObject).ToArray();
+        var layers=objects.Select(x=>x.layer).ToArray();
+        try
+        {
+            foreach(var go in objects)go.layer=31;
+            camera.cullingMask=1<<31;camera.orthographic=true;camera.orthographicSize=3.3f;
+            camera.transform.SetPositionAndRotation(new Vector3(0,12,-.9f),Quaternion.Euler(90,0,0));
+            theme.floorBlendWidth=0;board.Refresh();Capture(camera,"Floor-Before.png");
+            theme.floorBlendWidth=width;board.Refresh();Capture(camera,"Floor-After.png");
+        }
+        finally
+        {
+            theme.floorBlendWidth=width;board.Refresh();camera.cullingMask=mask;camera.orthographic=orthographic;camera.orthographicSize=size;
+            camera.transform.SetPositionAndRotation(position,rotation);for(int i=0;i<objects.Length;i++)objects[i].layer=layers[i];
+        }
     }
 }

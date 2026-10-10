@@ -25,7 +25,8 @@ public sealed class HexTileView : MonoBehaviour
         surface.sharedMaterial=material;
         surface.GetComponent<MeshFilter>().sharedMesh=theme.floorMesh;
         if(floorProperties==null)floorProperties=new MaterialPropertyBlock();
-        floorProperties.Clear();floorProperties.SetFloat("_Height",theme.floorHeight);surface.SetPropertyBlock(floorProperties);
+        floorProperties.Clear();floorProperties.SetFloat("_Height",theme.floorHeight);
+        HexFloorBlend.Apply(floorProperties,theme,layout,floor,coordinate);surface.SetPropertyBlock(floorProperties);
     }
     public void Show(bool owned, HexTileDefinition definition, Color? highlight = null)
     {
@@ -40,6 +41,7 @@ public sealed class HexTileView : MonoBehaviour
     public void ShowShop(HexShopLayout layout,int floor,bool owned)
     {
         this.layout=layout;this.floor=floor;this.owned=owned;
+        if(HexTestSettings.Current)ApplyFloor(HexTestSettings.Current.environment,shownOwned&&!ghostFloor,shownDefinition);
         for(int d=0;d<walls.Length;d++)
         {
             var edge=new HexWallEdge(coordinate,d);

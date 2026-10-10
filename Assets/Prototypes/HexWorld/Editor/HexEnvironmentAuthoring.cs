@@ -27,7 +27,7 @@ public static class HexEnvironmentAuthoring
     }
     static Material Material(string name,Texture2D texture)
     {
-        var shader=Shader.Find("StackStore/EnvironmentUnlit");if(!shader)throw new Exception("Environment shader missing");
+        var shader=Shader.Find(name.StartsWith("Floor_")?"StackStore/HexFloorBlend":"StackStore/EnvironmentUnlit");if(!shader)throw new Exception("Environment shader missing");
         var material=Asset(Art+"/"+name+".mat",()=>new Material(shader));
         material.shader=shader;material.SetTexture("_BaseMap",texture);EditorUtility.SetDirty(material);return material;
     }
@@ -89,7 +89,12 @@ public static class HexEnvironmentAuthoring
     {
         var theme=AssetDatabase.LoadAssetAtPath<HexEnvironmentTheme>(Root+"/Data/Environments/MarketEnvironment.asset");
         if(!theme||theme.floors.Length!=7||!theme.floorMesh||theme.floorMesh.vertexCount!=7)throw new Exception("Incomplete floor art");
-        foreach(HexTileKind kind in Enum.GetValues(typeof(HexTileKind)))if(!theme.Floor(kind)||!theme.Floor(kind).GetTexture("_BaseMap"))throw new Exception("Missing "+kind);
+        foreach(HexTileKind kind in Enum.GetValues(typeof(HexTileKind)))
+        {
+            var material=theme.Floor(kind);
+            if(!material||!material.GetTexture("_BaseMap"))throw new Exception("Missing "+kind);
+            if(ShaderUtil.ShaderHasError(material.shader))throw new Exception("Floor shader errors: "+kind);
+        }
         if(!theme.backdropMaterial||!theme.groundMaterial)throw new Exception("Missing market art");
         var prefab=AssetDatabase.LoadAssetAtPath<GameObject>(Root+"/Prefabs/MarketEnvironment.prefab");
         if(!prefab||prefab.GetComponentsInChildren<Collider>().Length!=0)throw new Exception("Decorations must not block paths");

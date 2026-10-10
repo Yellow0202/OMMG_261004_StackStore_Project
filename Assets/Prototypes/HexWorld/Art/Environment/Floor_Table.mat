@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Floor_Table
-  m_Shader: {fileID: 4800000, guid: 874cae033e272534ea5b3befaa2ea8c7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 79ef0c398852daf498bea8d211c17c3e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -27,11 +27,57 @@ Material:
         m_Texture: {fileID: 2800000, guid: 20cd04ea3ec76d14482ac444d75928f3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _GroundMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Neighbor0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Neighbor1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Neighbor2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Neighbor3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Neighbor4:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Neighbor5:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BlendWidth: 0.45
     - _Contrast: 1
+    - _GroundContrast: 0.5
+    - _GroundMeters: 2.8
     - _Height: 0
+    - _NeighborContrast0: 1
+    - _NeighborContrast1: 1
+    - _NeighborContrast2: 1
+    - _NeighborContrast3: 1
+    - _NeighborContrast4: 1
+    - _NeighborContrast5: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GroundTint: {r: 1, g: 1, b: 1, a: 1}
+    - _NeighborTint0: {r: 1, g: 1, b: 1, a: 1}
+    - _NeighborTint1: {r: 1, g: 1, b: 1, a: 1}
+    - _NeighborTint2: {r: 1, g: 1, b: 1, a: 1}
+    - _NeighborTint3: {r: 1, g: 1, b: 1, a: 1}
+    - _NeighborTint4: {r: 1, g: 1, b: 1, a: 1}
+    - _NeighborTint5: {r: 1, g: 1, b: 1, a: 1}
+    - _OwnedA: {r: 0, g: 0, b: 0, a: 0}
+    - _OwnedB: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

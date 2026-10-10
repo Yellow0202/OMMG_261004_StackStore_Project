@@ -30,6 +30,7 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: f7220daa1a9ecab48b7986a0d347a2c1, type: 2}
   floorMesh: {fileID: 4300000, guid: a93aa34c825aa9445823540ca8ea0964, type: 2}
   floorHeight: 0.215
+  floorBlendWidth: 0.45
   groundMaterial: {fileID: 2100000, guid: 08eef0aaf4748854b8879dfc3f6bd51c, type: 2}
   groundTint: {r: 1, g: 1, b: 1, a: 1}
   groundContrast: 0.5

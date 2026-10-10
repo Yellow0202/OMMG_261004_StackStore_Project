@@ -11,6 +11,8 @@ public sealed class HexEnvironmentTheme : ScriptableObject
     public FloorArt[] floors;
     public Mesh floorMesh;
     public float floorHeight=.215f;
+    [Header("바닥 경계 융화 / 월드 단위 / 0이면 기존 경계")]
+    [Range(0,1)] public float floorBlendWidth=.45f;
     [Header("시장 지면 / 월드 단위")]
     public Material groundMaterial;
     public Color groundTint=Color.white;

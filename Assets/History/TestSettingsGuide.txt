@@ -94,3 +94,8 @@ PrototypeTestSettings.asset > 환경(environment)에 MarketEnvironment.asset 연
 - Backdrop Distance: 가게 범위 뒤로 띄울 거리. Width/Height: 배경 크기(현재 원본 3:1 비율 권장). Base Height: 이미지 바닥선 높이.
 - Hierarchy > Village Market Environment: 저장된 배경 프리팹. Market Paving와 Distant Market Panorama를 에디터에서도 확인 가능.
 테마를 별도 ScriptableObject로 두었으며 향후 다른 장소 테마로 교체 가능. 단계 진행/자동 해금 로직은 이번 범위에 포함하지 않음.
+
+
+[바닥 경계 융화]
+PrototypeTestSettings > 환경 > 연결된 MarketEnvironment 원본의 Floor Blend Width 조절.
+기본 .45(월드 단위). 0은 경계를 섞지 않음. 값을 높이면 더 넓은 가장자리에서 이웃 바닥/시장 지면과 혼합됨. 최대 1이며 역할별 중앙 특징은 유지. Play 중 즉시 반영. 미소유 셀에는 별도 바닥을 생성하지 않음.

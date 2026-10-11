@@ -9,14 +9,17 @@ public sealed class HexMarketEnvironment : MonoBehaviour
     public MeshRenderer[] backgroundLayers;
     HexTileBoard board;
     MaterialPropertyBlock properties;
+    readonly HexExteriorFog fog=new HexExteriorFog();
     public HexEnvironmentTheme Theme => HexTestSettings.Current&&Application.isPlaying?HexTestSettings.Current.environment:settings?settings.environment:null;
     void OnEnable(){Refresh();}
+    void OnDisable(){fog.Dispose();}
     void LateUpdate(){Refresh();}
     public void Refresh()
     {
         var theme=Theme;if(!theme||!ground||!backdrop)return;
         if(properties==null)properties=new MaterialPropertyBlock();
         if(!board)board=Object.FindFirstObjectByType<HexTileBoard>();
+        fog.Refresh(board,settings,Camera.main);
         var center=Vector3.zero;var size=Vector3.zero;
         if(board&&board.Model!=null)
         {

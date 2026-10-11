@@ -156,3 +156,10 @@ Stop Grace Seconds(.1): 길찾기의 잠깐 멈춤을 보행으로 유지하는 
 직원별 참조: Data/RookieEmployee, PromoterEmployee, VeteranEmployee.asset > Animation. 방향별 데이터: Data/StaffAnimation. 스프라이트와 클립: Art/StaffAnimation. 처음 제작한 정면 Idle 원본은 Art/StaffIdle에 유지.
 
 제작 참고: 보행은 8방향 각각 8프레임, 호흡은 4프레임이다. 서쪽과 앞/뒤 왼쪽 대각선은 오른쪽 방향을 반전한 그림이므로 머리 장식도 반전된다. 고용 후보의 picture는 새 정면 Idle로 연결되어 있으며, color는 기존 단색 fallback용으로 유지한다.
+
+[타일 외부 안개 / 2026-10-11]
+PrototypeTestSettings.asset > 타일 외부 안개(Exterior Fog)에서 조절하며 Play 중 즉시 적용된다.
+Enabled: 전체 효과 켜기/끄기. Color: 흰 안개 색상. Opacity: 전체 농도(기본 1, 완전 가림).
+Feather Width: 소유 타일 바깥 경계가 안개로 퍼지는 월드 폭(기본 1.2). Edge Noise: 경계 흔들림 강도(.15). Drift Speed: 경계 변화 속도(.12).
+Building Frontier Opacity: 배치/이동 등 건축 모드에서 인접 후보 칸의 최대 안개 농도(.35). Reveal Placement Preview: 배치 미리보기 칸을 선명하게 표시.
+소유 타일 설치/이동/회수 및 층 전환에 따라 드러나는 영역이 자동 변경된다. 외부 손님과 머리 위 게이지/이름, 시장 배경도 가려진다. 손님 행동과 길찾기는 변경하지 않는다. 최대 경계 폭 1.4는 인접 육각형 샘플 범위에 맞춘 제한이다.

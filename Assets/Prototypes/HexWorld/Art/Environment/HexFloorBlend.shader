@@ -44,6 +44,7 @@ Shader "StackStore/HexFloorBlend"
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "HexExteriorFog.hlsl"
             TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
             TEXTURE2D(_GroundMap);SAMPLER(sampler_GroundMap);
             TEXTURE2D(_Neighbor0);
@@ -75,7 +76,7 @@ Shader "StackStore/HexFloorBlend"
             half4 Frag(Varyings input):SV_Target
             {
                 half4 own=Tone(SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,input.localXZ/2.8+.5),_BaseColor,_Contrast);
-                if(_BlendWidth<=.0001)return own;
+                if(_BlendWidth<=.0001){own.rgb=HexFogTint(own.rgb,input.worldXZ);return own;}
                 half4 total=own;float sum=1,coverage=1,distance,weight;
                 float width=max(.0001,_BlendWidth);
                 distance=1.212435565-dot(input.localXZ,float2(1,0));
@@ -127,7 +128,7 @@ Shader "StackStore/HexFloorBlend"
                 }
                 else coverage=min(coverage,1-weight);
                 half4 ground=Tone(SAMPLE_TEXTURE2D(_GroundMap,sampler_GroundMap,input.worldXZ/max(.1,_GroundMeters)),_GroundTint,_GroundContrast);
-                return lerp(ground,total/sum,coverage);
+                half4 result=lerp(ground,total/sum,coverage);result.rgb=HexFogTint(result.rgb,input.worldXZ);return result;
             }
             ENDHLSL
         }

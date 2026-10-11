@@ -7,6 +7,19 @@ public sealed class HexTestSettings : ScriptableObject
 {
     [Header("환경 / 현재 장소의 바닥·배경 / 즉시 반영")]
     public HexEnvironmentTheme environment;
+    [Header("타일 외부 안개 / 즉시 반영")]
+    public ExteriorFogOptions exteriorFog = new ExteriorFogOptions();
+    [Serializable] public sealed class ExteriorFogOptions
+    {
+        public bool enabled=true;
+        public Color color=Color.white;
+        [Range(0,1)] public float opacity=1;
+        [Range(.01f,1.4f)] public float featherWidth=1.2f;
+        [Range(0,.5f)] public float edgeNoise=.15f;
+        [Min(0)] public float driftSpeed=.12f;
+        [Range(0,1)] public float buildingFrontierOpacity=.35f;
+        public bool revealPlacementPreview=true;
+    }
     [Header("가구·착석 / 즉시 반영")]
     public InteriorOptions interior = new InteriorOptions();
     [Serializable] public sealed class InteriorOptions

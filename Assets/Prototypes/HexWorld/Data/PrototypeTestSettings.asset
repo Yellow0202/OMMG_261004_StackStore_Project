@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: PrototypeTestSettings
   m_EditorClassIdentifier:
   environment: {fileID: 11400000, guid: b2b7086df730d0c4e93d558179e640bd, type: 2}
+  exteriorFog:
+    enabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    opacity: 1
+    featherWidth: 1.2
+    edgeNoise: 0.15
+    driftSpeed: 0.12
+    buildingFrontierOpacity: 0.35
+    revealPlacementPreview: 1
   interior:
     furnitureScale: 1
     furnitureSizes:

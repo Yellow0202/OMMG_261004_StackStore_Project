@@ -15,7 +15,7 @@ MonoBehaviour:
   key: lodging
   nameKey: shop.tile.lodging
   descriptionKey: shop.tile.lodging.description
-  icon: {fileID: 21300000, guid: 9c3a62b002d03cd4b8e4553e17b3f3f0, type: 3}
+  icon: {fileID: 21300000, guid: 1f23a10497382f64398f6a5639a796a7, type: 3}
   color: {r: 0.495, g: 0.5181428, b: 0.9, a: 1}
   kind: 5
   worldSprite: {fileID: 21300000, guid: 9c61cf8a31dd63641be9ccea029907ec, type: 3}

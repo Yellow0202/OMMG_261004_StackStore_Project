@@ -37,3 +37,10 @@
 수행: 내장 imagegen으로 투명 배경 아이콘 6종 제작, 64x64 Point/무압축 스프라이트로 임포트. 원본·프롬프트·가공 스크립트·원본 크기 및 정수 2배 검수 이미지는 ArtReferences/2026-10-11-Tavern-Items에 보관.
 검증: 격리된 Unity 프로젝트에서 배치 컴파일 및 HEX_MORE_ITEMS_VALIDATED/AUTHORED 통과. Play에서 HEX_MORE_ITEMS_PLAY_PASSED 통과: 6종 획득/중첩/최대 레벨, 최대 레벨 보상 제외, 골드 미소비, 테이블/외부 보상과 인내심 구분, 조리/배달 속도, 양 언어 데이터 치환, 기존 접객/벽 경로 검사. 아이콘 원본 크기/정수 확대 검수.
 미완료·보류: 없음. 이번 아이템은 레벨업 보상으로 획득하며 상점 상품 구성은 변경하지 않음.
+
+[타일 아이콘 추가]
+지시: 타일 아이콘도 추가.
+수행: 진열대/테이블/주방/창고/계단/숙박/출입구 7종의 도트 UI 아이콘을 내장 imagegen으로 제작. 64x64 투명 Point/무압축 Sprite로 임포트하고 각 타일의 icon 참조 및 타일형 상점 상품 picture에 연결. 기존 보상 선택 UGUI가 타일 아이콘을 표시. 월드 그래픽, 가구 프리팹, 능력치는 유지.
+검증: 원본 크기 및 정수 2배 확대본 검수. 격리 Unity 프로젝트 컴파일과 HEX_TILE_ICONS_VALIDATED 통과, 배치 종료 코드 0. 7종 서로 다른 아이콘/크기, 월드 그래픽 참조 보존 및 상점 연결 일치 확인.
+기록: ArtReferences/2026-10-11-Tile-Icons에 원본, Prompts.json, 가공 스크립트, 검수 이미지 저장. ScriptReference/TestSettingsGuide 갱신.
+미완료·보류: 없음.

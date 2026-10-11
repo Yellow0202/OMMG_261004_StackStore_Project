@@ -15,7 +15,7 @@ MonoBehaviour:
   key: display_shelf
   nameKey: hex.tile.shelf
   descriptionKey: hex.tile.description
-  icon: {fileID: 21300000, guid: 78b86dfc0b38df14f8372dafe42135fe, type: 3}
+  icon: {fileID: 21300000, guid: 1a3f158da7060164d96098b8cab5cb4b, type: 3}
   color: {r: 0.85, g: 0.55, b: 0.23, a: 1}
   kind: 0
   worldSprite: {fileID: 21300000, guid: 40a0f843fe29d9e43a4a138b42820dee, type: 3}

@@ -1,0 +1,40 @@
+{
+  "mode": "builtin",
+  "assets": [
+    {
+      "name": "DisplayShelf",
+      "prompt": "Create one clean pixel art inventory icon: wooden market display shelf with colorful food jars. Fantasy tavern game, warm brown wood, burgundy and muted gold accents, dark pixel outlines, simple broad shadows, crisp square pixels, readable silhouette at 64x64. Slight three-quarter view. Center one compact isolated object with generous transparent margin. No text, no scenery, no badge, no hexagon background. Transparent background. Match a cohesive Japanese fantasy pixel game UI icon set.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-c63e27cb-57d4-4e10-8269-005e17ce136b.png"
+    },
+    {
+      "name": "Table",
+      "prompt": "Create one clean pixel art inventory icon: round wooden tavern dining table with two chairs and a mug. Fantasy tavern game, warm brown wood, burgundy and muted gold accents, dark pixel outlines, simple broad shadows, crisp square pixels, readable silhouette at 64x64. Slight three-quarter view. Center one compact isolated object with generous transparent margin. No text, no scenery, no badge, no hexagon background. Transparent background. Match a cohesive Japanese fantasy pixel game UI icon set.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-28a6f4f8-5f5e-4f7b-af55-7ccf12cf4b78.png"
+    },
+    {
+      "name": "Kitchen",
+      "prompt": "Create one clean pixel art inventory icon: tavern cooking stove and copper cooking pot. Fantasy tavern game, warm brown wood, burgundy and muted gold accents, dark pixel outlines, simple broad shadows, crisp square pixels, readable silhouette at 64x64. Slight three-quarter view. Center one compact isolated object with generous transparent margin. No text, no scenery, no badge, no hexagon background. Transparent background. Match a cohesive Japanese fantasy pixel game UI icon set.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-7d7b4f08-9f8d-4616-b50f-e8138ceb1c3d.png"
+    },
+    {
+      "name": "Storage",
+      "prompt": "Create one clean pixel art inventory icon: wooden supply crate and barrel. Fantasy tavern game, warm brown wood, burgundy and muted gold accents, dark pixel outlines, simple broad shadows, crisp square pixels, readable silhouette at 64x64. Slight three-quarter view. Center one compact isolated object with generous transparent margin. No text, no scenery, no badge, no hexagon background. Transparent background. Match a cohesive Japanese fantasy pixel game UI icon set.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-e8eee9c6-0104-4d56-836f-ccd750d763f1.png"
+    },
+    {
+      "name": "Stairs",
+      "prompt": "Create one clean pixel art inventory icon: short wooden staircase going upward. Fantasy tavern game, warm brown wood, burgundy and muted gold accents, dark pixel outlines, simple broad shadows, crisp square pixels, readable silhouette at 64x64. Slight three-quarter view. Center one compact isolated object with generous transparent margin. No text, no scenery, no badge, no hexagon background. Transparent background. Match a cohesive Japanese fantasy pixel game UI icon set.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-2c65d109-8874-4fd2-91f0-f34e47f2872d.png"
+    },
+    {
+      "name": "Lodging",
+      "prompt": "Create one clean pixel art inventory icon: cozy single wooden bed with burgundy blanket and pillow. Fantasy tavern game, warm brown wood, burgundy and muted gold accents, dark pixel outlines, simple broad shadows, crisp square pixels, readable silhouette at 64x64. Slight three-quarter view. Center one compact isolated object with generous transparent margin. No text, no scenery, no badge, no hexagon background. Transparent background. Match a cohesive Japanese fantasy pixel game UI icon set.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-723243b0-92f3-429e-890c-822df463f885.png"
+    },
+    {
+      "name": "Entrance",
+      "prompt": "Create one clean pixel art inventory icon: open wooden tavern doorway with a welcoming lantern. Fantasy tavern game, warm brown wood, burgundy and muted gold accents, dark pixel outlines, simple broad shadows, crisp square pixels, readable silhouette at 64x64. Slight three-quarter view. Center one compact isolated object with generous transparent margin. No text, no scenery, no badge, no hexagon background. Transparent background. Match a cohesive Japanese fantasy pixel game UI icon set.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-8896d48d-6081-43dc-9399-f0541a534d31.png"
+    }
+  ]
+}

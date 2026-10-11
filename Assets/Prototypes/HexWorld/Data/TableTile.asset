@@ -15,7 +15,7 @@ MonoBehaviour:
   key: table
   nameKey: shop.tile.table
   descriptionKey: shop.tile.table.description
-  icon: {fileID: 21300000, guid: 065c9d094ecc6524a9563a3152451aeb, type: 3}
+  icon: {fileID: 21300000, guid: 9018e45df2ae6c441a3ae88c117efc46, type: 3}
   color: {r: 0.9, g: 0.7032857, b: 0.495, a: 1}
   kind: 1
   worldSprite: {fileID: 21300000, guid: 4fb9e7f4a6dbb694ea612929e006a4b9, type: 3}

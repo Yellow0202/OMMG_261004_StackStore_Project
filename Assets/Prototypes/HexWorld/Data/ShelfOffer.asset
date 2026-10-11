@@ -15,7 +15,7 @@ MonoBehaviour:
   key: ShelfOffer
   nameKey: shop.tile.name
   descriptionKey: shop.tile.desc
-  picture: {fileID: 21300000, guid: 78b86dfc0b38df14f8372dafe42135fe, type: 3}
+  picture: {fileID: 21300000, guid: 1a3f158da7060164d96098b8cab5cb4b, type: 3}
   kind: 0
   price: 3
   tile: {fileID: 11400000, guid: e5fdffdf975192e4098801e0bb870a30, type: 2}

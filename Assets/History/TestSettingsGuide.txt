@@ -140,3 +140,6 @@ ability_courier_boots: 플레이어 배달/복귀 속도 +15%/레벨, 최대 5.
 ability_silver_cutlery: 테이블 접객 골드 +1/레벨, 최대 3. 외부 손님/숙박 제외.
 ability_guest_ledger: 관심 확률 +4%p, 대기 +1초/레벨, 최대 5.
 이름/설명: Data/HexWorldStrings.asset의 item.{아이템 키}.name / description. 아이콘: Art/Items. 레벨업 보상 목록: Data/HexCatalog.asset.
+
+[타일 아이콘 / 2026-10-11]
+Assets/Prototypes/HexWorld/Data의 각 *Tile.asset > Icon에서 UI용 그림을 바꿀 수 있다. 월드 배치용 World Sprite 및 Interior Prefab과 별도다. 원본 아이콘은 Art/TileIcons에 저장하며, 재임포트/참조 연결은 Stack Store > Hex World > Import Tile Icons 메뉴를 사용한다.

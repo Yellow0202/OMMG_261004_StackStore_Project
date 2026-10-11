@@ -1370,3 +1370,7 @@ DeliverySpeedMultiplier: 배달 이동 배율. ServiceReward(baseGold,seatedTabl
 HexFoodService.EffectiveWalkSpeed: 공유 설정의 기본 walkSpeed × 배달 아이템 배율. Move에서 배달/복귀 이동에 사용하며 기본값 자체는 덮어쓰지 않는다.
 HexMoreItemsAuthoring.Run: 아이콘 임포트, 신규 아이템 에셋 생성 및 카탈로그/양 언어 문자열 연결. 이미 있는 아이템 수치와 번역은 재실행해도 보존. Validate는 키/그림/효과/최대 레벨/양 언어 누락 확인.
 HexMoreItemsPlayChecks.Run: 격리 프로젝트 Play 검사. 아이템 중첩/상한, 보상 후보 제외, 테이블 효과 구분, 속도 연결, 골드 미소비, 문자열 치환 및 기존 HexDirectServiceChecks 실행.
+
+[타일 아이콘 / 2026-10-11]
+HexTileIconsAuthoring.Run: Art/TileIcons의 7종 이미지를 64x64 Point/무압축 Sprite로 임포트하고 각 HexTileDefinition.icon에 연결한다. 타일형 상점 상품의 picture도 같은 아이콘으로 갱신한다. 기존 worldSprite, interiorPrefab, 타일 능력치는 유지한다.
+Validate: 서로 다른 7개 아이콘 참조/크기, 기존 월드 그래픽·가구 참조 및 상점 상품과 타일 아이콘 일치를 확인한다. 보상 UGUI는 기존 HexPrototype.RefreshCards에서 tile.icon을 표시한다.

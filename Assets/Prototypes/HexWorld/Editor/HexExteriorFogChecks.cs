@@ -29,13 +29,21 @@ public static class HexExteriorFogChecks
         {
             var board=UnityEngine.Object.FindFirstObjectByType<HexTileBoard>();
             var settings=HexTestSettings.Current;var camera=Camera.main;var options=settings.exteriorFog;
-            foreach(string name in new[]{"EnvironmentUnlit","EnvironmentLayer","HexFloorBlend","HexFogSprite"})
+            foreach(string name in new[]{"EnvironmentUnlit","EnvironmentLayer","HexFloorBlend","HexFogSprite","HexRaisedFog"})
             {
                 var shader=AssetDatabase.LoadAssetAtPath<Shader>(Root+"/Art/Environment/"+name+".shader");
                 Require(shader&&!ShaderUtil.ShaderHasError(shader),"Shader errors: "+name);
             }
             fog.Refresh(board,settings,camera);
             Require(fog.Amount(Vector3.zero,options)==0,"Root is obscured");
+            var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+            var raised=typeof(HexExteriorFog).GetField("raised",flags).GetValue(fog);
+            var rimObject=(GameObject)typeof(HexRaisedFog).GetField("root",flags).GetValue(raised);
+            var rim=rimObject?rimObject.GetComponent<MeshFilter>():null;
+            Require(rim&&rim.sharedMesh.vertexCount>0&&rim.sharedMesh.bounds.size.y>=options.height,"Raised fog has no height");
+            Require(!rim.GetComponent<Collider>(),"Mist blocks movement");
+            options.raisedFog=false;fog.Refresh(board,settings,camera);Require(!rim.gameObject.activeSelf,"Raised toggle failed");
+            options.raisedFog=true;fog.Refresh(board,settings,camera);Require(rim.gameObject.activeSelf,"Raised toggle restore failed");
             var originalBackground=camera.backgroundColor;
             foreach(var tile in board.VisibleTiles.Where(x=>x&&x.gameObject.activeInHierarchy))
                 Require(fog.Amount(HexBoardModel.World(tile.coordinate),options)==0,"Unowned visible tile obscured");
@@ -70,7 +78,7 @@ public static class HexExteriorFogChecks
             }
             options.enabled=false;environment.Refresh();Require(Shader.GetGlobalVector("_HexFogOptions").x==0,"Disable failed");
             options.enabled=true;environment.Refresh();
-            Debug.Log("HEX_EXTERIOR_FOG_VALIDATED: shaders; owned and unowned visible tiles/outside; placement/move/recovery; build frontier/preview; stairs/floors; unaffected backdrop and camera; disable; captures at 4/30/50 degrees.");
+            Debug.Log("HEX_EXTERIOR_FOG_VALIDATED: raised mesh height and toggle; no collider; shaders; owned and unowned visible tiles/outside; placement/move/recovery; build frontier/preview; stairs/floors; unaffected backdrop and camera; disable; captures at 4/30/50 degrees.");
         }
         catch(Exception exception){Debug.LogException(exception);result=1;}
         finally{fog.Dispose();EditorApplication.Exit(result);}
@@ -85,7 +93,7 @@ public static class HexExteriorFogChecks
             RenderTexture.active=target;picture.ReadPixels(new Rect(0,0,1280,720),0,0);picture.Apply();
             string project=Path.GetDirectoryName(Application.dataPath);
             if(project.EndsWith(Path.Combine("Temp","AnimationValidation")))project=Directory.GetParent(project).Parent.FullName;
-            var directory=Path.Combine(project,"ArtReferences","2026-10-11-Tile-Boundary-Fog");Directory.CreateDirectory(directory);
+            var directory=Path.Combine(project,"ArtReferences","2026-10-11-Raised-Fog");Directory.CreateDirectory(directory);
             File.WriteAllBytes(Path.Combine(directory,name),picture.EncodeToPNG());
         }
         finally{RenderTexture.active=previous;target.Release();UnityEngine.Object.DestroyImmediate(target);UnityEngine.Object.DestroyImmediate(picture);}

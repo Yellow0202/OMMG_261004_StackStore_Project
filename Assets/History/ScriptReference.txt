@@ -1399,3 +1399,10 @@ Art/Environment/HexExteriorFog.hlsl: 현재 칸 및 6개 이웃 표시 마스크
 Art/Environment/HexFogSprite.shader: 캐릭터 기준 위치로 안개를 계산하여 빌보드 상단이 잘리지 않게 한다. SpriteRenderer 색/반전/투명도를 유지한다. _FogPerVertex=1인 TileOutline.mat는 월드 정점 기준으로 계산하여 타일 외곽선도 영역 안에서 보인다.
 EnvironmentUnlit/HexFloorBlend.shader: 전체 타일 영역 밖 바닥에 안개 적용. EnvironmentLayer.shader는 안개 미적용이므로 거리별 뒷배경은 항상 보인다.
 Editor/HexExteriorFogChecks.cs: 소유/미소유 타일 표시, 바깥 안개, 설치/이동/회수, 배치/층 전환, 카메라 배경 보존과 단일 뒷배경 예외를 검사하고 4/30/50도 화면을 캡처한다.
+
+[입체 안개 / 2026-10-11]
+Scripts/HexRaisedFog.cs: HexExteriorFog가 관리하는 외곽 입체 효과. Refresh는 Resources/HexRaisedFog.mat를 사용하는 임시 메시/렌더러를 만들고 설정을 반영한다. Build는 표시 타일 중 이웃 타일이 없는 변에만 높이가 있는 면을 여러 깊이 층으로 생성한다. cells/height/depth/layers는 메시 갱신 캐시. 외곽 법선은 카메라 쪽 안개 농도를 낮추는 데 사용. 콜라이더/그림자/소유 판정은 없다. Dispose는 임시 오브젝트와 메시 해제. Edit/Play 모두 기존 환경 Refresh를 통해 표시되며 씬에 임시 효과를 저장하지 않는다.
+Art/Environment/HexRaisedFog.shader: 월드 좌표 3D 노이즈로 구름 농도와 넓은 명암, 상단 흐림과 천천히 움직이는 덩어리를 표현한다. _Cloud는 농도/크기/속도/높이, _NearOpacity는 카메라 쪽 농도 배율. 기존 타일 마스크로 영역 안을 제외한다. 배경 셰이더를 수정하지 않으며 입체 면의 투명도와 깊이 검사로 주변을 에워싼다.
+Resources/HexRaisedFog.mat: 런타임/에디터 공용 효과 머티리얼. Resources 참조로 플레이어 빌드에서도 셰이더가 포함된다. 일반 테스트 값은 이 머티리얼 대신 PrototypeTestSettings의 ExteriorFogOptions에서 조정한다.
+HexExteriorFog.Refresh/Dispose: 기존 전체 타일 마스크와 함께 raised.Refresh/Dispose 호출. Enabled와 Raised Fog 토글은 각각 전체/입체 효과를 제어한다.
+Editor/HexExteriorFogChecks: 입체 메시 높이, 토글, 충돌 없음 검사와 기존 타일/배경 검사 및 4/30/50도 캡처를 포함한다.

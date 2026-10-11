@@ -5,6 +5,7 @@ using UnityEngine.UI;
 /// <summary>World-space visible-tile mask shared by ground and sprite shaders.</summary>
 public sealed class HexExteriorFog
 {
+    readonly HexRaisedFog raised=new HexRaisedFog();
     Texture2D mask;
     Vector4 grid;
     readonly HashSet<Vector2Int> revealed=new HashSet<Vector2Int>();
@@ -17,7 +18,7 @@ public sealed class HexExteriorFog
         var shared=Application.isPlaying&&HexTestSettings.Current?HexTestSettings.Current:settings;
         if(!shared||!shared.exteriorFog.enabled)
         {
-            Shader.SetGlobalVector("_HexFogOptions",Vector4.zero);RestoreCanvases();return;
+            Shader.SetGlobalVector("_HexFogOptions",Vector4.zero);raised.Dispose();RestoreCanvases();return;
         }
         var options=shared.exteriorFog;
         nextCells.Clear();
@@ -38,6 +39,7 @@ public sealed class HexExteriorFog
         bool preview=options.revealPlacementPreview&&board&&board.preview&&board.preview.gameObject.activeInHierarchy;
         var position=preview?HexBoardModel.World(board.preview.coordinate):Vector3.zero;
         Shader.SetGlobalVector("_HexFogPreview",new Vector4(position.x,position.z,1.4f,preview?1:0));
+        raised.Refresh(revealed,options,board?board.transform:null);
         if(Application.isPlaying)
         {
             expired.Clear();foreach(var pair in canvasAlphas)if(!pair.Key)expired.Add(pair.Key);foreach(var key in expired)canvasAlphas.Remove(key);
@@ -85,5 +87,5 @@ public sealed class HexExteriorFog
     }
     void RestoreCanvases(){foreach(var pair in canvasAlphas)if(pair.Key)pair.Key.alpha=pair.Value;canvasAlphas.Clear();}
     void DestroyMask(){if(mask){if(Application.isPlaying)Object.Destroy(mask);else Object.DestroyImmediate(mask);}mask=null;}
-    public void Dispose(){Shader.SetGlobalVector("_HexFogOptions",Vector4.zero);RestoreCanvases();DestroyMask();revealed.Clear();}
+    public void Dispose(){Shader.SetGlobalVector("_HexFogOptions",Vector4.zero);raised.Dispose();RestoreCanvases();DestroyMask();revealed.Clear();}
 }

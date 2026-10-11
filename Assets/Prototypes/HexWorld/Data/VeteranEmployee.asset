@@ -15,7 +15,8 @@ MonoBehaviour:
   key: VeteranEmployee
   nameKey: staff.veteran.name
   descriptionKey: staff.veteran.desc
-  picture: {fileID: 21300000, guid: 2518bafdc41d188419cb8c26b3506722, type: 3}
+  picture: {fileID: 21300000, guid: 700cd42c1e0117e4295a813618bd2a64, type: 3}
+  animation: {fileID: 11400000, guid: 31fbc80c2214ffa439c5bf2a87d65d94, type: 2}
   color: {r: 0.95, g: 0.72, b: 0.35, a: 1}
   hirePrice: 12
   wage: 3

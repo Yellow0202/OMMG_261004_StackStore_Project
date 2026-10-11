@@ -21,6 +21,17 @@ public sealed class HexTestSettings : ScriptableObject
         [Min(0)] public float mealRadius=.32f,mealHeight=.94f,mealScale=.45f;
     }
     public static HexTestSettings Current { get; internal set; }
+    [Header("아르바이트 애니메이션 / 속도·크기 즉시 반영")]
+    public StaffAnimationOptions staffAnimation = new StaffAnimationOptions();
+    [Serializable] public sealed class StaffAnimationOptions
+    {
+        [Min(0)] public float walkFramesPerSecond=8,idleFramesPerSecond=3;
+        [Min(.01f)] public float scale=1,authoredHeight=1.333333f;
+        [Min(0)] public float minimumMovement=.0001f;
+        [Min(.01f)] public float teleportDistance=2;
+        [Range(0,.3f)] public float stopGraceSeconds=.1f;
+        [Range(0,20)] public float directionHysteresisDegrees=6;
+    }
     [Header("손님 이동 애니메이션 / 목록은 다음 생성, 속도·크기는 즉시 반영")]
     public CustomerAnimationOptions customerAnimation = new CustomerAnimationOptions();
     [Serializable] public sealed class CustomerAnimationOptions

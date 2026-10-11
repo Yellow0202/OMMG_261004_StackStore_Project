@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f3024386740714a97a9f4b59f900d0, type: 3}
+  m_Name: Staff-03
+  m_EditorClassIdentifier:
+  motion: {fileID: 11400000, guid: f1f8a110cb597a6468d8a1dd7dc33fa5, type: 2}
+  idleFrames:
+  - sprites:
+    - {fileID: 21300000, guid: 5968c99cffb01bb42b2460337c2d272d, type: 3}
+    - {fileID: 21300000, guid: bda205d792faa4e44b0541c1b75d399c, type: 3}
+    - {fileID: 21300000, guid: 94104f4e2d4f3e0429205b1d784c8a4f, type: 3}
+    - {fileID: 21300000, guid: 494dc64db55b9a446b94b36fbc6460ac, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: ea431adabdc0ced4a8ac1920941ef84a, type: 3}
+    - {fileID: 21300000, guid: fbaadce9a136436479c0d8d9b7607727, type: 3}
+    - {fileID: 21300000, guid: bfc301577af1fd042ad9447f5059d29e, type: 3}
+    - {fileID: 21300000, guid: 4a28555d00597644ba4bddee91a51dc2, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: b90b6f54bb8aa8a439df059e7f30b881, type: 3}
+    - {fileID: 21300000, guid: 8e0aaf8c7602c8247b9b85238f056084, type: 3}
+    - {fileID: 21300000, guid: 845b31c66fff31a4c9351e8fb4223308, type: 3}
+    - {fileID: 21300000, guid: c20794767015cef4ea4e0d3b8b11b7d2, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 7efd561937da1094db17da81befef4a2, type: 3}
+    - {fileID: 21300000, guid: 7f547e7c8ca0214408f26d0c0eb79102, type: 3}
+    - {fileID: 21300000, guid: 8e54ddf21953bfc44b898bfe0d358f61, type: 3}
+    - {fileID: 21300000, guid: 8f6a159a072002c4b9f63413cae0b158, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 700cd42c1e0117e4295a813618bd2a64, type: 3}
+    - {fileID: 21300000, guid: 27743e2bd48bb344cadb443d14b5f966, type: 3}
+    - {fileID: 21300000, guid: 4baf5156b99f53548982fe6cfd42043e, type: 3}
+    - {fileID: 21300000, guid: 44070e9faf2f21e44b7dacd10465ceeb, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 98b57f3837baea44cb68884d6238ebd9, type: 3}
+    - {fileID: 21300000, guid: 6f975dbe73fe9b34e8207b663094f5ac, type: 3}
+    - {fileID: 21300000, guid: 3e7fbc7a39c16f84aac0403f8b2f9352, type: 3}
+    - {fileID: 21300000, guid: 39fad69f0952de84f97a1b3a57c6eb10, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 5b2b3405758b3094ca6fb01ef4044feb, type: 3}
+    - {fileID: 21300000, guid: 05f3458fbc905ed4eaa999783513e8e6, type: 3}
+    - {fileID: 21300000, guid: cb83019015dea6849a23a016f6692465, type: 3}
+    - {fileID: 21300000, guid: 6c6e1de01f06cfc428e0284353b1b360, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 12cf1fe217a82814eadd282bc885f0c2, type: 3}
+    - {fileID: 21300000, guid: 0641c700746db8b47969433cea9417cf, type: 3}
+    - {fileID: 21300000, guid: 546df40a18845a34d8adb73bce177879, type: 3}
+    - {fileID: 21300000, guid: 9faa645888a639149a2537d53c8b5100, type: 3}
+  idleClips:
+  - {fileID: 7400000, guid: 69d2aed7e72576a47b85ff039135e0a2, type: 2}
+  - {fileID: 7400000, guid: 213bbb80d60d7af4691cf8eef5d272a1, type: 2}
+  - {fileID: 7400000, guid: c190c9d5653870a489141745ba3705c9, type: 2}
+  - {fileID: 7400000, guid: af0fb3b650a6a3f469aaf26432da314e, type: 2}
+  - {fileID: 7400000, guid: b8bf2682678618044b773de5d4896777, type: 2}
+  - {fileID: 7400000, guid: fec10290d3e7c034baaa98bb109e55b8, type: 2}
+  - {fileID: 7400000, guid: 552479df53e49ef43af37edd4b245f6e, type: 2}
+  - {fileID: 7400000, guid: ec488710352142448b230b9fe6524dee, type: 2}

@@ -70,7 +70,7 @@ public sealed class HexStaffUI : MonoBehaviour
             var card=cards[c];int index=Page*cards.Length+c;
             var def=index<candidateCount?options.candidates[index]:null;card.definition=def;card.hire.transform.parent.gameObject.SetActive(def);if(!def)continue;
             var preview=new HexEmployeeState(0,def,options);
-            card.icon.sprite=def.picture;card.icon.color=def.color;
+            card.icon.sprite=def.picture;card.icon.color=def.animation?Color.white:def.color;
             card.title.text=LocalizationService.Text("staff.candidate.title","name",DataText(def.nameKey),"grade",preview.Overall(options));
             card.description.text=DataText(def.descriptionKey)+"\n"+GradeSummary(preview,options);
             card.terms.text=LocalizationService.Text("staff.terms","price",def.hirePrice,"wage",preview.Wage(options),"seconds",options.wageSeconds.ToString("0.#"));card.hire.interactable=IsOpen&&system.CanHire(def);

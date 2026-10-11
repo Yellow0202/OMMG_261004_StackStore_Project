@@ -1,0 +1,338 @@
+[
+  {
+    "staff": "Staff-01",
+    "direction": "North",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "North",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "North-East",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "North-East",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "East",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "East",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "South-East",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "South-East",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "South",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "South",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "South-West",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "South-West",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "West",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "West",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "North-West",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-01",
+    "direction": "North-West",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "North",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "North",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "North-East",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "North-East",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "East",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "East",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "South-East",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "South-East",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "South",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "South",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "South-West",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "South-West",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "West",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "West",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "North-West",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-02",
+    "direction": "North-West",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "North",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "North",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "North-East",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "North-East",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "East",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "East",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "South-East",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "South-East",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "South",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "South",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "South-West",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "South-West",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "West",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "West",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "North-West",
+    "state": "Walk",
+    "frames": 8,
+    "distinct": 8
+  },
+  {
+    "staff": "Staff-03",
+    "direction": "North-West",
+    "state": "Idle",
+    "frames": 4,
+    "distinct": 4
+  }
+]

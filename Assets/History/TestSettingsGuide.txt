@@ -146,3 +146,13 @@ Assets/Prototypes/HexWorld/Data의 각 *Tile.asset > Icon에서 UI용 그림을 
 
 [기존 아이템 아이콘 / 2026-10-11]
 기존 5종 아이템: HexWorld/Data의 food_warm_soup, ability_quick_service, ability_extra_servings, ability_attention_call, part_display_shelf.asset > Picture. 소모품: PotionOffer.asset > Picture. 원본 스프라이트: Art/LegacyItemIcons. 재임포트/연결 메뉴: Stack Store > Hex World > Import Existing Item Icons.
+
+[아르바이트 애니메이션 / 2026-10-11]
+PrototypeTestSettings.asset > 아르바이트 애니메이션(Staff Animation)에서 조절한다.
+Walk Frames Per Second: 보행 프레임 속도(기본 8). Idle Frames Per Second: 4프레임 호흡 속도(기본 3). 둘 다 Play 중 즉시 적용.
+Scale: 표시 크기 배율(기본 1), 즉시 반영. Authored Height: 임포트 기준 월드 높이(기본 1.333333); 변경 후 Stack Store > Hex World > Build Staff Walk And Idle 메뉴 재실행 필요.
+Minimum Movement(.0001): 이동으로 인식할 위치 변화. Teleport Distance(2): 이 이상 이동은 순간이동으로 처리.
+Stop Grace Seconds(.1): 길찾기의 잠깐 멈춤을 보행으로 유지하는 시간. Direction Hysteresis Degrees(6): 방향 경계의 흔들림 방지 각도.
+직원별 참조: Data/RookieEmployee, PromoterEmployee, VeteranEmployee.asset > Animation. 방향별 데이터: Data/StaffAnimation. 스프라이트와 클립: Art/StaffAnimation. 처음 제작한 정면 Idle 원본은 Art/StaffIdle에 유지.
+
+제작 참고: 보행은 8방향 각각 8프레임, 호흡은 4프레임이다. 서쪽과 앞/뒤 왼쪽 대각선은 오른쪽 방향을 반전한 그림이므로 머리 장식도 반전된다. 고용 후보의 picture는 새 정면 Idle로 연결되어 있으며, color는 기존 단색 fallback용으로 유지한다.

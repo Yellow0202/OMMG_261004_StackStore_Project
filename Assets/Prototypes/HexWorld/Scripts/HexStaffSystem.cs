@@ -34,6 +34,11 @@ public sealed class HexStaffSystem : MonoBehaviour
         var marker=actor.GetComponent<HexKitchenOccupant>();marker.Unassign();
         var employee=new HexEmployee{state=new HexEmployeeState(nextId++,definition,Options),view=actor,assignment=marker,floor=game.service.Floor};
         var identity=actor.GetComponentInChildren<HexActorIdentity>(true);if(identity)identity.SetEmployee(employee.state.id);
+        if(definition.animation&&definition.animation.IsValid)
+        {
+            var animation=actor.GetComponent<HexStaffAnimation>();if(!animation)animation=actor.gameObject.AddComponent<HexStaffAnimation>();
+            animation.Configure(actor,definition.animation);actor.body.color=Color.white;
+        }
         employees.Add(employee);MessageKey="staff.hired";UpdateVisibility();return true;
     }
     public bool IsKitchen(HexNavNode node)

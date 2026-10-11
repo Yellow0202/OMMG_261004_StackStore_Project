@@ -1378,3 +1378,14 @@ Validate: 서로 다른 7개 아이콘 참조/크기, 기존 월드 그래픽·�
 [기존 아이템 아이콘 / 2026-10-11]
 HexLegacyItemIconsAuthoring.Run: WarmSoup/QuickService/ExtraServings/AttentionCall/TileReward/ServicePotion 6종을 64x64 투명 Point Sprite로 임포트하고 기존 보상 5종 및 PotionOffer.picture를 연결한다. 강화형 상점 상품도 upgrade.picture와 일치시킨다. 기존 효과·가격·문구·최대 레벨은 변경하지 않는다.
 Validate: 6종 아이콘 크기/고유 참조, 기존 아이템 및 소모품 연결, 전체 카탈로그 아이콘 누락, 상점 강화 상품 연결 일치를 검사한다.
+
+[아르바이트 Walk/Idle 애니메이션 / 2026-10-11]
+HexStaffDefinition.animation: 고용할 직원의 고유 HexStaffAnimationSet 참조. 후보 picture는 해당 직원 정면 Idle 첫 프레임을 사용한다.
+HexStaffAnimationSet: motion에 8방향×8프레임 Walk/클립을 저장하고 idleFrames/idleClips에 8방향×4프레임 호흡을 저장한다. IsValid는 누락된 방향/프레임/클립 확인. Idle(direction,frame)은 호흡 프레임 샘플링.
+HexStaffAnimation.Configure: 직원 고유 데이터를 연결하고 원래 크기/직전 위치를 저장한다. 외부 애니메이션 플래그로 기존 단순 walkFrames 갱신과 중복을 방지한다.
+AdvanceMotion: 실제 위치 변화와 카메라 yaw로 방향 결정. 짧은 이동 경로 간격은 보행 유지, 방향 경계에는 히스테리시스 적용. 방향만 바뀔 때 프레임을 리셋하지 않는다. 정지 시 바라보던 방향에서 호흡, 순간이동은 이동 애니메이션에서 제외. walkFrame/idleFrame/stationarySeconds는 런타임 재생 상태다.
+HexStaffSystem.Hire: 정상 고용 시 definition.animation을 HexStaffAnimation에 연결하고 원래 리소스 색상 사용. 기존 고용 비용/직원 등급/명령/성장 로직 유지.
+HexStaffUI.Refresh: 전용 애니메이션이 있는 후보 그림은 흰색 tint로 원래 색상을 표시. 기존 단색 리소스 fallback은 정의 color 유지.
+HexTestSettings.staffAnimation: 직원 애니메이션의 속도/크기/이동 판정/정지 유예/방향 경계/월드 기준 높이 조절값.
+HexStaffAnimationAuthoring.Run: 3종 직원의 PNG를 임포트하고 방향별 Walk/Idle 클립과 데이터 저장, 직원 정의/후보 그림 연결. Validate는 3×8방향/프레임 수/피벗/후보 참조 및 기존 직원 규칙 검사.
+HexStaffAnimationPlayChecks.Run: 격리 프로젝트에서 전 방향 Walk/Idle 재생, 방향 전환/짧은 경로 간격, 카메라 방향, 순간이동, 설정 적용, 투명도 유지, 비활성/재활성 및 실제 골드 고용 연결 검사.

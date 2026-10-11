@@ -58,3 +58,13 @@
 수행: Assets/Prototypes/HexWorld/Art/StaffIdle에 투명 256x256 PNG 3장 및 기존 플레이어 Idle과 같은 Point/무압축 Sprite 임포트 설정 저장. 캐릭터 높이 192픽셀, 발 기준선 224로 맞춤. 원본/내장 imagegen 프롬프트/가공 스크립트/원본 크기 및 정수 2배 검수 이미지는 ArtReferences/2026-10-11-Staff-Idle에 보관.
 검증: 세 이미지의 투명 배경·캔버스 크기·여백·발 기준선 및 원본/확대 윤곽 검수. 기존 캐릭터/고용 데이터 변경 없음.
 미완료·보류: 요청 범위인 그림 제작 완료. 실제 직원 연결 및 Idle/이동 애니메이션은 이번 작업 범위에 포함하지 않음.
+
+[아르바이트 3종 Walk/Idle 애니메이션 제작·연결]
+지시: 앞서 만든 아르바이트 3명의 Walk 및 Idle 애니메이션 제작. 자세는 플레이어블 캐릭터 참고.
+수행: 기존 직원 정면 Idle을 외형 기준, 플레이어 방향별 워킹을 자세 기준으로 참조하여 기본 5방향 시트 15장 제작. 반대쪽 3방향은 좌우 반전으로 구성. 3명×8방향×(Walk 8프레임+Idle 호흡 4프레임), 총 288개 256x256 투명 스프라이트와 48개 반복 클립 저장. 처음 제작한 StaffIdle 원본 유지.
+수행: 대각선에 동일 발 보행이 반복되는 것을 검수에서 발견해 반대 발 구간 별도 제작. 전체 시트 편집 시도는 Idle 구간까지 변경되어 미사용 처리하고, 자세 가이드를 참조한 반대 발 4프레임만 최종 Walk에 반영. 좌우 다리의 교차 확인 후 반대 방향 재생성.
+수행: HexStaffAnimationSet/HexStaffAnimation 추가, 기존 직원 3종(Rookie/Promoter/Veteran)에 순서대로 연결. 실제 고용 시 전용 그림 사용, 상점 후보 그림도 정면 Idle로 변경. 위치 변화와 카메라 방향에 따른 8방향 재생, 짧은 길찾기 간격·방향 전환 시 보행 연속성, 정지 호흡 및 순간이동 처리. 기존 고용 비용/급여/성장/업무/역할 표시는 유지.
+수행: 공용 PrototypeTestSettings에 직원 애니메이션 카테고리 추가(보행/호흡 FPS, 크기, 이동 판정, 순간이동 거리, 정지 유예, 방향 경계, 임포트 높이). ScriptReference와 TestSettingsGuide 갱신.
+검증: 격리 Unity 컴파일/HEX_STAFF_ANIMATION_VALIDATED 및 기존 HEX_STAFF_RULES_PASS 통과, 배치 종료 코드 0. 최종 보정 후 HEX_STAFF_ANIMATION_PLAY_PASSED 통과: 3명×8방향 Walk/Idle, 카메라 yaw, 경로 간격/방향 전환 프레임 연속성, 순간이동, 실시간 크기, 투명도 유지, 비활성/재활성, 실제 골드 고용과 외형 연결. 288개 픽셀 크기/알파/여백/발 기준선/프레임 변화 검사. 방향별 전체 프레임과 대각선 다리 교차 검수, 반복 GIF 저장.
+기록: ArtReferences/2026-10-11-Staff-Animations에 원본, 내장 imagegen Prompts.json/OppositeSteps.json, 미사용 시도 메타데이터, 가공 스크립트, 프레임/방향 검수 이미지와 GIF, AssetVerification.json 저장.
+미완료·보류: 없음. 좌우 반전 방향에서는 머리 장식과 앞치마 매듭도 반전됨. 기존 플레이어/손님 원본 및 사용자 씬 편집은 변경하지 않음.

@@ -15,7 +15,8 @@ MonoBehaviour:
   key: PromoterEmployee
   nameKey: staff.promoter.name
   descriptionKey: staff.promoter.desc
-  picture: {fileID: 21300000, guid: 2518bafdc41d188419cb8c26b3506722, type: 3}
+  picture: {fileID: 21300000, guid: 026b611c63efdc6478a2d45c54f61795, type: 3}
+  animation: {fileID: 11400000, guid: d03e637a5ba5b8c47958e4481fb9c713, type: 2}
   color: {r: 0.9, g: 0.55, b: 0.85, a: 1}
   hirePrice: 7
   wage: 2

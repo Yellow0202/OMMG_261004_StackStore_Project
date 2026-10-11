@@ -15,7 +15,8 @@ MonoBehaviour:
   key: RookieEmployee
   nameKey: staff.rookie.name
   descriptionKey: staff.rookie.desc
-  picture: {fileID: 21300000, guid: 2518bafdc41d188419cb8c26b3506722, type: 3}
+  picture: {fileID: 21300000, guid: 1cfafb9ea8d6e144496c0a1a257e6826, type: 3}
+  animation: {fileID: 11400000, guid: ac4c16f07b787d74fbad594d65bc60b7, type: 2}
   color: {r: 0.45, g: 0.9, b: 0.6, a: 1}
   hirePrice: 3
   wage: 1

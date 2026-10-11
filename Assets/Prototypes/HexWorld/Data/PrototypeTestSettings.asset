@@ -31,6 +31,15 @@ MonoBehaviour:
     mealRadius: 0.32
     mealHeight: 0.94
     mealScale: 0.45
+  staffAnimation:
+    walkFramesPerSecond: 8
+    idleFramesPerSecond: 3
+    scale: 1
+    authoredHeight: 1.333333
+    minimumMovement: 0.0001
+    teleportDistance: 2
+    stopGraceSeconds: 0.1
+    directionHysteresisDegrees: 6
   customerAnimation:
     catalog: {fileID: 11400000, guid: 88847958c22d1f7489c731af7fb9cbe7, type: 2}
     framesPerSecond: 8

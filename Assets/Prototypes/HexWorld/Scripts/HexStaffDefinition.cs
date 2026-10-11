@@ -12,6 +12,7 @@ public sealed class HexStaffDefinition : ScriptableObject
 {
     public string key,nameKey,descriptionKey;
     public Sprite picture;
+    public HexStaffAnimationSet animation;
     public Color color=Color.cyan;
     [Min(0)] public int hirePrice=3,wage=1;
     public HexStaffGrade cooking,cleaning,persuasion,strength;

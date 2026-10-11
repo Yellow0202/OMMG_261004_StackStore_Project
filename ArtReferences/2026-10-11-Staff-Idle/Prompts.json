@@ -1,0 +1,21 @@
+{
+  "mode": "builtin",
+  "reference": "Assets/Prototypes/HexWorld/Art/IdleFront/Player.png",
+  "assets": [
+    {
+      "name": "Staff-01",
+      "prompt": "Use the reference image ONLY as the pixel art style, body proportions, pixel cluster density and front-view pose reference. Create a DIFFERENT tavern employee: a young adult woman apprentice tavern worker, short chestnut bob hair with one teal hair clip, cheerful relaxed eyes, cream rolled sleeve shirt, teal work apron over dark brown skirt, brown ankle boots. One single full body character in front-facing neutral Idle standing pose, looking forward, both arms relaxed slightly away from sides, empty hands, feet naturally spaced. Match the reference's approximately 3.5-head-tall compact RPG proportions, clean dark outline and simple broad flat cel shadow clusters. Crisp square pixel art, no antialiased painting, no fine noisy shading. Modest practical clothing, adult proportions. Character isolated centered with complete feet and head and generous transparent margins, same scale as reference. No text, scenery, props, frame or multiple poses. Transparent background. This will be an animation-ready fantasy tavern staff sprite.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-fb73a855-6e77-4ccf-8929-4dd36f6f54f8.png"
+    },
+    {
+      "name": "Staff-02",
+      "prompt": "Use the reference image ONLY as the pixel art style, body proportions, pixel cluster density and front-view pose reference. Create a DIFFERENT tavern employee: a young adult man tavern worker, tousled dark brown short hair, calm attentive face, cream rolled sleeve shirt, burgundy waistcoat and tan waist apron, dark trousers and brown boots. One single full body character in front-facing neutral Idle standing pose, looking forward, both arms relaxed slightly away from sides, empty hands, feet naturally spaced. Match the reference's approximately 3.5-head-tall compact RPG proportions, clean dark outline and simple broad flat cel shadow clusters. Crisp square pixel art, no antialiased painting, no fine noisy shading. Modest practical clothing, adult proportions. Character isolated centered with complete feet and head and generous transparent margins, same scale as reference. No text, scenery, props, frame or multiple poses. Transparent background. This will be an animation-ready fantasy tavern staff sprite.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-39ee1191-75b9-4cf5-9dfc-0b474dd46f44.png"
+    },
+    {
+      "name": "Staff-03",
+      "prompt": "Use the reference image ONLY as the pixel art style, body proportions, pixel cluster density and front-view pose reference. Create a DIFFERENT tavern employee: an adult woman experienced tavern worker, silver ash hair in a small tied bun, composed confident face, cream rolled sleeve shirt, forest green long work apron over dark skirt, brown boots. One single full body character in front-facing neutral Idle standing pose, looking forward, both arms relaxed slightly away from sides, empty hands, feet naturally spaced. Match the reference's approximately 3.5-head-tall compact RPG proportions, clean dark outline and simple broad flat cel shadow clusters. Crisp square pixel art, no antialiased painting, no fine noisy shading. Modest practical clothing, adult proportions. Character isolated centered with complete feet and head and generous transparent margins, same scale as reference. No text, scenery, props, frame or multiple poses. Transparent background. This will be an animation-ready fantasy tavern staff sprite.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-f4b5fc72-6768-49b5-ab42-72b20cf6da9b.png"
+    }
+  ]
+}

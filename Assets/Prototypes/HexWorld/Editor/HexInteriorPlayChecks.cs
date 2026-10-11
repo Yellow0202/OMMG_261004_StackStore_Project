@@ -32,6 +32,23 @@ public static class HexInteriorPlayChecks
                 if(active!=capacity)throw new Exception("Wrong visible chair count");
             }
             settings.interior.seatRadius=.72f;settings.interior.chairWidth=.52f;settings.interior.furnitureSizes[1]=new Vector2(1.3f,.8f);
+            var camera=Camera.main;var rotation=camera.transform.rotation;
+            try
+            {
+                foreach(float yaw in new[]{0f,90f,180f,270f})
+                {
+                    camera.transform.rotation=Quaternion.Euler(30,yaw,0);interior.Refresh();
+                    for(int s=0;s<4;s++)
+                    {
+                        var chair=interior.chairs[s];var toward=-HexShopLayout.SeatOffset(s,4);toward.y=0;
+                        int facing=HexCustomerAnimation.SeatedDirection(Quaternion.Euler(0,-yaw,0)*toward);
+                        var expected=facing==1||facing==3?interior.chairSide:facing==2?interior.chairBack:interior.chairFront;
+                        if(!expected||chair.sprite!=expected||chair.flipX!=(facing==3))throw new Exception("Wrong inward chair direction "+s+" / yaw "+yaw);
+                        if(Mathf.Abs(chair.sprite.bounds.size.y*chair.transform.localScale.y-settings.interior.chairWidth*interior.chairFront.bounds.size.y/interior.chairFront.bounds.size.x)>.001f)throw new Exception("Profile chair height drift");
+                    }
+                }
+            }
+            finally{camera.transform.rotation=rotation;}
             interior.Refresh();
             if(Mathf.Abs(interior.chairs[0].transform.localPosition.z+.72f+settings.interior.chairDepthOffset)>.001f)throw new Exception("Live seat radius ignored");
             if(Mathf.Abs(interior.furnishing.GetComponent<SpriteRenderer>().bounds.size.x-1.3f)>.01f)throw new Exception("Live furniture size ignored");

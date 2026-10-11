@@ -1356,3 +1356,8 @@ HexPrototype.CompleteService: 음식은 MealPosition에 생성하고 interior.me
 HexInteriorAuthoring: Art/Interior 이미지를 Point / 무압축 / 바닥 피벗으로 임포트하고 Prefabs/Interiors 7종과 각 타일 데이터 참조를 저장한다. 벽은 기존 두께·충돌·깊이 버퍼 셰이더에 새 회벽/목재 이미지를 연결한다. Run은 편집 전용 메뉴이며 InteriorPreview 씬과 각도별 렌더링 비교를 저장한다.
 HexInteriorPlayChecks.Validate: 실제 타일 프리팹 연결, 2/3/4석 의자와 게임 좌표 일치, 공유 설정 실시간 적용, 배치 투명도 및 복원을 확인한다. HexCustomerAnimationPlayChecks에서 6종×4방향 착석 검사와 함께 실행한다.
 추가 씬: Assets/Prototypes/HexWorld/Scenes/InteriorPreview.unity. 기존 HexWorld 씬의 사용자 편집 내용은 변경하지 않는다.
+
+[좌우 의자 표시 보완 / 2026-10-11]
+HexTileInterior.chairSide: 오른쪽을 향하는 측면 의자 Sprite. Refresh에서 좌석→테이블 중심 방향을 카메라 기준 4방향으로 변환하고 정면/후면/측면 중 선택한다. 측면이 왼쪽을 향해야 하면 SpriteRenderer.flipX를 사용하며 다른 방향으로 변경하면 반전을 해제한다. 모든 방향을 chairFront 높이에 맞춰 비율을 유지한다.
+HexInteriorAuthoring.UpgradeChairSides: 측면 그림 임포트와 테이블 프리팹/미리보기 씬 연결을 수행하는 편집 메뉴. CapturePreview는 씬 재열람 후 저장되지 않는 바닥 PropertyBlock 입력을 검수 시 재구성한다.
+HexInteriorPlayChecks: 카메라 yaw 0/90/180/270도에서 4개 좌석별 그림·반전·높이를 검사한다.

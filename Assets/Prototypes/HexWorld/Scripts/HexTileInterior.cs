@@ -6,7 +6,7 @@ public sealed class HexTileInterior : MonoBehaviour
     public HexTileKind kind;
     public Transform furnishing;
     public SpriteRenderer[] chairs;
-    public Sprite chairFront,chairBack;
+    public Sprite chairFront,chairBack,chairSide;
     int capacity=4;
     public void Bind(HexShopLayout owner,int floor,Vector2Int cell)
     {
@@ -41,9 +41,13 @@ public sealed class HexTileInterior : MonoBehaviour
             var outward=new Vector3(seat.x,0,seat.z).normalized;
             chair.transform.localPosition=seat+outward*options.chairDepthOffset;
             var camera=Camera.main;
-            bool back=camera&&Vector3.Dot(camera.transform.forward,outward)<0;
-            chair.sprite=back?chairBack:chairFront;
-            if(chair.sprite)chair.transform.localScale=Vector3.one*(options.chairWidth/chair.sprite.bounds.size.x);
+            var inward=Quaternion.Euler(0,-(camera?camera.transform.eulerAngles.y:0),0)*-outward;
+            int direction=HexCustomerAnimation.SeatedDirection(inward);
+            bool side=(direction==1||direction==3)&&chairSide;
+            chair.sprite=side?chairSide:direction==2?chairBack:chairFront;
+            chair.flipX=side&&direction==3;
+            // Profile width differs from the front; keep the seat/backrest height consistent.
+            if(chair.sprite&&chairFront)chair.transform.localScale=Vector3.one*(options.chairWidth/chairFront.bounds.size.x*chairFront.bounds.size.y/chair.sprite.bounds.size.y);
             // Put the near chair's backrest in front of its occupant; the far chair stays behind them.
             var facing=chair.GetComponent<HexCameraFacingSprite>();if(facing)facing.FaceCamera();
         }

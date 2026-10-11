@@ -23,3 +23,10 @@
 검증: Unity 배치 컴파일/HEX_INTERIOR_VALIDATED 및 기존 벽·경로·음식 준비 검사 통과. Play에서 HEX_INTERIOR_PLAY_PASSED와 CUSTOMER_ANIMATION_PLAY_CHECKS_PASSED 통과(6종×4방향 착석, 기존 8방향 이동, 2/3/4석 의자 연결, 예약/정원 초과/반납, 설정 즉시 적용, 배치 투명도 복원). 4/30/50도 렌더링과 원본 픽셀/정수 확대 이미지 검수. 최종 저장 배치 종료 코드 0.
 기록: ArtReferences/2026-10-11-Tavern-Interiors에 제작 원본·Prompts.json·Seated-Prompts.json·검수 화면 보관. Assets/Prototypes/HexWorld/Scenes/InteriorPreview.unity에 가구 전체 및 4인 착석 미리보기 저장. 기존 HexWorld 씬 사용자 편집 내용과 무관한 변경은 커밋에서 제외.
 미완료·보류: 없음. 이번 착석은 정지 포즈이며 별도의 먹기 동작 애니메이션은 추가하지 않음.
+
+[테이블 좌우 의자 방향 수정]
+지시: 왼쪽 좌석 의자는 오른쪽을, 오른쪽 좌석 의자는 왼쪽을 바라보는 형태로 표시.
+수행: 기존 앞뒤 의자와 같은 디자인의 오른쪽 측면 의자 도트를 내장 imagegen으로 제작. HexTileInterior에서 테이블 중심을 향하는 방향을 카메라 기준으로 변환해 정면/후면/측면을 선택하고 왼쪽 방향은 측면 그림을 반전. 모든 방향의 의자 표시 높이를 정면 의자에 맞춤. 테이블 프리팹과 InteriorPreview 씬에 측면 참조 및 표시 상태 저장.
+검증: Unity 컴파일 및 배치 저장 종료 코드 0. Play에서 네 카메라 방향(0/90/180/270도)×4개 좌석의 이미지·반전·높이 검사 통과. HEX_INTERIOR_PLAY_PASSED / CUSTOMER_ANIMATION_PLAY_CHECKS_PASSED 통과. 4/30/50도 착석 화면과 원본 크기·정수 4배 확대 도트 검수.
+기록: ArtReferences/2026-10-11-Chair-Sides에 제작 프롬프트, 원본, 확대본, 각도별 화면 보관. 기존 앞뒤 의자, 손님 그래픽, 접객 로직 유지.
+미완료·보류: 없음.

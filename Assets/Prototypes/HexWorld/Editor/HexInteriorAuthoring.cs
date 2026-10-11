@@ -13,6 +13,7 @@ public static class HexInteriorAuthoring
     const string Art=Root+"/Art/Interior";
     static readonly string[] Names={"Shelf","Table","Kitchen","Storage","Stairs","Lodging","Entrance"};
     static readonly string[] Characters={"Male-01","Male-02","Male-03","Female-01","Female-02","Female-03"};
+    static string captureFolder="2026-10-11-Tavern-Interiors";
     static void SetCurrent(HexTestSettings value)=>typeof(HexTestSettings).GetProperty("Current").SetValue(null,value);
     static Sprite Import(string name,float width=1)
     {
@@ -43,14 +44,14 @@ public static class HexInteriorAuthoring
         var settings=AssetDatabase.LoadAssetAtPath<HexTestSettings>(Root+"/Data/PrototypeTestSettings.asset");
         SetCurrent(settings);
         Directory.CreateDirectory(Root+"/Prefabs/Interiors");AssetDatabase.Refresh();
-        var front=Import("Chair",settings.interior.chairWidth);var back=Import("ChairBack",settings.interior.chairWidth);
+        var front=Import("Chair",settings.interior.chairWidth);var back=Import("ChairBack",settings.interior.chairWidth);var side=Import("ChairSide",settings.interior.chairWidth);
         var widths=new[]{1.25f,1.4f,1.5f,1.25f,1.3f,1.45f,1.6f};
         for(int i=0;i<Names.Length;i++)
         {
             var art=Import(Names[i],widths[i]);
             var go=new GameObject(Names[i]+" Interior");var interior=go.AddComponent<HexTileInterior>();interior.kind=(HexTileKind)i;
             interior.furnishing=Visual(go.transform,Names[i]+" / pixel art",art,Vector3.up*settings.interior.groundHeight).transform;
-            interior.chairFront=front;interior.chairBack=back;
+            interior.chairFront=front;interior.chairBack=back;interior.chairSide=side;
             if(i==1)
             {
                 interior.chairs=new SpriteRenderer[4];
@@ -109,6 +110,30 @@ public static class HexInteriorAuthoring
         }
         HexDirectServiceChecks.Run();Debug.Log("HEX_INTERIOR_VALIDATED: art references, seating capacities 2/3/4, shared chair anchors, tabletop delivery, full capacity and reuse; existing wall/navigation/service rules.");
     }
+    [MenuItem("Stack Store/Hex World/Upgrade Chair Side Views")]
+    public static void UpgradeChairSides()
+    {
+        if(EditorApplication.isPlaying)throw new InvalidOperationException("Stop Play before authoring.");
+        if(!Application.isBatchMode&&!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())return;
+        var settings=AssetDatabase.LoadAssetAtPath<HexTestSettings>(Root+"/Data/PrototypeTestSettings.asset");
+        var previous=HexTestSettings.Current;SetCurrent(settings);
+        try
+        {
+            var side=Import("ChairSide",settings.interior.chairWidth);
+            string path=Root+"/Prefabs/Interiors/TableInterior.prefab";
+            var prefab=PrefabUtility.LoadPrefabContents(path);
+            try{var interior=prefab.GetComponent<HexTileInterior>();interior.chairSide=side;interior.Refresh();PrefabUtility.SaveAsPrefabAsset(prefab,path);}
+            finally{PrefabUtility.UnloadPrefabContents(prefab);}
+            var scene=EditorSceneManager.OpenScene(Root+"/Scenes/InteriorPreview.unity");
+            foreach(var interior in UnityEngine.Object.FindObjectsByType<HexTileInterior>(FindObjectsSortMode.None))
+            {
+                if(interior.kind!=HexTileKind.Table)continue;interior.chairSide=side;interior.Refresh();EditorUtility.SetDirty(interior);
+            }
+            EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();captureFolder="2026-10-11-Chair-Sides";CapturePreview();
+            Debug.Log("HEX_CHAIR_SIDES_AUTHORED: left chair faces right, right chair faces left; shared front/profile height and saved preview.");
+        }
+        finally{SetCurrent(previous);captureFolder="2026-10-11-Tavern-Interiors";}
+    }
     static void CreatePreview(HexTestSettings settings)
     {
         var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
@@ -156,6 +181,23 @@ public static class HexInteriorAuthoring
     public static void CapturePreview()
     {
         var settings=AssetDatabase.LoadAssetAtPath<HexTestSettings>(Root+"/Data/PrototypeTestSettings.asset");SetCurrent(settings);
+        // Per-renderer shader property blocks are not serialized with a preview scene.
+        // Rebuild only that transient rendering input after reopening it for capture.
+        var tiles=UnityEngine.Object.FindObjectsByType<HexTileView>(FindObjectsSortMode.None);
+        Array.Sort(tiles,(a,b)=>a.coordinate.y==b.coordinate.y?a.coordinate.x.CompareTo(b.coordinate.x):a.coordinate.y.CompareTo(b.coordinate.y));
+        var layout=new HexShopLayout();
+        foreach(var tile in tiles)
+        {
+            int role=Array.FindIndex(Names,name=>tile.name.StartsWith(name+" Preview"));if(role<0)continue;
+            var definition=AssetDatabase.LoadAssetAtPath<HexTileDefinition>(Root+"/Data/"+(role==0?"DisplayShelf":Names[role])+"Tile.asset");
+            if(tile.coordinate==Vector2Int.zero)layout.Floor(0).model.SetRootDefinition(definition);
+            else {layout.Floor(0).model.Grant(definition,1);layout.TryPlace(0,tile.coordinate,definition);}
+        }
+        foreach(var tile in tiles)
+        {
+            var properties=new MaterialPropertyBlock();properties.SetFloat("_Height",settings.environment.floorHeight);
+            HexFloorBlend.Apply(properties,settings.environment,layout,0,tile.coordinate);tile.surface.SetPropertyBlock(properties);
+        }
         var camera=Camera.main;var table=GameObject.Find("Table Preview Tile");
         Capture(camera,"Interior-Overview.png");
         foreach(float pitch in new[]{4f,30f,50f})
@@ -176,7 +218,7 @@ public static class HexInteriorAuthoring
             RenderTexture.active=target;image.ReadPixels(new Rect(0,0,1280,720),0,0);image.Apply();
             string project=Path.GetDirectoryName(Application.dataPath);
             if(project.EndsWith(Path.Combine("Temp","AnimationValidation")))project=Directory.GetParent(project).Parent.FullName;
-            var directory=Path.Combine(project,"ArtReferences/2026-10-11-Tavern-Interiors");Directory.CreateDirectory(directory);File.WriteAllBytes(Path.Combine(directory,name),image.EncodeToPNG());
+            var directory=Path.Combine(project,"ArtReferences",captureFolder);Directory.CreateDirectory(directory);File.WriteAllBytes(Path.Combine(directory,name),image.EncodeToPNG());
         }
         finally{RenderTexture.active=previous;target.Release();UnityEngine.Object.DestroyImmediate(target);UnityEngine.Object.DestroyImmediate(image);}
     }

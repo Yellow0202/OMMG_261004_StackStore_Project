@@ -391,6 +391,7 @@ MonoBehaviour:
   chairs: []
   chairFront: {fileID: 21300000, guid: 31a71f667befc2048a55656e438ed567, type: 3}
   chairBack: {fileID: 21300000, guid: 67dd97f085464ee4ab988265b02c825c, type: 3}
+  chairSide: {fileID: 0}
 --- !u!1 &270273523
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +442,7 @@ MonoBehaviour:
   chairs: []
   chairFront: {fileID: 21300000, guid: 31a71f667befc2048a55656e438ed567, type: 3}
   chairBack: {fileID: 21300000, guid: 67dd97f085464ee4ab988265b02c825c, type: 3}
+  chairSide: {fileID: 0}
 --- !u!1 &274720386
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +929,7 @@ MonoBehaviour:
   - {fileID: 1743572252}
   chairFront: {fileID: 21300000, guid: 31a71f667befc2048a55656e438ed567, type: 3}
   chairBack: {fileID: 21300000, guid: 67dd97f085464ee4ab988265b02c825c, type: 3}
+  chairSide: {fileID: 21300000, guid: 978f2cc63e1c75b448d3e6450698c9f1, type: 3}
 --- !u!1001 &635859926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1130,6 +1133,7 @@ MonoBehaviour:
   chairs: []
   chairFront: {fileID: 21300000, guid: 31a71f667befc2048a55656e438ed567, type: 3}
   chairBack: {fileID: 21300000, guid: 67dd97f085464ee4ab988265b02c825c, type: 3}
+  chairSide: {fileID: 0}
 --- !u!1 &715228072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,7 +1745,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.15643448, y: -0, z: -0, w: 0.98768836}
   m_LocalPosition: {x: -0.88, y: 0.22, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.877907, y: 0.877907, z: 0.877907}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 611117051}
@@ -1809,7 +1813,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1428
-  m_Sprite: {fileID: 21300000, guid: 31a71f667befc2048a55656e438ed567, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 978f2cc63e1c75b448d3e6450698c9f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2141,6 +2145,7 @@ MonoBehaviour:
   chairs: []
   chairFront: {fileID: 21300000, guid: 31a71f667befc2048a55656e438ed567, type: 3}
   chairBack: {fileID: 21300000, guid: 67dd97f085464ee4ab988265b02c825c, type: 3}
+  chairSide: {fileID: 0}
 --- !u!1 &1126898037
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,7 +2592,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.15643448, y: -0, z: -0, w: 0.98768836}
   m_LocalPosition: {x: 0, y: 0.22, z: -0.88}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.070922, y: 1.070922, z: 1.070922}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 611117051}
@@ -2823,6 +2828,7 @@ MonoBehaviour:
   chairs: []
   chairFront: {fileID: 21300000, guid: 31a71f667befc2048a55656e438ed567, type: 3}
   chairBack: {fileID: 21300000, guid: 67dd97f085464ee4ab988265b02c825c, type: 3}
+  chairSide: {fileID: 0}
 --- !u!1001 &1596545041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3081,7 +3087,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.15643448, y: -0, z: -0, w: 0.98768836}
   m_LocalPosition: {x: 0.88, y: 0.22, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.877907, y: 0.877907, z: 0.877907}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 611117051}
@@ -3149,9 +3155,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1428
-  m_Sprite: {fileID: 21300000, guid: 31a71f667befc2048a55656e438ed567, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 978f2cc63e1c75b448d3e6450698c9f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.48, y: 0.755}
@@ -3632,6 +3638,7 @@ MonoBehaviour:
   chairs: []
   chairFront: {fileID: 21300000, guid: 31a71f667befc2048a55656e438ed567, type: 3}
   chairBack: {fileID: 21300000, guid: 67dd97f085464ee4ab988265b02c825c, type: 3}
+  chairSide: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

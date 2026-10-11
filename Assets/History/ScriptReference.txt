@@ -1361,3 +1361,12 @@ HexInteriorPlayChecks.Validate: 실제 타일 프리팹 연결, 2/3/4석 의자�
 HexTileInterior.chairSide: 오른쪽을 향하는 측면 의자 Sprite. Refresh에서 좌석→테이블 중심 방향을 카메라 기준 4방향으로 변환하고 정면/후면/측면 중 선택한다. 측면이 왼쪽을 향해야 하면 SpriteRenderer.flipX를 사용하며 다른 방향으로 변경하면 반전을 해제한다. 모든 방향을 chairFront 높이에 맞춰 비율을 유지한다.
 HexInteriorAuthoring.UpgradeChairSides: 측면 그림 임포트와 테이블 프리팹/미리보기 씬 연결을 수행하는 편집 메뉴. CapturePreview는 씬 재열람 후 저장되지 않는 바닥 PropertyBlock 입력을 검수 시 재구성한다.
 HexInteriorPlayChecks: 카메라 yaw 0/90/180/270도에서 4개 좌석별 그림·반전·높이를 검사한다.
+
+[아이템 확장 / 2026-10-11]
+ItemEffectKind: DeliverySpeedPercent(플레이어 배달 속도), ServiceGoldBonus(숙박 외 접객 보너스), TableGoldBonus(테이블 전용 보너스), TablePatienceSeconds(테이블 전용 대기 시간)를 기존 enum 뒤에 추가해 저장된 기존 효과 번호를 유지한다.
+ItemDefinition.DisplayDescription: 효과값과 MaxLevel을 공통 로컬라이징 함수에 전달한다. DeliverySpeedPercent는 표시할 때 100배 한다.
+HexPrototype.ApplyEffects: 소유 아이템 레벨에 따라 새 효과를 합산한다. deliveryBonus/serviceGoldBonus/tableGoldBonus/tablePatienceBonus는 계산된 런타임 합계다.
+DeliverySpeedMultiplier: 배달 이동 배율. ServiceReward(baseGold,seatedTable): 외부/테이블에 맞는 접객 골드. OrderPatience(baseSeconds,seatedTable): 일반 및 테이블 전용 대기 시간 계산.
+HexFoodService.EffectiveWalkSpeed: 공유 설정의 기본 walkSpeed × 배달 아이템 배율. Move에서 배달/복귀 이동에 사용하며 기본값 자체는 덮어쓰지 않는다.
+HexMoreItemsAuthoring.Run: 아이콘 임포트, 신규 아이템 에셋 생성 및 카탈로그/양 언어 문자열 연결. 이미 있는 아이템 수치와 번역은 재실행해도 보존. Validate는 키/그림/효과/최대 레벨/양 언어 누락 확인.
+HexMoreItemsPlayChecks.Run: 격리 프로젝트 Play 검사. 아이템 중첩/상한, 보상 후보 제외, 테이블 효과 구분, 속도 연결, 골드 미소비, 문자열 치환 및 기존 HexDirectServiceChecks 실행.

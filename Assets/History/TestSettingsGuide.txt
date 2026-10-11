@@ -130,3 +130,13 @@ Meal Radius / Meal Height / Meal Scale: 테이블 위 좌석별 음식 위치와
 가구와 의자, 착석 높이 설정은 Play 중 즉시 반영된다. 좌석 간격 변경 시 손님은 바뀐 좌석으로 이동한다. 가구 크기·음식 높이·좌석 간격은 함께 조절해야 자연스럽다.
 역할별 구성 편집: Assets/Prototypes/HexWorld/Prefabs/Interiors의 프리팹. 이미지 원본과 임포트 결과는 Art/Interior, 검수 화면·제작 프롬프트는 ArtReferences/2026-10-11-Tavern-Interiors.
 InteriorPreview 씬에서 벽·가구 7종·4인 테이블 착석 모습을 실행 전 확인할 수 있다. 기존 HexWorld 씬에서는 타일 설치 시 같은 프리팹을 사용한다.
+
+[추가 아이템 조절 / 2026-10-11]
+Assets/Prototypes/HexWorld/Data/Items의 6개 ItemDefinition 에셋에서 maxLevel 및 effects의 amount를 변경한다. 기존 개별 아이템과 같은 ScriptableObject 방식이다. 변경 후 이미 소유한 아이템 효과는 다음 아이템 획득/강화 시 다시 계산된다. 새 런으로 확인하는 것을 권장한다.
+food_golden_stew: 접객 골드 +1/레벨, 최대 3. 숙박 제외.
+food_herbal_tea: 테이블 대기 +5초/레벨, 최대 4. 새 대기 손님부터 적용.
+food_pepper_skewer: 조리 속도 +8%, 플레이어 배달 속도 +5%/레벨, 최대 5.
+ability_courier_boots: 플레이어 배달/복귀 속도 +15%/레벨, 최대 5.
+ability_silver_cutlery: 테이블 접객 골드 +1/레벨, 최대 3. 외부 손님/숙박 제외.
+ability_guest_ledger: 관심 확률 +4%p, 대기 +1초/레벨, 최대 5.
+이름/설명: Data/HexWorldStrings.asset의 item.{아이템 키}.name / description. 아이콘: Art/Items. 레벨업 보상 목록: Data/HexCatalog.asset.

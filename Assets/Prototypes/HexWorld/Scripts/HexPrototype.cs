@@ -80,6 +80,10 @@ public sealed class HexPrototype : MonoBehaviour
         public float stay; public GameObject meal;
     }
     public float ServiceInterval => serviceSeconds / Mathf.Max(.1f, 1 + speedBonus + temporarySpeedBonus);
+    float deliveryBonus,serviceGoldBonus,tableGoldBonus,tablePatienceBonus;
+    public float DeliverySpeedMultiplier=>Mathf.Max(.1f,1+deliveryBonus);
+    public int ServiceReward(int baseGold,bool seatedTable)=>Mathf.Max(0,baseGold+Mathf.RoundToInt(serviceGoldBonus)+(seatedTable?Mathf.RoundToInt(tableGoldBonus):0));
+    public float OrderPatience(float baseSeconds,bool seatedTable)=>Mathf.Max(.1f,baseSeconds+patienceBonus+(seatedTable?tablePatienceBonus:0));
     public int ItemLevel(ItemDefinition item) => ownedItems.Find(x => x.definition == item)?.level ?? 0;
 
     void Awake()
@@ -227,7 +231,7 @@ public sealed class HexPrototype : MonoBehaviour
         var definition=guest.hasFacility?board.Layout.Floor(guest.facility.floor).model.Definition(guest.facility.cell):null;
         if(guest.room){guest.state=GuestState.Lodging;guest.stay=guest.initialPatience=definition.lodgingSeconds;guest.view.ShowPatience(true,1);return;}
         guest.state=GuestState.Waiting;guest.reward=definition?definition.serviceGold:ServiceOptions.standingGold;
-        guest.patience=guest.initialPatience=Mathf.Max(.1f,(definition?definition.waitingSeconds:patienceSeconds)+patienceBonus);
+        guest.patience=guest.initialPatience=OrderPatience(definition?definition.waitingSeconds:patienceSeconds,guest.view.seated);
         guest.view.patienceFraction=1;
         guest.view.ShowPatience(true,1);
         guest.contactOrder=++contactSequence;
@@ -411,7 +415,7 @@ public sealed class HexPrototype : MonoBehaviour
     {
         var guest=guests.Find(g=>g.id==id);
         if(!ServiceTarget(id,out var node,out var spot)||!service||service.Floor!=node.floor||Vector3.Distance(service.Position,spot)>ServiceOptions.deliveryDistance)return false;
-        waitingGuests.Remove(guest);AddGold(guest.reward);
+        waitingGuests.Remove(guest);AddGold(ServiceReward(guest.reward,guest.view.seated));
         if(guest.hasFacility)
         {
             guest.state=GuestState.Eating;guest.stay=ServiceOptions.eatingSeconds;guest.view.ShowPatience(false,1);
@@ -464,6 +468,7 @@ public sealed class HexPrototype : MonoBehaviour
     void ApplyEffects()
     {
         float oldInterval=ServiceInterval;speedBonus=patienceBonus=attractionBonus=0;additionalFoodCount=0;
+        deliveryBonus=serviceGoldBonus=tableGoldBonus=tablePatienceBonus=0;
         foreach(var owned in ownedItems)foreach(var effect in owned.definition.effects)
         {
             float amount=effect.amountPerLevel*owned.level;
@@ -471,6 +476,10 @@ public sealed class HexPrototype : MonoBehaviour
             if(effect.kind==ItemEffectKind.CustomerPatienceSeconds)patienceBonus+=amount;
             if(effect.kind==ItemEffectKind.VisitorChance)attractionBonus+=amount;
             if(effect.kind==ItemEffectKind.FoodThrowCount)additionalFoodCount+=Mathf.Max(0,Mathf.RoundToInt(amount));
+            if(effect.kind==ItemEffectKind.DeliverySpeedPercent)deliveryBonus+=amount;
+            if(effect.kind==ItemEffectKind.ServiceGoldBonus)serviceGoldBonus+=amount;
+            if(effect.kind==ItemEffectKind.TableGoldBonus)tableGoldBonus+=amount;
+            if(effect.kind==ItemEffectKind.TablePatienceSeconds)tablePatienceBonus+=amount;
         }
         cooldown*=ServiceInterval/oldInterval;
     }

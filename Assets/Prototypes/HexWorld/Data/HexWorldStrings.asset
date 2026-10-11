@@ -796,3 +796,61 @@ MonoBehaviour:
   - key: actor.role.employee.id
     english: EMPLOYEE #{id}
     korean: "\uC9C1\uC6D0 #{id}"
+  - key: item.food_golden_stew.name
+    english: Golden Stew
+    korean: "\uD669\uAE08 \uC2A4\uD29C"
+  - key: item.food_golden_stew.description
+    english: Earn +{ServiceGoldBonus} gold for each meal served per level. Applies
+      to table and standing guests, excluding lodging. Max level {MaxLevel}.
+    korean: "\uB808\uBCA8\uB2F9 \uC74C\uC2DD \uC811\uAC1D \uC218\uC775 +{ServiceGoldBonus}\uACE8\uB4DC.
+      \uD14C\uC774\uBE14\xB7\uC678\uACFD \uC190\uB2D8\uC5D0\uAC8C \uC801\uC6A9\uB418\uBA70
+      \uC219\uBC15 \uC218\uC775\uC740 \uC81C\uC678\uB429\uB2C8\uB2E4. \uCD5C\uB300
+      {MaxLevel}\uB808\uBCA8."
+  - key: item.food_herbal_tea.name
+    english: Mint Herbal Tea
+    korean: "\uBC15\uD558 \uD5C8\uBE0C\uCC28"
+  - key: item.food_herbal_tea.description
+    english: Seated table guests wait {TablePatienceSeconds} more seconds per level.
+      Applies to newly seated guests. Max level {MaxLevel}.
+    korean: "\uB808\uBCA8\uB2F9 \uD14C\uC774\uBE14 \uC190\uB2D8\uC758 \uC8FC\uBB38
+      \uB300\uAE30 \uC2DC\uAC04 +{TablePatienceSeconds}\uCD08. \uC0C8\uB85C \uCC29\uC11D\uD55C
+      \uC190\uB2D8\uBD80\uD130 \uC801\uC6A9\uB429\uB2C8\uB2E4. \uCD5C\uB300 {MaxLevel}\uB808\uBCA8."
+  - key: item.food_pepper_skewer.name
+    english: Pepper Skewers
+    korean: "\uB9E4\uCF64 \uAF2C\uCE58"
+  - key: item.food_pepper_skewer.description
+    english: 'Per level: cooking speed +{ServiceSpeedPercent}% and player delivery
+      movement speed +{DeliverySpeedPercent}%. Max level {MaxLevel}.'
+    korean: "\uB808\uBCA8\uB2F9 \uC870\uB9AC \uC18D\uB3C4 +{ServiceSpeedPercent}%,
+      \uD50C\uB808\uC774\uC5B4 \uBC30\uB2EC \uC774\uB3D9 \uC18D\uB3C4 +{DeliverySpeedPercent}%.
+      \uCD5C\uB300 {MaxLevel}\uB808\uBCA8."
+  - key: item.ability_courier_boots.name
+    english: Courier Boots
+    korean: "\uBC30\uB2EC\uAFBC\uC758 \uC7A5\uD654"
+  - key: item.ability_courier_boots.description
+    english: Player delivery and return movement speed +{DeliverySpeedPercent}% per
+      level. Does not affect customers or employees. Max level {MaxLevel}.
+    korean: "\uB808\uBCA8\uB2F9 \uD50C\uB808\uC774\uC5B4 \uBC30\uB2EC\xB7\uBCF5\uADC0
+      \uC774\uB3D9 \uC18D\uB3C4 +{DeliverySpeedPercent}%. \uC190\uB2D8\uACFC \uC9C1\uC6D0\uC758
+      \uC774\uB3D9 \uC18D\uB3C4\uC5D0\uB294 \uC601\uD5A5\uC744 \uC8FC\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.
+      \uCD5C\uB300 {MaxLevel}\uB808\uBCA8."
+  - key: item.ability_silver_cutlery.name
+    english: Silver Cutlery
+    korean: "\uC740\uBE5B \uC2DD\uAE30"
+  - key: item.ability_silver_cutlery.description
+    english: Earn +{TableGoldBonus} gold per seated table guest served, per level.
+      Standing and lodging guests are excluded. Max level {MaxLevel}.
+    korean: "\uB808\uBCA8\uB2F9 \uCC29\uC11D\uD55C \uD14C\uC774\uBE14 \uC190\uB2D8
+      \uC811\uAC1D \uC218\uC775 +{TableGoldBonus}\uACE8\uB4DC. \uC678\uACFD \uC190\uB2D8\uACFC
+      \uC219\uBC15 \uC218\uC775\uC740 \uC81C\uC678\uB429\uB2C8\uB2E4. \uCD5C\uB300
+      {MaxLevel}\uB808\uBCA8."
+  - key: item.ability_guest_ledger.name
+    english: Regulars' Ledger
+    korean: "\uB2E8\uACE8 \uC7A5\uBD80"
+  - key: item.ability_guest_ledger.description
+    english: 'Per level: visitor interest +{VisitorChance} percentage points and
+      order patience +{CustomerPatienceSeconds} second for new guests. Max level
+      {MaxLevel}.'
+    korean: "\uB808\uBCA8\uB2F9 \uBC29\uBB38 \uAD00\uC2EC \uD655\uB960 +{VisitorChance}%p,
+      \uC0C8 \uC190\uB2D8\uC758 \uC8FC\uBB38 \uB300\uAE30 \uC2DC\uAC04 +{CustomerPatienceSeconds}\uCD08.
+      \uCD5C\uB300 {MaxLevel}\uB808\uBCA8."

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemKind { Food, Ability, ShopPart }
-public enum ItemEffectKind { ServiceSpeedPercent, CustomerPatienceSeconds, VisitorChance, FoodThrowCount }
+public enum ItemEffectKind { ServiceSpeedPercent, CustomerPatienceSeconds, VisitorChance, FoodThrowCount,
+    DeliverySpeedPercent, ServiceGoldBonus, TableGoldBonus, TablePatienceSeconds }
 
 [Serializable]
 public struct ItemEffect
@@ -32,10 +33,10 @@ public sealed class ItemDefinition : ScriptableObject
         {
             string name = effect.kind.ToString();
             totals.TryGetValue(name, out float current);
-            bool percentage=effect.kind==ItemEffectKind.ServiceSpeedPercent||effect.kind==ItemEffectKind.VisitorChance;
+            bool percentage=effect.kind==ItemEffectKind.ServiceSpeedPercent||effect.kind==ItemEffectKind.VisitorChance||effect.kind==ItemEffectKind.DeliverySpeedPercent;
             totals[name] = current + effect.amountPerLevel*(percentage?100f:1f);
         }
-        var values = new List<object>();
+        var values = new List<object>{"MaxLevel",maxLevel};
         foreach (var pair in totals) { values.Add(pair.Key); values.Add(pair.Value); }
         return LocalizationService.Text(descriptionKey, values.ToArray());
     }

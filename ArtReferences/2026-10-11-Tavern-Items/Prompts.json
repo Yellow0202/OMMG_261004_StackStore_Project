@@ -1,0 +1,35 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "name": "GoldenStew",
+      "prompt": "Use case: stylized-concept. Transparent inventory icon for a pixel-art fantasy village tavern game. One centered object only, crisp native pixel clusters, dark brown outline, simple broad shading, warm muted palette, no gradient, no glow, no letters, no label, no background, generous transparent margin. Designed for a readable 64x64 game icon, slight front three-quarter view. A hearty golden vegetable and meat stew in a rustic wooden bowl, small bread slice beside bowl.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-91b538b5-bf52-4c20-8f0a-f15e98a190c8.png"
+    },
+    {
+      "name": "HerbalTea",
+      "prompt": "Use case: stylized-concept. Transparent inventory icon for a pixel-art fantasy village tavern game. One centered object only, crisp native pixel clusters, dark brown outline, simple broad shading, warm muted palette, no gradient, no glow, no letters, no label, no background, generous transparent margin. Designed for a readable 64x64 game icon, slight front three-quarter view. A cream ceramic cup of green herbal tea on a saucer, two mint leaves, readable calm silhouette.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-d99b6c8e-093b-42b9-adb2-7976033806ac.png"
+    },
+    {
+      "name": "PepperSkewer",
+      "prompt": "Use case: stylized-concept. Transparent inventory icon for a pixel-art fantasy village tavern game. One centered object only, crisp native pixel clusters, dark brown outline, simple broad shading, warm muted palette, no gradient, no glow, no letters, no label, no background, generous transparent margin. Designed for a readable 64x64 game icon, slight front three-quarter view. Two crossed grilled meat skewers with red peppers, appetizing simple chunky shapes.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-ed9f5ed6-189c-48d9-ad6b-91a33b26d109.png"
+    },
+    {
+      "name": "CourierBoots",
+      "prompt": "Use case: stylized-concept. Transparent inventory icon for a pixel-art fantasy village tavern game. One centered object only, crisp native pixel clusters, dark brown outline, simple broad shading, warm muted palette, no gradient, no glow, no letters, no label, no background, generous transparent margin. Designed for a readable 64x64 game icon, slight front three-quarter view. A pair of light brown leather courier ankle boots with small teal straps, dynamic but isolated.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-756eef9b-3371-4c4e-a13c-9d4773fc84b1.png"
+    },
+    {
+      "name": "SilverCutlery",
+      "prompt": "Use case: stylized-concept. Transparent inventory icon for a pixel-art fantasy village tavern game. One centered object only, crisp native pixel clusters, dark brown outline, simple broad shading, warm muted palette, no gradient, no glow, no letters, no label, no background, generous transparent margin. Designed for a readable 64x64 game icon, slight front three-quarter view. A polished silver fork and spoon crossed over a folded burgundy napkin, rustic tavern utensils.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-eea6af55-6772-448a-bb47-d1319c7aaaa8.png"
+    },
+    {
+      "name": "GuestLedger",
+      "prompt": "Use case: stylized-concept. Transparent inventory icon for a pixel-art fantasy village tavern game. One centered object only, crisp native pixel clusters, dark brown outline, simple broad shading, warm muted palette, no gradient, no glow, no letters, no label, no background, generous transparent margin. Designed for a readable 64x64 game icon, slight front three-quarter view. An open small leather guest ledger book with a green ribbon bookmark and a quill alongside, pages have simple tiny abstract marks, no readable writing.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-7caa115a-63ff-4113-942a-c2ea473198d0.png"
+    }
+  ]
+}

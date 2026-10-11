@@ -13,6 +13,7 @@ public sealed class HexFoodService : MonoBehaviour
     public Text[] labels;
     public GameObject[] slotViews;
     [HideInInspector] public float walkSpeed=3.8f;
+    public float EffectiveWalkSpeed=>walkSpeed*game.DeliverySpeedMultiplier;
     public int Floor { get; private set; }
     public readonly HexFoodPreparation Food=new HexFoodPreparation();
     int targetGuest,revision=-1,waypoint;
@@ -112,10 +113,10 @@ public sealed class HexFoodService : MonoBehaviour
             var node=path[waypoint];
             if(node.floor!=Floor){Floor=node.floor;worker.transform.position=HexBoardModel.World(node.cell)+Vector3.up*.22f;UpdateVisibility();waypoint++;return;}
             var center=HexBoardModel.World(node.cell)+Vector3.up*.22f;
-            worker.transform.position=Vector3.MoveTowards(Position,center,dt*walkSpeed);
+            worker.transform.position=Vector3.MoveTowards(Position,center,dt*EffectiveWalkSpeed);
             if(Vector3.Distance(Position,center)<.05f)waypoint++;
         }
-        else worker.transform.position=Vector3.MoveTowards(Position,spot,dt*walkSpeed);
+        else worker.transform.position=Vector3.MoveTowards(Position,spot,dt*EffectiveWalkSpeed);
     }
     public void UpdateVisibility(){if(worker)worker.gameObject.SetActive(Floor==game.board.CurrentFloor);}
 }

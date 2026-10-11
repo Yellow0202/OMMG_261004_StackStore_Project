@@ -5,6 +5,7 @@ Shader "StackStore/EnvironmentUnlit"
         _BaseMap("Texture",2D)="white"{}
         _BaseColor("Tint",Color)=(1,1,1,1)
         _Height("Local floor height",Float)=0
+        [HideInInspector] _ExteriorFog("Exterior fog",Float)=1
         _Contrast("Contrast",Range(0,1))=1
     }
     SubShader
@@ -22,7 +23,7 @@ Shader "StackStore/EnvironmentUnlit"
             #include "HexExteriorFog.hlsl"
             TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);
             CBUFFER_START(UnityPerMaterial)
-            float4 _BaseMap_ST; half4 _BaseColor; float _Height; half _Contrast;
+            float4 _BaseMap_ST; half4 _BaseColor; float _Height; half _Contrast;float _ExteriorFog;
             CBUFFER_END
             struct Attributes { float4 positionOS:POSITION; float2 uv:TEXCOORD0; };
             struct Varyings { float4 positionCS:SV_POSITION; float2 uv:TEXCOORD0; float2 worldXZ:TEXCOORD1; };
@@ -36,7 +37,7 @@ Shader "StackStore/EnvironmentUnlit"
             half4 Frag(Varyings input):SV_Target
             {
                 half4 color=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,input.uv);
-                color.rgb=(color.rgb-.5h)*_Contrast+.5h;color*=_BaseColor;color.rgb=HexFogTint(color.rgb,input.worldXZ);return color;
+                color.rgb=(color.rgb-.5h)*_Contrast+.5h;color*=_BaseColor;color.rgb=lerp(color.rgb,HexFogTint(color.rgb,input.worldXZ),_ExteriorFog);return color;
             }
             ENDHLSL
         }

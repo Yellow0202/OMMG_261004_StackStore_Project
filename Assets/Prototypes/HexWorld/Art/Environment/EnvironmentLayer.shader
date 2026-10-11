@@ -18,7 +18,6 @@ Shader "StackStore/EnvironmentLayer"
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "HexExteriorFog.hlsl"
             TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);
             CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST; half4 _BaseColor; half _Cutoff;
@@ -32,7 +31,7 @@ Shader "StackStore/EnvironmentLayer"
             half4 Frag(Varyings input):SV_Target
             {
                 half4 color=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,input.uv)*_BaseColor;
-                clip(color.a-_Cutoff);return half4(HexFogTint(color.rgb,input.worldXZ),1);
+                clip(color.a-_Cutoff);return half4(color.rgb,1);
             }
             ENDHLSL
         }

@@ -1390,11 +1390,12 @@ HexTestSettings.staffAnimation: 직원 애니메이션의 속도/크기/이동 �
 HexStaffAnimationAuthoring.Run: 3종 직원의 PNG를 임포트하고 방향별 Walk/Idle 클립과 데이터 저장, 직원 정의/후보 그림 연결. Validate는 3×8방향/프레임 수/피벗/후보 참조 및 기존 직원 규칙 검사.
 HexStaffAnimationPlayChecks.Run: 격리 프로젝트에서 전 방향 Walk/Idle 재생, 방향 전환/짧은 경로 간격, 카메라 방향, 순간이동, 설정 적용, 투명도 유지, 비활성/재활성 및 실제 골드 고용 연결 검사.
 
-[타일 외부 안개 / 2026-10-11]
-Scripts/HexExteriorFog.cs: 현재 층의 소유 칸을 작은 축좌표 마스크 Texture2D로 관리하는 순수 C# 도우미. Refresh는 Layout.Revision과 CurrentFloor 변경 때 마스크를 갱신하고 셰이더 전역 값, 카메라 배경색, 손님 월드 CanvasGroup 투명도를 반영한다. BuildMask는 소유 칸 범위에 1칸 여백을 둔 Point 텍스처를 생성한다. Amount는 UI 표시용 CPU 안개 농도, Distance는 육각형 경계 거리다. Dispose는 임시 텍스처 해제와 카메라/UI 원상 복구를 담당한다. owned/Owns는 현재 표시 층의 소유 여부, revision/floor는 마스크 갱신 캐시, canvasAlphas는 원래 UGUI 농도 복구용이다.
-Scripts/HexMarketEnvironment.cs: 기존 ExecuteAlways 환경 컴포넌트의 Refresh/LateUpdate에서 fog.Refresh를 호출한다. OnDisable에서 Dispose하여 다른 씬에 전역 효과가 남지 않게 한다. 씬에 추가 컴포넌트를 만들 필요가 없다.
-Scripts/HexTestSettings.cs > ExteriorFogOptions: 활성화·색상·농도·경계 폭/흔들림/속도·건축 후보 농도·미리보기 표시 설정. 일반/기준선 설정 에셋에 기본값 저장.
-Art/Environment/HexExteriorFog.hlsl: 축좌표 변환, 현재 칸 및 6개 이웃 마스크 샘플, 육각형 거리로 부드러운 경계 계산. HexFogTint는 배경/바닥/스프라이트 RGB에 안개를 적용한다. 건축 후보와 미리보기 칸의 표시 예외도 처리한다.
-Art/Environment/HexFogSprite.shader: 스프라이트의 기준 위치로 안개를 계산하여 빌보드 상단이 소유 칸 밖으로 기울어도 캐릭터가 잘리지 않게 한다. SpriteRenderer 색/반전 및 투명도를 유지한다. _FogPerVertex=1인 TileOutline.mat는 월드 정점 위치로 계산하여 월드 좌표 LineRenderer 윤곽선도 가린다. CharacterSprite.mat는 기본 0을 사용한다.
-EnvironmentUnlit/EnvironmentLayer/HexFloorBlend.shader: 바닥과 시장 배경에도 같은 소유 마스크 안개 적용.
-Editor/HexExteriorFogChecks.cs: Run으로 격리 Play 검사 및 4/30/50도 렌더 캡처. 실제 게임 런타임 코드에 포함되지 않는다.
+[타일 영역 외부 안개 / 2026-10-11 수정]
+Scripts/HexTileBoard.cs > VisibleTiles: 현재 보드가 관리하는 타일 뷰 열거. Edit 모드에서는 authoredTiles, Play에서는 동적으로 생성된 타일까지 포함한다.
+Scripts/HexExteriorFog.cs: 활성화된 전체 타일(소유/미소유 모두)의 좌표를 revealed 집합과 축좌표 마스크 Texture2D로 관리한다. Refresh는 VisibleTiles의 활성 좌표 집합이 달라지면 BuildMask를 호출한다. 각 Refresh에서 마스크와 전역 값을 재연결한다. Reveals는 표시 영역 포함 여부이며 소유 여부가 아니다. nextCells는 변경 비교용 임시 집합, grid는 마스크 좌표 범위다. Amount는 손님 월드 UGUI용 CPU 안개 농도, Distance는 육각형 경계 거리다. Dispose는 텍스처 해제와 UGUI 원래 농도 복구. 카메라 배경색은 변경하지 않는다.
+Scripts/HexMarketEnvironment.cs: 기존 ExecuteAlways Refresh/LateUpdate에서 fog.Refresh 호출. OnDisable에서 Dispose. 바닥 속성 _ExteriorFog=1, 단일 뒷배경 속성 _ExteriorFog=0으로 지정하여 같은 셰이더에서도 배경은 제외한다.
+Scripts/HexTestSettings.cs > ExteriorFogOptions: 활성화·색상·농도·경계 폭/흔들림/속도·건축 후보 농도·미리보기 표시 설정. 일반/기준선 에셋에 기본값 저장.
+Art/Environment/HexExteriorFog.hlsl: 현재 칸 및 6개 이웃 표시 마스크 샘플과 육각형 경계로 안개를 계산한다. 내부 변수 이름 Ownership/Owned는 기존 셰이더 호환용이며 실제 값은 표시되는 모든 타일이다.
+Art/Environment/HexFogSprite.shader: 캐릭터 기준 위치로 안개를 계산하여 빌보드 상단이 잘리지 않게 한다. SpriteRenderer 색/반전/투명도를 유지한다. _FogPerVertex=1인 TileOutline.mat는 월드 정점 기준으로 계산하여 타일 외곽선도 영역 안에서 보인다.
+EnvironmentUnlit/HexFloorBlend.shader: 전체 타일 영역 밖 바닥에 안개 적용. EnvironmentLayer.shader는 안개 미적용이므로 거리별 뒷배경은 항상 보인다.
+Editor/HexExteriorFogChecks.cs: 소유/미소유 타일 표시, 바깥 안개, 설치/이동/회수, 배치/층 전환, 카메라 배경 보존과 단일 뒷배경 예외를 검사하고 4/30/50도 화면을 캡처한다.

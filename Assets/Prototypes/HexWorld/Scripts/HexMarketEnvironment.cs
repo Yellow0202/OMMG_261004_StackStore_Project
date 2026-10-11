@@ -30,7 +30,7 @@ public sealed class HexMarketEnvironment : MonoBehaviour
         float span=Mathf.Max(theme.minimumGroundSpan,Mathf.Max(size.x,size.z)+theme.expansionMargin*2);
         ground.transform.SetPositionAndRotation(new Vector3(center.x,theme.groundHeight,center.z),Quaternion.identity);
         ground.transform.localScale=new Vector3(span,1,span);ground.sharedMaterial=theme.groundMaterial;
-        properties.Clear();properties.SetColor("_BaseColor",theme.groundTint);
+        properties.Clear();properties.SetFloat("_ExteriorFog",1);properties.SetColor("_BaseColor",theme.groundTint);
         properties.SetFloat("_Contrast",theme.groundContrast);
         float repeat=span/Mathf.Max(.1f,theme.pavingRepeatMeters);
         float meters=Mathf.Max(.1f,theme.pavingRepeatMeters);
@@ -41,7 +41,7 @@ public sealed class HexMarketEnvironment : MonoBehaviour
         float extent=(Mathf.Abs(forward.x)*size.x+Mathf.Abs(forward.z)*size.z)*.5f;
         backdrop.transform.SetPositionAndRotation(new Vector3(center.x,theme.backdropBaseHeight+theme.backdropHeight*.5f,center.z)+forward*(theme.backdropDistance+extent),rotation);
         backdrop.transform.localScale=new Vector3(theme.backdropWidth,theme.backdropHeight,1);backdrop.sharedMaterial=theme.backdropMaterial;
-        properties.Clear();properties.SetColor("_BaseColor",theme.backdropTint);backdrop.SetPropertyBlock(properties);
+        properties.Clear();properties.SetFloat("_ExteriorFog",0);properties.SetColor("_BaseColor",theme.backdropTint);backdrop.SetPropertyBlock(properties);
         bool layered=theme.useLayeredBackground&&theme.backgroundLayers!=null&&backgroundLayers!=null&&theme.backgroundLayers.Length>0&&backgroundLayers.Length==theme.backgroundLayers.Length;
         backdrop.enabled=!layered;
         if(backgroundLayers!=null)for(int i=0;i<backgroundLayers.Length;i++)

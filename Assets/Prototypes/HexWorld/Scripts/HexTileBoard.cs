@@ -8,6 +8,7 @@ public sealed class HexTileBoard : MonoBehaviour
 {
     public HexTileView tilePrefab;
     public HexTileView[] authoredTiles;
+    public IEnumerable<HexTileView> VisibleTiles => Layout==null?(IEnumerable<HexTileView>)authoredTiles:tiles.Values;
     public HexTileView preview;
     public Transform tileRoot;
     public HexTileDefinition[] tileTypes;

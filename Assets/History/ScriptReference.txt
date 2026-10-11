@@ -1374,3 +1374,7 @@ HexMoreItemsPlayChecks.Run: 격리 프로젝트 Play 검사. 아이템 중첩/�
 [타일 아이콘 / 2026-10-11]
 HexTileIconsAuthoring.Run: Art/TileIcons의 7종 이미지를 64x64 Point/무압축 Sprite로 임포트하고 각 HexTileDefinition.icon에 연결한다. 타일형 상점 상품의 picture도 같은 아이콘으로 갱신한다. 기존 worldSprite, interiorPrefab, 타일 능력치는 유지한다.
 Validate: 서로 다른 7개 아이콘 참조/크기, 기존 월드 그래픽·가구 참조 및 상점 상품과 타일 아이콘 일치를 확인한다. 보상 UGUI는 기존 HexPrototype.RefreshCards에서 tile.icon을 표시한다.
+
+[기존 아이템 아이콘 / 2026-10-11]
+HexLegacyItemIconsAuthoring.Run: WarmSoup/QuickService/ExtraServings/AttentionCall/TileReward/ServicePotion 6종을 64x64 투명 Point Sprite로 임포트하고 기존 보상 5종 및 PotionOffer.picture를 연결한다. 강화형 상점 상품도 upgrade.picture와 일치시킨다. 기존 효과·가격·문구·최대 레벨은 변경하지 않는다.
+Validate: 6종 아이콘 크기/고유 참조, 기존 아이템 및 소모품 연결, 전체 카탈로그 아이콘 누락, 상점 강화 상품 연결 일치를 검사한다.

@@ -44,3 +44,10 @@
 검증: 원본 크기 및 정수 2배 확대본 검수. 격리 Unity 프로젝트 컴파일과 HEX_TILE_ICONS_VALIDATED 통과, 배치 종료 코드 0. 7종 서로 다른 아이콘/크기, 월드 그래픽 참조 보존 및 상점 연결 일치 확인.
 기록: ArtReferences/2026-10-11-Tile-Icons에 원본, Prompts.json, 가공 스크립트, 검수 이미지 저장. ScriptReference/TestSettingsGuide 갱신.
 미완료·보류: 없음.
+
+[기존 아이템 리소스 보완]
+지시: 기존 아이템의 누락된 리소스를 제작하고 연결.
+수행: 기존 보상 5종(따뜻한 수프, 빠른 접객, 추가 배식, 손님 관심 유도, 타일 획득) 및 상점 버프 물약 전용 아이콘 6종을 내장 imagegen으로 제작. 64x64 투명 Point/무압축 스프라이트로 저장하고 ItemDefinition.picture/PotionOffer.picture 연결. ServiceOffer도 빠른 접객과 동일 그림 사용. 타일 획득 보상은 실제 무작위 타일 선택 기능에 맞춰 설계도+육각 타일로 표현. 기존 효과/가격/최대 레벨/문구 유지.
+검증: 원본 크기 및 정수 2배 확대 검수. 격리 Unity 프로젝트 컴파일 및 HEX_LEGACY_ITEM_ICONS_VALIDATED 통과, 종료 코드 0. 6종 크기/고유 참조/기존 보상·소모품·강화 상점 연결 및 전체 카탈로그 아이콘 누락 검사.
+기록: ArtReferences/2026-10-11-Legacy-Item-Icons에 원본/Prompts.json/가공 스크립트/검수 이미지 저장. ScriptReference와 TestSettingsGuide 갱신.
+미완료·보류: 없음.

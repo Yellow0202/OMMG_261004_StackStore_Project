@@ -1,0 +1,35 @@
+{
+  "mode": "builtin",
+  "assets": [
+    {
+      "name": "WarmSoup",
+      "prompt": "One clean pixel art inventory icon: a simple ceramic bowl of warm creamy soup with rising steam, a wooden spoon, green garnish. Fantasy tavern game icon set. Warm browns, cream, burgundy and muted gold. Dark pixel outlines, broad simple shadows, crisp square pixels, compact readable silhouette at 64x64. Three-quarter view, centered isolated object with generous transparent padding. No lettering, no background scene, no badge, no extra objects. Actual transparent background. Match consistent Japanese fantasy pixel game UI art.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-6f539100-fe21-48ac-a39c-fcda41309eb6.png"
+    },
+    {
+      "name": "QuickService",
+      "prompt": "One clean pixel art inventory icon: a small brass hourglass with burgundy sand and two small motion accents, symbolizing faster cooking. Fantasy tavern game icon set. Warm browns, cream, burgundy and muted gold. Dark pixel outlines, broad simple shadows, crisp square pixels, compact readable silhouette at 64x64. Three-quarter view, centered isolated object with generous transparent padding. No lettering, no background scene, no badge, no extra objects. Actual transparent background. Match consistent Japanese fantasy pixel game UI art.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-33eda99a-cd07-42a0-bc07-d2612efb6aaa.png"
+    },
+    {
+      "name": "ExtraServings",
+      "prompt": "One clean pixel art inventory icon: three stacked ceramic serving plates topped with a little bread, clearly representing extra food capacity. Fantasy tavern game icon set. Warm browns, cream, burgundy and muted gold. Dark pixel outlines, broad simple shadows, crisp square pixels, compact readable silhouette at 64x64. Three-quarter view, centered isolated object with generous transparent padding. No lettering, no background scene, no badge, no extra objects. Actual transparent background. Match consistent Japanese fantasy pixel game UI art.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-49304c27-955c-4e66-a179-786be0248763.png"
+    },
+    {
+      "name": "AttentionCall",
+      "prompt": "One clean pixel art inventory icon: a brass handbell with burgundy handle and two tiny golden ringing accents. Fantasy tavern game icon set. Warm browns, cream, burgundy and muted gold. Dark pixel outlines, broad simple shadows, crisp square pixels, compact readable silhouette at 64x64. Three-quarter view, centered isolated object with generous transparent padding. No lettering, no background scene, no badge, no extra objects. Actual transparent background. Match consistent Japanese fantasy pixel game UI art.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-751fdcf9-a32f-42ba-bab3-d17d5c72796e.png"
+    },
+    {
+      "name": "TileReward",
+      "prompt": "One clean pixel art inventory icon: a rolled parchment floor plan with one small wooden hexagonal floor tile on top, representing a random building tile reward. Fantasy tavern game icon set. Warm browns, cream, burgundy and muted gold. Dark pixel outlines, broad simple shadows, crisp square pixels, compact readable silhouette at 64x64. Three-quarter view, centered isolated object with generous transparent padding. No lettering, no background scene, no badge, no extra objects. Actual transparent background. Match consistent Japanese fantasy pixel game UI art.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-c127b415-f475-4f16-a39f-b114d97be9ac.png"
+    },
+    {
+      "name": "ServicePotion",
+      "prompt": "One clean pixel art inventory icon: a squat glass potion bottle containing bright amber liquid, burgundy wax stopper and a tiny hourglass charm, a temporary cooking boost. Fantasy tavern game icon set. Warm browns, cream, burgundy and muted gold. Dark pixel outlines, broad simple shadows, crisp square pixels, compact readable silhouette at 64x64. Three-quarter view, centered isolated object with generous transparent padding. No lettering, no background scene, no badge, no extra objects. Actual transparent background. Match consistent Japanese fantasy pixel game UI art.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-fe3ecf14-6cc8-47e0-9a4e-c06b686f9005.png"
+    }
+  ]
+}

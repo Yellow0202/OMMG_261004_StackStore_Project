@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcab1ce2fdde49dfb3a79a291bb2b940, type: 3}
   m_Name: ability_quick_service
   m_EditorClassIdentifier:
-  picture: {fileID: 21300000, guid: 632374ba0fe3a4a4da261fb46faa1c16, type: 3}
+  picture: {fileID: 21300000, guid: f6d0d3819036e4e4e96e2760c2671550, type: 3}
   nameKey: item.ability_quick_service.name
   descriptionKey: item.ability_quick_service.description
   key: ability_quick_service

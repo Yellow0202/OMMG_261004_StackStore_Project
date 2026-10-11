@@ -15,7 +15,7 @@ MonoBehaviour:
   key: ServiceOffer
   nameKey: shop.upgrade.name
   descriptionKey: shop.upgrade.desc
-  picture: {fileID: 21300000, guid: 632374ba0fe3a4a4da261fb46faa1c16, type: 3}
+  picture: {fileID: 21300000, guid: f6d0d3819036e4e4e96e2760c2671550, type: 3}
   kind: 1
   price: 5
   tile: {fileID: 0}

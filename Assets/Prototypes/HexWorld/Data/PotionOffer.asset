@@ -15,7 +15,7 @@ MonoBehaviour:
   key: PotionOffer
   nameKey: shop.potion.name
   descriptionKey: shop.potion.desc
-  picture: {fileID: 21300000, guid: 8a95f5943316eb549a0281d21c2b81db, type: 3}
+  picture: {fileID: 21300000, guid: 5f2c9605fdf2adf408a35e1084be6051, type: 3}
   kind: 2
   price: 2
   tile: {fileID: 0}

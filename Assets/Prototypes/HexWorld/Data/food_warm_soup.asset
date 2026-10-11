@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcab1ce2fdde49dfb3a79a291bb2b940, type: 3}
   m_Name: food_warm_soup
   m_EditorClassIdentifier:
-  picture: {fileID: 21300000, guid: fa1f003322fc51c43b950b53fb23e425, type: 3}
+  picture: {fileID: 21300000, guid: 3ec2fb21f37b0f542b026baf7640d469, type: 3}
   nameKey: item.food_warm_soup.name
   descriptionKey: item.food_warm_soup.description
   key: food_warm_soup

@@ -21,13 +21,13 @@ public sealed class HexTestSettings : ScriptableObject
         public bool revealPlacementPreview=true;
         [Header("입체 안개 / Raised fog")]
         public bool raisedFog=true;
-        [Range(.2f,8)] public float height=2.6f;
-        [Range(0,1)] public float raisedOpacity=.48f;
-        [Range(0,1)] public float nearSideOpacity=.25f;
-        [Range(.1f,5)] public float depth=1.8f;
+        [Range(.2f,8)] public float height=1.5f;
+        [Range(0,1)] public float raisedOpacity=.95f;
+        [Range(0,1)] public float nearSideOpacity=0f;
+        [Range(.1f,5)] public float depth=3.5f;
         [Range(1,5)] public int layers=3;
         [Range(.2f,4)] public float cloudScale=1.1f;
-        [Range(0,1)] public float cloudSpeed=.18f;
+        [Range(0,1)] public float cloudSpeed=.08f;
     }
     [Header("가구·착석 / 즉시 반영")]
     public InteriorOptions interior = new InteriorOptions();

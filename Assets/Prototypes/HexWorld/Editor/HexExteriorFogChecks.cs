@@ -42,6 +42,7 @@ public static class HexExteriorFogChecks
             var rim=rimObject?rimObject.GetComponent<MeshFilter>():null;
             Require(rim&&rim.sharedMesh.vertexCount>0&&rim.sharedMesh.bounds.size.y>=options.height,"Raised fog has no height");
             Require(!rim.GetComponent<Collider>(),"Mist blocks movement");
+            Require(rim.sharedMesh.normals.Length==rim.sharedMesh.vertexCount&&rim.sharedMesh.vertexCount>1000,"Cloud lobes missing");
             options.raisedFog=false;fog.Refresh(board,settings,camera);Require(!rim.gameObject.activeSelf,"Raised toggle failed");
             options.raisedFog=true;fog.Refresh(board,settings,camera);Require(rim.gameObject.activeSelf,"Raised toggle restore failed");
             var originalBackground=camera.backgroundColor;
@@ -93,7 +94,7 @@ public static class HexExteriorFogChecks
             RenderTexture.active=target;picture.ReadPixels(new Rect(0,0,1280,720),0,0);picture.Apply();
             string project=Path.GetDirectoryName(Application.dataPath);
             if(project.EndsWith(Path.Combine("Temp","AnimationValidation")))project=Directory.GetParent(project).Parent.FullName;
-            var directory=Path.Combine(project,"ArtReferences","2026-10-11-Raised-Fog");Directory.CreateDirectory(directory);
+            var directory=Path.Combine(project,"ArtReferences","2026-10-12-Cloud-Bank-Fog");Directory.CreateDirectory(directory);
             File.WriteAllBytes(Path.Combine(directory,name),picture.EncodeToPNG());
         }
         finally{RenderTexture.active=previous;target.Release();UnityEngine.Object.DestroyImmediate(target);UnityEngine.Object.DestroyImmediate(picture);}

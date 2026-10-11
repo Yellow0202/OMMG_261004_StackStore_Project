@@ -23,13 +23,13 @@ MonoBehaviour:
     buildingFrontierOpacity: 0.35
     revealPlacementPreview: 1
     raisedFog: 1
-    height: 2.6
-    raisedOpacity: 0.48
-    nearSideOpacity: 0.25
-    depth: 1.8
+    height: 1.5
+    raisedOpacity: 0.95
+    nearSideOpacity: 0
+    depth: 3.5
     layers: 3
     cloudScale: 1.1
-    cloudSpeed: 0.18
+    cloudSpeed: 0.08
   staffAnimation:
     walkFramesPerSecond: 8
     idleFramesPerSecond: 3

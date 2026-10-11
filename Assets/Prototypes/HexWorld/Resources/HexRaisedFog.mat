@@ -16,4 +16,4 @@ Material:
     m_Floats: []
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Cloud: {r: 0.48, g: 1.1, b: 0.18, a: 2.6}
+    - _Cloud: {r: 0.95, g: 1.1, b: 0.08, a: 1.5}

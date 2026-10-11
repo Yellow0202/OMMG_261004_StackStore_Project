@@ -5,6 +5,8 @@ using UnityEngine;
 public sealed class HexPlayerAnimationSet : ScriptableObject
 {
     public bool mirrorWest;
+    [Header("착석 / 정면·오른쪽·후면·왼쪽")]
+    public Sprite[] seated = new Sprite[4];
     public AnimationClip[] walk = new AnimationClip[8];
     public Sprite[] idle = new Sprite[8];
     [System.Serializable] public sealed class Frames { public Sprite[] sprites; }

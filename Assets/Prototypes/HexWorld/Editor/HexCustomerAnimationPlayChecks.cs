@@ -42,7 +42,16 @@ public static class HexCustomerAnimationPlayChecks
                     if(animation.Moving||actor.body.sprite!=character.idle[d])throw new Exception("Idle direction "+d);
                 }
                 actor.seated=true;tick.Invoke(animation,null);
-                if(animation.Moving||actor.body.sprite!=character.idle[animation.Direction])throw new Exception("Seated identity");
+                var seatedPose=character.seated[HexCustomerAnimation.SeatedDirection(actor.seatFacing)];
+                if(animation.Moving||actor.body.sprite!=seatedPose)throw new Exception("Seated identity");
+                foreach(var facing in new[]{Vector3.back,Vector3.right,Vector3.forward,Vector3.left})
+                {
+                    actor.seatFacing=facing;advance.Invoke(animation,new object[]{Vector3.zero,1f/60,0f});
+                    int side=HexCustomerAnimation.SeatedDirection(facing);
+                    if(actor.body.sprite!=character.seated[side]||actor.body.flipX||animation.Moving)throw new Exception("Seated orientation "+character.name+"/"+side);
+                    if(Mathf.Abs(actor.body.sprite.bounds.size.y*actor.body.transform.localScale.y-settings.interior.seatedHeight)>.001f)throw new Exception("Seated height mismatch");
+                }
+                actor.seatFacing=Vector3.back;
                 actor.seated=false;
                 var tint=new Color(0,0,0,.4f);actor.body.color=tint;tick.Invoke(animation,null);
                 if(actor.body.color!=tint)throw new Exception("Tint changed");
@@ -91,6 +100,7 @@ public static class HexCustomerAnimationPlayChecks
             }
             if(spawned!=game.CustomerCount)throw new Exception("Spawn connection mismatch");
             CheckWaypointBudget(game,settings);
+            HexInteriorPlayChecks.Validate(game);
             Debug.Log("CUSTOMER_ANIMATION_PLAY_CHECKS_PASSED: all six characters/eight directions, idle, seating, tint, teleport, re-enable, actual scene spawn; waypoint distance budget, short-gap clock continuity, direction hysteresis, real stop and resume.");
         }
         catch(Exception exception){Debug.LogException(exception);result=1;}

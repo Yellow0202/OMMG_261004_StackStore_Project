@@ -1337,3 +1337,22 @@ HexPlayerIdleAuthoring.cs: Build는 Idle 폴더의 8방향 원본을 단일 Spri
 HexPlayerAnimationAuthoring.Build: 이동 리소스 재생성 후 Idle 폴더가 있으면 전용 Idle 재연결. HexPlayerAnimation의 기존 정지 분기가 전용 idle[direction]을 표시하므로 런타임 방향 계산은 동일.
 
 HexPlayerWalkSheetAuthoring.cs: Build가 WalkSources의 8방향 시트를 Slice하고 기존 이동 클립/Idle 연결을 재빌드한다. Slice는 알파로 연결된 인물 8개를 찾고 4열 2행 순서로 정렬하여 동일한 정사각 프레임에 발 하단과 머리 중심을 맞춰 저장한다. 포즈를 합성하지 않으며 원본 프레임 순서대로 분리한다. Validate는 64개 프레임의 경로/순서/크기/발 피벗/Point 임포트를 확인한다. 기존 Walk 파일의 meta/GUID는 유지한다.
+
+[벽·타일 내부 가구 및 착석 / 2026-10-11]
+HexTileDefinition.interiorPrefab: 역할별 가구 프리팹. worldSprite는 가구 대표 이미지이며 기존 icon은 UI 아이콘으로 유지한다.
+HexTileView.interior / interiorDefinition: 현재 표시 중인 가구 인스턴스와 원본 정의. Show는 종류가 변경될 때만 프리팹을 교체하고 예전 건물 표시를 숨긴다. ShowShop은 층·좌표·실제 좌석 정원을 가구에 전달한다. 기존 바닥·벽·라벨 제어는 유지한다.
+HexTileInterior: 저장된 2D 가구와 의자 표시 담당. kind는 타일 역할, furnishing은 중심 가구 Transform, chairs는 최대 4개 의자 SpriteRenderer, chairFront / chairBack은 앞뒤 그림. capacity는 해당 테이블의 실제 정원이다.
+  Bind(owner, floor, cell): 게임 배치 데이터에서 해당 타일의 정원을 읽는다.
+  Refresh(): 공유 테스트 설정의 가구 크기·좌석 간격·의자 크기를 적용하고 정원만큼 의자를 표시한다. 카메라 기준으로 의자 앞뒤를 고르고 바닥 고정 피벗을 유지한다.
+  Tint(color): 모든 가구·의자에 배치 미리보기 색과 투명도를 적용한다.
+  LateUpdate(): 테스트 설정을 실시간 반영한다.
+HexShopLayout.SeatOffset(seat, capacity): 의자와 손님이 함께 사용하는 로컬 좌석 위치. 앞 / 뒤 / 왼쪽 / 오른쪽 순서로 활성화한다. 기존 원형 균등 각도 배치를 대체한다.
+  SeatPosition(node, seat): 실제 타일 중심 + SeatOffset. 기존 예약/반납/이동 경로는 유지한다.
+  MealPosition(node, seat): 해당 좌석 방향의 테이블 위 음식 위치. InteriorOptions의 mealRadius / mealHeight를 사용한다.
+HexWorldActor.seatFacing: 착석 손님이 바라볼 월드 방향. JoinWaiting에서 테이블 중심을 향하도록 설정한다.
+HexPlayerAnimationSet.seated: 정면 / 오른쪽 / 후면 / 왼쪽 순서의 착석 Sprite 4개. 손님 6종마다 별도 그림을 참조한다. 기존 Idle와 Walk 클립은 유지한다.
+HexCustomerAnimation.SeatedDirection(facing): 카메라 기준 방향을 4방향 착석 그림 인덱스로 변환한다. AdvanceMotion은 착석 시 이 그림을 사용하며 서 있는 Idle로 돌아가지 않는다. 자리에서 일어나면 원래 이동 크기와 애니메이션을 복원한다.
+HexPrototype.CompleteService: 음식은 MealPosition에 생성하고 interior.mealScale로 크기를 적용한다. 테이블 보상·대기 순서는 변경하지 않는다.
+HexInteriorAuthoring: Art/Interior 이미지를 Point / 무압축 / 바닥 피벗으로 임포트하고 Prefabs/Interiors 7종과 각 타일 데이터 참조를 저장한다. 벽은 기존 두께·충돌·깊이 버퍼 셰이더에 새 회벽/목재 이미지를 연결한다. Run은 편집 전용 메뉴이며 InteriorPreview 씬과 각도별 렌더링 비교를 저장한다.
+HexInteriorPlayChecks.Validate: 실제 타일 프리팹 연결, 2/3/4석 의자와 게임 좌표 일치, 공유 설정 실시간 적용, 배치 투명도 및 복원을 확인한다. HexCustomerAnimationPlayChecks에서 6종×4방향 착석 검사와 함께 실행한다.
+추가 씬: Assets/Prototypes/HexWorld/Scenes/InteriorPreview.unity. 기존 HexWorld 씬의 사용자 편집 내용은 변경하지 않는다.

@@ -11,6 +11,8 @@ public sealed class HexTileDefinition : ScriptableObject
     public Color color = new Color(.85f, .55f, .23f);
     public HexTileKind kind;
     public Sprite worldSprite;
+    [Header("설치된 가구 / 프리팹에서 실행 전 편집")]
+    public HexTileInterior interiorPrefab;
     public int minimumSeats=2, maximumSeats=4;
     public float waitingSeconds=20, lodgingSeconds=30;
     public int serviceGold=2, lodgingGold=6;

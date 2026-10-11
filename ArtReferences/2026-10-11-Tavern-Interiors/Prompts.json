@@ -1,0 +1,55 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "name": "Table",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. A sturdy small ROUND wooden dining table, warm honey oak, thick round tabletop, four short legs. No chairs, food or utensils. Clear tabletop silhouette, modest rustic tavern design.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-107ba03d-ea16-4d40-868c-ad387bdcb28b.png"
+    },
+    {
+      "name": "Kitchen",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. A compact rustic cooking counter with stone stove on left, iron pot, wooden preparation bench on right, cutting board and vegetables. No tall chimney, keep silhouette under chest height.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-8d9bc146-7ce0-4424-af99-838c21bc49d3.png"
+    },
+    {
+      "name": "Storage",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. A compact storeroom grouping of two wooden crates, one barrel and a small sack. Clear readable silhouettes, no backdrop.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-177a2f1e-02c0-4a29-9060-04e5d96d586b.png"
+    },
+    {
+      "name": "Stairs",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. A short flight of rustic wooden stairs rising away from viewer, 5 visible steps, small side railings. Isolated stairs only, no room or floor.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-6f15e865-c513-4846-b8ac-82c107a02433.png"
+    },
+    {
+      "name": "Lodging",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. A single cozy rustic bed, green quilt, cream pillow, wooden headboard and legs, front three-quarter view showing bed length. Isolated bed only.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-56bdf8ad-9d13-4ca5-b75a-596960b7590e.png"
+    },
+    {
+      "name": "Entrance",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. A rustic open wooden doorway frame with small lantern at one side. OPEN transparent center, no closed door or wall, no text. Front facing.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-0341e9b6-614b-4814-83fe-55ac8ea511b1.png"
+    },
+    {
+      "name": "Shelf",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. A compact wooden merchant display shelf with bread, glass bottles and fruit. Three shelves, no signage, approachable fantasy tavern style.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-77bd1bed-24aa-443c-8490-b3a7ab9fc4e0.png"
+    },
+    {
+      "name": "Chair",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. A sturdy simple wooden tavern chair seen from front, seat visible, upright backrest, short legs. No character. Match honey oak table.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-103c73ca-1cb3-455f-97a5-766f3b291447.png"
+    },
+    {
+      "name": "ChairBack",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. Same simple honey oak wooden tavern chair but viewed from behind: plain wooden backrest and legs visible. No character.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-e623ebea-ce5d-4b2b-a28c-e5fced82acbf.png"
+    },
+    {
+      "name": "Wall",
+      "prompt": "Use case: stylized-concept. Asset type: transparent pixel-art game furniture sprite for a fantasy tavern in a village market. Clean native pixel clusters, dark brown outlines, limited warm palette, broad simple shading, no noisy texture, no gradients, no text or characters. Orthographic front view with a little visible top surface (about 20 degrees looking down), no isometric sideways rotation. One centered isolated object, fully visible, ample transparent margin. Art must be suitable to downsample by nearest-neighbor to about 160 pixels wide. OVERRIDE transparent cutout: full rectangular opaque seamless wall texture 2:1 width height, flat orthographic elevation. Cream plaster above low gray stone foundation, dark warm timber framing at left/right and horizontal top, simple pixel clusters. Fill entire image edge to edge, no perspective, no props, no transparency, no lighting cast shadows.",
+      "path": "C:\\Users\\Chang\\.codex\\generated_images\\01a1021f-68a4-7fd1-86af-860c38e5bff3\\exec-5b3dbf5b-fe31-4a14-bebd-8aa19efcb6ed.png"
+    }
+  ]
+}

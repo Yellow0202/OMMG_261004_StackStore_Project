@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: PrototypeTestSettings
   m_EditorClassIdentifier:
   environment: {fileID: 11400000, guid: b2b7086df730d0c4e93d558179e640bd, type: 2}
+  interior:
+    furnitureScale: 1
+    furnitureSizes:
+    - {x: 1.25, y: 1.15}
+    - {x: 1.4, y: 0.78}
+    - {x: 1.5, y: 0.95}
+    - {x: 1.25, y: 0.9}
+    - {x: 1.3, y: 1.15}
+    - {x: 1.45, y: 0.85}
+    - {x: 1.6, y: 1.6}
+    seatRadius: 0.8
+    groundHeight: 0.22
+    chairWidth: 0.48
+    seatedHeight: 1.02
+    chairDepthOffset: 0.08
+    mealRadius: 0.32
+    mealHeight: 0.94
+    mealScale: 0.45
   customerAnimation:
     catalog: {fileID: 11400000, guid: 88847958c22d1f7489c731af7fb9cbe7, type: 2}
     framesPerSecond: 8
@@ -103,8 +121,6 @@ MonoBehaviour:
     stationDistance: 0.1
     arrivalDistance: 0.18
     deliveryDistance: 0.25
-    mealRadius: 0.4
-    mealHeight: 1.4
   start:
     gold: 0
     tilesPerType: 2

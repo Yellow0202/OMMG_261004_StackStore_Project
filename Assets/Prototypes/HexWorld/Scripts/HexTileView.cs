@@ -17,6 +17,8 @@ public sealed class HexTileView : MonoBehaviour
     bool shownOwned,ghostFloor;
     HexTileDefinition shownDefinition;
     MaterialPropertyBlock floorProperties;
+    HexTileInterior interior;
+    HexTileDefinition interiorDefinition;
     public void ApplyFloor(HexEnvironmentTheme theme,bool isOwned,HexTileDefinition definition)
     {
         var material=theme?theme.Floor(definition?definition.kind:HexTileKind.DisplayShelf):null;
@@ -35,12 +37,21 @@ public sealed class HexTileView : MonoBehaviour
         ApplyFloor(HexTestSettings.Current?HexTestSettings.Current.environment:null,owned&&!ghostFloor,definition);
         if (outline) { outline.sortingOrder = -32000; outline.startColor = outline.endColor = color; }
         furniture.SetActive(owned && definition);
+        if(interiorDefinition!=definition)
+        {
+            if(interior){interior.gameObject.SetActive(false);if(Application.isPlaying)Destroy(interior.gameObject);else DestroyImmediate(interior.gameObject);}
+            interior=null;interiorDefinition=definition;
+            if(definition&&definition.interiorPrefab)interior=Instantiate(definition.interiorPrefab,furniture.transform);
+        }
+        if(buildingSprite)buildingSprite.gameObject.SetActive(!interior);
+        if(interior)interior.Tint(highlight.HasValue&&highlight.Value.a<.99f?highlight.Value:Color.white);
         if(buildingSprite&&definition)buildingSprite.sprite=definition.worldSprite?definition.worldSprite:definition.icon;
         if (buildingSprite) buildingSprite.color = highlight.HasValue && highlight.Value.a < .99f ? highlight.Value : Color.white;
     }
     public void ShowShop(HexShopLayout layout,int floor,bool owned)
     {
         this.layout=layout;this.floor=floor;this.owned=owned;
+        if(interior)interior.Bind(layout,floor,coordinate);
         if(HexTestSettings.Current)ApplyFloor(HexTestSettings.Current.environment,shownOwned&&!ghostFloor,shownDefinition);
         for(int d=0;d<walls.Length;d++)
         {

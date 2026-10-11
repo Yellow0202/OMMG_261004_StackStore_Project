@@ -55,9 +55,23 @@ public sealed class HexCustomerAnimation : MonoBehaviour
             actor.body.sprite=character.Sample(direction,phase);
         }
         else actor.body.sprite=character.idle[direction];
+        if(actor.seated&&character.seated!=null&&character.seated.Length==4)
+        {
+            var facing=Quaternion.Euler(0,-cameraYaw,0)*actor.seatFacing;
+            int seatedDirection=SeatedDirection(facing);
+            var pose=character.seated[seatedDirection];
+            if(pose)actor.body.sprite=pose;
+        }
         if(teleported){phase=0;stationarySeconds=options.stopGraceSeconds;}
-        actor.body.flipX=character.mirrorWest&&direction==6;
+        actor.body.flipX=!actor.seated&&character.mirrorWest&&direction==6;
         actor.body.transform.localScale=originalScale*Mathf.Max(.01f,options.scale);
+        if(actor.seated&&character.seated!=null&&actor.body.sprite&&System.Array.IndexOf(character.seated,actor.body.sprite)>=0)
+            actor.body.transform.localScale*=settings.interior.seatedHeight/actor.body.sprite.bounds.size.y;
         wasMoving=Moving;
+    }
+    public static int SeatedDirection(Vector3 facing)
+    {
+        if(Mathf.Abs(facing.x)>Mathf.Abs(facing.z))return facing.x>0?1:3;
+        return facing.z>0?2:0;
     }
 }

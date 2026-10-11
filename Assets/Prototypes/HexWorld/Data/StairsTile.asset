@@ -18,7 +18,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 81875074077731e46a5552cb2e31b07b, type: 3}
   color: {r: 0.495, g: 0.8652857, b: 0.9, a: 1}
   kind: 4
-  worldSprite: {fileID: 21300000, guid: 81875074077731e46a5552cb2e31b07b, type: 3}
+  worldSprite: {fileID: 21300000, guid: e78251b6e7f0f3444915166e6d84324e, type: 3}
+  interiorPrefab: {fileID: 4759504790688569908, guid: 838be406bddc4d741a5c31c457d9f10a, type: 3}
   minimumSeats: 2
   maximumSeats: 4
   waitingSeconds: 20

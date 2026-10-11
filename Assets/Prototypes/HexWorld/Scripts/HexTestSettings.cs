@@ -7,6 +7,19 @@ public sealed class HexTestSettings : ScriptableObject
 {
     [Header("환경 / 현재 장소의 바닥·배경 / 즉시 반영")]
     public HexEnvironmentTheme environment;
+    [Header("가구·착석 / 즉시 반영")]
+    public InteriorOptions interior = new InteriorOptions();
+    [Serializable] public sealed class InteriorOptions
+    {
+        [Min(.1f)] public float furnitureScale=1;
+        [Tooltip("진열대 / 테이블 / 주방 / 창고 / 계단 / 숙박 / 출입구 순서의 가로·세로 크기")]
+        public Vector2[] furnitureSizes={new Vector2(1.25f,1.15f),new Vector2(1.4f,.78f),new Vector2(1.5f,.95f),new Vector2(1.25f,.9f),new Vector2(1.3f,1.15f),new Vector2(1.45f,.85f),new Vector2(1.6f,1.6f)};
+        [Range(.55f,.95f)] public float seatRadius=.8f;
+        public float groundHeight=.22f;
+        [Min(.1f)] public float chairWidth=.48f,seatedHeight=1.02f;
+        [Min(0)] public float chairDepthOffset=.08f;
+        [Min(0)] public float mealRadius=.32f,mealHeight=.94f,mealScale=.45f;
+    }
     public static HexTestSettings Current { get; internal set; }
     [Header("손님 이동 애니메이션 / 목록은 다음 생성, 속도·크기는 즉시 반영")]
     public CustomerAnimationOptions customerAnimation = new CustomerAnimationOptions();
@@ -98,7 +111,6 @@ public sealed class HexTestSettings : ScriptableObject
         [Min(0)] public int standingGold=1;
         public Vector3 stationOffset=new Vector3(0,.22f,-.65f);
         [Min(.001f)] public float stationDistance=.1f,arrivalDistance=.18f,deliveryDistance=.25f;
-        [Min(0)] public float mealRadius=.4f,mealHeight=1.4f;
     }
     [Serializable] public sealed class StartOptions
     {

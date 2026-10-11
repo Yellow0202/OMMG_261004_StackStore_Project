@@ -117,3 +117,16 @@ Idle 원본: Art/PlayerAnimation/Idle. 인게임 크기는 기존 Player Animati
 PrototypeTestSettings > Player Animation의 워킹 시트 재분할 항목: Authored Height(표시 높이), Alpha Cutoff(배경 경계), Frame Padding(발 밑 여백), Frame Canvas Size(프레임 크기), Frame Body Height(첫 포즈 신체 높이, 다른 프레임은 같은 배율).
 기본값: 1.208333 / 128 / 2 / 256 / 192. 원본 교체 또는 재분할값 변경 후 Stack Store > Hex World > Import Player Walk Source Sheets 실행. 잘린 이웃 프레임이 섞이지 않도록 연결된 인물 단위로 분리하고 가장 가까운 픽셀로 샘플링한다. 전용 Idle 참조도 다시 연결.
 Frames Per Second와 Scale은 기존처럼 Play 중 즉시 반영. 재분할 값은 메뉴 실행 후 반영되며 기존 Idle 원본 PNG는 바꾸지 않는다.
+
+[가구·착석 설정 / 2026-10-11]
+Assets/Prototypes/HexWorld/Data/PrototypeTestSettings.asset > 가구·착석(Interior)에서 조절한다.
+Furniture Scale: 중심 가구의 공통 크기 배율(기본 1). 의자와 손님 크기는 별도 조절한다.
+Furniture Sizes: 역할별 가로/세로 크기. 진열대, 테이블, 주방, 창고, 계단, 숙박, 출입구 순서. 기본 (1.25,1.15), (1.4,.78), (1.5,.95), (1.25,.9), (1.3,1.15), (1.45,.85), (1.6,1.6).
+Seat Radius: 테이블 중심에서 좌석까지 거리(.8). 의자와 대기 손님 좌표가 같은 값을 사용한다. 지나치게 줄이면 테이블과 겹칠 수 있다.
+Ground Height: 가구와 좌석의 바닥 높이(.22).
+Chair Width: 의자 표시 가로 폭(.48). Seated Height: 착석 손님의 표시 높이(1.02).
+Chair Depth Offset: 의자 등받이와 손님 사이 깊이 간격(.08). 가까운 의자의 등받이는 손님 뒤쪽 몸을 가린다.
+Meal Radius / Meal Height / Meal Scale: 테이블 위 좌석별 음식 위치와 크기(.32 / .94 / .45). 기존 Service의 Meal Radius/Height 항목은 여기로 이동했으며 새 음식부터 반영한다.
+가구와 의자, 착석 높이 설정은 Play 중 즉시 반영된다. 좌석 간격 변경 시 손님은 바뀐 좌석으로 이동한다. 가구 크기·음식 높이·좌석 간격은 함께 조절해야 자연스럽다.
+역할별 구성 편집: Assets/Prototypes/HexWorld/Prefabs/Interiors의 프리팹. 이미지 원본과 임포트 결과는 Art/Interior, 검수 화면·제작 프롬프트는 ArtReferences/2026-10-11-Tavern-Interiors.
+InteriorPreview 씬에서 벽·가구 7종·4인 테이블 착석 모습을 실행 전 확인할 수 있다. 기존 HexWorld 씬에서는 타일 설치 시 같은 프리팹을 사용한다.

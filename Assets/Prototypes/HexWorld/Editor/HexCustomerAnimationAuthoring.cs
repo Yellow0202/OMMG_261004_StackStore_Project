@@ -191,7 +191,8 @@ public static class HexCustomerAnimationAuthoring
                 typeof(HexCustomerAnimation).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(animation,null);
                 if(actor.body.color!=tint)throw new Exception("Animation overwrote tint");
                 actor.seated=true;typeof(HexCustomerAnimation).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(animation,null);
-                if(actor.body.sprite!=animation.Character.idle[animation.Direction])throw new Exception("Seated identity changed");
+                var seated=animation.Character.seated[HexCustomerAnimation.SeatedDirection(actor.seatFacing)];
+                if(actor.body.sprite!=(seated?seated:animation.Character.idle[animation.Direction]))throw new Exception("Seated identity changed");
                 actor.seated=false;
             }
             UnityEngine.Random.state=randomState;

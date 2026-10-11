@@ -164,7 +164,20 @@ public sealed class HexShopLayout
   if(seat<0)return false;Floor(target.floor).use[target.cell].occupants[seat]=guest;return true;
  }
  public void Release(int guest){foreach(var floor in floors)foreach(var use in floor.Value.use.Values)for(int i=0;i<use.capacity;i++)if(use.occupants[i]==guest)use.occupants[i]=0;}
- public Vector3 SeatPosition(HexNavNode node,int seat){var use=Floor(node.floor).use[node.cell];float a=seat*Mathf.PI*2/use.capacity;return HexBoardModel.World(node.cell)+new Vector3(Mathf.Cos(a)*.65f,.22f,Mathf.Sin(a)*.65f);}
+ public static Vector3 SeatOffset(int seat,int capacity)
+ {
+  var options=HexTestSettings.Current?HexTestSettings.Current.interior:new HexTestSettings.InteriorOptions();
+  // Fixed cardinal chairs: capacity changes must not rotate the furniture or place guests inside it.
+  var direction=new[]{Vector3.back,Vector3.forward,Vector3.left,Vector3.right}[Mathf.Clamp(seat,0,Mathf.Clamp(capacity,1,4)-1)];
+  return direction*options.seatRadius+Vector3.up*options.groundHeight;
+ }
+ public Vector3 SeatPosition(HexNavNode node,int seat)=>HexBoardModel.World(node.cell)+SeatOffset(seat,Floor(node.floor).use[node.cell].capacity);
+ public Vector3 MealPosition(HexNavNode node,int seat)
+ {
+  var options=HexTestSettings.Current?HexTestSettings.Current.interior:new HexTestSettings.InteriorOptions();
+  var direction=SeatOffset(seat,Floor(node.floor).use[node.cell].capacity);direction.y=0;
+  return HexBoardModel.World(node.cell)+direction.normalized*options.mealRadius+Vector3.up*options.mealHeight;
+ }
  public bool ConvertEnclosedStall(HexTileDefinition kitchen)
  {
   var model=Floor(0).model;if(model.Definition(model.Root)||!kitchen)return false;

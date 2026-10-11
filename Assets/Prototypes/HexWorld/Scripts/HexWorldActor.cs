@@ -7,6 +7,7 @@ public sealed class HexWorldActor : MonoBehaviour
     public Sprite[] walkFrames;
     public Sprite seatedFrame;
     public bool seated;
+    [System.NonSerialized] public Vector3 seatFacing=Vector3.back;
     public Image patience;
     public Transform patienceCanvas;
     public Transform shadow;

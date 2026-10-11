@@ -223,6 +223,7 @@ public sealed class HexPrototype : MonoBehaviour
     void JoinWaiting(Guest guest)
     {
         guest.view.seated=guest.hasFacility&&!guest.room;
+        if(guest.view.seated)guest.view.seatFacing=HexBoardModel.World(guest.facility.cell)-guest.view.transform.position;
         var definition=guest.hasFacility?board.Layout.Floor(guest.facility.floor).model.Definition(guest.facility.cell):null;
         if(guest.room){guest.state=GuestState.Lodging;guest.stay=guest.initialPatience=definition.lodgingSeconds;guest.view.ShowPatience(true,1);return;}
         guest.state=GuestState.Waiting;guest.reward=definition?definition.serviceGold:ServiceOptions.standingGold;
@@ -414,7 +415,7 @@ public sealed class HexPrototype : MonoBehaviour
         if(guest.hasFacility)
         {
             guest.state=GuestState.Eating;guest.stay=ServiceOptions.eatingSeconds;guest.view.ShowPatience(false,1);
-            if(mealPrefab){var meal=Instantiate(mealPrefab);float angle=guest.seat*Mathf.PI*2/board.Layout.Floor(node.floor).use[node.cell].capacity;meal.transform.position=HexBoardModel.World(node.cell)+new Vector3(Mathf.Cos(angle)*ServiceOptions.mealRadius,ServiceOptions.mealHeight,Mathf.Sin(angle)*ServiceOptions.mealRadius);guest.meal=meal.gameObject;guest.meal.SetActive(node.floor==board.CurrentFloor);}
+            if(mealPrefab){var meal=Instantiate(mealPrefab);meal.transform.position=board.Layout.MealPosition(guest.facility,guest.seat);if(HexTestSettings.Current)meal.transform.localScale*=HexTestSettings.Current.interior.mealScale;guest.meal=meal.gameObject;guest.meal.SetActive(node.floor==board.CurrentFloor);}
         }
         else Leave(guest,guest.originDirection);
         return true;

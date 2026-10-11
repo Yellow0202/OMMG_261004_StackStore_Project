@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: Male-02
   m_EditorClassIdentifier:
   mirrorWest: 1
+  seated:
+  - {fileID: 21300000, guid: ab79b43615bcd134fb770489e527d928, type: 3}
+  - {fileID: 21300000, guid: 992f9d3aaa1a61640a7c2160b164dc34, type: 3}
+  - {fileID: 21300000, guid: bb27ac6fe7750564a8ec470e5bcfd723, type: 3}
+  - {fileID: 21300000, guid: 171be580a8bb6614eabd64c67083e042, type: 3}
   walk:
   - {fileID: 7400000, guid: fb49ed92cb6db8f4bab1f26312815622, type: 2}
   - {fileID: 7400000, guid: 31c491c5719c7784bb9c2de0b7a4b358, type: 2}

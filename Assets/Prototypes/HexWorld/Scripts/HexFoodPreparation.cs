@@ -5,6 +5,12 @@ using UnityEngine;
 public sealed class HexFoodPreparation
 {
     readonly List<float> progress=new List<float>();
+    public int ReservedMeals { get; private set; }
+    public void AddReadyMeals(int count)
+    {
+        for(int i=0;i<Count&&count>0;i++)if(progress[i]<1){progress[i]=1;count--;}
+        ReservedMeals+=count;
+    }
     public int Count=>progress.Count;
     public int ReadyCount{get{int count=0;foreach(float value in progress)if(value>=1)count++;return count;}}
     public float this[int slot]=>progress[slot];
@@ -20,5 +26,5 @@ public sealed class HexFoodPreparation
     {
         if(slot>=0&&slot<Count)progress[slot]=Mathf.Clamp01(progress[slot]+Mathf.Max(0,seconds)/Mathf.Max(.1f,duration));
     }
-    public bool Consume(int slot){if(slot<0||slot>=Count||progress[slot]<1)return false;progress[slot]=0;return true;}
+    public bool Consume(int slot){if(slot<0||slot>=Count||progress[slot]<1)return false;progress[slot]=ReservedMeals>0?1:0;if(ReservedMeals>0)ReservedMeals--;return true;}
 }

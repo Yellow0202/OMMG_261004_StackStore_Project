@@ -170,3 +170,11 @@ Height(1.5): 둥근 덩어리 높이 기준. Raised Opacity(.95): 구름층 농�
 Depth(3.5): 외곽 깊이. Layers(3, 1~5): 깊이 방향 겹수. 높이/깊이/겹수 변경 및 활성 타일 변경은 메시를 재생성한다.
 Cloud Scale(1.1): 넓은 구름 무늬와 움직임의 공간 주파수. Cloud Speed(.08): 구름 표면이 부드럽게 움직이는 속도.
 세로 평면 대신 여러 타원체가 겹친 메시와 넓은 흰색/회색 명암으로 문명 5의 구름층 느낌을 참고했다. 원작 리소스를 사용하지 않는다. 콜라이더와 실제 광원/그림자 생성은 없다.
+
+[위기 대응 소모품 / 2026-10-12]
+PrototypeTestSettings.asset > Shop Offers에서 SnackOffer, KitchenRushOffer, DeliveryRushOffer, ReadyMealsOffer를 펼쳐 편집한다. 원본은 HexWorld/Data의 동일 이름 .asset이며 데이터는 ScriptableObject로 관리한다. 가격 Price, 구매 수량 Quantity, 지속 시간 Buff Seconds, 속도 보너스 Speed Bonus(1=+100%), 회복 Patience Recovery, 대상 수 Target Count, 반복 배율 Repeated Snack Multiplier, 즉시 음식 수 Ready Meals를 조절할 수 있다.
+간식: 현재 층에서 대기 중이며 시간이 줄어든 손님을 남은 시간 순으로 골라 회복. 원래 대기 한도 이상 증가하지 않으며 동일 손님은 반복 배율이 누적된다. 기본 4명/5초/.5배. 대상 없으면 재고 소모 없음.
+주방 비상 가동: 기본 8초/+200%, 기존 가속 물약과 조리 버프 채널 공유. 전력 배달: 기본 10초/+100%, 플레이어와 직원 이동 속도 적용, 조리 버프와 동시 사용 가능. 같은 채널 효과 중 재사용은 차단한다.
+긴급 완제품: 기본 2개. 음식 칸을 먼저 완료하고 초과분을 예비 음식으로 보관한다. 배달 후 칸을 소모할 때 예비 음식이 있으면 즉시 다음 음식을 채운다. 정상 조리/배달 경로와 골드 보상을 유지한다.
+ShopUI.prefab의 Consumable Quick Slots에서 5개 버튼과 레이아웃을 편집한다. 순서: 기존 물약, 간식, 주방, 배달, 완제품. 구입 시 수량이 늘고 클릭/터치 시 1개 사용. 효과 중에는 남은 시간이 표시되고 상점/배치/보상 선택 중에는 숨긴다. 물약 단일 사용 버튼은 제거됨. UI는 런타임 생성하지 않는다.
+아이콘: Art/CrisisItems. 상품 문구: Data/HexWorldStrings.asset의 shop.crisis.*.name/desc, shop.slot.*. 그림 생성 원본/프롬프트/화면 검수: ArtReferences/2026-10-12-Crisis-Items.

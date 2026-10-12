@@ -1405,3 +1405,12 @@ Scripts/HexRaisedFog.cs: 활성 타일의 노출된 변에 크기/위치가 다�
 Art/Environment/HexRaisedFog.shader: 법선 기반 넓은 흰색/회색 음영으로 둥근 덩어리의 두께를 표현하고 정점을 천천히 움직인다. 타일 마스크로 타일 안쪽 구름을 제외한다. 깊이 검사는 유지하고 깊이 쓰기는 끈 채 캐릭터보다 먼저 그려, 투명한 구름이 내부 캐릭터를 가리지 않게 한다. _ShopCenter로 외곽 방향을 판단하여 카메라 쪽 농도를 조절한다. 배경 셰이더는 변경하지 않는다.
 Resources/HexRaisedFog.mat는 효과 머티리얼이다. 테스트 값은 HexTestSettings.ExteriorFogOptions에서 조절하며 기본 높이 1.5, 농도 .95, 앞쪽 배율 0, 깊이 3.5, 겹수 3, 움직임 속도 .08이다.
 Editor/HexExteriorFogChecks는 메시 높이/법선/정점 수, 토글, 충돌 없음, 전체 타일 표시, 설치/이동/회수/층 전환, 배경 보존을 검사하고 4/30/50도 렌더를 캡처한다.
+
+[위기 대응 소모품과 퀵슬롯 / 2026-10-12]
+HexShopOffer.cs: HexConsumableEffect(ServiceSpeed/Patience/DeliverySpeed/ReadyMeals)로 소모품 효과를 구분한다. targetCount/patienceRecovery/repeatedSnackMultiplier는 간식, readyMeals는 완제품, 기존 buffSeconds/speedBonus는 가속 효과 설정. IsValid는 종류별 데이터 확인, Description은 설정 데이터를 로컬라이징 함수에 전달한다.
+HexShopSystem.cs: CanUse는 보유 수량/모드/버프 중복/간식 대상을 확인한다. Use는 효과별 게임 함수 호출이 성공한 뒤에만 수량을 차감한다. Remaining은 조리/이동 채널의 남은 시간. HexQuickSlot은 저장된 버튼/아이콘/이름/수량/상태 참조. Awake는 저장된 UGUI에 클릭 리스너만 연결하며 Refresh는 상점/퀵슬롯 상태를 갱신한다. quickUseButton/quickUseLabel은 이전 씬 호환 필드이며 현재 씬/프리팹에서는 제거된 단일 버튼을 참조하지 않는다.
+HexPrototype.cs: ActivateDeliveryBuff와 DeliveryBuffRemaining/temporaryDeliveryBonus로 조리와 별도의 임시 이동 배율 관리. DeliverySpeedMultiplier는 영구+임시 효과 합산. GiveSnacks는 현재 층 대기 손님을 남은 시간 순으로 골라 원래 한도 내 회복하며 Guest.snackUses로 반복 효과 감소. HasSnackTargets는 사용 가능 대상 판단. GiveReadyMeals는 현재 음식 칸을 구성한 뒤 즉시 준비 음식 공급. 게임 Update가 영업 중에만 두 버프 시간을 감소시킨다.
+HexFoodPreparation.cs: AddReadyMeals는 미완료 음식 칸부터 채우고 남는 수량을 ReservedMeals에 저장. Consume은 예비 음식이 남아 있으면 다음 음식을 즉시 채우고 예비 수량을 1 차감하여 총 공급량을 보존한다.
+HexStaffSystem.cs: 직원 이동에도 game.DeliverySpeedMultiplier 적용. HexFoodService의 플레이어 이동은 기존 동일 배율 사용.
+Editor/HexCrisisShopAuthoring.cs: 아이콘 임포트/새 상품·로컬라이징·스크롤 상점·5개 퀵슬롯을 에디터에서 작성해 씬과 프리팹에 저장하는 제작 도구. 재실행 시 상품 초기값/레이아웃을 재작성하므로 테스트 값 보존이 필요하면 실행하지 않는다.
+Editor/HexCrisisShopChecks.cs: 실제 저장된 씬에서 구매/잔고 부족/재고/간식/가속 중복/독립 타이머/완제품 예비 소모/일시정지 및 UGUI 참조를 검사하고 화면을 캡처한다. 게임 빌드에 포함되지 않는다.

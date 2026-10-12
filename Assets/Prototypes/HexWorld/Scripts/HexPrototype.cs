@@ -56,7 +56,8 @@ public sealed class HexPrototype : MonoBehaviour
     long contactSequence;
     float spawnTimer, cooldown, speedBonus, patienceBonus, attractionBonus, beforePause = 1;
     bool paused;
-    float temporarySpeedBonus;
+    float temporarySpeedBonus,temporaryDeliveryBonus;
+    public float DeliveryBuffRemaining { get; private set; }
     int additionalFoodCount;
     public int FoodPerThrow => Mathf.Clamp((HexTestSettings.Current?HexTestSettings.Current.service.baseFoodCount:1)+additionalFoodCount,1,4);
     public void ConfigureStart(int startingGold,int startingLevel){gold=Mathf.Max(0,startingGold);level=Mathf.Max(1,startingLevel);earnedGold=0;}
@@ -71,6 +72,7 @@ public sealed class HexPrototype : MonoBehaviour
     {
         public HexWorldActor view; public GuestState state; public Vector3 destination;
         public float browse, patience, initialPatience, turnTime, targetZ;
+        public int snackUses;
         public int direction, originDirection; public bool interested;
         public int waitingSlot = -1; public long contactOrder;
         public int id, floor, targetFloor, seat=-1, reward=1, navigationRevision=-1, waypoint;
@@ -81,7 +83,7 @@ public sealed class HexPrototype : MonoBehaviour
     }
     public float ServiceInterval => serviceSeconds / Mathf.Max(.1f, 1 + speedBonus + temporarySpeedBonus);
     float deliveryBonus,serviceGoldBonus,tableGoldBonus,tablePatienceBonus;
-    public float DeliverySpeedMultiplier=>Mathf.Max(.1f,1+deliveryBonus);
+    public float DeliverySpeedMultiplier=>Mathf.Max(.1f,1+deliveryBonus+temporaryDeliveryBonus);
     public int ServiceReward(int baseGold,bool seatedTable)=>Mathf.Max(0,baseGold+Mathf.RoundToInt(serviceGoldBonus)+(seatedTable?Mathf.RoundToInt(tableGoldBonus):0));
     public float OrderPatience(float baseSeconds,bool seatedTable)=>Mathf.Max(.1f,baseSeconds+patienceBonus+(seatedTable?tablePatienceBonus:0));
     public int ItemLevel(ItemDefinition item) => ownedItems.Find(x => x.definition == item)?.level ?? 0;
@@ -143,6 +145,31 @@ public sealed class HexPrototype : MonoBehaviour
         float previous = ServiceInterval; temporarySpeedBonus = bonus; BuffRemaining = seconds;
         cooldown *= ServiceInterval / previous; return true;
     }
+    public bool ActivateDeliveryBuff(float seconds,float bonus)
+    {
+        if(DeliveryBuffRemaining>0||seconds<=0||bonus<=0)return false;
+        temporaryDeliveryBonus=bonus;DeliveryBuffRemaining=seconds;return true;
+    }
+    public bool HasSnackTargets => waitingGuests.Exists(x=>x.floor==board.CurrentFloor&&x.state==GuestState.Waiting&&x.patience<x.initialPatience);
+    public bool GiveSnacks(float seconds,int targets,float repeatMultiplier)
+    {
+        var urgent=waitingGuests.FindAll(x=>x.floor==board.CurrentFloor&&x.state==GuestState.Waiting&&x.patience<x.initialPatience);
+        urgent.Sort((a,b)=>a.patience.CompareTo(b.patience));int affected=0;
+        foreach(var guest in urgent)
+        {
+            if(affected>=targets)break;
+            float recovery=seconds*Mathf.Pow(repeatMultiplier,guest.snackUses);
+            if(recovery<=.001f)continue;
+            guest.patience=Mathf.Min(guest.initialPatience,guest.patience+recovery);guest.snackUses++;affected++;
+            guest.view.patienceFraction=guest.patience/guest.initialPatience;guest.view.ShowPatience(true,guest.view.patienceFraction);
+        }
+        return affected>0;
+    }
+    public bool GiveReadyMeals(int count)
+    {
+        if(!service||count<=0)return false;
+        service.Food.SetCount(FoodPerThrow);service.Food.AddReadyMeals(count);service.RefreshGauges();return true;
+    }
     void Update()
     {
         RefreshHUD();
@@ -156,6 +183,7 @@ public sealed class HexPrototype : MonoBehaviour
             if (BuffRemaining == 0) { float previous=ServiceInterval; temporarySpeedBonus=0; cooldown*=ServiceInterval/previous; }
         }
         if (spawnTimer <= 0 && guests.Count < maxCustomers) { Spawn(); spawnTimer = spawnSeconds; }
+        if(DeliveryBuffRemaining>0){DeliveryBuffRemaining=Mathf.Max(0,DeliveryBuffRemaining-dt);if(DeliveryBuffRemaining==0)temporaryDeliveryBonus=0;}
         TickGuests(dt); if(staffSystem)staffSystem.Tick(dt); if(service)service.Tick(dt);
     }
     void Spawn()

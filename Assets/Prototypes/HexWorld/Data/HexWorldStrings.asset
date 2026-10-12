@@ -30,10 +30,11 @@ MonoBehaviour:
     english: "INTERESTED \u2192 QUEUE \u2192 SERVICE"
     korean: "\uBC29\uBB38 \u2192 \uC904\uC11C\uAE30 \u2192 \uC811\uB300"
   - key: shop.help
-    english: Shopping pauses the game. Level eligibility uses your remaining gold.
-    korean: "\uC0C1\uC810\uC5D0\uC11C\uB294 \uAC8C\uC784\uC774 \uBA48\uCDA5\uB2C8\uB2E4.
-      \uB808\uBCA8\uC5C5\uC740 \uAD6C\uB9E4 \uD6C4 \uB0A8\uC740 \uBCF4\uC720 \uACE8\uB4DC\uB85C
-      \uD310\uC815\uD569\uB2C8\uB2E4."
+    english: Scroll for more products. Shopping pauses gameplay. Buy consumables
+      for the quick slots.
+    korean: "\uC2A4\uD06C\uB864\uD558\uC5EC \uBAA8\uB4E0 \uC0C1\uD488\uC744 \uD655\uC778\uD558\uC138\uC694.
+      \uC0C1\uC810\uC5D0\uC11C\uB294 \uC2DC\uAC04\uC774 \uBA48\uCD94\uBA70 \uC18C\uBAA8\uD488\uC740
+      \uD035\uC2AC\uB86F\uC5D0 \uBCF4\uAD00\uB429\uB2C8\uB2E4."
   - key: hud.gold
     english: GOLD {gold}
     korean: "\uACE8\uB4DC {gold}"
@@ -298,9 +299,9 @@ MonoBehaviour:
     korean: "\uAD6C\uB9E4\uD588\uC2B5\uB2C8\uB2E4. \uBCF4\uAD00 \uD0C0\uC77C\xB7\uBCF4\uC720
       \uAC15\uD654\xB7\uC18C\uBAA8\uD488 \uC218\uB7C9\uC744 \uD655\uC778\uD558\uC138\uC694."
   - key: shop.used
-    english: Buff activated. Its timer starts when gameplay resumes.
-    korean: "\uBC84\uD504\uB97C \uC0AC\uC6A9\uD588\uC2B5\uB2C8\uB2E4. \uAC8C\uC784\uC774
-      \uC7AC\uAC1C\uB418\uBA74 \uB0A8\uC740 \uC2DC\uAC04\uC774 \uAC10\uC18C\uD569\uB2C8\uB2E4."
+    english: Item used. Timed effects resume with gameplay.
+    korean: "\uC544\uC774\uD15C\uC744 \uC0AC\uC6A9\uD588\uC2B5\uB2C8\uB2E4. \uC9C0\uC18D
+      \uD6A8\uACFC\uB294 \uC601\uC5C5 \uC7AC\uAC1C \uD6C4 \uAC10\uC18C\uD569\uB2C8\uB2E4."
   - key: shop.buff.active
     english: A service buff is already active.
     korean: "\uC811\uB300 \uBC84\uD504\uAC00 \uC774\uBBF8 \uC801\uC6A9 \uC911\uC785\uB2C8\uB2E4."
@@ -854,3 +855,65 @@ MonoBehaviour:
     korean: "\uB808\uBCA8\uB2F9 \uBC29\uBB38 \uAD00\uC2EC \uD655\uB960 +{VisitorChance}%p,
       \uC0C8 \uC190\uB2D8\uC758 \uC8FC\uBB38 \uB300\uAE30 \uC2DC\uAC04 +{CustomerPatienceSeconds}\uCD08.
       \uCD5C\uB300 {MaxLevel}\uB808\uBCA8."
+  - key: shop.slot.count
+    english: '{count} owned'
+    korean: "\uBCF4\uC720 {count}\uAC1C"
+  - key: shop.slot.active
+    english: '{seconds}s active'
+    korean: "\uD6A8\uACFC {seconds}\uCD08"
+  - key: shop.slot.ready
+    english: USE
+    korean: "\uC0AC\uC6A9 \uAC00\uB2A5"
+  - key: shop.slot.empty
+    english: BUY IN SHOP
+    korean: "\uC0C1\uC810\uC5D0\uC11C \uAD6C\uB9E4"
+  - key: shop.buff.all
+    english: Cook {seconds}s / Delivery {delivery}s / Meals {meals}
+    korean: "\uC870\uB9AC {seconds}\uCD08 \xB7 \uC774\uB3D9 {delivery}\uCD08 \xB7
+      \uC608\uBE44 \uC74C\uC2DD {meals}\uAC1C"
+  - key: shop.crisis.snack.name
+    english: Complimentary Snacks
+    korean: "\uC11C\uBE44\uC2A4 \uAC04\uC2DD"
+  - key: shop.crisis.snack.desc
+    english: Restore up to {patience}s for the {targets} most urgent waiting guests
+      on this floor. Capped at original patience; repeated snacks have diminishing
+      returns.
+    korean: "\uD604\uC7AC \uCE35\uC5D0\uC11C \uAC00\uC7A5 \uAE09\uD55C \uB300\uAE30
+      \uC190\uB2D8 {targets}\uBA85\uC758 \uC2DC\uAC04\uC744 \uCD5C\uB300 {patience}\uCD08
+      \uD68C\uBCF5. \uC6D0\uB798 \uB300\uAE30 \uD55C\uB3C4\uAE4C\uC9C0 \uD68C\uBCF5\uD558\uBA70
+      \uAC19\uC740 \uC190\uB2D8\uC5D0\uAC8C \uBC18\uBCF5 \uC0AC\uC6A9\uD558\uBA74
+      \uD6A8\uACFC \uAC10\uC18C."
+  - key: shop.crisis.kitchen.name
+    english: Kitchen Overdrive
+    korean: "\uC8FC\uBC29 \uBE44\uC0C1 \uAC00\uB3D9"
+  - key: shop.crisis.kitchen.desc
+    english: Cooking speed +{speed}% for {seconds}s. Cannot overlap a speed potion.
+    korean: "{seconds}\uCD08 \uB3D9\uC548 \uC870\uB9AC \uC18D\uB3C4 +{speed}%. \uAC00\uC18D
+      \uBB3C\uC57D\uACFC \uB3D9\uC2DC \uC0AC\uC6A9 \uBD88\uAC00."
+  - key: shop.crisis.delivery.name
+    english: Express Delivery
+    korean: "\uC804\uB825 \uBC30\uB2EC"
+  - key: shop.crisis.delivery.desc
+    english: Player and employee movement speed +{speed}% for {seconds}s. Cannot
+      refresh while active.
+    korean: "{seconds}\uCD08 \uB3D9\uC548 \uD50C\uB808\uC774\uC5B4\uC640 \uC9C1\uC6D0
+      \uC774\uB3D9 \uC18D\uB3C4 +{speed}%. \uD6A8\uACFC \uC911 \uC7AC\uC0AC\uC6A9
+      \uBD88\uAC00."
+  - key: shop.crisis.meals.name
+    english: Emergency Ready Meals
+    korean: "\uAE34\uAE09 \uC644\uC81C\uD488"
+  - key: shop.crisis.meals.desc
+    english: Receive {meals} ready meals. Fill preparation slots first and reserve
+      extras for subsequent deliveries.
+    korean: "\uC900\uBE44\uB41C \uC74C\uC2DD {meals}\uAC1C \uC989\uC2DC \uD655\uBCF4.
+      \uC74C\uC2DD \uCE78\uC744 \uBA3C\uC800 \uCC44\uC6B0\uBA70 \uB0A8\uC740 \uC74C\uC2DD\uC740
+      \uC608\uBE44 \uBCF4\uAD00\uD574 \uB2E4\uC74C \uBC30\uB2EC\uC5D0 \uC0AC\uC6A9."
+  - key: shop.use.stock
+    english: USE ({count})
+    korean: "\uC0AC\uC6A9 ({count}\uAC1C)"
+  - key: shop.potion.short
+    english: Speed Potion
+    korean: "\uAC00\uC18D \uBB3C\uC57D"
+  - key: shop.slot.no.target
+    english: NO WAITING GUESTS
+    korean: "\uB300\uAE30 \uC190\uB2D8 \uC5C6\uC74C"

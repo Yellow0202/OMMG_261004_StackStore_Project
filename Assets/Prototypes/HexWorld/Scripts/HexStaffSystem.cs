@@ -174,10 +174,10 @@ public sealed class HexStaffSystem : MonoBehaviour
         {
             var node=employee.path[employee.waypoint];var center=HexBoardModel.World(node.cell)+Vector3.up*Options.kitchenOffset.y;
             if(node.floor!=employee.floor){employee.floor=node.floor;employee.view.transform.position=center;employee.waypoint++;}
-            else{employee.view.transform.position=Vector3.MoveTowards(employee.view.transform.position,center,seconds*Options.walkSpeed);if(Vector3.Distance(employee.view.transform.position,center)<(HexTestSettings.Current?HexTestSettings.Current.guests.waypointDistance:.05f))employee.waypoint++;}
+            else{employee.view.transform.position=Vector3.MoveTowards(employee.view.transform.position,center,seconds*Options.walkSpeed*game.DeliverySpeedMultiplier);if(Vector3.Distance(employee.view.transform.position,center)<(HexTestSettings.Current?HexTestSettings.Current.guests.waypointDistance:.05f))employee.waypoint++;}
             employee.statusKey="staff.status.moving";return false;
         }
-        employee.view.transform.position=Vector3.MoveTowards(employee.view.transform.position,spot,seconds*Options.walkSpeed);
+        employee.view.transform.position=Vector3.MoveTowards(employee.view.transform.position,spot,seconds*Options.walkSpeed*game.DeliverySpeedMultiplier);
         bool arrived=Vector3.Distance(employee.view.transform.position,spot)<Options.workDistance;
         if(!arrived)employee.statusKey="staff.status.moving";return arrived;
     }

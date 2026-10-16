@@ -18,6 +18,16 @@ public sealed class HexPrototype : MonoBehaviour
     public GoldLevelCurve curve;
     public HexTileReward[] tileRewards;
     public Text goldLabel, levelLabel, serviceLabel, inventoryLabel, tileLabel, statusLabel;
+    public Text reputationLabel;
+    [SerializeField] int reputation;
+    public int Reputation => reputation;
+    static readonly HexTestSettings.ReputationOptions DefaultReputation = new HexTestSettings.ReputationOptions();
+    HexTestSettings.ReputationOptions ReputationOptions => HexTestSettings.Current ? HexTestSettings.Current.reputation : DefaultReputation;
+    void ChangeReputation(int change)
+    {
+        reputation = (int)Math.Max(int.MinValue, Math.Min(int.MaxValue, (long)reputation + change));
+        RefreshHUD();
+    }
     public Image cooldownBar, levelBar;
     public GameObject choicePanel, buildingPanel;
     public HexChoiceCard[] cards;
@@ -60,7 +70,7 @@ public sealed class HexPrototype : MonoBehaviour
     public float DeliveryBuffRemaining { get; private set; }
     int additionalFoodCount;
     public int FoodPerThrow => Mathf.Clamp((HexTestSettings.Current?HexTestSettings.Current.service.baseFoodCount:1)+additionalFoodCount,1,4);
-    public void ConfigureStart(int startingGold,int startingLevel){gold=Mathf.Max(0,startingGold);level=Mathf.Max(1,startingLevel);earnedGold=0;}
+    public void ConfigureStart(int startingGold,int startingLevel){gold=Mathf.Max(0,startingGold);level=Mathf.Max(1,startingLevel);earnedGold=0;reputation=ReputationOptions.startingValue;}
     static readonly HexTestSettings.GuestOptions DefaultGuests=new HexTestSettings.GuestOptions();
     static readonly HexTestSettings.ServiceOptions DefaultService=new HexTestSettings.ServiceOptions();
     HexTestSettings.GuestOptions GuestOptions => HexTestSettings.Current?HexTestSettings.Current.guests:DefaultGuests;
@@ -334,6 +344,8 @@ public sealed class HexPrototype : MonoBehaviour
     }
     void Leave(Guest guest,int direction)
     {
+        // Only an unserved waiting guest is a lost customer. Passers-by and completed visits are neutral.
+        if(guest.state==GuestState.Waiting)ChangeReputation(ReputationOptions.departureChange);
         if(guest.meal){Destroy(guest.meal);guest.meal=null;}
         board.Layout.Release(guest.view.GetInstanceID());guest.hasFacility=false;guest.targetFloor=0;
         guest.view.seated=false;
@@ -444,6 +456,8 @@ public sealed class HexPrototype : MonoBehaviour
         var guest=guests.Find(g=>g.id==id);
         if(!ServiceTarget(id,out var node,out var spot)||!service||service.Floor!=node.floor||Vector3.Distance(service.Position,spot)>ServiceOptions.deliveryDistance)return false;
         waitingGuests.Remove(guest);AddGold(ServiceReward(guest.reward,guest.view.seated));
+        ChangeReputation(guest.view.seated?ReputationOptions.tableServiceChange:ReputationOptions.standingServiceChange);
+        guest.state=GuestState.Eating; // Mark served before Leave so successful standing service is not penalized.
         if(guest.hasFacility)
         {
             guest.state=GuestState.Eating;guest.stay=ServiceOptions.eatingSeconds;guest.view.ShowPatience(false,1);
@@ -549,6 +563,7 @@ public sealed class HexPrototype : MonoBehaviour
     {
         if(!goldLabel||board.Model==null)return;
         goldLabel.text=LocalizationService.Text("hud.gold","gold",gold);
+        if(reputationLabel)reputationLabel.text=LocalizationService.Text("hud.reputation","value",reputation);
         levelLabel.text=LocalizationService.Text("hex.level","level",level,"next",NextThreshold,"gold",gold);
         levelBar.fillAmount=Mathf.Clamp01((float)gold/NextThreshold);
         serviceLabel.text=LocalizationService.Text("service.summary","queue",waitingGuests.Count,"ready",service?service.Food.ReadyCount:0,"count",FoodPerThrow);

@@ -5,6 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Stack Store/Hex World/Test Settings")]
 public sealed class HexTestSettings : ScriptableObject
 {
+    [Header("가게 평판 / 시작값은 다음 Play, 변화량은 즉시 반영")]
+    public ReputationOptions reputation = new ReputationOptions();
+    [Serializable] public sealed class ReputationOptions
+    {
+        public int startingValue = 0;
+        public int departureChange = -1;
+        public int standingServiceChange = 1;
+        public int tableServiceChange = 2;
+    }
     [Header("환경 / 현재 장소의 바닥·배경 / 즉시 반영")]
     public HexEnvironmentTheme environment;
     [Header("타일 외부 안개 / 즉시 반영")]

@@ -154,3 +154,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0637279bd0916004dab1bcbe014422a0, type: 2}
   - {fileID: 11400000, guid: 450c03fb7df4ffe418d280be345a5378, type: 2}
   - {fileID: 11400000, guid: fc9e91616f6197e44a08397902c4093f, type: 2}
+  reputation:
+    startingValue: 0
+    departureChange: -1
+    standingServiceChange: 1
+    tableServiceChange: 2

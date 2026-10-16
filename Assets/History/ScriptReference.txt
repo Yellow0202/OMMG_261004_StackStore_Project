@@ -1414,3 +1414,8 @@ HexFoodPreparation.cs: AddReadyMeals는 미완료 음식 칸부터 채우고 남
 HexStaffSystem.cs: 직원 이동에도 game.DeliverySpeedMultiplier 적용. HexFoodService의 플레이어 이동은 기존 동일 배율 사용.
 Editor/HexCrisisShopAuthoring.cs: 아이콘 임포트/새 상품·로컬라이징·스크롤 상점·5개 퀵슬롯을 에디터에서 작성해 씬과 프리팹에 저장하는 제작 도구. 재실행 시 상품 초기값/레이아웃을 재작성하므로 테스트 값 보존이 필요하면 실행하지 않는다.
 Editor/HexCrisisShopChecks.cs: 실제 저장된 씬에서 구매/잔고 부족/재고/간식/가속 중복/독립 타이머/완제품 예비 소모/일시정지 및 UGUI 참조를 검사하고 화면을 캡처한다. 게임 빌드에 포함되지 않는다.
+
+[가게 평판 / 2026-10-16]
+HexPrototype.Reputation: 현재 런의 평판(런타임 상태, 초기 0, 음수 허용). ChangeReputation: 정수 범위 보호 후 UGUI 갱신. CompleteService: 실제 전달 성공 시 일반/테이블 변화량 적용. Leave: Waiting 상태로 떠나는 손님만 감소하며 Leaving 상태로 바뀌므로 재차 감소하지 않음. ConfigureStart: 시작 평판 초기화. reputationLabel: 씬에 저장된 상단 UGUI Text 참조.
+HexTestSettings.reputation / ReputationOptions: startingValue(다음 Play), departureChange(-1), standingServiceChange(+1), tableServiceChange(+2). 변화량은 즉시 반영. 골드·레벨·방문 확률과 독립적인 수치로 관리.
+HexReputationChecks.Run: 격리 프로젝트 Play 검증. 초기/음수 값, 성공 접객/테이블 보상/타임아웃/직원 퇴장/중복 이벤트/중립 퇴장/공용 조절값/로컬라이징/UGUI 참조를 확인.

@@ -40,7 +40,7 @@ public sealed class HexStaffUI : MonoBehaviour
     }
     void OnEnable(){LocalizationService.LanguageChanged+=RefreshLanguage;}
     void OnDisable(){LocalizationService.LanguageChanged-=RefreshLanguage;if(IsOpen)Close();}
-    void Update(){if(!system)return;open.interactable=!system.game.IsBuilding&&!system.game.IsChoosing&&!system.game.IsShopping;open.gameObject.SetActive(!system.game.IsChoosing&&!system.game.IsShopping);if(IsOpen)Refresh();}
+    void Update(){if(!system)return;open.interactable=!system.game.IsGameOver&&!system.game.IsBuilding&&!system.game.IsChoosing&&!system.game.IsShopping;open.gameObject.SetActive(!system.game.IsGameOver&&!system.game.IsChoosing&&!system.game.IsShopping);if(IsOpen)Refresh();}
     public void Open(){if(!system.game.BeginShopping())return;IsOpen=true;panel.SetActive(true);panel.transform.SetAsLastSibling();listedCount=listedRevision=-1;ShowTab(false);Refresh();}
     public void Close(){if(!IsOpen)return;IsOpen=false;panel.SetActive(false);system.game.EndShopping();}
     void ShowTab(bool roster){hiringPanel.SetActive(!roster);rosterPanel.SetActive(roster);Refresh();}

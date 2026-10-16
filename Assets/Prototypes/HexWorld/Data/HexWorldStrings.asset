@@ -35,9 +35,12 @@ MonoBehaviour:
     korean: "\uC2A4\uD06C\uB864\uD558\uC5EC \uBAA8\uB4E0 \uC0C1\uD488\uC744 \uD655\uC778\uD558\uC138\uC694.
       \uC0C1\uC810\uC5D0\uC11C\uB294 \uC2DC\uAC04\uC774 \uBA48\uCD94\uBA70 \uC18C\uBAA8\uD488\uC740
       \uD035\uC2AC\uB86F\uC5D0 \uBCF4\uAD00\uB429\uB2C8\uB2E4."
+  - key: reputation.gameover
+    english: "BUSINESS CLOSED\nYour shop reputation has reached zero."
+    korean: "\uC601\uC5C5 \uC885\uB8CC\n\uAC00\uAC8C \uD3C9\uD310\uC774 0\uC774 \uB418\uC5C8\uC2B5\uB2C8\uB2E4."
   - key: hud.reputation
-    english: REPUTATION {value}
-    korean: "\uD3C9\uD310 {value}"
+    english: REPUTATION {value} / {max}
+    korean: "\uD3C9\uD310 {value} / {max}"
   - key: hud.gold
     english: GOLD {gold}
     korean: "\uACE8\uB4DC {gold}"

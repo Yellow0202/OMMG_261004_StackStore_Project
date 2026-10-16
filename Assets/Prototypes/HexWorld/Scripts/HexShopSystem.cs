@@ -43,7 +43,7 @@ public sealed class HexShopSystem : MonoBehaviour
         message="shop.purchased";Refresh();return true;
     }
     public float Remaining(HexShopOffer offer)=>offer.effect==HexConsumableEffect.ServiceSpeed?game.BuffRemaining:offer.effect==HexConsumableEffect.DeliverySpeed?game.DeliveryBuffRemaining:0;
-    public bool CanUse(HexShopOffer offer)=>offer&&offer.kind==HexShopKind.Consumable&&Stock(offer)>0&&!game.IsChoosing&&!game.IsBuilding&&Remaining(offer)<=0&&(offer.effect!=HexConsumableEffect.Patience||game.HasSnackTargets);
+    public bool CanUse(HexShopOffer offer)=>!game.IsGameOver&&offer&&offer.kind==HexShopKind.Consumable&&Stock(offer)>0&&!game.IsChoosing&&!game.IsBuilding&&Remaining(offer)<=0&&(offer.effect!=HexConsumableEffect.Patience||game.HasSnackTargets);
     public bool Use(HexShopOffer offer)
     {
         if(!CanUse(offer))return false;
@@ -68,8 +68,8 @@ public sealed class HexShopSystem : MonoBehaviour
             row.use.interactable=CanUse(offer);
             if(offer.kind==HexShopKind.Consumable)row.use.GetComponentInChildren<Text>().text=LocalizationService.Text("shop.use.stock","count",Stock(offer));
         }
-        openButton.interactable=!game.IsBuilding&&!game.IsChoosing&&!IsOpen;
-        if(quickSlotPanel)quickSlotPanel.SetActive(!game.IsChoosing&&!game.IsBuilding&&!IsOpen);
+        openButton.interactable=!game.IsGameOver&&!game.IsBuilding&&!game.IsChoosing&&!IsOpen;
+        if(quickSlotPanel)quickSlotPanel.SetActive(!game.IsGameOver&&!game.IsChoosing&&!game.IsBuilding&&!IsOpen);
         foreach(var slot in quickSlots)
         {
             var offer=slot.offer;if(!offer)continue;
@@ -79,7 +79,7 @@ public sealed class HexShopSystem : MonoBehaviour
             slot.status.text=left>0?LocalizationService.Text("shop.slot.active","seconds",left.ToString("0.0",System.Globalization.CultureInfo.InvariantCulture)):LocalizationService.Text(Stock(offer)<=0?"shop.slot.empty":offer.effect==HexConsumableEffect.Patience&&!game.HasSnackTargets?"shop.slot.no.target":"shop.slot.ready");
             slot.button.interactable=CanUse(offer);
         }
-        openButton.gameObject.SetActive(!game.IsChoosing);buffLabel.gameObject.SetActive(!game.IsChoosing);
+        openButton.gameObject.SetActive(!game.IsGameOver&&!game.IsChoosing);buffLabel.gameObject.SetActive(!game.IsGameOver&&!game.IsChoosing);
         buffLabel.text=LocalizationService.Text("shop.buff.all","seconds",game.BuffRemaining.ToString("0.0",System.Globalization.CultureInfo.InvariantCulture),"delivery",game.DeliveryBuffRemaining.ToString("0.0",System.Globalization.CultureInfo.InvariantCulture),"meals",game.service?game.service.Food.ReservedMeals:0);
     }
 }

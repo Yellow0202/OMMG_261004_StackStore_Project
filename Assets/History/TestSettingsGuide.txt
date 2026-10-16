@@ -182,3 +182,6 @@ ShopUI.prefab의 Consumable Quick Slots에서 5개 버튼과 레이아웃을 편
 [가게 평판 / 2026-10-16]
 Assets/Prototypes/HexWorld/Data/PrototypeTestSettings.asset > Reputation에서 시작 평판과 이탈/일반/테이블 접객 변화량을 조절한다. 초기값 0, -1, +1, +2. 시작값은 다음 Play, 변화량은 즉시 적용된다. PrototypeTestSettings_Baseline에도 같은 기본값을 저장했다.
 Hierarchy의 상단 HUD 내 Reputation UGUI Text로 현재 값을 확인한다. 단순 통행 손님/주문 전 배회/접객 후 퇴장은 감소하지 않는다. 기다리다 떠나거나 직원 단점으로 쫓겨나는 경우는 -1. 실제 음식을 받은 시점에 착석 손님은 +2, 그 외는 +1. 평판의 방문 확률 등 추가 효과는 아직 연결하지 않는다.
+
+[평판 설정 개편 / 2026-10-16, 이전 초기 0·음수 허용 안내 대체]
+PrototypeTestSettings > Reputation: Maximum Value 100, Starting Value 50. 범위는 0~최대값이며 0이 되면 영업 종료 화면과 함께 런 진행을 멈춘다. 접객 성공 없는 영업 시간이 Inactivity Grace Seconds 20을 넘으면 Decay Interval Seconds 5마다 Decay Amount 1이 감소한다(첫 감소 25초). 접객 성공은 유예를 초기화하고 이탈·실패는 초기화하지 않는다. 상점/배치/보상 선택 중에는 경과하지 않는다. 변화량 -1/+1/+2 유지. 기본값은 Baseline에도 동일 반영. 종료 후 재테스트는 Unity Play를 종료 후 다시 시작한다.

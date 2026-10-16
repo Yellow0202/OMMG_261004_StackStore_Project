@@ -19,14 +19,45 @@ public sealed class HexPrototype : MonoBehaviour
     public HexTileReward[] tileRewards;
     public Text goldLabel, levelLabel, serviceLabel, inventoryLabel, tileLabel, statusLabel;
     public Text reputationLabel;
+    public GameObject gameOverPanel;
+    public Text gameOverLabel;
+    public bool IsGameOver { get; private set; }
+    public int MaximumReputation => Mathf.Max(1,ReputationOptions.maximumValue);
+    double reputationIdleSeconds;
+    public double ReputationIdleSeconds => reputationIdleSeconds;
     [SerializeField] int reputation;
     public int Reputation => reputation;
     static readonly HexTestSettings.ReputationOptions DefaultReputation = new HexTestSettings.ReputationOptions();
     HexTestSettings.ReputationOptions ReputationOptions => HexTestSettings.Current ? HexTestSettings.Current.reputation : DefaultReputation;
     void ChangeReputation(int change)
     {
-        reputation = (int)Math.Max(int.MinValue, Math.Min(int.MaxValue, (long)reputation + change));
+        if(IsGameOver)return;
+        reputation = (int)Math.Max(0, Math.Min(MaximumReputation, (long)reputation + change));
+        if(reputation==0)EndGame();
         RefreshHUD();
+    }
+    void TickReputation(float dt)
+    {
+        if(IsGameOver||IsBuilding||IsChoosing||IsShopping||dt<=0)return;
+        ChangeReputation(0);if(IsGameOver)return;
+        double grace=Math.Max(0,ReputationOptions.inactivityGraceSeconds);
+        double interval=Math.Max(.1,ReputationOptions.decayIntervalSeconds);
+        double previous=Math.Max(0,reputationIdleSeconds-grace);
+        reputationIdleSeconds+=dt;
+        double elapsed=Math.Max(0,reputationIdleSeconds-grace);
+        double ticks=Math.Floor(elapsed/interval)-Math.Floor(previous/interval);
+        if(ticks>0&&ReputationOptions.decayAmount>0)
+            ChangeReputation(-(int)Math.Min(int.MaxValue,ticks*ReputationOptions.decayAmount));
+    }
+    void EndGame()
+    {
+        if(IsGameOver)return;
+        IsGameOver=true;
+        foreach(var shop in FindObjectsByType<HexShopSystem>(FindObjectsSortMode.None))if(shop.game==this)shop.Close();
+        foreach(var staffUI in FindObjectsByType<HexStaffUI>(FindObjectsSortMode.None))if(staffUI.system.game==this)staffUI.Close();
+        IsBuilding=false;IsChoosing=false;buildingPanel.SetActive(false);choicePanel.SetActive(false);
+        board.SetMode(HexBuildMode.None);Pause();
+        if(gameOverPanel){gameOverPanel.SetActive(true);gameOverPanel.transform.SetAsLastSibling();}
     }
     public Image cooldownBar, levelBar;
     public GameObject choicePanel, buildingPanel;
@@ -70,7 +101,7 @@ public sealed class HexPrototype : MonoBehaviour
     public float DeliveryBuffRemaining { get; private set; }
     int additionalFoodCount;
     public int FoodPerThrow => Mathf.Clamp((HexTestSettings.Current?HexTestSettings.Current.service.baseFoodCount:1)+additionalFoodCount,1,4);
-    public void ConfigureStart(int startingGold,int startingLevel){gold=Mathf.Max(0,startingGold);level=Mathf.Max(1,startingLevel);earnedGold=0;reputation=ReputationOptions.startingValue;}
+    public void ConfigureStart(int startingGold,int startingLevel){gold=Mathf.Max(0,startingGold);level=Mathf.Max(1,startingLevel);earnedGold=0;reputation=Mathf.Clamp(ReputationOptions.startingValue,0,MaximumReputation);reputationIdleSeconds=0;IsGameOver=false;if(gameOverPanel)gameOverPanel.SetActive(false);}
     static readonly HexTestSettings.GuestOptions DefaultGuests=new HexTestSettings.GuestOptions();
     static readonly HexTestSettings.ServiceOptions DefaultService=new HexTestSettings.ServiceOptions();
     HexTestSettings.GuestOptions GuestOptions => HexTestSettings.Current?HexTestSettings.Current.guests:DefaultGuests;
@@ -125,27 +156,27 @@ public sealed class HexPrototype : MonoBehaviour
     }
     void Resume()
     {
-        if (paused && !IsBuilding && !IsChoosing && !IsShopping) { Time.timeScale = beforePause; paused = false; }
+        if (paused && !IsGameOver && !IsBuilding && !IsChoosing && !IsShopping) { Time.timeScale = beforePause; paused = false; }
     }
     public void SetMessage(string key) { messageKey = key; RefreshHUD(); }
     public void BeginBuilding()
     {
-        if (IsChoosing || IsBuilding || IsShopping) return;
+        if (IsGameOver || IsChoosing || IsBuilding || IsShopping) return;
         IsBuilding = true; Pause(); buildingPanel.SetActive(true); board.SetMode(HexBuildMode.Place); RefreshHUD();
     }
     public void EndBuilding()
     {
         IsBuilding = false; buildingPanel.SetActive(false); board.SetMode(HexBuildMode.None); Resume(); RefreshHUD();
     }
-    public void AddGold(int count) { if (count > 0) { gold = (int)Math.Min(int.MaxValue,(long)gold+count); earnedGold += count; } RefreshHUD(); }
+    public void AddGold(int count) { if(IsGameOver)return; if (count > 0) { gold = (int)Math.Min(int.MaxValue,(long)gold+count); earnedGold += count; } RefreshHUD(); }
     public bool TrySpendGold(int amount)
     {
-        if (amount <= 0 || gold < amount) return false;
+        if (IsGameOver || amount <= 0 || gold < amount) return false;
         gold -= amount; RefreshHUD(); return true;
     }
     public bool BeginShopping()
     {
-        if (IsBuilding || IsChoosing || IsShopping) return false;
+        if (IsGameOver || IsBuilding || IsChoosing || IsShopping) return false;
         IsShopping = true; Pause(); return true;
     }
     public void EndShopping() { IsShopping = false; Resume(); }
@@ -183,6 +214,8 @@ public sealed class HexPrototype : MonoBehaviour
     void Update()
     {
         RefreshHUD();
+        if(IsGameOver)return;
+        if(reputation<=0){EndGame();return;}
         pitchSlider.SetValueWithoutNotify(orbit.pitch); zoomSlider.SetValueWithoutNotify(orbit.zoom);
         if (!IsBuilding && !IsChoosing && !IsShopping && gold >= NextThreshold) OpenChoice();
         if (IsBuilding || IsChoosing || IsShopping || Time.deltaTime <= 0) return;
@@ -194,7 +227,10 @@ public sealed class HexPrototype : MonoBehaviour
         }
         if (spawnTimer <= 0 && guests.Count < maxCustomers) { Spawn(); spawnTimer = spawnSeconds; }
         if(DeliveryBuffRemaining>0){DeliveryBuffRemaining=Mathf.Max(0,DeliveryBuffRemaining-dt);if(DeliveryBuffRemaining==0)temporaryDeliveryBonus=0;}
-        TickGuests(dt); if(staffSystem)staffSystem.Tick(dt); if(service)service.Tick(dt);
+        TickGuests(dt);if(IsGameOver)return;
+        if(staffSystem)staffSystem.Tick(dt);if(IsGameOver)return;
+        if(service)service.Tick(dt);
+        TickReputation(dt);
     }
     void Spawn()
     {
@@ -277,7 +313,7 @@ public sealed class HexPrototype : MonoBehaviour
     }
     void TickGuests(float dt)
     {
-        for (int i=guests.Count-1;i>=0;i--)
+        for (int i=guests.Count-1;i>=0&&!IsGameOver;i--)
         {
             var guest=guests[i];
             if(!guest.view){if(guest.meal)Destroy(guest.meal);board.Layout.Release(guest.id);waitingGuests.Remove(guest);guests.RemoveAt(i);continue;}
@@ -453,10 +489,12 @@ public sealed class HexPrototype : MonoBehaviour
     }
     public bool CompleteService(int id,SpriteRenderer mealPrefab)
     {
+        if(IsGameOver)return false;
         var guest=guests.Find(g=>g.id==id);
         if(!ServiceTarget(id,out var node,out var spot)||!service||service.Floor!=node.floor||Vector3.Distance(service.Position,spot)>ServiceOptions.deliveryDistance)return false;
         waitingGuests.Remove(guest);AddGold(ServiceReward(guest.reward,guest.view.seated));
         ChangeReputation(guest.view.seated?ReputationOptions.tableServiceChange:ReputationOptions.standingServiceChange);
+        reputationIdleSeconds=0;
         guest.state=GuestState.Eating; // Mark served before Leave so successful standing service is not penalized.
         if(guest.hasFacility)
         {
@@ -563,7 +601,8 @@ public sealed class HexPrototype : MonoBehaviour
     {
         if(!goldLabel||board.Model==null)return;
         goldLabel.text=LocalizationService.Text("hud.gold","gold",gold);
-        if(reputationLabel)reputationLabel.text=LocalizationService.Text("hud.reputation","value",reputation);
+        if(reputationLabel)reputationLabel.text=LocalizationService.Text("hud.reputation","value",reputation,"max",MaximumReputation);
+        if(gameOverLabel)gameOverLabel.text=LocalizationService.Text("reputation.gameover");
         levelLabel.text=LocalizationService.Text("hex.level","level",level,"next",NextThreshold,"gold",gold);
         levelBar.fillAmount=Mathf.Clamp01((float)gold/NextThreshold);
         serviceLabel.text=LocalizationService.Text("service.summary","queue",waitingGuests.Count,"ready",service?service.Food.ReadyCount:0,"count",FoodPerThrow);
@@ -573,6 +612,6 @@ public sealed class HexPrototype : MonoBehaviour
         var inventory=new StringBuilder();
         foreach(var item in ownedItems)inventory.AppendLine(LocalizationService.Text("inventory.row","name",item.definition.DisplayName,"level",item.level));
         inventoryLabel.text=inventory.Length==0?LocalizationService.Text("inventory.empty","gold",NextThreshold):inventory.ToString();
-        buildButton.interactable=!IsBuilding&&!IsChoosing&&!IsShopping;testGoldButton.interactable=!IsBuilding&&!IsChoosing&&!IsShopping;
+        buildButton.interactable=!IsGameOver&&!IsBuilding&&!IsChoosing&&!IsShopping;testGoldButton.interactable=!IsGameOver&&!IsBuilding&&!IsChoosing&&!IsShopping;
     }
 }

@@ -1419,3 +1419,8 @@ Editor/HexCrisisShopChecks.cs: 실제 저장된 씬에서 구매/잔고 부족/�
 HexPrototype.Reputation: 현재 런의 평판(런타임 상태, 초기 0, 음수 허용). ChangeReputation: 정수 범위 보호 후 UGUI 갱신. CompleteService: 실제 전달 성공 시 일반/테이블 변화량 적용. Leave: Waiting 상태로 떠나는 손님만 감소하며 Leaving 상태로 바뀌므로 재차 감소하지 않음. ConfigureStart: 시작 평판 초기화. reputationLabel: 씬에 저장된 상단 UGUI Text 참조.
 HexTestSettings.reputation / ReputationOptions: startingValue(다음 Play), departureChange(-1), standingServiceChange(+1), tableServiceChange(+2). 변화량은 즉시 반영. 골드·레벨·방문 확률과 독립적인 수치로 관리.
 HexReputationChecks.Run: 격리 프로젝트 Play 검증. 초기/음수 값, 성공 접객/테이블 보상/타임아웃/직원 퇴장/중복 이벤트/중립 퇴장/공용 조절값/로컬라이징/UGUI 참조를 확인.
+
+[평판 규칙 변경 / 2026-10-16, 이전 초기 0·음수 허용 설명 대체]
+HexPrototype.MaximumReputation: 설정 maximumValue(기본 100, 최소 1). reputation은 0~MaximumReputation으로 제한하고 startingValue 기본 50. ReputationIdleSeconds: 마지막 성공 접객 이후 영업 시간. TickReputation: 메뉴 일시정지를 제외한 시간으로 유예 후 주기적인 감소 계산(기본 20초 유예 후 5초마다 1, 첫 감소 25초). 실패는 유예를 초기화하지 않으며 접객 성공만 초기화.
+EndGame/IsGameOver: 평판 0에 1회 실행. 시간 정지, 상점/직원/배치/보상 창 닫기, 저장된 gameOverPanel/gameOverLabel 표시. Update/Resume/접객/골드/구매·퀵슬롯 등에서 종료 상태 확인. 게임 종료는 해당 런 종료이며 앱 프로세스를 종료하지 않음.
+HexTestSettings.ReputationOptions: maximumValue, startingValue, departureChange, standingServiceChange, tableServiceChange, inactivityGraceSeconds, decayIntervalSeconds, decayAmount. 시작값 다음 Play; 나머지 즉시 반영. 유예·주기 변경 시 기존 경과시간을 새 기준으로 계산한다.

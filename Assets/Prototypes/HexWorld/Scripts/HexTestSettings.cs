@@ -9,10 +9,14 @@ public sealed class HexTestSettings : ScriptableObject
     public ReputationOptions reputation = new ReputationOptions();
     [Serializable] public sealed class ReputationOptions
     {
-        public int startingValue = 0;
+        [Min(1)] public int maximumValue = 100;
+        public int startingValue = 50;
         public int departureChange = -1;
         public int standingServiceChange = 1;
         public int tableServiceChange = 2;
+        [Min(0)] public float inactivityGraceSeconds = 20;
+        [Min(.1f)] public float decayIntervalSeconds = 5;
+        [Min(0)] public int decayAmount = 1;
     }
     [Header("환경 / 현재 장소의 바닥·배경 / 즉시 반영")]
     public HexEnvironmentTheme environment;
